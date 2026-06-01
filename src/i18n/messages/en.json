@@ -15,7 +15,7 @@
   "portifolio.description": "Full-Stack Developer and Software Engineering student. With 6 years of experience in game localization, I bring international professional maturity and a rigorous eye for detail to software development.",
 
   "project.docs": "Documentation",
-  "project.github": "Github repo",
+  "project.github": "Code",
 
   "project.description.1": "Project 1 description",
   "project.title.1": "Project 1 title",
@@ -33,7 +33,14 @@
   "section.title.1": "About",
   "section.title.2": "Projects",
 
-  "projects.title": "Selected Projects",
+  "projects.title": "Featured Projects",
+
+  "projects.filter.all": "All",
+  "projects.filter.frontend": "frontend",
+  "projects.filter.fullstack": "fullstack",
+  "projects.filter.backend": "backend",
+  "projects.filter.game-development": "game development",
+  "projects.filter.ai-ml": "AI & ML",
 
   "app.title": "React-intl demo",
   "app.description": "This is a small demo showing how to localize a React app with react-intl.",

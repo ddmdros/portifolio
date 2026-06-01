@@ -1,9 +1,10 @@
 import KeywordTag from "./KeywordTag";
+import { type ProjectCategory } from "../types/projectType";
 import { FaGithub, FaBook } from "react-icons/fa6";
 import { FormattedMessage, useIntl } from "react-intl";
 
 interface ProjectItemProps {
-  category: string;
+  category: ProjectCategory;
   title: string;
   description: string;
   tags: string[];
@@ -46,29 +47,36 @@ const ProjectItem = ({
           <FormattedMessage id={description} />
         </p>
 
-        <div className="flex items-center justify-between pt-4 border-t border-white/5">
-          <div className="flex gap-2">
+        <div className="pt- flex flex-col gap-4">
+          <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
               <KeywordTag key={tag} label={tag} />
             ))}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
             <a
               href={docsUrl}
+              className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
               title={intl.formatMessage({ id: "project.docs" })}
-              className="text-gray-400 hover:text-white transition-colors"
             >
-              <FaBook size={20} />
+              <FaBook size={16} />
+              <span>
+                <FormattedMessage id="project.docs" />
+              </span>
             </a>
+
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               title={intl.formatMessage({ id: "project.github" })}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
             >
-              <FaGithub size={20} />
+              <FaGithub size={16} />
+              <span>
+                <FormattedMessage id="project.github" />
+              </span>
             </a>
           </div>
         </div>

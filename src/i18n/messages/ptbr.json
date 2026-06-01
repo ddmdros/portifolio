@@ -22,7 +22,7 @@
   "about.stacks.data.devops": "Dados & DevOps",
 
   "project.docs": "Documentação",
-  "project.github": "Repositório Github",
+  "project.github": "Código",
 
   "project.description.1": "Descrição do projeto 1",
   "project.title.1": "Título do projeto 1",
@@ -33,6 +33,13 @@
   "section.title.2": "Projetos",
 
   "projects.title": "Projetos selecionados",
+
+  "projects.filter.all": "tudo",
+  "projects.filter.frontend": "frontend",
+  "projects.filter.fullstack": "fullstack",
+  "projects.filter.backend": "backend",
+  "projects.filter.game-development": "desenvolvimento de jogos",
+  "projects.filter.ai-ml": "AI e ML",
 
   "app.title": "Demonstração do React-intl",
   "app.description": "Esta é uma demonstração de como usar localização em um aplicativo React com react-intl.",
