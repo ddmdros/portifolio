@@ -12,7 +12,7 @@ export const IconButton = ({ icon, url }: IconButtonProps) => {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="justify-center ml-4 p-3 rounded-full bg-accent-bg text-accent hover:bg-accent hover:text-white transition-colors duration-300 border border-accent-border"
+        className="justify-center ml-4 p-3 rounded-full bg-accent-bg text-accent hover:bg-accent hover:text-black transition-colors duration-300 border border-accent-border"
       >
         {icon}
       </a>

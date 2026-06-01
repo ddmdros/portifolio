@@ -4,7 +4,7 @@ import { IconButton } from "./IconButton";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 const Portifolio = () => {
   return (
-    <div className="mb-25 group relative flex flex-col md:flex-row items-center gap-10 bg-card-bg/50 backdrop-blur-sm border border-white/10 p-10 rounded-3xl overflow-hidden hover:border-white/20 transition-all duration-300">
+    <div className="group relative flex flex-col md:flex-row items-center gap-10 bg-card-bg/50 backdrop-blur-sm border border-white/10 p-10 rounded-3xl overflow-hidden hover:border-white/20 transition-all duration-300">
       <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/10 blur-[100px] rounded-full" />
 
       <div className="shrink-0 rounded-full">
