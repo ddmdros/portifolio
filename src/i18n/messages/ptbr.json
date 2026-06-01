@@ -1,9 +1,11 @@
 {
   "header.logo": "diogo.dev",
+  "header.home": "Home",
   "header.blog": "Blog",
   "header.projects": "Projetos",
   "header.language": "Idioma",
   "header.contact": "Contato",
+  "header.resume": "Currículo",
 
   "welcome.message": "Boas-vindas! Este é o meu portifólio!",
 

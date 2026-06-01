@@ -1,9 +1,12 @@
 {
   "header.logo": "diogo.dev",
+
+  "header.home": "Home",
   "header.blog": "Blog",
   "header.projects": "Projects",
   "header.language": "Language",
   "header.contact": "Contact",
+  "header.resume": "Resume",
 
   "portifolio.title": "Portfolio",
   "portifolio.name": "Diogo Medeiros",
@@ -21,7 +24,7 @@
   "about.description": "Software Engineering student with six years of experience in game localization, now applied to building robust software systems. Notably, I spent two years working on-site in Dublin with industry-leading developers: Bungie and Supercell.\n\nBeing part of multicultural teams and working on products that impact millions of users daily taught me to meet rigorous technical requirements and deliver high-quality solutions with an end-user-first mindset.\n\nToday, I approach fullstack development with the same commitment to quality, focusing on solid foundations, code clarity, architectural implications, and long-term maintainability.\n\nMy tech stack includes React, TypeScript, Vite, and Tailwind for the frontend, and Python, C#, and Java for the backend. I am seeking opportunities in engineering teams that prioritize technical excellence and critical problem-solving.",
 
   "welcome.message": "Welcome to my portfolio!",
-  "mail.button.click": "Contact me",
+  "mail.button.click": "Contact",
 
   "section.title.1": "About",
   "section.title.2": "Projects",

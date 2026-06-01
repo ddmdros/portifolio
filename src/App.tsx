@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { IntlProvider } from "react-intl";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { Header } from "./components/Header";
+import { Home } from "./pages/Home";
+import { Blog } from "./pages/Blog";
+import { ProjectsPage } from "./pages/ProjectsPage";
+import { Contact } from "./pages/Contact";
+import { Resume } from "./pages/Resume";
+
 import ptbrMessages from "./i18n/messages/ptbr.json";
 import enMessages from "./i18n/messages/en.json";
-import Portifolio from "./components/Portifolio";
-import Projects from "./components/Projects";
-import About from "./components/About";
 
 const messagesMap: Record<string, Record<string, string>> = {
   pt: ptbrMessages,
@@ -17,14 +22,24 @@ function App() {
 
   return (
     <IntlProvider locale={locale} messages={messagesMap[locale]}>
-      <div className="min-h-screen text-white-900 bg-(--text-h)">
-        <Header currentLocale={locale} setLocale={setLocale} />
-        <main className="block max-w-5xl mx-auto p-6 mt-10">
-          <Portifolio />
-          <About />
-          <Projects />
-        </main>
-      </div>
+      <BrowserRouter>
+        <div className="min-h-screen text-white-900 bg-(--text-h)">
+          <Header currentLocale={locale} setLocale={setLocale} />
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/resume" element={<Resume />} />
+          </Routes>
+          {/* <main className="block max-w-5xl mx-auto p-6 mt-10">
+            <Portifolio />
+            <About />
+            <Projects />
+          </main> */}
+        </div>
+      </BrowserRouter>
     </IntlProvider>
   );
 }
