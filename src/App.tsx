@@ -11,6 +11,7 @@ import { Resume } from "./pages/Resume";
 
 import ptbrMessages from "./i18n/messages/ptbr.json";
 import enMessages from "./i18n/messages/en.json";
+import { DocsPage } from "./content/pages/DocsPage";
 
 const messagesMap: Record<string, Record<string, string>> = {
   pt: ptbrMessages,
@@ -32,6 +33,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/resume" element={<Resume />} />
+            <Route path="/docs/:slug" element={<DocsPage />} />
           </Routes>
         </div>
       </BrowserRouter>

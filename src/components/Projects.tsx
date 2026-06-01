@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProjectItem from "./ProjectItem";
-import { PROJECTS_DATA } from "../constants/ProjectsData";
+import { PROJECTS_DATA } from "../content/ProjectsData";
 import SectionDiv from "./SectionDiv";
 import { FormattedMessage } from "react-intl";
 import { type ProjectCategory } from "../types/projectType";

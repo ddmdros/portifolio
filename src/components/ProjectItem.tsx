@@ -2,6 +2,7 @@ import KeywordTag from "./KeywordTag";
 import { type ProjectCategory } from "../types/projectType";
 import { FaGithub, FaBook } from "react-icons/fa6";
 import { FormattedMessage, useIntl } from "react-intl";
+import { Link } from "react-router-dom";
 
 interface ProjectItemProps {
   category: ProjectCategory;
@@ -47,7 +48,7 @@ const ProjectItem = ({
           <FormattedMessage id={description} />
         </p>
 
-        <div className="pt- flex flex-col gap-4">
+        <div className="pt-4 flex flex-col gap-4">
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
               <KeywordTag key={tag} label={tag} />
@@ -55,8 +56,8 @@ const ProjectItem = ({
           </div>
 
           <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
-            <a
-              href={docsUrl}
+            <Link
+              to={docsUrl}
               className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
               title={intl.formatMessage({ id: "project.docs" })}
             >
@@ -64,7 +65,7 @@ const ProjectItem = ({
               <span>
                 <FormattedMessage id="project.docs" />
               </span>
-            </a>
+            </Link>
 
             <a
               href={githubUrl}
