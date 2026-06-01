@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface HeaderProps {
   currentLocale: string;
@@ -48,13 +49,17 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link
+            <NavLink
               key={link.id}
               to={link.to}
-              className="cursor-pointer text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              className={({ isActive }) =>
+                `cursor-pointer text-sm font-medium transition-colors ${
+                  isActive ? "text-accent" : "text-gray-300 hover:text-white"
+                }`
+              }
             >
               <FormattedMessage id={link.id} />
-            </Link>
+            </NavLink>
           ))}
           <LanguageSwitcher
             currentLocale={currentLocale}
@@ -93,14 +98,20 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
           <div className="flex flex-col pt-10 px-6 pb-6 flex-1">
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
-                <Link
+                <NavLink
                   key={link.id}
                   to={link.to}
                   onClick={closeMenu}
-                  className="text-lg font-medium p-4 text-white hover:bg-gray-800 rounded-lg"
+                  className={({ isActive }) =>
+                    `text-lg font-medium p-4 rounded-lg transition-colors ${
+                      isActive
+                        ? "bg-white/10 text-accent-hover"
+                        : "text-gray-300 hover:bg-white/5 hover:text-white"
+                    }`
+                  }
                 >
                   <FormattedMessage id={link.id} />
-                </Link>
+                </NavLink>
               ))}
             </div>
 
