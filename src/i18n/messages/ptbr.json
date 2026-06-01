@@ -1,0 +1,36 @@
+{
+  "header.logo": "diogo.dev",
+  "header.blog": "Blog",
+  "header.projects": "Projetos",
+  "header.language": "Idioma",
+  "header.contact": "Contato",
+
+  "welcome.message": "Boas-vindas! Este é o meu portifólio!",
+
+  "portifolio.title": "Portifólio",
+  "portifolio.name": "Diogo Medeiros",
+  "portifolio.job-title": "Engenheiro de software fullstack",
+  "portifolio.description": "Desenvolvedor fullstack e estudante de engenharia de software no Instituto INFNET. Aplico ao desenvolvimento de software o rigor técnico e a maturidade profissional que meus seis anos como tradutor sênior de jogos me proporcionaram.",
+
+  "about.title": "Parceiro multicultural",
+  "about.description": "Estudante de engenharia de software com seis anos de experiência em localização de jogos aplicados à construção de sistema de software robustos, com destaque aos dois anos em que trabalhei presencialmente em Dublin com duas desenvolvedoras de referência: Bungie e Supercell.\n\nFazer parte de equipes multiculturais e trabalhar com produtos que impactam milhões de pessoas diariamente me ensinou a atender requisitos técnicos rigorosos e a entregar com qualidade, sempre pensando no usuário final.\n\nHoje, avanço no desenvolvimento fullstack com o mesmo rigor e atenção à qualidade e priorizo a construção de bases sólidas, a clareza do código, a compreensão das implicações arquiteturais das decisões técnicas e a longevidade do código.\n\nTenho familiaridade e experiência com React, TypeScript, Vite e Tailwind no frontend e Python, C# e Java no backend. Procuro oportunidades em equipes de engenharia cujo foco seja a excelência técnica e o pensamento crítico na resolução de problemas.",
+
+  "project.docs": "Documentação",
+  "project.github": "Repositório Github",
+
+  "project.description.1": "Descrição do projeto 1",
+  "project.title.1": "Título do projeto 1",
+
+  "mail.button.click": "Contato",
+
+  "section.title.1": "Sobre mim",
+  "section.title.2": "Projetos",
+
+  "projects.title": "Projetos selecionados",
+
+  "app.title": "Demonstração do React-intl",
+  "app.description": "Esta é uma demonstração de como usar localização em um aplicativo React com react-intl.",
+  "app.notifications": "{count, plural, =0 {Você não tem notificações} one {Você tem # nova notificação} other {Você tem # novas notificações}}",
+  "app.lastLogin": "Último login: {ts, date, medium} at {ts, time, short}",
+  "app.userAction": "{gender, select, female {{name} fez login, ela atualizou o perfil dela.} male {{name} fez login, ele atualizou o perfil dele.} other {{name} fez login e atualizou o perfil.}}"
+}

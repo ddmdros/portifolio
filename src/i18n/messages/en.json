@@ -1,0 +1,36 @@
+{
+  "header.logo": "diogo.dev",
+  "header.blog": "Blog",
+  "header.projects": "Projects",
+  "header.language": "Language",
+  "header.contact": "Contact",
+
+  "portifolio.title": "Portfolio",
+  "portifolio.name": "Diogo Medeiros",
+  "portifolio.job-title": "Full Stack Engineer",
+
+  "portifolio.description": "Full-Stack Developer and Software Engineering student. With 6 years of experience in game localization, I bring international professional maturity and a rigorous eye for detail to software development.",
+
+  "project.docs": "Documentation",
+  "project.github": "Github repo",
+
+  "project.description.1": "Project 1 description",
+  "project.title.1": "Project 1 title",
+
+  "about.title": "Multicultural Peer",
+  "about.description": "Software Engineering student with six years of experience in game localization, now applied to building robust software systems. Notably, I spent two years working on-site in Dublin with industry-leading developers: Bungie and Supercell.\n\nBeing part of multicultural teams and working on products that impact millions of users daily taught me to meet rigorous technical requirements and deliver high-quality solutions with an end-user-first mindset.\n\nToday, I approach fullstack development with the same commitment to quality, focusing on solid foundations, code clarity, architectural implications, and long-term maintainability.\n\nMy tech stack includes React, TypeScript, Vite, and Tailwind for the frontend, and Python, C#, and Java for the backend. I am seeking opportunities in engineering teams that prioritize technical excellence and critical problem-solving.",
+
+  "welcome.message": "Welcome to my portfolio!",
+  "mail.button.click": "Contact me",
+
+  "section.title.1": "About",
+  "section.title.2": "Projects",
+
+  "projects.title": "Selected Projects",
+
+  "app.title": "React-intl demo",
+  "app.description": "This is a small demo showing how to localize a React app with react-intl.",
+  "app.notifications": "{count, plural, =0 {You have no new notifications} one {You have # new notification} other {You have # new notifications}}",
+  "app.lastLogin": "Last login: {ts, date, medium} at {ts, time, short}",
+  "app.userAction": "{gender, select, female {{name} logged in, she updated her profile.} male {{name} logged in, he updated his profile.} other {{name} logged in, they updated their profile.}}"
+}
