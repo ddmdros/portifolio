@@ -33,11 +33,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/resume" element={<Resume />} />
           </Routes>
-          {/* <main className="block max-w-5xl mx-auto p-6 mt-10">
-            <Portifolio />
-            <About />
-            <Projects />
-          </main> */}
         </div>
       </BrowserRouter>
     </IntlProvider>

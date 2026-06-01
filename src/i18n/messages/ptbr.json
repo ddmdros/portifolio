@@ -1,6 +1,6 @@
 {
   "header.logo": "diogo.dev",
-  "header.home": "Home",
+  "header.home": "Início",
   "header.blog": "Blog",
   "header.projects": "Projetos",
   "header.language": "Idioma",
@@ -16,6 +16,9 @@
 
   "about.title": "Parceiro multicultural",
   "about.description": "Estudante de engenharia de software com seis anos de experiência em localização de jogos aplicados à construção de sistema de software robustos, com destaque aos dois anos em que trabalhei presencialmente em Dublin com duas desenvolvedoras de referência: Bungie e Supercell.\n\nFazer parte de equipes multiculturais e trabalhar com produtos que impactam milhões de pessoas diariamente me ensinou a atender requisitos técnicos rigorosos e a entregar com qualidade, sempre pensando no usuário final.\n\nHoje, avanço no desenvolvimento fullstack com o mesmo rigor e atenção à qualidade e priorizo a construção de bases sólidas, a clareza do código, a compreensão das implicações arquiteturais das decisões técnicas e a longevidade do código.\n\nTenho familiaridade e experiência com React, TypeScript, Vite e Tailwind no frontend e Python, C# e Java no backend. Procuro oportunidades em equipes de engenharia cujo foco seja a excelência técnica e o pensamento crítico na resolução de problemas.",
+  "about.stacks.programming.languages": "Linguagens de programação",
+  "about.stacks.web.game.dev": "Desenvolvimento web e de jogos",
+  "about.stacks.data.devops": "Dados & DevOps",
 
   "project.docs": "Documentação",
   "project.github": "Repositório Github",
