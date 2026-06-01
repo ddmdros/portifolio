@@ -10,8 +10,11 @@ import {
   SiUnity,
   SiGooglecloud,
   SiSupabase,
+  SiVite,
 } from "react-icons/si";
-import { FaJava } from "react-icons/fa";
+
+import { FaJava, FaHtml5, FaCss3 } from "react-icons/fa";
+
 import { TbBrandCSharp } from "react-icons/tb";
 
 import SectionDiv from "./SectionDiv";
@@ -33,7 +36,10 @@ const techStackGroups = [
       { name: "React", icon: <SiReact /> },
       { name: "TypeScript", icon: <SiTypescript /> },
       { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+      { name: "Vite", icon: <SiVite /> },
       { name: "Node.js", icon: <SiNodedotjs /> },
+      { name: "HTML5", icon: <FaHtml5 /> },
+      { name: "CSS3", icon: <FaCss3 /> },
       { name: "Unity", icon: <SiUnity /> },
     ],
   },
@@ -66,7 +72,7 @@ const AboutGroupedStacks = () => {
         <div className="space-y-8">
           {techStackGroups.map((group) => (
             <div key={group.category}>
-              <h3 className="text-lg font-semibold text-white mb-4 border-l-4 border-accent pl-3">
+              <h3 className="text-xl font-semibold text-white mb-4">
                 <FormattedMessage id={group.category} />
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
