@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   currentLocale: string;
@@ -27,8 +28,12 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
 export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
-
   const navLinks = [
+    { id: "header.home", to: "/" },
+    { id: "header.projects", to: "/projects" },
+    { id: "header.blog", to: "/blog" },
+    { id: "header.contact", to: "/contact" },
+    { id: "header.resume", to: "/resume" },
     { id: "header.home", to: "/" },
     { id: "header.projects", to: "/projects" },
     { id: "header.blog", to: "/blog" },
@@ -38,22 +43,27 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
 
   return (
     <header className="sticky top-0 w-full text-white z-50 border-b border-white/10 bg-bg">
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="text-lg font-bold ">
-          <Link to="/">
+      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between relative">
+        {/* Logo */}
+        <div className="text-lg font-bold z-50">
+          <Link to="/" onClick={closeMenu}>
             <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
           </Link>
         </div>
 
-        {/* Desktop */}
+        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
+            <Link
             <Link
               key={link.id}
               to={link.to}
               className="cursor-pointer text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              to={link.to}
+              className="cursor-pointer text-sm font-medium text-gray-300 hover:text-white transition-colors"
             >
               <FormattedMessage id={link.id} />
+            </Link>
             </Link>
           ))}
           <LanguageSwitcher
@@ -63,39 +73,52 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
           />
         </nav>
 
-        {/* Mobile Toggle */}
+        {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 hover:bg-accent-hover hover:cursor-pointer hover:rounded-2xl hover:translate-y-1"
+          className="md:hidden p-2 z-50 relative hover:bg-white/10 rounded-lg transition-colors"
         >
           <MenuIcon isOpen={isOpen} />
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       {isOpen && (
-        <div className="flex w-full overflow-hidden ">
-          <div className="md:hidden flex flex-col flex-1 absolute w-full h-screen bg-bg border-t border-gray-800 p-6 gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.id}
-                to={link.to}
-                onClick={closeMenu}
-                className="text-lg font-medium p-6 text-white w-full hover:rounded-md hover:bg-gray-500"
-              >
-                <FormattedMessage id={link.id} />
+        <div className="fixed inset-0 z-40 md:hidden bg-bg flex flex-col">
+          <div className="h-16 flex items-center justify-between px-6">
+            <div className="text-lg font-bold">
+              <Link to="/" onClick={closeMenu}>
+                diogo.dev
               </Link>
-            ))}
-            <div
-              className="mt-auto p-3
-              text-center
-              border-t border-gray-800
-              pb-18"
+            </div>
+            <button
+              onClick={closeMenu}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
             >
-              <div className="pb-4 pt-1 font-medium text-xl">
+              <MenuIcon isOpen={isOpen} />
+            </button>
+          </div>
+
+          {/* Links and content */}
+          <div className="flex flex-col pt-10 px-6 pb-6 flex-1">
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.id}
+                  to={link.to}
+                  onClick={closeMenu}
+                  className="text-lg font-medium p-4 text-white hover:bg-gray-800 rounded-lg"
+                >
+                  <FormattedMessage id={link.id} />
+                </Link>
+              ))}
+            </div>
+
+            {/* Menu footer */}
+            <div className="mt-auto border-t border-gray-800 pt-6 text-center">
+              <div className="pb-4 font-medium text-xl">
                 <FormattedMessage id="header.language" />
               </div>
-
               <div className="flex justify-center">
                 <LanguageSwitcher
                   currentLocale={currentLocale}
