@@ -33,11 +33,6 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
     { id: "header.blog", to: "/blog" },
     { id: "header.contact", to: "/contact" },
     { id: "header.resume", to: "/resume" },
-    { id: "header.home", to: "/" },
-    { id: "header.projects", to: "/projects" },
-    { id: "header.blog", to: "/blog" },
-    { id: "header.contact", to: "/contact" },
-    { id: "header.resume", to: "/resume" },
   ];
 
   return (
