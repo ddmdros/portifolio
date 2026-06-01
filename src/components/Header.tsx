@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 interface HeaderProps {
   currentLocale: string;
@@ -55,15 +54,11 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
-            <Link
               key={link.id}
-              to={link.to}
-              className="cursor-pointer text-sm font-medium text-gray-300 hover:text-white transition-colors"
               to={link.to}
               className="cursor-pointer text-sm font-medium text-gray-300 hover:text-white transition-colors"
             >
               <FormattedMessage id={link.id} />
-            </Link>
             </Link>
           ))}
           <LanguageSwitcher
