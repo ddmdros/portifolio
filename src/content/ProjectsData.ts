@@ -12,5 +12,6 @@ export const PROJECTS_DATA: ProjectType[] = [
     githubUrl: "https://github.com/ddmdros/officeMayhem",
     projectUrl: "https://office-mayhem-aqis.vercel.app/",
     isFeatured: true,
+    docId: "project-1",
   },
 ];
