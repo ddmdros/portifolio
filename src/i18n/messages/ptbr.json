@@ -23,9 +23,10 @@
 
   "project.docs": "Documentação",
   "project.github": "Código",
+  "projects.external.link": "Projeto",
 
-  "project.description.1": "Descrição do projeto 1",
-  "project.title.1": "Título do projeto 1",
+  "project.title.1": "Starr Corp: Caos no Escritório",
+  "project.description.1": "Um tributo acadêmico feito por fã ao universo Brawl Stars, desenvolvido com React e TypeScript.",
 
   "mail.button.click": "Contato",
 

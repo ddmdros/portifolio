@@ -1,6 +1,7 @@
 import KeywordTag from "./KeywordTag";
 import { type ProjectCategory } from "../types/projectType";
 import { FaGithub, FaBook } from "react-icons/fa6";
+import { ExternalLink } from "lucide-react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
@@ -12,6 +13,7 @@ interface ProjectItemProps {
   imageUrl: string;
   docsUrl: string;
   githubUrl: string;
+  projectUrl: string;
 }
 
 const ProjectItem = ({
@@ -22,6 +24,7 @@ const ProjectItem = ({
   imageUrl,
   docsUrl,
   githubUrl,
+  projectUrl,
 }: ProjectItemProps) => {
   const intl = useIntl();
 
@@ -79,6 +82,19 @@ const ProjectItem = ({
                 <FormattedMessage id="project.github" />
               </span>
             </a>
+
+            <Link
+              to={projectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+              title={intl.formatMessage({ id: "projects.external.link" })}
+            >
+              <ExternalLink size={16} />
+              <span>
+                <FormattedMessage id="projects.external.link" />
+              </span>
+            </Link>
           </div>
         </div>
       </div>
