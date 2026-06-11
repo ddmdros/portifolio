@@ -1,3 +1,4 @@
+import { useState } from "react";
 import KeywordTag from "./KeywordTag";
 import { type ProjectCategory } from "../types/projectType";
 import { FaGithub, FaBook } from "react-icons/fa6";
@@ -11,9 +12,9 @@ interface ProjectItemProps {
   description: string;
   tags: string[];
   imageUrl: string;
-  docsUrl: string;
-  githubUrl: string;
-  projectUrl: string;
+  docsUrl?: string;
+  githubUrl?: string;
+  projectUrl?: string;
 }
 
 const ProjectItem = ({
@@ -28,16 +29,34 @@ const ProjectItem = ({
 }: ProjectItemProps) => {
   const intl = useIntl();
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const imageElement = (
+    <div className="relative aspect-video overflow-hidden bg-white/5">
+      {!imageLoaded && (
+        <div className="absolute inset-0 bg-white/5 animate-pulse" />
+      )}
+      <img
+        src={imageUrl}
+        onLoad={() => setImageLoaded(true)}
+        className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ${
+          imageLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        alt={title}
+      />
+      <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+    </div>
+  );
+
   return (
     <div className="group bg-card-bg border border-white/10 rounded-xl overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col h-full">
-      <div className="relative aspect-video overflow-hidden">
-        <img
-          src={imageUrl}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          alt={title}
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
-      </div>
+      {docsUrl ? (
+        <Link to={docsUrl} className="cursor-pointer block">
+          {imageElement}
+        </Link>
+      ) : (
+        imageElement
+      )}
 
       <div className="p-5 flex flex-col grow">
         <div className="mb-3">
@@ -59,42 +78,48 @@ const ProjectItem = ({
           </div>
 
           <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
-            <Link
-              to={docsUrl}
-              className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-              title={intl.formatMessage({ id: "project.docs" })}
-            >
-              <FaBook size={16} />
-              <span>
-                <FormattedMessage id="project.docs" />
-              </span>
-            </Link>
+            {docsUrl && (
+              <Link
+                to={docsUrl}
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                title={intl.formatMessage({ id: "project.docs" })}
+              >
+                <FaBook size={16} />
+                <span>
+                  <FormattedMessage id="project.docs" />
+                </span>
+              </Link>
+            )}
 
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={intl.formatMessage({ id: "project.github" })}
-              className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-            >
-              <FaGithub size={16} />
-              <span>
-                <FormattedMessage id="project.github" />
-              </span>
-            </a>
+            {githubUrl && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={intl.formatMessage({ id: "project.github" })}
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                <FaGithub size={16} />
+                <span>
+                  <FormattedMessage id="project.github" />
+                </span>
+              </a>
+            )}
 
-            <Link
-              to={projectUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-              title={intl.formatMessage({ id: "projects.external.link" })}
-            >
-              <ExternalLink size={16} />
-              <span>
-                <FormattedMessage id="projects.external.link" />
-              </span>
-            </Link>
+            {projectUrl && (
+              <a
+                href={projectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                title={intl.formatMessage({ id: "projects.external.link" })}
+              >
+                <ExternalLink size={16} />
+                <span>
+                  <FormattedMessage id="projects.external.link" />
+                </span>
+              </a>
+            )}
           </div>
         </div>
       </div>

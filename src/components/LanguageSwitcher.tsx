@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Globe, ChevronDown } from "lucide-react";
 
 interface LanguageSwitcherProps {
   currentLocale: string;
@@ -6,11 +7,14 @@ interface LanguageSwitcherProps {
   variant?: "icon" | "text";
 }
 
-export const LanguageSwitcher = ({
+// Sub-componente para o Seletor de Idioma em Formato de Ícone com Dropdown (Desktop)
+const IconLanguageSwitcher = ({
   currentLocale,
   setLocale,
-  variant = "icon",
-}: LanguageSwitcherProps) => {
+}: {
+  currentLocale: string;
+  setLocale: (lang: string) => void;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -29,78 +33,110 @@ export const LanguageSwitcher = ({
 
   return (
     <div className="relative" ref={containerRef}>
-      {variant === "icon" ? (
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex text-left gap-2 p-2 hover:bg-gray-800 rounded-md transition-colors text-white"
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-            />
-          </svg>
-        </button>
-      ) : (
-        <div className="flex items-center gap-3 text-white">
-          <span
-            className={`text-sm transition-colors ${currentLocale === "en" ? "font-bold text-white" : "text-gray-500"}`}
-          >
-            English
-          </span>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-accent/30 transition-all duration-300 text-gray-300 hover:text-white cursor-pointer font-mono text-xs uppercase"
+      >
+        <Globe size={14} className="text-accent" />
+        <span>{currentLocale}</span>
+        <ChevronDown
+          size={12}
+          className={`transition-transform duration-300 text-gray-500 group-hover:text-white ${
+            isOpen ? "rotate-180 text-white" : ""
+          }`}
+        />
+      </button>
 
-          <button
-            type="button"
-            onClick={() => setLocale(currentLocale === "en" ? "pt" : "en")}
-            className={`cursor-pointer relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none hover:cursor-pointer'}
-               ${currentLocale === "pt" ? "bg-gray-600 hover:bg-accent-hover" : "bg-gray-600 hover:bg-accent-hover"}
-            `}
-          >
-            <span
-              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
-                currentLocale === "pt" ? "translate-x-6" : "translate-x-1"
-              }`}
-            />
-          </button>
-
-          <span
-            className={`text-sm transition-colors ${currentLocale === "pt" ? "font-bold text-white" : "text-gray-500"}`}
-          >
-            Português
-          </span>
-        </div>
-      )}
-
+      {/* Dropdown Menu Glassmorphism */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 py-2 w-40 bg-accent-hover rounded-lg shadow-xl text-black z-50">
+        <div className="absolute right-0 mt-2 py-1.5 w-36 bg-card-bg/95 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl text-gray-300 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           <button
             onClick={() => {
               setLocale("en");
               setIsOpen(false);
             }}
-            className={`block w-full text-left px-4 py-2 hover:bg-gray-100 ${currentLocale === "en" ? "font-bold bg-gray-100" : ""}`}
+            className={`flex items-center justify-between w-full px-4 py-2 text-left text-xs font-semibold hover:bg-white/5 hover:text-white transition-colors hover:cursor-pointer ${
+              currentLocale === "en" ? "text-accent bg-accent-subtle" : ""
+            }`}
           >
-            English
+            <span>English</span>
+            {currentLocale === "en" && (
+              <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+            )}
           </button>
           <button
             onClick={() => {
               setLocale("pt");
               setIsOpen(false);
             }}
-            className={`block w-full text-left px-4 py-2 hover:bg-gray-100 ${currentLocale === "pt" ? "font-bold bg-gray-100" : ""}`}
+            className={`flex items-center justify-between w-full px-4 py-2 text-left text-xs font-semibold hover:bg-white/5 hover:text-white transition-colors hover:cursor-pointer ${
+              currentLocale === "pt" ? "text-accent bg-accent-subtle" : ""
+            }`}
           >
-            Português
+            <span>Português</span>
+            {currentLocale === "pt" && (
+              <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+            )}
           </button>
         </div>
       )}
     </div>
+  );
+};
+
+// Sub-componente para o Seletor de Idioma em Formato de Toggle (Mobile)
+const ToggleLanguageSwitcher = ({
+  currentLocale,
+  setLocale,
+}: {
+  currentLocale: string;
+  setLocale: (lang: string) => void;
+}) => {
+  const isPt = currentLocale === "pt";
+  return (
+    <div className="flex items-center gap-3 text-white">
+      <span
+        className={`text-sm transition-colors ${
+          currentLocale === "en" ? "font-bold text-accent" : "text-gray-500"
+        }`}
+      >
+        English
+      </span>
+
+      <button
+        type="button"
+        onClick={() => setLocale(currentLocale === "en" ? "pt" : "en")}
+        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+          isPt ? "bg-accent" : "bg-white/10"
+        }`}
+      >
+        <span
+          className={`pointer-events-none inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${
+            isPt ? "translate-x-5" : "translate-x-0"
+          }`}
+        />
+      </button>
+
+      <span
+        className={`text-sm transition-colors ${
+          currentLocale === "pt" ? "font-bold text-accent" : "text-gray-500"
+        }`}
+      >
+        Português
+      </span>
+    </div>
+  );
+};
+
+export const LanguageSwitcher = ({
+  currentLocale,
+  setLocale,
+  variant = "icon",
+}: LanguageSwitcherProps) => {
+  return variant === "icon" ? (
+    <IconLanguageSwitcher currentLocale={currentLocale} setLocale={setLocale} />
+  ) : (
+    <ToggleLanguageSwitcher currentLocale={currentLocale} setLocale={setLocale} />
   );
 };
 

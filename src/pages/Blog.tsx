@@ -1,4 +1,5 @@
 import { FormattedMessage } from "react-intl";
+import { Link } from "react-router-dom";
 
 const POSTS = [
   {
@@ -37,15 +38,15 @@ export const Blog = () => {
               <FormattedMessage id={post.excerpt} />
             </p>
 
-            <a
-              href={`/blog/${post.id}`}
+            <Link
+              to={`/blog/${post.id}`}
               className="text-accent font-medium hover:underline"
             >
               <FormattedMessage
                 id="blog.read.more"
                 defaultMessage="Read more →"
               />
-            </a>
+            </Link>
           </article>
         ))}
       </div>

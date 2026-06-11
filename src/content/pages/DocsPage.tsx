@@ -12,18 +12,14 @@ export const DocsPage = () => {
   const { slug } = useParams();
   const { locale } = useIntl();
   const [content, setContent] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadMarkdown = async () => {
-      const langFolder = locale === "ptbr" ? "pt" : "en";
+      setIsLoading(true);
+      const langFolder = locale === "pt" || locale === "ptbr" ? "pt" : "en";
 
       const path = `../docs/${slug}/${langFolder}/${slug}.md`;
-
-      console.log("Caminho gerado:", path);
-      console.log(
-        "Arquivos encontrados pelo Vite:",
-        Object.keys(markdownFiles),
-      );
 
       if (markdownFiles[path]) {
         try {
@@ -36,13 +32,44 @@ export const DocsPage = () => {
       } else {
         setContent("# Documentação não encontrada.");
       }
+      setIsLoading(false);
     };
 
     loadMarkdown();
   }, [slug, locale]);
 
+  if (isLoading) {
+    return (
+      <main className="container mx-auto max-w-4xl py-12 px-6 space-y-8 animate-pulse">
+        {/* Title Skeleton */}
+        <div className="h-10 bg-white/10 rounded-xl w-3/4 mb-10" />
+        {/* Meta Info Skeleton */}
+        <div className="flex gap-4 mb-8">
+          <div className="h-4 bg-white/5 rounded w-1/4" />
+          <div className="h-4 bg-white/5 rounded w-1/6" />
+        </div>
+        <hr className="border-white/10 my-6" />
+        {/* Section 1 Skeleton */}
+        <div className="space-y-4">
+          <div className="h-6 bg-white/10 rounded-lg w-1/3" />
+          <div className="h-4 bg-white/5 rounded w-full" />
+          <div className="h-4 bg-white/5 rounded w-5/6" />
+          <div className="h-4 bg-white/5 rounded w-4/5" />
+        </div>
+        {/* Image Placeholder Skeleton */}
+        <div className="h-64 bg-white/5 rounded-2xl w-full" />
+        {/* Section 2 Skeleton */}
+        <div className="space-y-4 pt-6">
+          <div className="h-6 bg-white/10 rounded-lg w-1/4" />
+          <div className="h-4 bg-white/5 rounded w-full" />
+          <div className="h-4 bg-white/5 rounded w-11/12" />
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main className="container mx-auto max-w-4xl py-12">
+    <main className="container mx-auto max-w-4xl py-12 px-6 animate-fade-in-up">
       <MarkdownRenderer content={content} />
     </main>
   );

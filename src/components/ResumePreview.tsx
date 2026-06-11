@@ -1,0 +1,136 @@
+import { Link, useNavigate } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import SectionDiv from "./SectionDiv";
+import { GraduationCap, Briefcase, ArrowRight, Award, ExternalLink } from "lucide-react";
+import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
+
+const ResumePreview = () => {
+  const navigate = useNavigate();
+  return (
+    <section className="py-20 border-t border-white/5">
+      <SectionDiv sectionNumber="03" sectionTitleId="section.title.3" />
+
+      {/* Cabeçalho da seção alinhado com o padrão das páginas internas */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-text-h tracking-tight max-w-xl">
+          <FormattedMessage id="home.resume.preview.title" />
+        </h2>
+        <Link
+          to="/resume"
+          className="self-start md:self-center inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer whitespace-nowrap"
+        >
+          <FormattedMessage id="home.resume.preview.button" defaultMessage="View Full Resume" />
+          <ArrowRight size={16} />
+        </Link>
+      </div>
+
+      {/* Grid de Destaques em largura total */}
+      <div className="grid md:grid-cols-3 gap-6">
+        {/* Card de Experiência */}
+        <div onClick={() => navigate("/resume#experience")} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-lg bg-accent/10 text-accent">
+                <Briefcase size={20} />
+              </div>
+              <div>
+                <h3 className="font-bold text-white text-lg">
+                  <FormattedMessage id="resume.exp.keywords.company" />
+                </h3>
+                <span className="text-xs text-accent font-medium font-mono">
+                  <FormattedMessage id="resume.exp.keywords.date" />
+                </span>
+              </div>
+            </div>
+            
+            <div className="pl-[52px] space-y-1">
+              <p className="text-sm text-gray-300 font-semibold">
+                <FormattedMessage id="resume.exp.keywords.title" />
+              </p>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                <FormattedMessage id="resume.exp.keywords.desc1" />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Card de Educação */}
+        <div onClick={() => navigate("/resume#education")} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-lg bg-accent/10 text-accent">
+                <GraduationCap size={20} />
+              </div>
+              <div>
+                <h3 className="font-bold text-white text-lg">
+                  <FormattedMessage id="resume.edu.se.inst" />
+                </h3>
+                <span className="text-xs text-accent font-medium font-mono">
+                  <FormattedMessage id="resume.edu.se.date" />
+                </span>
+              </div>
+            </div>
+            
+            <div className="pl-[52px] space-y-1">
+              <p className="text-sm text-gray-300 font-semibold">
+                <FormattedMessage id="resume.edu.se.title" />
+              </p>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                <FormattedMessage id="resume.edu.java.title" /> & <FormattedMessage id="resume.edu.journalism.title" />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Card de Certificações */}
+        <div onClick={() => navigate("/resume#certifications")} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-lg bg-accent/10 text-accent">
+                <Award size={20} />
+              </div>
+              <div>
+                <h3 className="font-bold text-white text-lg">
+                  <FormattedMessage id="resume.section.certifications" defaultMessage="Certifications" />
+                </h3>
+                <span className="text-xs text-accent font-medium font-mono">
+                  {CERTIFICATIONS_DATA.length} <FormattedMessage id="resume.section.certifications" defaultMessage="Certifications" />
+                </span>
+              </div>
+            </div>
+            
+            <div className="pl-[52px] space-y-3">
+              {CERTIFICATIONS_DATA.filter((c) => c.featured)
+                .slice(0, 2)
+                .map((cert) => (
+                  <div key={cert.id} className="text-left border-l border-accent/20 pl-3">
+                    <p className="text-xs text-gray-300 font-semibold truncate" title={cert.titleKey}>
+                      {cert.credentialUrl ? (
+                        <a
+                          href={cert.credentialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-accent inline-flex items-center gap-1 transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <FormattedMessage id={cert.titleKey} />
+                          <ExternalLink size={10} className="shrink-0 opacity-70" />
+                        </a>
+                      ) : (
+                        <FormattedMessage id={cert.titleKey} />
+                      )}
+                    </p>
+                    <p className="text-[10px] text-gray-500">
+                      <FormattedMessage id={cert.orgKey} /> &bull; {cert.year}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ResumePreview;

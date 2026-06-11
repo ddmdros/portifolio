@@ -4,7 +4,7 @@
   --color-bg: #08060d;
   --color-card-bg: #111111;
   --color-card-bg-tag: #121212;
-  --colot-text-gray: #b0b0b0;
+  --color-text-gray: #b0b0b0;
 
   --color-text: #9ca3af;
   --color-text-h: #ffffff;
@@ -18,6 +18,8 @@
   --color-accent-hover: #6ee7b7;
   /* --color-accent-subtle: #064e3b; */
   --color-accent-subtle: rgba(52, 211, 153, 0.1);
+  --color-accent-bg: rgba(52, 211, 153, 0.05);
+  --color-accent-border: rgba(52, 211, 153, 0.2);
 
   --color-border: #1f2937;
 
@@ -30,6 +32,66 @@
 
   --tracking-tightest: -0.05em;
   --tracking-wide: 0.025em;
+
+  /* Custom Animations in Tailwind v4 */
+  --animate-fade-in-up: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-drift-slow: drift 20s infinite ease-in-out;
+  --animate-drift-reverse: drift-rev 25s infinite ease-in-out;
+  --animate-pulse-ring: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  --animate-glow-pulse: glowPulse 3s infinite ease-in-out;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes drift {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(40px, -50px) scale(1.15);
+    }
+  }
+
+  @keyframes drift-rev {
+    0%, 100% {
+      transform: translate(0, 0) scale(1.1);
+    }
+    50% {
+      transform: translate(-30px, 40px) scale(0.9);
+    }
+  }
+
+  @keyframes pulseRing {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(52, 211, 153, 0.25);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(52, 211, 153, 0.55);
+    }
+  }
 }
 
 @layer base {
@@ -145,5 +207,31 @@
     border: 1px solid var(--color-border) !important;
     box-shadow: var(--shadow-subtle) !important;
     display: block !important;
+  }
+
+  /* Shimmer Effect for Buttons */
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shimmer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transform: skewX(-20deg);
+    transition: none;
+  }
+  .btn-shimmer:hover::after {
+    left: 140%;
+    transition: all 0.7s ease-in-out;
   }
 }

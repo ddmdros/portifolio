@@ -55,7 +55,7 @@ export const useGameEngine = () => {
 
 ## 3. Internacionalização e linguagem inclusiva
 
-Um dos diferenciais técnicos do projeto é a sua arquitetura de internacionalização (i18n) voltada para produção (`useLanguage.ts`). Em vez de depender de dicionários rígidos, o motor de localização foi projetado com padrões profissionais da indústria de jogos para atender às complexidades gramaticais do português brasileiro e do inglês.
+Um dos diferencial técnicos do projeto é a sua arquitetura de internacionalização (i18n) voltada para produção (`useLanguage.ts`). Em vez de depender de dicionários rígidos, o motor de localização foi projetado com padrões profissionais da indústria de jogos para atender às complexidades gramaticais do português brasileiro e do inglês.
 
 - **Interpolação dinâmica de tokens:** O sistema escaneia nós de tradução em busca de marcadores estruturais e injeta contextos de estado dinamicamente em tempo real (ex: trocando tempos verbais e pontuações).
 - **Adaptação de gênero neutro:** A arquitetura garante a aplicação rigorosa de diretrizes de linguagem inclusiva. O _framework_ resolve dinamicamente a troca de sufixos de substantivos, adjetivos e _tags_ descritivas com base nas configurações de perfil, mantendo a naturalidade sintática sem duplicar os arquivos de ativos do dicionário.

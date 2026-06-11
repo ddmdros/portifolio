@@ -79,33 +79,33 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="fixed inset-0 z-40 md:hidden bg-bg flex flex-col">
-          <div className="h-16 flex items-center justify-between px-6">
+        <div className="fixed inset-0 z-40 md:hidden bg-bg/95 backdrop-blur-lg flex flex-col animate-in fade-in slide-in-from-top-6 duration-300 ease-out">
+          <div className="h-16 flex items-center justify-between px-6 border-b border-white/5">
             <div className="text-lg font-bold">
               <Link to="/" onClick={closeMenu}>
-                diogo.dev
+                <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
               </Link>
             </div>
             <button
               onClick={closeMenu}
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
             >
               <MenuIcon isOpen={isOpen} />
             </button>
           </div>
 
           {/* Links and content */}
-          <div className="flex flex-col pt-10 px-6 pb-6 flex-1">
-            <div className="flex flex-col gap-2">
+          <div className="flex flex-col pt-8 px-6 pb-8 flex-1">
+            <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <NavLink
                   key={link.id}
                   to={link.to}
                   onClick={closeMenu}
                   className={({ isActive }) =>
-                    `text-lg font-medium p-4 rounded-lg transition-colors ${
+                    `text-lg font-semibold px-5 py-3.5 rounded-xl transition-all flex items-center justify-between ${
                       isActive
-                        ? "bg-white/10 text-accent-hover"
+                        ? "bg-accent/5 text-accent"
                         : "text-gray-300 hover:bg-white/5 hover:text-white"
                     }`
                   }
@@ -116,8 +116,8 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
             </div>
 
             {/* Menu footer */}
-            <div className="mt-auto border-t border-gray-800 pt-6 text-center">
-              <div className="pb-4 font-medium text-xl">
+            <div className="mt-auto border-t border-white/5 pt-8 text-center space-y-4">
+              <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
                 <FormattedMessage id="header.language" />
               </div>
               <div className="flex justify-center">
