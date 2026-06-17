@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:pdf": "node \"C:\\Users\\Diogo\\.gemini\\antigravity\\brain\\99661c73-c1e3-40e2-94a0-38f7a6676307\\scratch\\generate_pdfs.js\"",
+    "build:pdf": "node scripts/generate_pdfs.cjs",
     "build": "npm run build:pdf && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

@@ -51,7 +51,7 @@ export default defineConfig({
                 console.log('Successfully saved content files. Rebuilding PDF resumes...');
 
                 // Trigger PDF rebuild
-                execSync('node "C:\\Users\\Diogo\\.gemini\\antigravity\\brain\\99661c73-c1e3-40e2-94a0-38f7a6676307\\scratch\\generate_pdfs.js"', { stdio: 'inherit' });
+                execSync('node scripts/generate_pdfs.cjs', { stdio: 'inherit' });
 
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
