@@ -125,5 +125,7 @@
   "project.title.4": "Alura Data Immersion App",
   "project.description.4": "An interactive data science dashboard built with Python Pandas and Streamlit to analyze financial and census data.",
   "project.title.5": "ScreenMatch API",
-  "project.description.5": "A Java Spring Boot REST API for movie and series tracking, integrating JPA, PostgreSQL, and external OMDb API consumption."
+  "project.description.5": "A Java Spring Boot REST API for movie and series tracking, integrating JPA, PostgreSQL, and external OMDb API consumption.",
+  "project.title.6": "NetPlay: Collaborative Gaming Marketplace",
+  "project.description.6": "A peer-to-peer physical media game sharing marketplace leveraging AI agents (LangChain), vector databases (pgvector), and location-based discovery (PostGIS)."
 }

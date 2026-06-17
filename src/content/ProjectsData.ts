@@ -58,4 +58,17 @@ export const PROJECTS_DATA: ProjectType[] = [
     isFeatured: false,
     isWip: true,
   },
+  {
+    id: "6",
+    title: "project.title.6",
+    category: "fullstack",
+    description: "project.description.6",
+    tags: ["React", "FastAPI", "Supabase", "LangChain", "PostgreSQL"],
+    imageUrl: "/assets/projects/netplay/netplay_preview.png",
+    docsUrl: "/docs/netplay",
+    githubUrl: "https://github.com/steadydevs/llm_project",
+    projectUrl: "https://llm-project-tau.vercel.app/",
+    isFeatured: false,
+    docId: "netplay",
+  },
 ];

@@ -124,5 +124,7 @@
   "project.title.4": "Dashboard de Ciência de Dados Alura",
   "project.description.4": "Uma aplicação interativa de ciência de dados desenvolvida com Python e Streamlit para análise de dados e gráficos interativos.",
   "project.title.5": "ScreenMatch API",
-  "project.description.5": "Uma API REST robusta em Java e Spring Boot para catalogação de séries e filmes, com JPA, PostgreSQL e integração com a API do OMDb."
+  "project.description.5": "Uma API REST robusta em Java e Spring Boot para catalogação de séries e filmes, com JPA, PostgreSQL e integração com a API do OMDb.",
+  "project.title.6": "NetPlay: Marketplace de Jogos Colaborativo",
+  "project.description.6": "Um marketplace P2P para compartilhamento de jogos em mídia física que utiliza agentes de IA (LangChain), busca vetorial (pgvector) e busca espacial por proximidade (PostGIS)."
 }
