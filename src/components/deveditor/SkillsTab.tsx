@@ -7,8 +7,6 @@ interface SkillsTabProps {
   setSkills: React.Dispatch<React.SetStateAction<SkillType[]>>;
   updateTrans: (key: string, lang: "en" | "pt", value: string) => void;
   getTrans: (key: string, lang: "en" | "pt") => string;
-  PROFILES: readonly { readonly id: string; readonly label: string }[];
-  toggleProfile: (arr: string[] | undefined, profileId: string) => string[];
 }
 
 export const SkillsTab = ({
@@ -16,8 +14,6 @@ export const SkillsTab = ({
   setSkills,
   updateTrans,
   getTrans,
-  PROFILES,
-  toggleProfile,
 }: SkillsTabProps) => {
   return (
     <div className="space-y-8">
@@ -109,38 +105,7 @@ export const SkillsTab = ({
               </div>
             </div>
 
-            <div className="border-t border-white/5 pt-2">
-              <span className="block text-xs font-semibold text-gray-400 mb-1.5">
-                Include in CV Profiles:
-              </span>
-              <div className="flex flex-wrap gap-4">
-                {PROFILES.map((profile) => (
-                  <label
-                    key={profile.id}
-                    className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={
-                        skill.showInResume?.includes(profile.id) || false
-                      }
-                      onChange={() => {
-                        setSkills(
-                          updateItemAtIndex(skills, sIdx, {
-                            showInResume: toggleProfile(
-                              skill.showInResume,
-                              profile.id,
-                            ),
-                          }),
-                        );
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                    />
-                    {profile.label}
-                  </label>
-                ))}
-              </div>
-            </div>
+
 
             {/* Language profile details */}
             {skill.categoryKey === "resume.skills.languages" && (

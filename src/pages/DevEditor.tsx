@@ -9,6 +9,7 @@ import enMessagesInit from "../i18n/messages/en.json";
 import ptbrMessagesInit from "../i18n/messages/ptbr.json";
 
 import { ProjectsTab } from "../components/deveditor/ProjectsTab";
+import { ResumesTab } from "../components/deveditor/ResumesTab";
 import { CertsTab } from "../components/deveditor/CertsTab";
 import { EduTab } from "../components/deveditor/EduTab";
 import { ExpTab } from "../components/deveditor/ExpTab";
@@ -30,7 +31,7 @@ export const DevEditor = () => {
     (window.location.hostname === "localhost" ||
       window.location.hostname === "127.0.0.1");
   const [activeTab, setActiveTab] = useState<
-    "projects" | "certs" | "edu" | "exp" | "skills" | "trans"
+    "projects" | "resumes" | "certs" | "edu" | "exp" | "skills" | "trans"
   >("projects");
 
   // Local State
@@ -215,6 +216,7 @@ export const DevEditor = () => {
         {(
           [
             { id: "projects", label: "Projects" },
+            { id: "resumes", label: "CV Profiles" },
             { id: "certs", label: "Certifications" },
             { id: "edu", label: "Education" },
             { id: "exp", label: "Experience" },
@@ -244,6 +246,23 @@ export const DevEditor = () => {
             setProjects={setProjects}
             updateTrans={updateTrans}
             getTrans={getTrans}
+          />
+        )}
+
+        {activeTab === "resumes" && (
+          <ResumesTab
+            certs={certs}
+            setCerts={setCerts}
+            projects={projects}
+            setProjects={setProjects}
+            edu={edu}
+            setEdu={setEdu}
+            exp={exp}
+            setExp={setExp}
+            skills={skills}
+            setSkills={setSkills}
+            getTrans={getTrans}
+            updateTrans={updateTrans}
             PROFILES={PROFILES}
             toggleProfile={toggleProfile}
           />
@@ -255,8 +274,6 @@ export const DevEditor = () => {
             setCerts={setCerts}
             updateTrans={updateTrans}
             getTrans={getTrans}
-            PROFILES={PROFILES}
-            toggleProfile={toggleProfile}
           />
         )}
 
@@ -266,8 +283,6 @@ export const DevEditor = () => {
             setEdu={setEdu}
             updateTrans={updateTrans}
             getTrans={getTrans}
-            PROFILES={PROFILES}
-            toggleProfile={toggleProfile}
           />
         )}
 
@@ -277,8 +292,6 @@ export const DevEditor = () => {
             setExp={setExp}
             updateTrans={updateTrans}
             getTrans={getTrans}
-            PROFILES={PROFILES}
-            toggleProfile={toggleProfile}
           />
         )}
 
@@ -288,8 +301,6 @@ export const DevEditor = () => {
             setSkills={setSkills}
             updateTrans={updateTrans}
             getTrans={getTrans}
-            PROFILES={PROFILES}
-            toggleProfile={toggleProfile}
           />
         )}
 

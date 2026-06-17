@@ -7,8 +7,6 @@ interface ProjectsTabProps {
   setProjects: React.Dispatch<React.SetStateAction<ProjectType[]>>;
   updateTrans: (key: string, lang: "en" | "pt", value: string) => void;
   getTrans: (key: string, lang: "en" | "pt") => string;
-  PROFILES: readonly { readonly id: string; readonly label: string }[];
-  toggleProfile: (arr: string[] | undefined, profileId: string) => string[];
 }
 
 export const ProjectsTab = ({
@@ -16,8 +14,6 @@ export const ProjectsTab = ({
   setProjects,
   updateTrans,
   getTrans,
-  PROFILES,
-  toggleProfile,
 }: ProjectsTabProps) => {
   return (
     <div className="space-y-8">
@@ -278,39 +274,6 @@ export const ProjectsTab = ({
                 />
                 Is Featured (Portfolio home card)
               </label>
-
-              <div className="border-t border-white/5 pt-2 w-full">
-                <span className="block text-xs font-semibold text-gray-400 mb-1.5">
-                  Include in CV Profiles:
-                </span>
-                <div className="flex flex-wrap gap-4">
-                  {PROFILES.map((profile) => (
-                    <label
-                      key={profile.id}
-                      className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={
-                          proj.showInResume?.includes(profile.id) || false
-                        }
-                        onChange={() => {
-                          setProjects(
-                            updateItemAtIndex(projects, pIdx, {
-                              showInResume: toggleProfile(
-                                proj.showInResume,
-                                profile.id,
-                              ),
-                            }),
-                          );
-                        }}
-                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                      />
-                      {profile.label}
-                    </label>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Resume bullet points */}

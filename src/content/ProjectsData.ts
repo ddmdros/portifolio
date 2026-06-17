@@ -20,7 +20,6 @@ export const PROJECTS_DATA: ProjectType[] = [
     "isFeatured": true,
     "docId": "starr-corp",
     "showInResume": [
-      "general",
       "backend",
       "frontend",
       "fullstack"
@@ -86,7 +85,8 @@ export const PROJECTS_DATA: ProjectType[] = [
     "projectUrl": "https://imersao-dados-com-python-alura-diogo-medeiros.streamlit.app/",
     "isFeatured": false,
     "showInResume": [
-      "ia_ml"
+      "ia_ml",
+      "general"
     ],
     "descKeys": [
       "resume.project.dataImmersion.bullet1"

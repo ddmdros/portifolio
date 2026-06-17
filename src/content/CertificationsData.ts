@@ -53,7 +53,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "orgKey": "resume.cert.gcp.org",
     "year": "2026",
     "showInResume": [
-      "cloud"
+      "cloud",
+      "general"
     ],
     "category": "cloud",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7/badges/23484244"
@@ -66,7 +67,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "showInResume": [
       "cloud",
       "backend",
-      "fullstack"
+      "fullstack",
+      "general"
     ],
     "category": "cloud",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7/badges/23479859"
@@ -78,7 +80,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "year": "2026",
     "showInResume": [
       "cloud",
-      "ia_ml"
+      "ia_ml",
+      "general"
     ],
     "category": "cloud",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7/badges/23498648"
@@ -89,7 +92,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "orgKey": "resume.cert.gcp.org",
     "year": "2026",
     "showInResume": [
-      "cloud"
+      "cloud",
+      "general"
     ],
     "category": "cloud",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7"
@@ -114,7 +118,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "orgKey": "resume.cert.custom9.org",
     "year": "2026",
     "showInResume": [
-      "ia_ml"
+      "ia_ml",
+      "general"
     ],
     "category": "ia_ml",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=en",

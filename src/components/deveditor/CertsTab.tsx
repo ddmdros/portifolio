@@ -8,8 +8,6 @@ interface CertsTabProps {
   setCerts: React.Dispatch<React.SetStateAction<CertificationType[]>>;
   updateTrans: (key: string, lang: "en" | "pt", value: string) => void;
   getTrans: (key: string, lang: "en" | "pt") => string;
-  PROFILES: readonly { readonly id: string; readonly label: string }[];
-  toggleProfile: (arr: string[] | undefined, profileId: string) => string[];
 }
 
 export const CertsTab = ({
@@ -17,10 +15,9 @@ export const CertsTab = ({
   setCerts,
   updateTrans,
   getTrans,
-  PROFILES,
-  toggleProfile,
 }: CertsTabProps) => {
   const [certFilter, setCertFilter] = useState<string>("all");
+  const [showHighlights, setShowHighlights] = useState<boolean>(false);
   const homeCertsCount = certs.filter((c) => c.showOnHome).length;
 
   const existingOrgsEn = Array.from(
@@ -44,52 +41,65 @@ export const CertsTab = ({
 
       {/* Dedicated Featured Section */}
       <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
-        <h3 className="text-sm font-bold text-accent">Homepage Highlights (Featured Certifications)</h3>
-        <p className="text-xs text-gray-400">
-          Select exactly up to 5 certifications to feature on the homepage.
-        </p>
-        <div className="grid sm:grid-cols-2 gap-3">
-          {certs.map((c) => {
-            const isChecked = c.showOnHome || false;
-            const isDisabled = !isChecked && homeCertsCount >= 5;
-            const certTitle = getTrans(c.titleKey, "en") || getTrans(c.titleKey, "pt") || c.titleKey;
-            const certOrg = getTrans(c.orgKey, "en") || getTrans(c.orgKey, "pt") || c.orgKey;
+        <button
+          onClick={() => setShowHighlights(!showHighlights)}
+          className="flex justify-between items-center w-full text-left font-bold text-accent text-sm cursor-pointer select-none focus:outline-none"
+        >
+          <span>Homepage Highlights (Featured Certifications) ({homeCertsCount}/5 selected)</span>
+          <span className="text-xs font-normal text-gray-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-xl hover:text-white hover:bg-white/10 transition-all select-none">
+            {showHighlights ? "Hide Config ▲" : "Show Config ▼"}
+          </span>
+        </button>
 
-            return (
-              <label
-                key={c.id}
-                className={`flex items-start gap-2.5 p-3 rounded-xl border transition-all cursor-pointer ${
-                  isChecked
-                    ? "bg-accent/10 border-accent text-white"
-                    : isDisabled
-                      ? "bg-black/20 border-white/5 text-gray-500 cursor-not-allowed opacity-50"
-                      : "bg-black/40 border-white/10 text-gray-300 hover:bg-black/60 hover:text-white"
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  disabled={isDisabled}
-                  onChange={(e) => {
-                    const cIdx = certs.findIndex((x) => x.id === c.id);
-                    if (cIdx !== -1) {
-                      setCerts(
-                        updateItemAtIndex(certs, cIdx, {
-                          showOnHome: e.target.checked,
-                        }),
-                      );
-                    }
-                  }}
-                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5"
-                />
-                <div className="text-xs">
-                  <span className="font-semibold block">{certTitle}</span>
-                  <span className="text-[10px] text-gray-400">{certOrg} ({c.year})</span>
-                </div>
-              </label>
-            );
-          })}
-        </div>
+        {showHighlights && (
+          <div className="space-y-4 animate-fade-in">
+            <p className="text-xs text-gray-400">
+              Select exactly up to 5 certifications to feature on the homepage.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1 text-left">
+              {certs.map((c) => {
+                const isChecked = c.showOnHome || false;
+                const isDisabled = !isChecked && homeCertsCount >= 5;
+                const certTitle = getTrans(c.titleKey, "en") || getTrans(c.titleKey, "pt") || c.titleKey;
+                const certOrg = getTrans(c.orgKey, "en") || getTrans(c.orgKey, "pt") || c.orgKey;
+
+                return (
+                  <label
+                    key={c.id}
+                    className={`flex items-start gap-2.5 p-3 rounded-xl border transition-all cursor-pointer ${
+                      isChecked
+                        ? "bg-accent/10 border-accent text-white"
+                        : isDisabled
+                          ? "bg-black/20 border-white/5 text-gray-500 cursor-not-allowed opacity-50"
+                          : "bg-black/40 border-white/10 text-gray-300 hover:bg-black/60 hover:text-white"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      disabled={isDisabled}
+                      onChange={(e) => {
+                        const cIdx = certs.findIndex((x) => x.id === c.id);
+                        if (cIdx !== -1) {
+                          setCerts(
+                            updateItemAtIndex(certs, cIdx, {
+                              showOnHome: e.target.checked,
+                            }),
+                          );
+                        }
+                      }}
+                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5"
+                    />
+                    <div className="text-xs">
+                      <span className="font-semibold block">{certTitle}</span>
+                      <span className="text-[10px] text-gray-400">{certOrg} ({c.year})</span>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Certifications Filter Tabs in Editor */}
@@ -376,39 +386,7 @@ export const CertsTab = ({
               </div>
             </div>
 
-            {/* Profile Selection */}
-            <div className="border-t border-white/5 pt-2">
-              <span className="block text-xs font-semibold text-gray-400 mb-1.5">
-                Include in CV Profiles:
-              </span>
-              <div className="flex flex-wrap gap-4">
-                {PROFILES.map((profile) => (
-                  <label
-                    key={profile.id}
-                    className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={
-                        cert.showInResume?.includes(profile.id) || false
-                      }
-                      onChange={() => {
-                        setCerts(
-                          updateItemAtIndex(certs, cIdx, {
-                            showInResume: toggleProfile(
-                              cert.showInResume,
-                              profile.id,
-                            ),
-                          }),
-                        );
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                    />
-                    {profile.label}
-                  </label>
-                ))}
-              </div>
-            </div>
+
 
             {/* Section Highlight (Pin to Top) */}
             <div className="border-t border-white/5 pt-3 mt-2 flex justify-between items-center">

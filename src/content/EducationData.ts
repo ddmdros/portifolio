@@ -28,7 +28,6 @@ export const EDUCATION_DATA: EducationType[] = [
     "instKey": "resume.edu.java.inst",
     "dateKey": "resume.edu.java.date",
     "showInResume": [
-      "general",
       "cloud",
       "backend",
       "frontend",

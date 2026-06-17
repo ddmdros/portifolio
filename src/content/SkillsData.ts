@@ -14,7 +14,8 @@ export const SKILLS_DATA: SkillType[] = [
     "categoryKey": "about.stacks.programming.languages",
     "name": "Python",
     "showInResume": [
-      "ia_ml"
+      "ia_ml",
+      "general"
     ]
   },
   {
@@ -53,7 +54,6 @@ export const SKILLS_DATA: SkillType[] = [
     "categoryKey": "about.stacks.web.game.dev",
     "name": "React",
     "showInResume": [
-      "general",
       "frontend",
       "fullstack"
     ]
@@ -63,7 +63,6 @@ export const SKILLS_DATA: SkillType[] = [
     "categoryKey": "about.stacks.web.game.dev",
     "name": "TypeScript",
     "showInResume": [
-      "general",
       "frontend",
       "fullstack",
       "backend",
@@ -77,7 +76,6 @@ export const SKILLS_DATA: SkillType[] = [
     "categoryKey": "about.stacks.web.game.dev",
     "name": "Tailwind CSS",
     "showInResume": [
-      "general",
       "frontend",
       "fullstack"
     ]
@@ -97,7 +95,8 @@ export const SKILLS_DATA: SkillType[] = [
     "name": "Node.js",
     "showInResume": [
       "backend",
-      "fullstack"
+      "fullstack",
+      "general"
     ]
   },
   {
@@ -131,7 +130,8 @@ export const SKILLS_DATA: SkillType[] = [
     "showInResume": [
       "backend",
       "fullstack",
-      "ia_ml"
+      "ia_ml",
+      "general"
     ]
   },
   {

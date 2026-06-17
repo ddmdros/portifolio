@@ -83,6 +83,12 @@ console.log('Successfully loaded profile configurations and resume/portfolio dat
 function getHtmlTemplate(lang, messages, profile) {
   const getMsg = (key) => messages[key] || key;
 
+  const profileHeaderKey = `resume.profile.${profile}.header`;
+  const profileHeader = messages[profileHeaderKey] || (lang === 'pt' ? 'Engenheiro Full-Stack' : 'Full-Stack Engineer');
+
+  const profileGoalKey = `resume.profile.${profile}.goal`;
+  const profileGoal = messages[profileGoalKey] || getMsg('resume.goal');
+
   // Filter projects by active profile
   const resumeProjects = PROJECTS_DATA.filter(p => p.showInResume && p.showInResume.includes(profile));
 
@@ -395,7 +401,7 @@ function getHtmlTemplate(lang, messages, profile) {
 <body>
   <div class="header">
     <h1 class="name">${PROFILE_CONFIG.name}</h1>
-    <h2 class="title">${lang === 'pt' ? 'Engenheiro Full-Stack' : 'Full-Stack Engineer'}</h2>
+    <h2 class="title">${profileHeader}</h2>
     <p class="contact-bar">
       Lages, Brazil &bull; <a href="mailto:${PROFILE_CONFIG.emailResume}">${PROFILE_CONFIG.emailResume}</a> &bull; <a href="${linkedinUrl}" target="_blank">linkedin.com/in/${PROFILE_CONFIG.linkedinUser}</a> &bull; <a href="${githubUrl}" target="_blank">github.com/${PROFILE_CONFIG.githubUser}</a>
     </p>
@@ -403,7 +409,7 @@ function getHtmlTemplate(lang, messages, profile) {
 
   <div class="section-title">${lang === 'pt' ? 'Objetivo' : 'Goal'}</div>
   <div class="section-content" style="line-height: 1.45;">
-    ${getMsg('resume.goal')}
+    ${profileGoal}
   </div>
 
   <div class="section-title">${getMsg('resume.section.education')}</div>
