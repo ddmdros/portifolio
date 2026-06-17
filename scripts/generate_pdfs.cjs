@@ -452,7 +452,7 @@ function getHtmlTemplate(lang, messages, profile) {
       <ul style="padding-left: 12px;">
         ${certsHtml}
       </ul>
-      <p style="margin: 4px 0 0 0; padding-left: 12px;"><strong>${lang === 'pt' ? 'Mais certificações:' : 'More certifications:'}</strong> <a href="${googleSkillsProfile}" target="_blank">${lang === 'pt' ? 'aqui' : 'here'}</a></p>
+      <p style="margin: 4px 0 0 0; padding-left: 12px;"><strong>${lang === 'pt' ? 'Mais certificações:' : 'More certifications:'}</strong> <a href="${portfolioUrl}/${lang}/resume#certifications" target="_blank">${lang === 'pt' ? 'aqui' : 'here'}</a></p>
     </div>
 
     <div class="col">

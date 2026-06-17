@@ -1,4 +1,5 @@
-import { Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type ProjectType, type ProjectCategory } from "../../types/projectType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 
@@ -15,6 +16,45 @@ export const ProjectsTab = ({
   updateTrans,
   getTrans,
 }: ProjectsTabProps) => {
+  const [draggedId, setDraggedId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [canDragId, setCanDragId] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, id: string) => {
+    setDraggedId(id);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent, id: string) => {
+    e.preventDefault();
+    if (draggedId !== id) {
+      setDragOverId(id);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent, targetId: string) => {
+    e.preventDefault();
+    if (draggedId && draggedId !== targetId) {
+      const fromIdx = projects.findIndex((p) => p.id === draggedId);
+      const toIdx = projects.findIndex((p) => p.id === targetId);
+      if (fromIdx !== -1 && toIdx !== -1) {
+        const newProjects = [...projects];
+        const [moved] = newProjects.splice(fromIdx, 1);
+        newProjects.splice(toIdx, 0, moved);
+        setProjects(newProjects);
+      }
+    }
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center pb-4 border-b border-white/5">
@@ -54,12 +94,34 @@ export const ProjectsTab = ({
         {projects.map((proj, pIdx) => (
           <div
             key={proj.id}
-            className="border border-white/5 p-5 rounded-2xl bg-white/5/20 space-y-4"
+            draggable={canDragId === proj.id}
+            onDragStart={(e) => handleDragStart(e, proj.id)}
+            onDragOver={(e) => handleDragOver(e, proj.id)}
+            onDrop={(e) => handleDrop(e, proj.id)}
+            onDragEnd={handleDragEnd}
+            className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
+              draggedId === proj.id ? "opacity-40 scale-[0.98]" : ""
+            } ${
+              dragOverId === proj.id
+                ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
+                : "border-white/5"
+            }`}
           >
-            <div className="flex justify-between items-center">
-              <span className="text-xs font-mono text-gray-500">
-                ID: {proj.id}
-              </span>
+            <div className="flex justify-between items-center select-none">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onMouseDown={() => setCanDragId(proj.id)}
+                  onMouseUp={() => setCanDragId(null)}
+                  className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
+                  title="Drag to reorder"
+                >
+                  <GripVertical size={14} />
+                </button>
+                <span className="text-xs font-mono text-gray-500">
+                  ID: {proj.id}
+                </span>
+              </div>
               <button
                 onClick={() =>
                   setProjects(projects.filter((p) => p.id !== proj.id))

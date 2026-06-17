@@ -1,4 +1,5 @@
-import { Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type EducationType } from "../../content/EducationData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 
@@ -15,6 +16,45 @@ export const EduTab = ({
   updateTrans,
   getTrans,
 }: EduTabProps) => {
+  const [draggedId, setDraggedId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [canDragId, setCanDragId] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, id: string) => {
+    setDraggedId(id);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent, id: string) => {
+    e.preventDefault();
+    if (draggedId !== id) {
+      setDragOverId(id);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent, targetId: string) => {
+    e.preventDefault();
+    if (draggedId && draggedId !== targetId) {
+      const fromIdx = edu.findIndex((x) => x.id === draggedId);
+      const toIdx = edu.findIndex((x) => x.id === targetId);
+      if (fromIdx !== -1 && toIdx !== -1) {
+        const newEdu = [...edu];
+        const [moved] = newEdu.splice(fromIdx, 1);
+        newEdu.splice(toIdx, 0, moved);
+        setEdu(newEdu);
+      }
+    }
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center pb-4 border-b border-white/5">
@@ -53,12 +93,34 @@ export const EduTab = ({
         {edu.map((item, eIdx) => (
           <div
             key={item.id}
-            className="border border-white/5 p-5 rounded-2xl bg-white/5/20 space-y-4"
+            draggable={canDragId === item.id}
+            onDragStart={(e) => handleDragStart(e, item.id)}
+            onDragOver={(e) => handleDragOver(e, item.id)}
+            onDrop={(e) => handleDrop(e, item.id)}
+            onDragEnd={handleDragEnd}
+            className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
+              draggedId === item.id ? "opacity-40 scale-[0.98]" : ""
+            } ${
+              dragOverId === item.id
+                ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
+                : "border-white/5"
+            }`}
           >
-            <div className="flex justify-between items-center">
-              <span className="text-xs font-mono text-gray-500">
-                ID: {item.id}
-              </span>
+            <div className="flex justify-between items-center select-none">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onMouseDown={() => setCanDragId(item.id)}
+                  onMouseUp={() => setCanDragId(null)}
+                  className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
+                  title="Drag to reorder"
+                >
+                  <GripVertical size={14} />
+                </button>
+                <span className="text-xs font-mono text-gray-500">
+                  ID: {item.id}
+                </span>
+              </div>
               <button
                 onClick={() => setEdu(edu.filter((x) => x.id !== item.id))}
                 className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"

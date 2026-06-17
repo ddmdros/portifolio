@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Trash2, AlertTriangle } from "lucide-react";
+import { Plus, Trash2, AlertTriangle, GripVertical } from "lucide-react";
 import { type CertificationType } from "../../types/certificationType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 
@@ -18,6 +18,45 @@ export const CertsTab = ({
 }: CertsTabProps) => {
   const [certFilter, setCertFilter] = useState<string>("all");
   const [showHighlights, setShowHighlights] = useState<boolean>(false);
+
+  const [draggedId, setDraggedId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [canDragId, setCanDragId] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, id: string) => {
+    setDraggedId(id);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent, id: string) => {
+    e.preventDefault();
+    if (draggedId !== id) {
+      setDragOverId(id);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent, targetId: string) => {
+    e.preventDefault();
+    if (draggedId && draggedId !== targetId) {
+      const fromIdx = certs.findIndex((c) => c.id === draggedId);
+      const toIdx = certs.findIndex((c) => c.id === targetId);
+      if (fromIdx !== -1 && toIdx !== -1) {
+        const newCerts = [...certs];
+        const [moved] = newCerts.splice(fromIdx, 1);
+        newCerts.splice(toIdx, 0, moved);
+        setCerts(newCerts);
+      }
+    }
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
   const homeCertsCount = certs.filter((c) => c.showOnHome).length;
 
   const existingOrgsEn = Array.from(
@@ -194,16 +233,36 @@ export const CertsTab = ({
             return (
               <div
                 key={cert.id}
-                className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all ${
-                  cert.sectionHighlight
-                    ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.05)]"
-                    : "border-white/5"
+                draggable={canDragId === cert.id}
+                onDragStart={(e) => handleDragStart(e, cert.id)}
+                onDragOver={(e) => handleDragOver(e, cert.id)}
+                onDrop={(e) => handleDrop(e, cert.id)}
+                onDragEnd={handleDragEnd}
+                className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
+                  draggedId === cert.id ? "opacity-40 scale-[0.98]" : ""
+                } ${
+                  dragOverId === cert.id
+                    ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
+                    : cert.sectionHighlight
+                      ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.05)]"
+                      : "border-white/5"
                 }`}
               >
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-mono text-gray-500">
-                    ID: {cert.id}
-                  </span>
+                <div className="flex justify-between items-center select-none">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onMouseDown={() => setCanDragId(cert.id)}
+                      onMouseUp={() => setCanDragId(null)}
+                      className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
+                      title="Drag to reorder"
+                    >
+                      <GripVertical size={14} />
+                    </button>
+                    <span className="text-xs font-mono text-gray-500">
+                      ID: {cert.id}
+                    </span>
+                  </div>
                   <button
                     onClick={() => setCerts(certs.filter((c) => c.id !== cert.id))}
                     className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"

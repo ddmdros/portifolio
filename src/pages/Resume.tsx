@@ -1,11 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import {
-  Download,
-  Code,
-  ChevronDown,
-} from "lucide-react";
+import { Download, Code } from "lucide-react";
 import { SKILLS_DATA } from "../content/SkillsData";
 import { ExperienceSection } from "../components/resume/ExperienceSection";
 import { EducationSection } from "../components/resume/EducationSection";
@@ -14,20 +10,9 @@ import { ResumeCertificationsSection } from "../components/resume/ResumeCertific
 
 const SCROLL_DELAY_MS = 100;
 
-const downloadProfiles = [
-  { id: "general", labelId: "resume.profile.general" },
-  { id: "cloud", labelId: "resume.profile.cloud" },
-  { id: "backend", labelId: "resume.profile.backend" },
-  { id: "frontend", labelId: "resume.profile.frontend" },
-  { id: "fullstack", labelId: "resume.profile.fullstack" },
-  { id: "ia_ml", labelId: "resume.profile.ia_ml" },
-] as const;
-
 export const Resume = () => {
   const { hash } = useLocation();
   const { locale } = useIntl();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (hash) {
@@ -41,20 +26,6 @@ export const Resume = () => {
       }
     }
   }, [hash]);
-
-  // Click outside to close dropdown
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // Dynamically generate skillsList from SKILLS_DATA (excluding languages category)
   const technicalSkills = SKILLS_DATA.filter(
@@ -83,10 +54,15 @@ export const Resume = () => {
           </h1>
         </div>
 
-        {/* Botão de Download com Dropdown de Perfis */}
-        <div className="relative w-full md:w-auto md:self-center" ref={dropdownRef}>
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
+        {/* Botão de Download Direto (Apenas Geral) */}
+        <div className="w-full md:w-auto md:self-center">
+          <a
+            href={`/assets/resume_${locale === "pt" ? "pt" : "en"}.pdf`}
+            download={
+              locale === "pt"
+                ? "Curriculo_Diogo_Medeiros.pdf"
+                : "Resume_Diogo_Medeiros.pdf"
+            }
             className="w-full md:w-auto flex items-center justify-center md:justify-start gap-2 bg-accent border border-accent text-accent-text hover:bg-accent-hover font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
           >
             <Download size={18} />
@@ -94,34 +70,7 @@ export const Resume = () => {
               id="resume.download"
               defaultMessage="Download CV (PDF)"
             />
-            <ChevronDown
-              size={16}
-              className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
-            />
-          </button>
-
-          {dropdownOpen && (
-            <div className="absolute left-0 right-0 md:left-auto md:right-0 mt-2 w-full md:w-64 bg-card-bg/95 backdrop-blur-md border border-white/10 rounded-2xl py-2 shadow-2xl z-50 animate-fade-in">
-              <div className="px-4 py-1.5 text-[10px] font-mono text-accent/70 uppercase border-b border-white/5 mb-1">
-                Select Tailored Profile:
-              </div>
-              {downloadProfiles.map((profile) => (
-                <a
-                  key={profile.id}
-                  href={`/assets/resume_${profile.id}_${locale === "pt" ? "pt" : "en"}.pdf`}
-                  download={
-                    locale === "pt"
-                      ? `Curriculo_Diogo_Medeiros_${profile.id}.pdf`
-                      : `Resume_Diogo_Medeiros_${profile.id}.pdf`
-                  }
-                  className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors text-left"
-                  onClick={() => setDropdownOpen(false)}
-                >
-                  <FormattedMessage id={profile.labelId} />
-                </a>
-              ))}
-            </div>
-          )}
+          </a>
         </div>
       </div>
 

@@ -5,7 +5,7 @@ import { type EducationType } from "../../content/EducationData";
 import { type ExperienceType } from "../../content/ExperienceData";
 import { type SkillType } from "../../content/SkillsData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
-import { FileText } from "lucide-react";
+import { FileText, Download } from "lucide-react";
 
 interface ResumesTabProps {
   certs: CertificationType[];
@@ -70,6 +70,32 @@ export const ResumesTab = ({
             {profile.label}
           </button>
         ))}
+      </div>
+
+      {/* Download Profile PDFs (available when running locally and built) */}
+      <div className="flex flex-wrap items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-5">
+        <div className="flex-1 min-w-[200px]">
+          <h3 className="text-sm font-bold text-accent">Download PDF for this Profile</h3>
+          <p className="text-xs text-gray-400 mt-1">
+            Access the generated PDFs for the <strong>{PROFILES.find(p => p.id === activeProfile)?.label}</strong> profile.
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <a
+            href={`/assets/resume_${activeProfile}_en.pdf`}
+            download={`Resume_Diogo_Medeiros_${activeProfile}.pdf`}
+            className="flex items-center gap-2 bg-white/5 border border-white/10 text-gray-300 font-semibold py-2 px-4 rounded-xl hover:bg-white/10 hover:text-white transition-all text-xs select-none"
+          >
+            <Download size={14} /> Download EN
+          </a>
+          <a
+            href={`/assets/resume_${activeProfile}_pt.pdf`}
+            download={`Curriculo_Diogo_Medeiros_${activeProfile}.pdf`}
+            className="flex items-center gap-2 bg-white/5 border border-white/10 text-gray-300 font-semibold py-2 px-4 rounded-xl hover:bg-white/10 hover:text-white transition-all text-xs select-none"
+          >
+            <Download size={14} /> Download PT
+          </a>
+        </div>
       </div>
 
       {/* Profile Metadata Editor (Header, Goal, Description) */}
