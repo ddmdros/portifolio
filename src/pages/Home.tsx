@@ -3,7 +3,7 @@ import Projects from "../components/Projects";
 import AboutGroupedStacks from "../components/AboutGroupedStacks";
 import ResumePreview from "../components/ResumePreview";
 import ContactPreview from "../components/ContactPreview";
-import ScrollReveal from "../components/ScrollReveal";
+import { ScrollReveal } from "../components/ScrollReveal";
 
 export const Home = () => {
   return (
@@ -29,4 +29,3 @@ export const Home = () => {
   );
 };
 
-export default Home;

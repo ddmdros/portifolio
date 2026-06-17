@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import SectionDiv from "./SectionDiv";
+import { SectionDiv } from "./SectionDiv";
 import { Mail, ArrowRight } from "lucide-react";
 
 const ContactPreview = () => {

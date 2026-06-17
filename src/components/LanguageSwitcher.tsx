@@ -158,4 +158,3 @@ export const LanguageSwitcher = ({
   );
 };
 
-export default LanguageSwitcher;

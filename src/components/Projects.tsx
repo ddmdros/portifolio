@@ -1,6 +1,6 @@
 import ProjectItem from "./ProjectItem";
 import { PROJECTS_DATA } from "../content/ProjectsData";
-import SectionDiv from "./SectionDiv";
+import { SectionDiv } from "./SectionDiv";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 

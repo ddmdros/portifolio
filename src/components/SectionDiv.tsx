@@ -19,4 +19,3 @@ export const SectionDiv = ({
   );
 };
 
-export default SectionDiv;

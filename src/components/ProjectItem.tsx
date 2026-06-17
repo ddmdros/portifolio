@@ -1,5 +1,5 @@
 import { useState } from "react";
-import KeywordTag from "./KeywordTag";
+import { KeywordTag } from "./KeywordTag";
 import { type ProjectCategory } from "../types/projectType";
 import { FaGithub, FaBook } from "react-icons/fa6";
 import { ExternalLink } from "lucide-react";

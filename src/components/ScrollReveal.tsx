@@ -50,4 +50,3 @@ export const ScrollReveal = ({ children, className = "" }: ScrollRevealProps) =>
   );
 };
 
-export default ScrollReveal;

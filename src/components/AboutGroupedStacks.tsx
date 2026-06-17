@@ -17,7 +17,7 @@ import { FaJava, FaHtml5, FaCss3 } from "react-icons/fa";
 
 import { TbBrandCSharp } from "react-icons/tb";
 
-import SectionDiv from "./SectionDiv";
+import { SectionDiv } from "./SectionDiv";
 import { FormattedMessage } from "react-intl";
 
 const techStackGroups = [

@@ -377,4 +377,3 @@ export const DevMode = () => {
   );
 };
 
-export default DevMode;

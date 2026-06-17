@@ -9,4 +9,3 @@ export const KeywordTag = ({ label }: KeywordTagProps) => {
   );
 };
 
-export default KeywordTag;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import LanguageSwitcher from "./LanguageSwitcher";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";

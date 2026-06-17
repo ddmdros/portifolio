@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
-import SectionDiv from "./SectionDiv";
+import { SectionDiv } from "./SectionDiv";
 import { GraduationCap, Briefcase, ArrowRight, Award, ExternalLink, Pin } from "lucide-react";
 import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
 import { EDUCATION_DATA } from "../content/EducationData";
