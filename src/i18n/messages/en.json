@@ -167,5 +167,15 @@
   "resume.cert.filter.featured": "Featured",
   "footer.backToTop": "Back to Top",
   "resume.cert.custom9.title": "LangChain and Python: creating tools with OpenAI",
-  "resume.cert.custom9.org": "Alura"
+  "resume.cert.custom9.org": "Alura",
+  "resume.cert.custom10.title": "After effects: anime personagens com Duik",
+  "resume.cert.custom10.org": "Alura",
+  "resume.cert.custom11.title": "C#: applying Object Orientation",
+  "resume.cert.custom11.org": "Alura",
+  "resume.cert.custom12.title": "C#: creating your first application",
+  "resume.cert.custom12.org": "Alura",
+  "resume.cert.custom13.title": "Learn Java with Object Oriented Programming",
+  "resume.cert.custom13.org": "Alura",
+  "resume.cert.custom14.title": "Internet: Understanding the Fundamentals of the Web",
+  "resume.cert.custom14.org": "Alura"
 }

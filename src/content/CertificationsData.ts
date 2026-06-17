@@ -118,6 +118,78 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "category": "ia_ml",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=en",
     "showOnHome": false,
+    "credentialUrlEn": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=pt_BR"
+  },
+  {
+    "id": "10",
+    "titleKey": "resume.cert.custom10.title",
+    "orgKey": "resume.cert.custom10.org",
+    "year": "2026",
+    "showInResume": [
+      "frontend"
+    ],
+    "category": "game_dev",
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/after-effects-anime-personagens-duik/certificate?lang=en",
+    "credentialUrlEn": "https://cursos.alura.com.br/user/diogome-deiros/course/after-effects-anime-personagens-duik/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/after-effects-anime-personagens-duik/certificate",
+    "showOnHome": false,
+    "hours": "10"
+  },
+  {
+    "id": "11",
+    "titleKey": "resume.cert.custom11.title",
+    "orgKey": "resume.cert.custom11.org",
+    "year": "2026",
+    "showInResume": [
+      "backend"
+    ],
+    "category": "back",
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-aplicando-orientacao-objetos/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-aplicando-orientacao-objetos/certificate",
+    "showOnHome": false,
+    "hours": "8"
+  },
+  {
+    "id": "12",
+    "titleKey": "resume.cert.custom12.title",
+    "orgKey": "resume.cert.custom12.org",
+    "year": "2025",
+    "showInResume": [
+      "backend"
+    ],
+    "category": "cloud",
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-criando-primeira-aplicacao/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-criando-primeira-aplicacao/certificate",
+    "showOnHome": false,
+    "hours": "8"
+  },
+  {
+    "id": "13",
+    "titleKey": "resume.cert.custom13.title",
+    "orgKey": "resume.cert.custom13.org",
+    "year": "2026",
+    "showInResume": [
+      "backend"
+    ],
+    "category": "cloud",
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/degree-java-568827/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/degree-java-568827/certificate",
+    "showOnHome": false,
+    "hours": "40"
+  },
+  {
+    "id": "14",
+    "titleKey": "resume.cert.custom14.title",
+    "orgKey": "resume.cert.custom14.org",
+    "year": "2026",
+    "showInResume": [
+      "cloud"
+    ],
+    "category": "cloud",
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/internet-entendendo-fundamentos-da-web/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/internet-entendendo-fundamentos-da-web/certificate",
+    "showOnHome": false,
+    "hours": "8"
   }
 ];

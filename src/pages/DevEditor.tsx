@@ -151,53 +151,7 @@ export const DevEditor = () => {
             Local Portfolio & CV Editor
           </h1>
         </div>
-
-        <div className="flex flex-wrap gap-3">
-          <button
-            onClick={() => handleSave(false)}
-            disabled={isSaving}
-            className="flex items-center gap-2 border border-white/10 bg-white/5 text-gray-300 font-bold py-2.5 px-6 rounded-xl hover:bg-white/10 hover:text-white disabled:opacity-50 transition-all cursor-pointer select-none"
-          >
-            {isSaving ? (
-              <span className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
-            ) : (
-              <Save size={18} />
-            )}
-            Save Content (Fast)
-          </button>
-
-          <button
-            onClick={() => handleSave(true)}
-            disabled={isSaving}
-            className="flex items-center gap-2 bg-accent text-black font-bold py-2.5 px-6 rounded-xl hover:bg-accent/90 disabled:opacity-50 transition-all cursor-pointer select-none btn-shimmer"
-          >
-            {isSaving ? (
-              <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
-            ) : (
-              <Save size={18} />
-            )}
-            Save & Build PDFs
-          </button>
-        </div>
       </div>
-
-      {/* Save Status Banner */}
-      {saveStatus && (
-        <div
-          className={`flex items-center gap-3 p-4 rounded-xl mb-6 ${
-            saveStatus.type === "success"
-              ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
-              : "bg-red-500/10 border border-red-500/30 text-red-400"
-          }`}
-        >
-          {saveStatus.type === "success" ? (
-            <Check size={20} />
-          ) : (
-            <AlertCircle size={20} />
-          )}
-          <span className="text-sm font-medium">{saveStatus.message}</span>
-        </div>
-      )}
 
       {/* Tab Navigation */}
       <div className="flex flex-wrap gap-2 mb-8 border-b border-white/5 pb-4">
@@ -289,6 +243,53 @@ export const DevEditor = () => {
             updateTrans={updateTrans}
           />
         )}
+      </div>
+
+      {/* Save Status Banner */}
+      {saveStatus && (
+        <div
+          className={`flex items-center gap-3 p-4 rounded-xl mt-6 ${
+            saveStatus.type === "success"
+              ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
+              : "bg-red-500/10 border border-red-500/30 text-red-400"
+          }`}
+        >
+          {saveStatus.type === "success" ? (
+            <Check size={20} />
+          ) : (
+            <AlertCircle size={20} />
+          )}
+          <span className="text-sm font-medium">{saveStatus.message}</span>
+        </div>
+      )}
+
+      {/* Save Action Buttons at the Bottom */}
+      <div className="flex justify-end gap-3 mt-6 pt-6 border-t border-white/5">
+        <button
+          onClick={() => handleSave(false)}
+          disabled={isSaving}
+          className="flex items-center gap-2 border border-white/10 bg-white/5 text-gray-300 font-bold py-2.5 px-6 rounded-xl hover:bg-white/10 hover:text-white disabled:opacity-50 transition-all cursor-pointer select-none"
+        >
+          {isSaving ? (
+            <span className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <Save size={18} />
+          )}
+          Save Content (Fast)
+        </button>
+
+        <button
+          onClick={() => handleSave(true)}
+          disabled={isSaving}
+          className="flex items-center gap-2 bg-accent text-black font-bold py-2.5 px-6 rounded-xl hover:bg-accent/90 disabled:opacity-50 transition-all cursor-pointer select-none btn-shimmer"
+        >
+          {isSaving ? (
+            <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <Save size={18} />
+          )}
+          Save & Build PDFs
+        </button>
       </div>
     </main>
   );

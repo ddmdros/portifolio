@@ -30,35 +30,6 @@ export const CertsTab = ({
             Feature up to 5 certifications on the homepage ({homeCertsCount}/5 selected)
           </p>
         </div>
-        <button
-          onClick={() => {
-            const newId = (certs.length + 1).toString();
-            const titleKey = `resume.cert.custom${newId}.title`;
-            const orgKey = `resume.cert.custom${newId}.org`;
-            updateTrans(titleKey, "en", "New Certification Name");
-            updateTrans(titleKey, "pt", "Nome da Nova Certificação");
-            updateTrans(orgKey, "en", "Issuer Org");
-            updateTrans(orgKey, "pt", "Org Emissora");
-
-            setCerts([
-              ...certs,
-              {
-                id: newId,
-                titleKey,
-                orgKey,
-                year: new Date().getFullYear().toString(),
-                showInResume: [],
-                category: "cloud",
-                credentialUrl: "",
-                credentialUrlPt: "",
-                showOnHome: false,
-              },
-            ]);
-          }}
-          className="flex items-center gap-1 text-xs bg-white/5 border border-white/10 text-accent font-bold px-3 py-1.5 rounded-lg hover:bg-white/10 cursor-pointer"
-        >
-          <Plus size={14} /> Add Certification
-        </button>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -297,6 +268,38 @@ export const CertsTab = ({
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center pt-4">
+        <button
+          onClick={() => {
+            const newId = (certs.length + 1).toString();
+            const titleKey = `resume.cert.custom${newId}.title`;
+            const orgKey = `resume.cert.custom${newId}.org`;
+            updateTrans(titleKey, "en", "New Certification Name");
+            updateTrans(titleKey, "pt", "Nome da Nova Certificação");
+            updateTrans(orgKey, "en", "Issuer Org");
+            updateTrans(orgKey, "pt", "Org Emissora");
+
+            setCerts([
+              ...certs,
+              {
+                id: newId,
+                titleKey,
+                orgKey,
+                year: new Date().getFullYear().toString(),
+                showInResume: [],
+                category: "cloud",
+                credentialUrl: "",
+                credentialUrlPt: "",
+                showOnHome: false,
+              },
+            ]);
+          }}
+          className="flex items-center gap-1.5 text-xs bg-white/5 border border-white/10 text-accent font-bold px-4 py-2 rounded-lg hover:bg-white/10 cursor-pointer"
+        >
+          <Plus size={14} /> Add Certification
+        </button>
       </div>
     </div>
   );
