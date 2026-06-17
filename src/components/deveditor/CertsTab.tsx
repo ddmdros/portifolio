@@ -50,7 +50,6 @@ export const CertsTab = ({
                 showInResume: [],
                 category: "cloud",
                 credentialUrl: "",
-                credentialUrlEn: "",
                 credentialUrlPt: "",
                 showOnHome: false,
               },
@@ -139,7 +138,7 @@ export const CertsTab = ({
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <div className="col-span-1">
+              <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
                   Year
                 </label>
@@ -152,7 +151,25 @@ export const CertsTab = ({
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
                 />
               </div>
-              <div className="col-span-2">
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 mb-1">
+                  Hours (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={cert.hours || ""}
+                  onChange={(e) => {
+                    setCerts(
+                      updateItemAtIndex(certs, cIdx, {
+                        hours: e.target.value || undefined,
+                      }),
+                    );
+                  }}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  placeholder="e.g. 40"
+                />
+              </div>
+              <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
                   Category
                 </label>
@@ -177,10 +194,10 @@ export const CertsTab = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
-              <div className="col-span-1">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Credential Link (Default)
+                  Credential Link (English / Default)
                 </label>
                 <input
                   type="text"
@@ -195,24 +212,7 @@ export const CertsTab = ({
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
                 />
               </div>
-              <div className="col-span-1">
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Credential Link (English)
-                </label>
-                <input
-                  type="text"
-                  value={cert.credentialUrlEn || ""}
-                  onChange={(e) => {
-                    setCerts(
-                      updateItemAtIndex(certs, cIdx, {
-                        credentialUrlEn: e.target.value || undefined,
-                      }),
-                    );
-                  }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
-                />
-              </div>
-              <div className="col-span-1">
+              <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
                   Credential Link (Portuguese)
                 </label>

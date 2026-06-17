@@ -11,7 +11,6 @@ const ResumePreview = () => {
   const { locale } = useIntl();
   const getCertUrl = (cert: typeof CERTIFICATIONS_DATA[0]) => {
     if (locale === "pt" && cert.credentialUrlPt) return cert.credentialUrlPt;
-    if (locale === "en" && cert.credentialUrlEn) return cert.credentialUrlEn;
     return cert.credentialUrl;
   };
   return (
@@ -130,6 +129,7 @@ const ResumePreview = () => {
                     </p>
                     <p className="text-[10px] text-gray-500">
                       <FormattedMessage id={cert.orgKey} /> &bull; {cert.year}
+                      {cert.hours && ` \u2022 ${cert.hours}h`}
                     </p>
                   </div>
                 ))}

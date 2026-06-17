@@ -7,8 +7,8 @@ export interface CertificationType {
   year: string;
   showInResume: string[];
   category: CertificationCategory;
+  hours?: string;
   credentialUrl?: string;
-  credentialUrlEn?: string;
   credentialUrlPt?: string;
   showOnHome?: boolean;
 }

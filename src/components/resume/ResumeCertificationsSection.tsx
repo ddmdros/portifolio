@@ -22,7 +22,6 @@ export const ResumeCertificationsSection = ({
 
   const getCertUrl = (cert: typeof CERTIFICATIONS_DATA[0]) => {
     if (locale === "pt" && cert.credentialUrlPt) return cert.credentialUrlPt;
-    if (locale === "en" && cert.credentialUrlEn) return cert.credentialUrlEn;
     return cert.credentialUrl;
   };
 
@@ -132,6 +131,7 @@ export const ResumeCertificationsSection = ({
                 </h4>
                 <p className="text-xs text-gray-500 font-medium">
                   <FormattedMessage id={cert.orgKey} /> &bull; {cert.year}
+                  {cert.hours && ` \u2022 ${cert.hours}h`}
                 </p>
               </div>
             </div>

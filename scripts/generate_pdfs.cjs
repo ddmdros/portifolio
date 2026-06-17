@@ -108,13 +108,14 @@ function getHtmlTemplate(lang, messages, profile) {
   const featuredCerts = CERTIFICATIONS_DATA.filter(c => c.showInResume && c.showInResume.includes(profile));
 
   const certsHtml = featuredCerts.map(cert => {
-    const certUrl = (lang === 'pt' && cert.credentialUrlPt) ? cert.credentialUrlPt : ((lang === 'en' && cert.credentialUrlEn) ? cert.credentialUrlEn : cert.credentialUrl);
+    const certUrl = (lang === 'pt' && cert.credentialUrlPt) ? cert.credentialUrlPt : cert.credentialUrl;
     const linkHtml = certUrl ? ` &bull; <a href="${certUrl}" target="_blank" style="color: #059669;">${lang === 'pt' ? 'credencial' : 'credential'}</a>` : '';
+    const hoursHtml = cert.hours ? ` &bull; ${cert.hours}h` : '';
     return `
       <li style="margin-bottom: 5px;">
         <strong>${getMsg(cert.titleKey)}</strong>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #555555; margin-top: 1px;">
-          ${getMsg(cert.orgKey)} &bull; ${cert.year}${linkHtml}
+          ${getMsg(cert.orgKey)} &bull; ${cert.year}${hoursHtml}${linkHtml}
         </div>
       </li>
     `;
