@@ -119,7 +119,6 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "category": "ia_ml",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=en",
     "showOnHome": false,
-    "credentialUrlEn": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=pt_BR"
   },
   {
@@ -132,7 +131,6 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     ],
     "category": "game_dev",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/after-effects-anime-personagens-duik/certificate?lang=en",
-    "credentialUrlEn": "https://cursos.alura.com.br/user/diogome-deiros/course/after-effects-anime-personagens-duik/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/after-effects-anime-personagens-duik/certificate",
     "showOnHome": false,
     "hours": "10"
