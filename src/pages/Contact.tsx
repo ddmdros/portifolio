@@ -188,7 +188,7 @@ export const Contact = () => {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full flex items-center justify-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3.5 px-6 rounded-xl transition-all hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed btn-shimmer"
+              className="w-full flex items-center justify-center gap-2 bg-accent-subtle border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3.5 px-6 rounded-xl transition-all hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed btn-shimmer"
             >
               {status === "sending" ? (
                 <>

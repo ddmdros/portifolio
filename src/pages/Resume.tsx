@@ -87,7 +87,7 @@ export const Resume = () => {
         <div className="relative w-full md:w-auto md:self-center" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="w-full md:w-auto flex items-center justify-center md:justify-start gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
+            className="w-full md:w-auto flex items-center justify-center md:justify-start gap-2 bg-accent-subtle border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
           >
             <Download size={18} />
             <FormattedMessage

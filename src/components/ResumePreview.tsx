@@ -25,7 +25,7 @@ const ResumePreview = () => {
         </h2>
         <Link
           to={`/${locale}/resume`}
-          className="self-start md:self-center inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer whitespace-nowrap"
+          className="self-start md:self-center inline-flex items-center gap-2 bg-accent-subtle border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer whitespace-nowrap"
         >
           <FormattedMessage id="home.resume.preview.button" defaultMessage="View Full Resume" />
           <ArrowRight size={16} />

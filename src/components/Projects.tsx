@@ -26,7 +26,7 @@ const Projects = () => {
         <div className="flex justify-center mt-10">
           <Link
             to={`/${locale}/projects`}
-            className="inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3 px-6 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
+            className="inline-flex items-center gap-2 bg-accent-subtle border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3 px-6 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
           >
             <FormattedMessage id="projects.view.more.cta" defaultMessage="View Other Projects →" />
           </Link>
