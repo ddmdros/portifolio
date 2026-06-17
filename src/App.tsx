@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { IntlProvider } from "react-intl";
+import { IntlProvider, FormattedMessage } from "react-intl";
 import { BrowserRouter, Routes, Route, useParams, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { ArrowUp } from "lucide-react";
 
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
@@ -18,6 +19,18 @@ import { DevEditor } from "./pages/DevEditor";
 const messagesMap: Record<string, Record<string, string>> = {
   pt: ptbrMessages,
   en: enMessages,
+};
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
+  return null;
 };
 
 // Component to handle layout and sync language from URL
@@ -85,31 +98,44 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <IntlProvider locale={locale} messages={messagesMap[locale]}>
-        <div className="min-h-screen bg-bg text-text transition-colors duration-300">
-          <Header
-            currentLocale={locale}
-            setLocale={setLocale}
-            theme={theme}
-            toggleTheme={toggleTheme}
-          />
+        <div className="min-h-screen bg-bg text-text transition-colors duration-300 flex flex-col justify-between">
+          <div>
+            <Header
+              currentLocale={locale}
+              setLocale={setLocale}
+              theme={theme}
+              toggleTheme={toggleTheme}
+            />
 
-          <Routes>
-            {/* Multi-language parent route */}
-            <Route path="/:lang" element={<LanguageLayout setLocale={setLocale} />}>
-              <Route index element={<Home />} />
-              <Route path="projects" element={<ProjectsPage />} />
-              <Route path="blog" element={<Blog />} />
-              <Route path="blog/:id" element={<BlogPost />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="resume" element={<Resume />} />
-              <Route path="docs/:slug" element={<DocsPage />} />
-              <Route path="dev-editor" element={<DevEditor />} />
-            </Route>
+            <Routes>
+              {/* Multi-language parent route */}
+              <Route path="/:lang" element={<LanguageLayout setLocale={setLocale} />}>
+                <Route index element={<Home />} />
+                <Route path="projects" element={<ProjectsPage />} />
+                <Route path="blog" element={<Blog />} />
+                <Route path="blog/:id" element={<BlogPost />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="resume" element={<Resume />} />
+                <Route path="docs/:slug" element={<DocsPage />} />
+                <Route path="dev-editor" element={<DevEditor />} />
+              </Route>
 
-            {/* Fallback for paths without language prefix */}
-            <Route path="*" element={<LanguageRedirect />} />
-          </Routes>
+              {/* Fallback for paths without language prefix */}
+              <Route path="*" element={<LanguageRedirect />} />
+            </Routes>
+          </div>
+
+          <footer className="max-w-5xl w-full mx-auto px-6 py-8 flex justify-center border-t border-white/5 mt-12">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-accent transition-colors cursor-pointer select-none"
+            >
+              <ArrowUp size={14} />
+              <FormattedMessage id="footer.backToTop" defaultMessage="Back to Top" />
+            </button>
+          </footer>
         </div>
       </IntlProvider>
     </BrowserRouter>

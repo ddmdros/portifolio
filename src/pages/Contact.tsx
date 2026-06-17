@@ -64,32 +64,32 @@ export const Contact = () => {
           </p>
 
           <div className="space-y-4 pt-6">
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-card-bg/30 border border-white/5 hover:border-accent/30 transition-all duration-300">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl bg-card-bg/30 border border-white/5 hover:border-accent/30 transition-all duration-300">
               <div className="p-3 rounded-lg bg-accent/10 text-accent">
                 <Mail size={20} />
               </div>
-              <div>
+              <div className="min-w-0 w-full">
                 <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Email</p>
                 <a
                   href="mailto:diogomedeirostranslation@gmail.com"
-                  className="text-white hover:text-accent font-medium transition-colors"
+                  className="text-white hover:text-accent font-medium transition-colors break-all block"
                 >
                   diogomedeirostranslation@gmail.com
                 </a>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-card-bg/30 border border-white/5 hover:border-accent/30 transition-all duration-300">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl bg-card-bg/30 border border-white/5 hover:border-accent/30 transition-all duration-300">
               <div className="p-3 rounded-lg bg-accent/10 text-accent">
                 <Sparkles size={20} />
               </div>
-              <div>
+              <div className="min-w-0 w-full">
                 <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Github</p>
                 <a
                   href="https://github.com/ddmdros"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white hover:text-accent font-medium transition-colors"
+                  className="text-white hover:text-accent font-medium transition-colors break-all block"
                 >
                   github.com/ddmdros
                 </a>
@@ -99,7 +99,7 @@ export const Contact = () => {
         </div>
 
         {/* Lado Direito: Formulário Glassmorphism */}
-        <div className="lg:col-span-3 bg-card-bg/50 backdrop-blur-md border border-white/10 p-8 md:p-10 rounded-3xl relative overflow-hidden shadow-2xl">
+        <div className="lg:col-span-3 bg-card-bg/50 backdrop-blur-md border border-white/10 p-6 sm:p-8 md:p-10 rounded-3xl relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-[50px] rounded-full" />
 
           <form onSubmit={handleSubmit} className="space-y-6">

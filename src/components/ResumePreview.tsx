@@ -103,8 +103,8 @@ const ResumePreview = () => {
             </div>
             
             <div className="pl-[52px] space-y-3">
-              {CERTIFICATIONS_DATA.filter((c) => c.showInResume && c.showInResume.includes("general"))
-                .slice(0, 2)
+              {CERTIFICATIONS_DATA.filter((c) => c.showOnHome)
+                .slice(0, 5)
                 .map((cert) => (
                   <div key={cert.id} className="text-left border-l border-accent/20 pl-3">
                     <p className="text-xs text-gray-300 font-semibold truncate" title={cert.titleKey}>

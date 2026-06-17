@@ -1,50 +1,38 @@
 {
   "header.logo": "diogo.dev",
-
   "header.home": "Home",
   "header.blog": "Blog",
   "header.projects": "Projects",
   "header.language": "Language",
   "header.contact": "Contact",
   "header.resume": "Resume",
-
   "portifolio.title": "Portfolio",
   "portifolio.name": "Diogo Medeiros",
   "portifolio.job-title": "Full Stack Engineer",
-
   "portifolio.description": "Full-Stack Developer and Software Engineering student. With 6 years of experience in game localization, I bring international professional maturity and a rigorous eye for detail to software development.",
-
   "project.docs": "Documentation",
   "project.github": "Code",
   "projects.external.link": "Live project",
   "project.badge.featured": "Featured",
   "project.badge.wip": "Work in progress",
-
   "project.title.1": "Starr Corp: Office Mayhem",
   "project.description.1": "A fan-made academic tribute to the Brawl Stars universe built with React and TypeScript.",
-
   "about.title": "Multicultural Peer",
   "about.description": "Software Engineering student with six years of experience in game localization, now applied to building robust software systems. Notably, I spent two years working on-site in Dublin with industry-leading developers: Bungie and Supercell.\n\nBeing part of multicultural teams and working on products that impact millions of users daily taught me to meet rigorous technical requirements and deliver high-quality solutions with an end-user-first mindset.\n\nToday, I approach fullstack development with the same commitment to quality, focusing on solid foundations, code clarity, architectural implications, and long-term maintainability.\n\nMy tech stack includes React, TypeScript, Vite, and Tailwind for the frontend, and Python, C#, and Java for the backend. I am seeking opportunities in engineering teams that prioritize technical excellence and critical problem-solving.",
-
   "about.stacks.programming.languages": "Programming Languages",
   "about.stacks.web.game.dev": "Libraries and Frameworks",
   "about.stacks.data.devops": "Data & DevOps",
-
   "welcome.message": "Welcome to my portfolio!",
   "mail.button.click": "Contact",
-
   "section.title.1": "About",
   "section.title.2": "Projects",
-
   "projects.title": "Featured Projects",
-
   "projects.filter.all": "All",
   "projects.filter.frontend": "frontend",
   "projects.filter.fullstack": "fullstack",
   "projects.filter.backend": "backend",
   "projects.filter.game-development": "game development",
   "projects.filter.ai-ml": "AI & ML",
-
   "app.title": "React-intl demo",
   "app.description": "This is a small demo showing how to localize a React app with react-intl.",
   "app.notifications": "{count, plural, =0 {You have no new notifications} one {You have # new notification} other {You have # new notifications}}",
@@ -83,10 +71,10 @@
   "resume.edu.se.date": "2025 - 2029",
   "resume.edu.java.title": "Java Back-End Specialization",
   "resume.edu.java.inst": "EBAC",
-  "resume.edu.java.date": "2025 - 2026",
+  "resume.edu.java.date": "2025 - present",
   "resume.edu.journalism.title": "Bachelor of Journalism",
   "resume.edu.journalism.inst": "UFSC",
-  "resume.edu.journalism.date": "2017 - 2026",
+  "resume.edu.journalism.date": "2017 - 2022",
   "resume.edu.journalism.gpa": "GPA: 3.8/4.0 (9.54/10)",
   "resume.exp.keywords.title": "Brazilian Portuguese Linguist",
   "resume.exp.keywords.company": "Keywords Studios",
@@ -167,5 +155,10 @@
   "resume.cert.filter.all": "All",
   "resume.cert.filter.cloud": "Cloud & DevOps",
   "resume.cert.filter.java": "Java & Backend",
-  "resume.cert.filter.languages": "Languages"
+  "resume.cert.filter.languages": "Languages",
+  "projects.view.more.cta": "View Other Projects →",
+  "projects.view.all.online": "View All Projects Online →",
+  "resume.projects.seeMore": "See More Projects",
+  "resume.cert.filter.featured": "Featured",
+  "footer.backToTop": "Back to Top"
 }

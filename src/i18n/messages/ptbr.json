@@ -6,44 +6,33 @@
   "header.language": "Idioma",
   "header.contact": "Contato",
   "header.resume": "Currículo",
-
   "welcome.message": "Boas-vindas! Este é o meu portifólio!",
-
   "portifolio.title": "Portifólio",
   "portifolio.name": "Diogo Medeiros",
   "portifolio.job-title": "Engenheiro de software fullstack",
   "portifolio.description": "Desenvolvedor fullstack e estudante de engenharia de software no Instituto INFNET. Aplico ao desenvolvimento de software o rigor técnico e a maturidade profissional que meus seis anos como tradutor sênior de jogos me proporcionaram.",
-
   "about.title": "Parceiro multicultural",
   "about.description": "Estudante de engenharia de software com seis anos de experiência em localização de jogos aplicados à construção de sistema de software robustos, com destaque aos dois anos em que trabalhei presencialmente em Dublin com duas desenvolvedoras de referência: Bungie e Supercell.\n\nFazer parte de equipes multiculturais e trabalhar com produtos que impactam milhões de pessoas diariamente me ensinou a atender requisitos técnicos rigorosos e a entregar com qualidade, sempre pensando no usuário final.\n\nHoje, avanço no desenvolvimento fullstack com o mesmo rigor e atenção à qualidade e priorizo a construção de bases sólidas, a clareza do código, a compreensão das implicações arquiteturais das decisões técnicas e a longevidade do código.\n\nTenho familiaridade e experiência com React, TypeScript, Vite e Tailwind no frontend e Python, C# e Java no backend. Procuro oportunidades em equipes de engenharia cujo foco seja a excelência técnica e o pensamento crítico na resolução de problemas.",
-
   "about.stacks.programming.languages": "Linguagens de programação",
   "about.stacks.web.game.dev": "Bibliotecas e frameworks",
   "about.stacks.data.devops": "Dados & DevOps",
-
   "project.docs": "Documentação",
   "project.github": "Código",
   "projects.external.link": "Projeto",
   "project.badge.featured": "Destaque",
   "project.badge.wip": "Em desenvolvimento",
-
   "project.title.1": "Starr Corp: Caos no Escritório",
   "project.description.1": "Um tributo acadêmico ao universo Brawl Stars desenvolvido com React e TypeScript.",
-
   "mail.button.click": "Contato",
-
   "section.title.1": "Sobre mim",
   "section.title.2": "Projetos",
-
   "projects.title": "Projetos selecionados",
-
   "projects.filter.all": "tudo",
   "projects.filter.frontend": "frontend",
   "projects.filter.fullstack": "fullstack",
   "projects.filter.backend": "backend",
   "projects.filter.game-development": "desenvolvimento de jogos",
   "projects.filter.ai-ml": "AI e ML",
-
   "app.title": "Demonstração do React-intl",
   "app.description": "Esta é uma demonstração de como usar localização em um aplicativo React com react-intl.",
   "app.notifications": "{count, plural, =0 {Você não tem notificações} one {Você tem # nova notificação} other {Você tem # novas notificações}}",
@@ -82,10 +71,10 @@
   "resume.edu.se.date": "2025 - 2029",
   "resume.edu.java.title": "Especialização em Java Back-End",
   "resume.edu.java.inst": "EBAC",
-  "resume.edu.java.date": "2025 - 2026",
+  "resume.edu.java.date": "2025 - presente",
   "resume.edu.journalism.title": "Bacharelado em Jornalismo",
   "resume.edu.journalism.inst": "UFSC",
-  "resume.edu.journalism.date": "2017 - 2026",
+  "resume.edu.journalism.date": "2017 - 2022",
   "resume.edu.journalism.gpa": "Média Global: 9.54/10 (GPA: 3.8/4.0)",
   "resume.exp.keywords.title": "Linguista de Português Brasileiro",
   "resume.exp.keywords.company": "Keywords Studios",
@@ -166,5 +155,10 @@
   "resume.cert.filter.all": "Todas",
   "resume.cert.filter.cloud": "Nuvem & DevOps",
   "resume.cert.filter.java": "Java & Backend",
-  "resume.cert.filter.languages": "Idiomas"
+  "resume.cert.filter.languages": "Idiomas",
+  "projects.view.more.cta": "Ver Outros Projetos →",
+  "projects.view.all.online": "Ver Todos os Projetos Online →",
+  "resume.projects.seeMore": "Ver Mais Projetos",
+  "resume.cert.filter.featured": "Destaques",
+  "footer.backToTop": "Voltar ao Topo"
 }

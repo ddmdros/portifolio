@@ -1,28 +1,12 @@
-import { useState } from "react";
 import ProjectItem from "./ProjectItem";
 import { PROJECTS_DATA } from "../content/ProjectsData";
 import SectionDiv from "./SectionDiv";
-import { FormattedMessage } from "react-intl";
-import { type ProjectCategory } from "../types/projectType";
-import ProjectFilter from "./ProjectsFilter";
+import { FormattedMessage, useIntl } from "react-intl";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
-  const [filter, setFilter] = useState<ProjectCategory | "all">("all");
-
-  const filtered = (
-    filter === "all"
-      ? PROJECTS_DATA
-      : PROJECTS_DATA.filter((project) => {
-          if (Array.isArray(project.category)) {
-            return project.category.includes(filter);
-          }
-          return project.category === filter;
-        })
-  ).sort((a, b) => {
-    if (a.isFeatured && !b.isFeatured) return -1;
-    if (!a.isFeatured && b.isFeatured) return 1;
-    return 0;
-  });
+  const { locale } = useIntl();
+  const featuredProjects = PROJECTS_DATA.filter((project) => project.isFeatured);
 
   return (
     <>
@@ -33,12 +17,19 @@ const Projects = () => {
       </h2>
 
       <div className="bg-card-bg border border-white/10 rounded-2xl p-6 md:p-8">
-        <ProjectFilter activeCategory={filter} onFilterChange={setFilter} />
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered.map((project) => (
+          {featuredProjects.map((project) => (
             <ProjectItem key={project.id} {...project} />
           ))}
+        </div>
+
+        <div className="flex justify-center mt-10">
+          <Link
+            to={`/${locale}/projects`}
+            className="inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3 px-6 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
+          >
+            <FormattedMessage id="projects.view.more.cta" defaultMessage="View Other Projects →" />
+          </Link>
         </div>
       </div>
     </>

@@ -39,12 +39,20 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
     { id: "header.resume", to: `/${currentLocale}/resume` },
   ];
 
+  const handleHomeClick = (e: React.MouseEvent) => {
+    const isHomePath = window.location.pathname === `/${currentLocale}` || window.location.pathname === `/${currentLocale}/`;
+    if (isHomePath) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <header className="sticky top-0 w-full text-text-h z-50 border-b border-white/10 bg-bg transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between relative">
         {/* Logo */}
         <div className="text-lg font-bold z-50">
-          <Link to={`/${currentLocale}`} onClick={closeMenu}>
+          <Link to={`/${currentLocale}`} onClick={(e) => { closeMenu(); handleHomeClick(e); }}>
             <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
           </Link>
         </div>
@@ -55,6 +63,11 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
             <NavLink
               key={link.id}
               to={link.to}
+              onClick={(e) => {
+                if (link.id === "header.home") {
+                  handleHomeClick(e);
+                }
+              }}
               className={({ isActive }) =>
                 `cursor-pointer text-sm font-medium transition-colors ${
                   isActive ? "text-accent" : "text-gray-300 hover:text-white"
@@ -103,7 +116,7 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
         <div className="fixed inset-0 z-40 md:hidden bg-bg/95 backdrop-blur-lg flex flex-col animate-in fade-in slide-in-from-top-6 duration-300 ease-out">
           <div className="h-16 flex items-center justify-between px-6 border-b border-white/5">
             <div className="text-lg font-bold">
-              <Link to={`/${currentLocale}`} onClick={closeMenu}>
+              <Link to={`/${currentLocale}`} onClick={(e) => { closeMenu(); handleHomeClick(e); }}>
                 <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
               </Link>
             </div>
@@ -122,7 +135,12 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
                 <NavLink
                   key={link.id}
                   to={link.to}
-                  onClick={closeMenu}
+                  onClick={(e) => {
+                    closeMenu();
+                    if (link.id === "header.home") {
+                      handleHomeClick(e);
+                    }
+                  }}
                   className={({ isActive }) =>
                     `text-lg font-semibold px-5 py-3.5 rounded-xl transition-all flex items-center justify-between ${
                       isActive

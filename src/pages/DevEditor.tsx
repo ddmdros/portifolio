@@ -32,6 +32,8 @@ export const DevEditor = () => {
   const [enMessages, setEnMessages] = useState<Record<string, string>>(enMessagesInit);
   const [ptbrMessages, setPtbrMessages] = useState<Record<string, string>>(ptbrMessagesInit);
 
+  const homeCertsCount = certs.filter((c) => c.showOnHome).length;
+
   // Status State
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
@@ -473,7 +475,12 @@ export const DevEditor = () => {
         {activeTab === "certs" && (
           <div className="space-y-8">
             <div className="flex justify-between items-center pb-4 border-b border-white/5">
-              <h2 className="text-xl font-bold text-white">Manage Certifications</h2>
+              <div>
+                <h2 className="text-xl font-bold text-white">Manage Certifications</h2>
+                <p className="text-xs text-gray-400 mt-1">
+                  Feature up to 5 certifications on the homepage ({homeCertsCount}/5 selected)
+                </p>
+              </div>
               <button
                 onClick={() => {
                   const newId = (certs.length + 1).toString();
@@ -494,6 +501,7 @@ export const DevEditor = () => {
                       showInResume: [],
                       category: "cloud",
                       credentialUrl: "",
+                      showOnHome: false,
                     },
                   ]);
                 }}
@@ -622,6 +630,28 @@ export const DevEditor = () => {
                         </label>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Homepage Featured Selection */}
+                  <div className="border-t border-white/5 pt-3 mt-2 flex justify-between items-center">
+                    <label className={`flex items-center gap-1.5 text-xs font-semibold cursor-pointer select-none ${
+                      !cert.showOnHome && homeCertsCount >= 5 ? "text-gray-500 cursor-not-allowed" : "text-accent"
+                    }`}>
+                      <input
+                        type="checkbox"
+                        checked={cert.showOnHome || false}
+                        disabled={!cert.showOnHome && homeCertsCount >= 5}
+                        onChange={(e) => {
+                          const updated = { ...cert, showOnHome: e.target.checked };
+                          setCerts(certs.map((c, idx) => (idx === cIdx ? updated : c)));
+                        }}
+                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent disabled:opacity-50"
+                      />
+                      Show on Home Page
+                    </label>
+                    {!cert.showOnHome && homeCertsCount >= 5 && (
+                      <span className="text-[10px] text-red-400/80 font-mono">Limit of 5 reached</span>
+                    )}
                   </div>
                 </div>
               ))}

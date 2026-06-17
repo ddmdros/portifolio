@@ -2,19 +2,28 @@ import { type ProjectType } from "../types/projectType";
 
 export const PROJECTS_DATA: ProjectType[] = [
   {
-    id: "1",
-    title: "project.title.1",
-    category: "fullstack",
-    description: "project.description.1",
-    tags: ["Typescript", "React", "CSS3"],
-    imageUrl: "/assets/projects/project_1/p1_0.png",
-    docsUrl: "/docs/starr-corp",
-    githubUrl: "https://github.com/ddmdros/officeMayhem",
-    projectUrl: "https://office-mayhem-aqis.vercel.app/",
-    isFeatured: true,
-    docId: "starr-corp",
-    showInResume: ["general", "backend", "frontend", "fullstack"],
-    descKeys: [
+    "id": "1",
+    "title": "project.title.1",
+    "category": "fullstack",
+    "description": "project.description.1",
+    "tags": [
+      "Typescript",
+      "React",
+      "CSS3"
+    ],
+    "imageUrl": "/assets/projects/project_1/p1_0.png",
+    "docsUrl": "/docs/starr-corp",
+    "githubUrl": "https://github.com/ddmdros/officeMayhem",
+    "projectUrl": "https://office-mayhem-aqis.vercel.app/",
+    "isFeatured": true,
+    "docId": "starr-corp",
+    "showInResume": [
+      "general",
+      "backend",
+      "frontend",
+      "fullstack"
+    ],
+    "descKeys": [
       "resume.project.starrCorp.bullet1",
       "resume.project.starrCorp.bullet2",
       "resume.project.starrCorp.bullet2.sub1",
@@ -23,78 +32,115 @@ export const PROJECTS_DATA: ProjectType[] = [
     ]
   },
   {
-    id: "2",
-    title: "project.title.2",
-    category: "frontend",
-    description: "project.description.2",
-    tags: ["HTML5", "CSS3", "JavaScript"],
-    imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/FreelancerDashboard.png",
-    githubUrl: "https://github.com/ddmdros/FreelancerDashboard",
-    projectUrl: "https://ddmdros.github.io/FreelancerDashboard/",
-    isFeatured: false,
-    showInResume: ["frontend"],
-    descKeys: [
+    "id": "2",
+    "title": "project.title.2",
+    "category": "frontend",
+    "description": "project.description.2",
+    "tags": [
+      "HTML5",
+      "CSS3",
+      "JavaScript"
+    ],
+    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/FreelancerDashboard.png",
+    "githubUrl": "https://github.com/ddmdros/FreelancerDashboard",
+    "projectUrl": "https://ddmdros.github.io/FreelancerDashboard/",
+    "isFeatured": false,
+    "showInResume": [
+      "frontend"
+    ],
+    "descKeys": [
       "resume.project.freelanceBoard.bullet1",
       "resume.project.freelanceBoard.bullet2"
     ]
   },
   {
-    id: "3",
-    title: "project.title.3",
-    category: "game development",
-    description: "project.description.3",
-    tags: ["Unity", "C#", "Game Design"],
-    imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/HugoScreenShot.png",
-    githubUrl: "https://github.com/ddmdros/ebac-platformer2d",
-    isFeatured: false,
-    isWip: true,
-    showInResume: []
+    "id": "3",
+    "title": "project.title.3",
+    "category": "game development",
+    "description": "project.description.3",
+    "tags": [
+      "Unity",
+      "C#",
+      "Game Design"
+    ],
+    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/HugoScreenShot.png",
+    "githubUrl": "https://github.com/ddmdros/ebac-platformer2d",
+    "isFeatured": false,
+    "isWip": true,
+    "showInResume": []
   },
   {
-    id: "4",
-    title: "project.title.4",
-    category: "AI & ML",
-    description: "project.description.4",
-    tags: ["Python", "Pandas", "Streamlit"],
-    imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/PythonDashboard.png",
-    githubUrl: "https://github.com/ddmdros/imersao-dados-com-python-alura",
-    projectUrl: "https://imersao-dados-com-python-alura-diogo-medeiros.streamlit.app/",
-    isFeatured: false,
-    showInResume: ["ia_ml"],
-    descKeys: [
+    "id": "4",
+    "title": "project.title.4",
+    "category": "AI & ML",
+    "description": "project.description.4",
+    "tags": [
+      "Python",
+      "Pandas",
+      "Streamlit"
+    ],
+    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/PythonDashboard.png",
+    "githubUrl": "https://github.com/ddmdros/imersao-dados-com-python-alura",
+    "projectUrl": "https://imersao-dados-com-python-alura-diogo-medeiros.streamlit.app/",
+    "isFeatured": false,
+    "showInResume": [
+      "ia_ml"
+    ],
+    "descKeys": [
       "resume.project.dataImmersion.bullet1"
     ]
   },
   {
-    id: "5",
-    title: "project.title.5",
-    category: "backend",
-    description: "project.description.5",
-    tags: ["Java", "Spring Boot", "PostgreSQL", "JPA"],
-    imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/screenMatch1.jpg",
-    githubUrl: "https://github.com/ddmdros/ScreenMatch-with-SpringBoot",
-    isFeatured: false,
-    isWip: true,
-    showInResume: ["backend"],
-    descKeys: [
+    "id": "5",
+    "title": "project.title.5",
+    "category": "backend",
+    "description": "project.description.5",
+    "tags": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "JPA"
+    ],
+    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/screenMatch1.jpg",
+    "githubUrl": "https://github.com/ddmdros/ScreenMatch-with-SpringBoot",
+    "isFeatured": false,
+    "isWip": true,
+    "showInResume": [
+      "backend"
+    ],
+    "descKeys": [
       "resume.project.screenMatch.bullet1"
     ]
   },
   {
-    id: "6",
-    title: "project.title.6",
-    category: ["fullstack", "AI & ML"],
-    description: "project.description.6",
-    tags: ["React", "FastAPI", "Supabase", "LangChain", "PostgreSQL"],
-    imageUrl: "/assets/projects/netplay/netplay_preview.png",
-    docsUrl: "/docs/netplay",
-    githubUrl: "https://github.com/steadydevs/llm_project",
-    projectUrl: "https://llm-project-tau.vercel.app/",
-    isFeatured: true,
-    isWip: true,
-    docId: "netplay",
-    showInResume: ["general", "backend", "fullstack", "ia_ml"],
-    descKeys: [
+    "id": "6",
+    "title": "project.title.6",
+    "category": [
+      "fullstack",
+      "AI & ML"
+    ],
+    "description": "project.description.6",
+    "tags": [
+      "React",
+      "FastAPI",
+      "Supabase",
+      "LangChain",
+      "PostgreSQL"
+    ],
+    "imageUrl": "/assets/projects/netplay/netplay_preview.png",
+    "docsUrl": "/docs/netplay",
+    "githubUrl": "https://github.com/steadydevs/llm_project",
+    "projectUrl": "https://llm-project-tau.vercel.app/",
+    "isFeatured": true,
+    "isWip": true,
+    "docId": "netplay",
+    "showInResume": [
+      "general",
+      "backend",
+      "fullstack",
+      "ia_ml"
+    ],
+    "descKeys": [
       "resume.project.netplay.bullet1",
       "resume.project.netplay.bullet2"
     ]

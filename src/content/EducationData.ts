@@ -9,11 +9,11 @@ export interface EducationType {
 
 export const EDUCATION_DATA: EducationType[] = [
   {
-    id: "1",
-    titleKey: "resume.edu.se.title",
-    instKey: "resume.edu.se.inst",
-    dateKey: "resume.edu.se.date",
-    showInResume: [
+    "id": "1",
+    "titleKey": "resume.edu.se.title",
+    "instKey": "resume.edu.se.inst",
+    "dateKey": "resume.edu.se.date",
+    "showInResume": [
       "general",
       "cloud",
       "backend",
@@ -23,11 +23,11 @@ export const EDUCATION_DATA: EducationType[] = [
     ]
   },
   {
-    id: "2",
-    titleKey: "resume.edu.java.title",
-    instKey: "resume.edu.java.inst",
-    dateKey: "resume.edu.java.date",
-    showInResume: [
+    "id": "2",
+    "titleKey": "resume.edu.java.title",
+    "instKey": "resume.edu.java.inst",
+    "dateKey": "resume.edu.java.date",
+    "showInResume": [
       "general",
       "cloud",
       "backend",
@@ -37,12 +37,12 @@ export const EDUCATION_DATA: EducationType[] = [
     ]
   },
   {
-    id: "3",
-    titleKey: "resume.edu.journalism.title",
-    instKey: "resume.edu.journalism.inst",
-    dateKey: "resume.edu.journalism.date",
-    gpaKey: "resume.edu.journalism.gpa",
-    showInResume: [
+    "id": "3",
+    "titleKey": "resume.edu.journalism.title",
+    "instKey": "resume.edu.journalism.inst",
+    "dateKey": "resume.edu.journalism.date",
+    "gpaKey": "resume.edu.journalism.gpa",
+    "showInResume": [
       "general",
       "cloud",
       "backend",
