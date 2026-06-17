@@ -22,7 +22,7 @@ export default defineConfig({
             req.on('end', () => {
               try {
                 const payload = JSON.parse(body);
-                const { projects, certifications, education, experience, skills, en, ptbr } = payload;
+                const { projects, certifications, education, experience, skills, en, ptbr, generatePdfs = true } = payload;
 
                 // Write ProjectsData
                 const projectsContent = `import { type ProjectType } from "../types/projectType";\n\nexport const PROJECTS_DATA: ProjectType[] = ${JSON.stringify(projects, null, 2)};\n`;
@@ -48,14 +48,17 @@ export default defineConfig({
                 fs.writeFileSync(path.resolve(__dirname, 'src/i18n/messages/en.json'), JSON.stringify(en, null, 2) + '\n');
                 fs.writeFileSync(path.resolve(__dirname, 'src/i18n/messages/ptbr.json'), JSON.stringify(ptbr, null, 2) + '\n');
 
-                console.log('Successfully saved content files. Rebuilding PDF resumes...');
-
-                // Trigger PDF rebuild
-                execSync('node scripts/generate_pdfs.cjs', { stdio: 'inherit' });
+                if (generatePdfs) {
+                  console.log('Successfully saved content files. Rebuilding PDF resumes...');
+                  // Trigger PDF rebuild
+                  execSync('node scripts/generate_pdfs.cjs', { stdio: 'inherit' });
+                } else {
+                  console.log('Successfully saved content files. Skipping PDF rebuild as requested (fast mode).');
+                }
 
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify({ success: true, pdfGenerated: true }));
+                res.end(JSON.stringify({ success: true, pdfGenerated: generatePdfs }));
               } catch (err: any) {
                 console.error('Error in /api/save-content:', err);
                 res.statusCode = 500;

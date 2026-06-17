@@ -91,7 +91,7 @@ export const DevEditor = () => {
   };
 
   // Save changes handler
-  const handleSave = async () => {
+  const handleSave = async (generatePdfs: boolean) => {
     setIsSaving(true);
     setSaveStatus(null);
     try {
@@ -108,6 +108,7 @@ export const DevEditor = () => {
           skills,
           en: enMessages,
           ptbr: ptbrMessages,
+          generatePdfs,
         }),
       });
 
@@ -115,8 +116,9 @@ export const DevEditor = () => {
       if (result.success) {
         setSaveStatus({
           type: "success",
-          message:
-            "Changes saved and PDF CVs for all 6 profiles generated successfully!",
+          message: generatePdfs
+            ? "Changes saved and PDF CVs for all 6 profiles generated successfully!"
+            : "Changes saved successfully (fast mode, PDFs not rebuilt)!",
         });
       } else {
         setSaveStatus({
@@ -150,18 +152,33 @@ export const DevEditor = () => {
           </h1>
         </div>
 
-        <button
-          onClick={handleSave}
-          disabled={isSaving}
-          className="flex items-center gap-2 bg-accent text-black font-bold py-2.5 px-6 rounded-xl hover:bg-accent/90 disabled:opacity-50 transition-all cursor-pointer"
-        >
-          {isSaving ? (
-            <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
-          ) : (
-            <Save size={18} />
-          )}
-          {isSaving ? "Saving..." : "Save Changes & Build PDFs"}
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => handleSave(false)}
+            disabled={isSaving}
+            className="flex items-center gap-2 border border-white/10 bg-white/5 text-gray-300 font-bold py-2.5 px-6 rounded-xl hover:bg-white/10 hover:text-white disabled:opacity-50 transition-all cursor-pointer select-none"
+          >
+            {isSaving ? (
+              <span className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Save size={18} />
+            )}
+            Save Content (Fast)
+          </button>
+
+          <button
+            onClick={() => handleSave(true)}
+            disabled={isSaving}
+            className="flex items-center gap-2 bg-accent text-black font-bold py-2.5 px-6 rounded-xl hover:bg-accent/90 disabled:opacity-50 transition-all cursor-pointer select-none btn-shimmer"
+          >
+            {isSaving ? (
+              <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Save size={18} />
+            )}
+            Save & Build PDFs
+          </button>
+        </div>
       </div>
 
       {/* Save Status Banner */}
