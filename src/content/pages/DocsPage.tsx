@@ -9,34 +9,47 @@ const markdownFiles = import.meta.glob("../docs/**/*.md", {
 });
 
 export const DocsPage = () => {
-  const { slug } = useParams();
+  const { slug, lang } = useParams();
   const { locale } = useIntl();
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let active = true;
     const loadMarkdown = async () => {
       setIsLoading(true);
-      const langFolder = locale === "pt" || locale === "ptbr" ? "pt" : "en";
+      const currentLang = lang || locale;
+      const langFolder = currentLang === "pt" || currentLang === "ptbr" ? "pt" : "en";
 
       const path = `../docs/${slug}/${langFolder}/${slug}.md`;
 
       if (markdownFiles[path]) {
         try {
           const text = (await markdownFiles[path]()) as string;
-          setContent(text);
+          if (active) {
+            setContent(text);
+          }
         } catch (error) {
           console.error("Erro ao ler o arquivo:", error);
-          setContent("# Erro ao processar a documentação.");
+          if (active) {
+            setContent("# Erro ao processar a documentação.");
+          }
         }
       } else {
-        setContent("# Documentação não encontrada.");
+        if (active) {
+          setContent("# Documentação não encontrada.");
+        }
       }
-      setIsLoading(false);
+      if (active) {
+        setIsLoading(false);
+      }
     };
 
     loadMarkdown();
-  }, [slug, locale]);
+    return () => {
+      active = false;
+    };
+  }, [slug, lang, locale]);
 
   if (isLoading) {
     return (
