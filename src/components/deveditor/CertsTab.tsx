@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { type CertificationType } from "../../types/certificationType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
@@ -19,6 +20,7 @@ export const CertsTab = ({
   PROFILES,
   toggleProfile,
 }: CertsTabProps) => {
+  const [certFilter, setCertFilter] = useState<string>("all");
   const homeCertsCount = certs.filter((c) => c.showOnHome).length;
 
   return (
@@ -32,8 +34,95 @@ export const CertsTab = ({
         </div>
       </div>
 
+      {/* Dedicated Featured Section */}
+      <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
+        <h3 className="text-sm font-bold text-accent">Homepage Highlights (Featured Certifications)</h3>
+        <p className="text-xs text-gray-400">
+          Select exactly up to 5 certifications to feature on the homepage.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {certs.map((c) => {
+            const isChecked = c.showOnHome || false;
+            const isDisabled = !isChecked && homeCertsCount >= 5;
+            const certTitle = getTrans(c.titleKey, "en") || getTrans(c.titleKey, "pt") || c.titleKey;
+            const certOrg = getTrans(c.orgKey, "en") || getTrans(c.orgKey, "pt") || c.orgKey;
+
+            return (
+              <label
+                key={c.id}
+                className={`flex items-start gap-2.5 p-3 rounded-xl border transition-all cursor-pointer ${
+                  isChecked
+                    ? "bg-accent/10 border-accent text-white"
+                    : isDisabled
+                      ? "bg-black/20 border-white/5 text-gray-500 cursor-not-allowed opacity-50"
+                      : "bg-black/40 border-white/10 text-gray-300 hover:bg-black/60 hover:text-white"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  disabled={isDisabled}
+                  onChange={(e) => {
+                    const cIdx = certs.findIndex((x) => x.id === c.id);
+                    if (cIdx !== -1) {
+                      setCerts(
+                        updateItemAtIndex(certs, cIdx, {
+                          showOnHome: e.target.checked,
+                        }),
+                      );
+                    }
+                  }}
+                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5"
+                />
+                <div className="text-xs">
+                  <span className="font-semibold block">{certTitle}</span>
+                  <span className="text-[10px] text-gray-400">{certOrg} ({c.year})</span>
+                </div>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Certifications Filter Tabs in Editor */}
+      <div className="flex flex-wrap gap-1.5 border-b border-white/5 pb-3">
+        {(
+          [
+            { id: "all", label: "All" },
+            { id: "featured", label: "Featured" },
+            { id: "ia_ml", label: "IA & ML" },
+            { id: "back", label: "Backend" },
+            { id: "frontend", label: "Frontend" },
+            { id: "cloud", label: "Cloud & DevOps" },
+            { id: "game_dev", label: "Game Dev" },
+            { id: "fundamentos", label: "Fundamentos" },
+            { id: "idiomas", label: "Idiomas" },
+          ] as const
+        ).map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setCertFilter(tab.id)}
+            className={`px-2.5 py-1 text-[10px] font-mono rounded-lg border transition-all cursor-pointer ${
+              certFilter === tab.id
+                ? "bg-accent border-accent text-black font-bold"
+                : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       <div className="grid md:grid-cols-2 gap-6">
-        {certs.map((cert, cIdx) => (
+        {certs
+          .filter((cert) => {
+            if (certFilter === "all") return true;
+            if (certFilter === "featured") return cert.showOnHome;
+            return cert.category === certFilter;
+          })
+          .map((cert) => {
+            const cIdx = certs.findIndex((c) => c.id === cert.id);
+            return (
           <div
             key={cert.id}
             className="border border-white/5 p-5 rounded-2xl bg-white/5/20 space-y-4"
@@ -160,6 +249,7 @@ export const CertsTab = ({
                   <option value="frontend">Frontend</option>
                   <option value="cloud">Cloud & DevOps</option>
                   <option value="game_dev">Game Development</option>
+                  <option value="fundamentos">Fundamentos</option>
                   <option value="idiomas">Idiomas</option>
                 </select>
               </div>
@@ -237,38 +327,10 @@ export const CertsTab = ({
             </div>
 
             {/* Homepage Featured Selection */}
-            <div className="border-t border-white/5 pt-3 mt-2 flex justify-between items-center">
-              <label
-                className={`flex items-center gap-1.5 text-xs font-semibold cursor-pointer select-none ${
-                  !cert.showOnHome && homeCertsCount >= 5
-                    ? "text-gray-500 cursor-not-allowed"
-                    : "text-accent"
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={cert.showOnHome || false}
-                  disabled={!cert.showOnHome && homeCertsCount >= 5}
-                  onChange={(e) => {
-                    setCerts(
-                      updateItemAtIndex(certs, cIdx, {
-                        showOnHome: e.target.checked,
-                      }),
-                    );
-                  }}
-                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent disabled:opacity-50"
-                />
-                Show on Home Page
-              </label>
-              {!cert.showOnHome && homeCertsCount >= 5 && (
-                <span className="text-[10px] text-red-400/80 font-mono">
-                  Limit of 5 reached
-                </span>
-              )}
-            </div>
           </div>
-        ))}
-      </div>
+        );
+      })}
+    </div>
 
       <div className="flex justify-center pt-4">
         <button
