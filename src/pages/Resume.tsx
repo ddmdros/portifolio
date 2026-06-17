@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Download, GraduationCap, Briefcase, ExternalLink, Code, Award } from "lucide-react";
 import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
 
@@ -10,6 +10,7 @@ const SCROLL_DELAY_MS = 100;
 
 export const Resume = () => {
   const { hash } = useLocation();
+  const { locale } = useIntl();
 
   useEffect(() => {
     if (hash) {
@@ -68,10 +69,14 @@ export const Resume = () => {
         </div>
 
         {/* Botão de Download */}
-        <button className="self-start md:self-center flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all hover:cursor-pointer btn-shimmer">
+        <a
+          href={locale === "pt" ? "/assets/resume_pt.pdf" : "/assets/resume_en.pdf"}
+          download={locale === "pt" ? "Curriculo_Diogo_Medeiros.pdf" : "Resume_Diogo_Medeiros.pdf"}
+          className="self-start md:self-center flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all hover:cursor-pointer btn-shimmer"
+        >
           <Download size={18} />
           <FormattedMessage id="resume.download" defaultMessage="Download CV (PDF)" />
-        </button>
+        </a>
       </div>
 
       {/* Grid Principal */}
