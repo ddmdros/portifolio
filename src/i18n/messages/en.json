@@ -17,6 +17,8 @@
   "project.docs": "Documentation",
   "project.github": "Code",
   "projects.external.link": "Live project",
+  "project.badge.featured": "Featured",
+  "project.badge.wip": "Work in progress",
 
   "project.title.1": "Starr Corp: Office Mayhem",
   "project.description.1": "A fan-made academic tribute to the Brawl Stars universe built with React and TypeScript.",

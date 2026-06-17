@@ -15,6 +15,8 @@ interface ProjectItemProps {
   docsUrl?: string;
   githubUrl?: string;
   projectUrl?: string;
+  isFeatured?: boolean;
+  isWip?: boolean;
 }
 
 const ProjectItem = ({
@@ -26,13 +28,17 @@ const ProjectItem = ({
   docsUrl,
   githubUrl,
   projectUrl,
+  isFeatured = false,
+  isWip = false,
 }: ProjectItemProps) => {
   const intl = useIntl();
 
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const imageElement = (
-    <div className="relative aspect-video overflow-hidden bg-white/5">
+    <div className={`relative overflow-hidden bg-white/5 w-full h-full ${
+      isFeatured ? "aspect-video md:aspect-auto md:h-full" : "aspect-video"
+    }`}>
       {!imageLoaded && (
         <div className="absolute inset-0 bg-white/5 animate-pulse" />
       )}
@@ -45,20 +51,48 @@ const ProjectItem = ({
         alt={title}
       />
       <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+      
+      {/* Badges Overlay */}
+      <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-2">
+        {isFeatured && (
+          <span className="bg-accent/25 backdrop-blur-md text-accent border border-accent/30 px-2.5 py-1 text-xs font-semibold rounded-full flex items-center gap-1.5 shadow-lg shadow-accent/5 animate-glow-pulse">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <FormattedMessage id="project.badge.featured" />
+          </span>
+        )}
+        {isWip && (
+          <span className="bg-amber-500/25 backdrop-blur-md text-amber-400 border border-amber-500/30 px-2.5 py-1 text-xs font-semibold rounded-full flex items-center gap-1.5 shadow-lg shadow-amber-500/5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
+            </span>
+            <FormattedMessage id="project.badge.wip" />
+          </span>
+        )}
+      </div>
     </div>
   );
 
   return (
-    <div className="group bg-card-bg border border-white/10 rounded-xl overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col h-full">
+    <div className={`group bg-card-bg border rounded-xl overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col h-full ${
+      isFeatured 
+        ? "border-accent/20 hover:border-accent/40 hover:shadow-emerald md:flex-row md:col-span-2 md:min-h-[380px]" 
+        : "border-white/10 hover:border-white/20"
+    }`}>
       {docsUrl ? (
-        <Link to={docsUrl} className="cursor-pointer block">
+        <Link 
+          to={docsUrl} 
+          className={`cursor-pointer block w-full ${isFeatured ? "md:w-1/2 md:shrink-0" : ""}`}
+        >
           {imageElement}
         </Link>
       ) : (
-        imageElement
+        <div className={`w-full ${isFeatured ? "md:w-1/2 md:shrink-0" : ""}`}>
+          {imageElement}
+        </div>
       )}
 
-      <div className="p-5 flex flex-col grow">
+      <div className={`p-5 flex flex-col grow ${isFeatured ? "md:p-8 md:w-1/2 justify-center" : ""}`}>
         <div className="mb-3">
           <KeywordTag label={category} />
         </div>

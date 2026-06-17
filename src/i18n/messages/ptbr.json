@@ -24,6 +24,8 @@
   "project.docs": "Documentação",
   "project.github": "Código",
   "projects.external.link": "Projeto",
+  "project.badge.featured": "Destaque",
+  "project.badge.wip": "Em desenvolvimento",
 
   "project.title.1": "Starr Corp: Caos no Escritório",
   "project.description.1": "Um tributo acadêmico ao universo Brawl Stars desenvolvido com React e TypeScript.",

@@ -17,5 +17,6 @@ export interface ProjectType {
   githubUrl?: string;
   projectUrl?: string;
   isFeatured: boolean;
+  isWip?: boolean;
   docId?: string;
 }

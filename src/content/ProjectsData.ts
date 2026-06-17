@@ -23,7 +23,7 @@ export const PROJECTS_DATA: ProjectType[] = [
     imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/FreelancerDashboard.png",
     githubUrl: "https://github.com/ddmdros/FreelancerDashboard",
     projectUrl: "https://ddmdros.github.io/FreelancerDashboard/",
-    isFeatured: true,
+    isFeatured: false,
   },
   {
     id: "3",
@@ -33,7 +33,8 @@ export const PROJECTS_DATA: ProjectType[] = [
     tags: ["Unity", "C#", "Game Design"],
     imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/HugoScreenShot.png",
     githubUrl: "https://github.com/ddmdros/ebac-platformer2d",
-    isFeatured: true,
+    isFeatured: false,
+    isWip: true,
   },
   {
     id: "4",
@@ -44,7 +45,7 @@ export const PROJECTS_DATA: ProjectType[] = [
     imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/PythonDashboard.png",
     githubUrl: "https://github.com/ddmdros/imersao-dados-com-python-alura",
     projectUrl: "https://imersao-dados-com-python-alura-diogo-medeiros.streamlit.app/",
-    isFeatured: true,
+    isFeatured: false,
   },
   {
     id: "5",
@@ -54,6 +55,7 @@ export const PROJECTS_DATA: ProjectType[] = [
     tags: ["Java", "Spring Boot", "PostgreSQL", "JPA"],
     imageUrl: "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/screenMatch1.jpg",
     githubUrl: "https://github.com/ddmdros/ScreenMatch-with-SpringBoot",
-    isFeatured: true,
+    isFeatured: false,
+    isWip: true,
   },
 ];
