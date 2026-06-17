@@ -5,7 +5,7 @@ import { type EducationType } from "../../content/EducationData";
 import { type ExperienceType } from "../../content/ExperienceData";
 import { type SkillType } from "../../content/SkillsData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
-import { FileText, Download } from "lucide-react";
+import { FileText, Download, GripVertical } from "lucide-react";
 
 import { PROFILE_CONFIG } from "../../config/profile";
 
@@ -48,6 +48,124 @@ export const ResumesTab = ({
 }: ResumesTabProps) => {
   const [activeProfile, setActiveProfile] = useState<string>("general");
   const [certFilter, setCertFilter] = useState<string>("all");
+
+  // Drag states for columns
+  const [draggedProjId, setDraggedProjId] = useState<string | null>(null);
+  const [dragOverProjId, setDragOverProjId] = useState<string | null>(null);
+  const [canDragProjId, setCanDragProjId] = useState<string | null>(null);
+
+  const [draggedCertId, setDraggedCertId] = useState<string | null>(null);
+  const [dragOverCertId, setDragOverCertId] = useState<string | null>(null);
+  const [canDragCertId, setCanDragCertId] = useState<string | null>(null);
+
+  const [draggedEduId, setDraggedEduId] = useState<string | null>(null);
+  const [dragOverEduId, setDragOverEduId] = useState<string | null>(null);
+  const [canDragEduId, setCanDragEduId] = useState<string | null>(null);
+
+  const [draggedExpId, setDraggedExpId] = useState<string | null>(null);
+  const [dragOverExpId, setDragOverExpId] = useState<string | null>(null);
+  const [canDragExpId, setCanDragExpId] = useState<string | null>(null);
+
+  const [draggedSkillsId, setDraggedSkillsId] = useState<string | null>(null);
+  const [dragOverSkillsId, setDragOverSkillsId] = useState<string | null>(null);
+  const [canDragSkillsId, setCanDragSkillsId] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, id: string, type: "proj" | "cert" | "edu" | "exp" | "skills") => {
+    e.dataTransfer.effectAllowed = "move";
+    if (type === "proj") setDraggedProjId(id);
+    else if (type === "cert") setDraggedCertId(id);
+    else if (type === "edu") setDraggedEduId(id);
+    else if (type === "exp") setDraggedExpId(id);
+    else if (type === "skills") setDraggedSkillsId(id);
+  };
+
+  const handleDragOver = (e: React.DragEvent, id: string, type: "proj" | "cert" | "edu" | "exp" | "skills", draggedId: string | null) => {
+    e.preventDefault();
+    if (draggedId !== id) {
+      if (type === "proj") setDragOverProjId(id);
+      else if (type === "cert") setDragOverCertId(id);
+      else if (type === "edu") setDragOverEduId(id);
+      else if (type === "exp") setDragOverExpId(id);
+      else if (type === "skills") setDragOverSkillsId(id);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent, targetId: string, type: "proj" | "cert" | "edu" | "exp" | "skills", draggedId: string | null) => {
+    e.preventDefault();
+    if (draggedId && draggedId !== targetId) {
+      if (type === "proj") {
+        const fromIdx = projects.findIndex((x) => x.id === draggedId);
+        const toIdx = projects.findIndex((x) => x.id === targetId);
+        if (fromIdx !== -1 && toIdx !== -1) {
+          const next = [...projects];
+          const [moved] = next.splice(fromIdx, 1);
+          next.splice(toIdx, 0, moved);
+          setProjects(next);
+        }
+      } else if (type === "cert") {
+        const fromIdx = certs.findIndex((x) => x.id === draggedId);
+        const toIdx = certs.findIndex((x) => x.id === targetId);
+        if (fromIdx !== -1 && toIdx !== -1) {
+          const next = [...certs];
+          const [moved] = next.splice(fromIdx, 1);
+          next.splice(toIdx, 0, moved);
+          setCerts(next);
+        }
+      } else if (type === "edu") {
+        const fromIdx = edu.findIndex((x) => x.id === draggedId);
+        const toIdx = edu.findIndex((x) => x.id === targetId);
+        if (fromIdx !== -1 && toIdx !== -1) {
+          const next = [...edu];
+          const [moved] = next.splice(fromIdx, 1);
+          next.splice(toIdx, 0, moved);
+          setEdu(next);
+        }
+      } else if (type === "exp") {
+        const fromIdx = exp.findIndex((x) => x.id === draggedId);
+        const toIdx = exp.findIndex((x) => x.id === targetId);
+        if (fromIdx !== -1 && toIdx !== -1) {
+          const next = [...exp];
+          const [moved] = next.splice(fromIdx, 1);
+          next.splice(toIdx, 0, moved);
+          setExp(next);
+        }
+      } else if (type === "skills") {
+        const fromIdx = skills.findIndex((x) => x.id === draggedId);
+        const toIdx = skills.findIndex((x) => x.id === targetId);
+        if (fromIdx !== -1 && toIdx !== -1) {
+          const next = [...skills];
+          const [moved] = next.splice(fromIdx, 1);
+          next.splice(toIdx, 0, moved);
+          setSkills(next);
+        }
+      }
+    }
+    handleDragEnd(type);
+  };
+
+  const handleDragEnd = (type: "proj" | "cert" | "edu" | "exp" | "skills") => {
+    if (type === "proj") {
+      setDraggedProjId(null);
+      setDragOverProjId(null);
+      setCanDragProjId(null);
+    } else if (type === "cert") {
+      setDraggedCertId(null);
+      setDragOverCertId(null);
+      setCanDragCertId(null);
+    } else if (type === "edu") {
+      setDraggedEduId(null);
+      setDragOverEduId(null);
+      setCanDragEduId(null);
+    } else if (type === "exp") {
+      setDraggedExpId(null);
+      setDragOverExpId(null);
+      setCanDragExpId(null);
+    } else if (type === "skills") {
+      setDraggedSkillsId(null);
+      setDragOverSkillsId(null);
+      setCanDragSkillsId(null);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -228,31 +346,53 @@ export const ResumesTab = ({
                 const isChecked = proj.showInResume?.includes(activeProfile) || false;
                 const title = getTrans(proj.title, "en") || getTrans(proj.title, "pt") || proj.title;
                 return (
-                  <label
+                  <div
                     key={proj.id}
-                    className={`flex items-start gap-2 p-2 rounded-xl transition-all cursor-pointer text-xs border ${
+                    draggable={canDragProjId === proj.id}
+                    onDragStart={(e) => handleDragStart(e, proj.id, "proj")}
+                    onDragOver={(e) => handleDragOver(e, proj.id, "proj", draggedProjId)}
+                    onDrop={(e) => handleDrop(e, proj.id, "proj", draggedProjId)}
+                    onDragEnd={() => handleDragEnd("proj")}
+                    className={`flex items-start gap-1 p-2 rounded-xl transition-all border ${
+                      draggedProjId === proj.id ? "opacity-40 scale-[0.98]" : ""
+                    } ${
+                      dragOverProjId === proj.id
+                        ? "border-accent border-dashed bg-accent/5"
+                        : "border-transparent"
+                    } ${
                       isChecked
                         ? "bg-accent/5 border-accent/20 text-white"
-                        : "bg-transparent border-transparent text-gray-400 hover:bg-white/5 hover:text-white"
+                        : "bg-transparent text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                   >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => {
-                        const idx = projects.findIndex((p) => p.id === proj.id);
-                        if (idx !== -1) {
-                          setProjects(
-                            updateItemAtIndex(projects, idx, {
-                              showInResume: toggleProfile(proj.showInResume, activeProfile),
-                            })
-                          );
-                        }
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0"
-                    />
-                    <span className="line-clamp-2 leading-tight">{title}</span>
-                  </label>
+                    <button
+                      type="button"
+                      onMouseDown={() => setCanDragProjId(proj.id)}
+                      onMouseUp={() => setCanDragProjId(null)}
+                      className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-0.5 bg-white/5 rounded transition-colors mt-0.5"
+                      title="Drag to reorder"
+                    >
+                      <GripVertical size={12} />
+                    </button>
+                    <label className="flex items-start gap-2 cursor-pointer text-xs w-full">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {
+                          const idx = projects.findIndex((p) => p.id === proj.id);
+                          if (idx !== -1) {
+                            setProjects(
+                              updateItemAtIndex(projects, idx, {
+                                showInResume: toggleProfile(proj.showInResume, activeProfile),
+                              })
+                            );
+                          }
+                        }}
+                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0 cursor-pointer"
+                      />
+                      <span className="line-clamp-2 leading-tight select-none">{title}</span>
+                    </label>
+                  </div>
                 );
               })
             )}
@@ -299,34 +439,56 @@ export const ResumesTab = ({
                 const title = getTrans(cert.titleKey, "en") || getTrans(cert.titleKey, "pt") || cert.titleKey;
                 const org = getTrans(cert.orgKey, "en") || getTrans(cert.orgKey, "pt") || cert.orgKey;
                 return (
-                  <label
+                  <div
                     key={cert.id}
-                    className={`flex items-start gap-2 p-2 rounded-xl transition-all cursor-pointer text-xs border ${
+                    draggable={canDragCertId === cert.id}
+                    onDragStart={(e) => handleDragStart(e, cert.id, "cert")}
+                    onDragOver={(e) => handleDragOver(e, cert.id, "cert", draggedCertId)}
+                    onDrop={(e) => handleDrop(e, cert.id, "cert", draggedCertId)}
+                    onDragEnd={() => handleDragEnd("cert")}
+                    className={`flex items-start gap-1 p-2 rounded-xl transition-all border ${
+                      draggedCertId === cert.id ? "opacity-40 scale-[0.98]" : ""
+                    } ${
+                      dragOverCertId === cert.id
+                        ? "border-accent border-dashed bg-accent/5"
+                        : "border-transparent"
+                    } ${
                       isChecked
                         ? "bg-accent/5 border-accent/20 text-white"
-                        : "bg-transparent border-transparent text-gray-400 hover:bg-white/5 hover:text-white"
+                        : "bg-transparent text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                   >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => {
-                        const idx = certs.findIndex((c) => c.id === cert.id);
-                        if (idx !== -1) {
-                          setCerts(
-                            updateItemAtIndex(certs, idx, {
-                              showInResume: toggleProfile(cert.showInResume, activeProfile),
-                            })
-                          );
-                        }
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0"
-                    />
-                    <div className="leading-tight">
-                      <span className="line-clamp-2 block font-semibold">{title}</span>
-                      <span className="text-[10px] text-gray-500">{org}</span>
-                    </div>
-                  </label>
+                    <button
+                      type="button"
+                      onMouseDown={() => setCanDragCertId(cert.id)}
+                      onMouseUp={() => setCanDragCertId(null)}
+                      className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-0.5 bg-white/5 rounded transition-colors mt-0.5"
+                      title="Drag to reorder"
+                    >
+                      <GripVertical size={12} />
+                    </button>
+                    <label className="flex items-start gap-2 cursor-pointer text-xs w-full">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {
+                          const idx = certs.findIndex((c) => c.id === cert.id);
+                          if (idx !== -1) {
+                            setCerts(
+                              updateItemAtIndex(certs, idx, {
+                                showInResume: toggleProfile(cert.showInResume, activeProfile),
+                              })
+                            );
+                          }
+                        }}
+                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0 cursor-pointer"
+                      />
+                      <div className="leading-tight select-none">
+                        <span className="line-clamp-2 block font-semibold">{title}</span>
+                        <span className="text-[10px] text-gray-500">{org}</span>
+                      </div>
+                    </label>
+                  </div>
                 );
               })
             )}
@@ -347,34 +509,56 @@ export const ResumesTab = ({
                 const title = getTrans(item.titleKey, "en") || getTrans(item.titleKey, "pt") || item.titleKey;
                 const company = getTrans(item.companyKey, "en") || getTrans(item.companyKey, "pt") || item.companyKey;
                 return (
-                  <label
+                  <div
                     key={item.id}
-                    className={`flex items-start gap-2 p-2 rounded-xl transition-all cursor-pointer text-xs border ${
+                    draggable={canDragExpId === item.id}
+                    onDragStart={(e) => handleDragStart(e, item.id, "exp")}
+                    onDragOver={(e) => handleDragOver(e, item.id, "exp", draggedExpId)}
+                    onDrop={(e) => handleDrop(e, item.id, "exp", draggedExpId)}
+                    onDragEnd={() => handleDragEnd("exp")}
+                    className={`flex items-start gap-1 p-2 rounded-xl transition-all border ${
+                      draggedExpId === item.id ? "opacity-40 scale-[0.98]" : ""
+                    } ${
+                      dragOverExpId === item.id
+                        ? "border-accent border-dashed bg-accent/5"
+                        : "border-transparent"
+                    } ${
                       isChecked
                         ? "bg-accent/5 border-accent/20 text-white"
-                        : "bg-transparent border-transparent text-gray-400 hover:bg-white/5 hover:text-white"
+                        : "bg-transparent text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                   >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => {
-                        const idx = exp.findIndex((e) => e.id === item.id);
-                        if (idx !== -1) {
-                          setExp(
-                            updateItemAtIndex(exp, idx, {
-                              showInResume: toggleProfile(item.showInResume, activeProfile),
-                            })
-                          );
-                        }
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0"
-                    />
-                    <div className="leading-tight">
-                      <span className="line-clamp-2 block font-semibold">{title}</span>
-                      <span className="text-[10px] text-gray-500">{company}</span>
-                    </div>
-                  </label>
+                    <button
+                      type="button"
+                      onMouseDown={() => setCanDragExpId(item.id)}
+                      onMouseUp={() => setCanDragExpId(null)}
+                      className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-0.5 bg-white/5 rounded transition-colors mt-0.5"
+                      title="Drag to reorder"
+                    >
+                      <GripVertical size={12} />
+                    </button>
+                    <label className="flex items-start gap-2 cursor-pointer text-xs w-full">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {
+                          const idx = exp.findIndex((e) => e.id === item.id);
+                          if (idx !== -1) {
+                            setExp(
+                              updateItemAtIndex(exp, idx, {
+                                showInResume: toggleProfile(item.showInResume, activeProfile),
+                              })
+                            );
+                          }
+                        }}
+                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0 cursor-pointer"
+                      />
+                      <div className="leading-tight select-none">
+                        <span className="line-clamp-2 block font-semibold">{title}</span>
+                        <span className="text-[10px] text-gray-500">{company}</span>
+                      </div>
+                    </label>
+                  </div>
                 );
               })
             )}
@@ -395,34 +579,56 @@ export const ResumesTab = ({
                 const title = getTrans(item.titleKey, "en") || getTrans(item.titleKey, "pt") || item.titleKey;
                 const inst = getTrans(item.instKey, "en") || getTrans(item.instKey, "pt") || item.instKey;
                 return (
-                  <label
+                  <div
                     key={item.id}
-                    className={`flex items-start gap-2 p-2 rounded-xl transition-all cursor-pointer text-xs border ${
+                    draggable={canDragEduId === item.id}
+                    onDragStart={(e) => handleDragStart(e, item.id, "edu")}
+                    onDragOver={(e) => handleDragOver(e, item.id, "edu", draggedEduId)}
+                    onDrop={(e) => handleDrop(e, item.id, "edu", draggedEduId)}
+                    onDragEnd={() => handleDragEnd("edu")}
+                    className={`flex items-start gap-1 p-2 rounded-xl transition-all border ${
+                      draggedEduId === item.id ? "opacity-40 scale-[0.98]" : ""
+                    } ${
+                      dragOverEduId === item.id
+                        ? "border-accent border-dashed bg-accent/5"
+                        : "border-transparent"
+                    } ${
                       isChecked
                         ? "bg-accent/5 border-accent/20 text-white"
-                        : "bg-transparent border-transparent text-gray-400 hover:bg-white/5 hover:text-white"
+                        : "bg-transparent text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                   >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => {
-                        const idx = edu.findIndex((e) => e.id === item.id);
-                        if (idx !== -1) {
-                          setEdu(
-                            updateItemAtIndex(edu, idx, {
-                              showInResume: toggleProfile(item.showInResume, activeProfile),
-                            })
-                          );
-                        }
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0"
-                    />
-                    <div className="leading-tight">
-                      <span className="line-clamp-2 block font-semibold">{title}</span>
-                      <span className="text-[10px] text-gray-500">{inst}</span>
-                    </div>
-                  </label>
+                    <button
+                      type="button"
+                      onMouseDown={() => setCanDragEduId(item.id)}
+                      onMouseUp={() => setCanDragEduId(null)}
+                      className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-0.5 bg-white/5 rounded transition-colors mt-0.5"
+                      title="Drag to reorder"
+                    >
+                      <GripVertical size={12} />
+                    </button>
+                    <label className="flex items-start gap-2 cursor-pointer text-xs w-full">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {
+                          const idx = edu.findIndex((e) => e.id === item.id);
+                          if (idx !== -1) {
+                            setEdu(
+                              updateItemAtIndex(edu, idx, {
+                                showInResume: toggleProfile(item.showInResume, activeProfile),
+                              })
+                            );
+                          }
+                        }}
+                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0 cursor-pointer"
+                      />
+                      <div className="leading-tight select-none">
+                        <span className="line-clamp-2 block font-semibold">{title}</span>
+                        <span className="text-[10px] text-gray-500">{inst}</span>
+                      </div>
+                    </label>
+                  </div>
                 );
               })
             )}
@@ -442,34 +648,56 @@ export const ResumesTab = ({
                 const isChecked = skill.showInResume?.includes(activeProfile) || false;
                 const category = getTrans(skill.categoryKey, "en") || skill.categoryKey;
                 return (
-                  <label
+                  <div
                     key={skill.id}
-                    className={`flex items-start gap-2 p-2 rounded-xl transition-all cursor-pointer text-xs border ${
+                    draggable={canDragSkillsId === skill.id}
+                    onDragStart={(e) => handleDragStart(e, skill.id, "skills")}
+                    onDragOver={(e) => handleDragOver(e, skill.id, "skills", draggedSkillsId)}
+                    onDrop={(e) => handleDrop(e, skill.id, "skills", draggedSkillsId)}
+                    onDragEnd={() => handleDragEnd("skills")}
+                    className={`flex items-start gap-1 p-2 rounded-xl transition-all border ${
+                      draggedSkillsId === skill.id ? "opacity-40 scale-[0.98]" : ""
+                    } ${
+                      dragOverSkillsId === skill.id
+                        ? "border-accent border-dashed bg-accent/5"
+                        : "border-transparent"
+                    } ${
                       isChecked
                         ? "bg-accent/5 border-accent/20 text-white"
-                        : "bg-transparent border-transparent text-gray-400 hover:bg-white/5 hover:text-white"
+                        : "bg-transparent text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                   >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => {
-                        const idx = skills.findIndex((s) => s.id === skill.id);
-                        if (idx !== -1) {
-                          setSkills(
-                            updateItemAtIndex(skills, idx, {
-                              showInResume: toggleProfile(skill.showInResume, activeProfile),
-                            })
-                          );
-                        }
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0"
-                    />
-                    <div className="leading-tight">
-                      <span className="block font-semibold">{skill.name}</span>
-                      <span className="text-[9px] text-gray-500">{category.replace("about.stacks.", "")}</span>
-                    </div>
-                  </label>
+                    <button
+                      type="button"
+                      onMouseDown={() => setCanDragSkillsId(skill.id)}
+                      onMouseUp={() => setCanDragSkillsId(null)}
+                      className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-0.5 bg-white/5 rounded transition-colors mt-0.5"
+                      title="Drag to reorder"
+                    >
+                      <GripVertical size={12} />
+                    </button>
+                    <label className="flex items-start gap-2 cursor-pointer text-xs w-full">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {
+                          const idx = skills.findIndex((s) => s.id === skill.id);
+                          if (idx !== -1) {
+                            setSkills(
+                              updateItemAtIndex(skills, idx, {
+                                showInResume: toggleProfile(skill.showInResume, activeProfile),
+                              })
+                            );
+                          }
+                        }}
+                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5 shrink-0 cursor-pointer"
+                      />
+                      <div className="leading-tight select-none">
+                        <span className="block font-semibold">{skill.name}</span>
+                        <span className="text-[9px] text-gray-500">{category.replace("about.stacks.", "")}</span>
+                      </div>
+                    </label>
+                  </div>
                 );
               })
             )}

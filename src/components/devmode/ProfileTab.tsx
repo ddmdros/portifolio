@@ -9,6 +9,12 @@ interface ProfileConfigType {
   portfolioUrl: string;
   googleSkillsProfile: string;
   availableCvDownloads: string[];
+  cvProjectsMoreUrl: string;
+  cvProjectsMoreTextKey: string;
+  cvProjectsMoreLinkKey: string;
+  cvCertsMoreUrl: string;
+  cvCertsMoreTextKey: string;
+  cvCertsMoreLinkKey: string;
 }
 
 interface ProfileTabProps {
@@ -169,6 +175,81 @@ export const ProfileTab = ({
                 onChange={(e) => handleChange("googleSkillsProfile", e.target.value)}
                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent/40 transition-all"
               />
+            </div>
+          </div>
+        </div>
+
+        {/* CV Sections Footer Links */}
+        <div className="md:col-span-2 space-y-4 border border-white/5 p-5 rounded-2xl bg-white/5/10">
+          <h3 className="text-sm font-semibold text-accent uppercase tracking-wider text-left">
+            CV Sections Footer Links (More Projects & Certifications)
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-6 pt-2 text-left">
+            {/* More Projects Link */}
+            <div className="space-y-3 p-4 border border-white/5 bg-black/20 rounded-xl">
+              <h4 className="text-xs font-bold text-gray-300">"More Projects" Link (PDF footer)</h4>
+              <div className="space-y-2">
+                <label className="block text-[10px] text-gray-400">Custom URL (Optional - defaults to projects page)</label>
+                <input
+                  type="text"
+                  value={profileConfig.cvProjectsMoreUrl || ""}
+                  onChange={(e) => handleChange("cvProjectsMoreUrl", e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-accent/40 transition-all"
+                  placeholder="e.g. https://portfolio.dev/projects"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-[10px] text-gray-400">Prefix Text Translation Key</label>
+                <input
+                  type="text"
+                  value={profileConfig.cvProjectsMoreTextKey || "resume.project.more"}
+                  onChange={(e) => handleChange("cvProjectsMoreTextKey", e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-accent/40 transition-all"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-[10px] text-gray-400">Clickable Link Text Translation Key</label>
+                <input
+                  type="text"
+                  value={profileConfig.cvProjectsMoreLinkKey || "resume.project.more.link"}
+                  onChange={(e) => handleChange("cvProjectsMoreLinkKey", e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-accent/40 transition-all"
+                />
+              </div>
+            </div>
+
+            {/* More Certifications Link */}
+            <div className="space-y-3 p-4 border border-white/5 bg-black/20 rounded-xl">
+              <h4 className="text-xs font-bold text-gray-300">"More Certifications" Link (PDF footer)</h4>
+              <div className="space-y-2">
+                <label className="block text-[10px] text-gray-400">Custom URL (Optional - defaults to resume certifications)</label>
+                <input
+                  type="text"
+                  value={profileConfig.cvCertsMoreUrl || ""}
+                  onChange={(e) => handleChange("cvCertsMoreUrl", e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-accent/40 transition-all"
+                  placeholder="e.g. https://portfolio.dev/resume#certifications"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-[10px] text-gray-400">Prefix Text Translation Key</label>
+                <input
+                  type="text"
+                  value={profileConfig.cvCertsMoreTextKey || "resume.cert.more"}
+                  onChange={(e) => handleChange("cvCertsMoreTextKey", e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-accent/40 transition-all"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-[10px] text-gray-400">Clickable Link Text Translation Key</label>
+                <input
+                  type="text"
+                  value={profileConfig.cvCertsMoreLinkKey || "resume.cert.more.link"}
+                  onChange={(e) => handleChange("cvCertsMoreLinkKey", e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-accent/40 transition-all"
+                />
+              </div>
             </div>
           </div>
         </div>

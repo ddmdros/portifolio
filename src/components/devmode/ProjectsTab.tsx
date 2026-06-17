@@ -304,6 +304,82 @@ export const ProjectsTab = ({
               </div>
             </div>
 
+            {/* Custom URL and Custom Text Key fields */}
+            <div className="grid md:grid-cols-2 gap-4 border-t border-white/5 pt-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 mb-1">
+                  Custom Clickable Link URL (Optional - default: Live URL / GitHub URL)
+                </label>
+                <input
+                  type="text"
+                  value={proj.linkUrl || ""}
+                  onChange={(e) => {
+                    setProjects(
+                      updateItemAtIndex(projects, pIdx, {
+                        linkUrl: e.target.value || undefined,
+                      }),
+                    );
+                  }}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  placeholder="e.g. https://github.com/ddmdros/officeMayhem"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 mb-1">
+                  Custom Clickable Link Text Key (Optional - default: "Link here" / "Link aqui")
+                </label>
+                <input
+                  type="text"
+                  value={proj.linkTextKey || ""}
+                  onChange={(e) => {
+                    const nextKey = e.target.value || undefined;
+                    if (nextKey && !getTrans(nextKey, "en") && !getTrans(nextKey, "pt")) {
+                      updateTrans(nextKey, "en", "Link here");
+                      updateTrans(nextKey, "pt", "Link aqui");
+                    }
+                    setProjects(
+                      updateItemAtIndex(projects, pIdx, {
+                        linkTextKey: nextKey,
+                      }),
+                    );
+                  }}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  placeholder="e.g. resume.project.custom.link"
+                />
+              </div>
+            </div>
+
+            {proj.linkTextKey && (
+              <div className="grid md:grid-cols-2 gap-4 pt-1">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 mb-1">
+                    Clickable Link Text (English)
+                  </label>
+                  <input
+                    type="text"
+                    value={getTrans(proj.linkTextKey, "en")}
+                    onChange={(e) =>
+                      updateTrans(proj.linkTextKey!, "en", e.target.value)
+                    }
+                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 mb-1">
+                    Clickable Link Text (Portuguese)
+                  </label>
+                  <input
+                    type="text"
+                    value={getTrans(proj.linkTextKey, "pt")}
+                    onChange={(e) =>
+                      updateTrans(proj.linkTextKey!, "pt", e.target.value)
+                    }
+                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="flex flex-wrap gap-6 border-t border-white/5 pt-3">
               <label className="flex items-center gap-2 text-xs font-semibold text-gray-300 cursor-pointer select-none">
                 <input

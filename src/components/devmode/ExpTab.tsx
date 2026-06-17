@@ -232,7 +232,7 @@ export const ExpTab = ({
                       }),
                     );
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
                   placeholder="e.g. resume.project.starrCorp.link"
                 />
               </div>
@@ -240,7 +240,7 @@ export const ExpTab = ({
                 <div className="grid grid-cols-2 gap-2">
                   <div>
                     <label className="block text-[10px] font-semibold text-gray-400 mb-1">
-                      Link Text (English)
+                      Description Text (English)
                     </label>
                     <input
                       type="text"
@@ -248,12 +248,12 @@ export const ExpTab = ({
                       onChange={(e) =>
                         updateTrans(item.portfolioUrlKey!, "en", e.target.value)
                       }
-                      className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
+                      className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white focus:border-accent focus:outline-none"
                     />
                   </div>
                   <div>
                     <label className="block text-[10px] font-semibold text-gray-400 mb-1">
-                      Link Text (Portuguese)
+                      Description Text (Portuguese)
                     </label>
                     <input
                       type="text"
@@ -261,12 +261,90 @@ export const ExpTab = ({
                       onChange={(e) =>
                         updateTrans(item.portfolioUrlKey!, "pt", e.target.value)
                       }
-                      className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
+                      className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white focus:border-accent focus:outline-none"
                     />
                   </div>
                 </div>
               )}
             </div>
+
+            {/* Custom URL and Custom Text Key fields */}
+            <div className="grid md:grid-cols-2 gap-4 border-t border-white/5 pt-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 mb-1">
+                  Custom Clickable Link URL (Optional - default: LinkedIn URL)
+                </label>
+                <input
+                  type="text"
+                  value={item.linkUrl || ""}
+                  onChange={(e) => {
+                    setExp(
+                      updateItemAtIndex(exp, eIdx, {
+                        linkUrl: e.target.value || undefined,
+                      }),
+                    );
+                  }}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  placeholder="e.g. https://github.com/ddmdros/starr-corp"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 mb-1">
+                  Custom Clickable Link Text Key (Optional - default: "here" / "aqui")
+                </label>
+                <input
+                  type="text"
+                  value={item.linkTextKey || ""}
+                  onChange={(e) => {
+                    const nextKey = e.target.value || undefined;
+                    // If a text key is set but not defined in translations, initialize it.
+                    if (nextKey && !getTrans(nextKey, "en") && !getTrans(nextKey, "pt")) {
+                      updateTrans(nextKey, "en", "here");
+                      updateTrans(nextKey, "pt", "aqui");
+                    }
+                    setExp(
+                      updateItemAtIndex(exp, eIdx, {
+                        linkTextKey: nextKey,
+                      }),
+                    );
+                  }}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  placeholder="e.g. resume.link.starrCorp.text"
+                />
+              </div>
+            </div>
+
+            {item.linkTextKey && (
+              <div className="grid md:grid-cols-2 gap-4 pt-1">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 mb-1">
+                    Clickable Link Text (English)
+                  </label>
+                  <input
+                    type="text"
+                    value={getTrans(item.linkTextKey, "en")}
+                    onChange={(e) =>
+                      updateTrans(item.linkTextKey!, "en", e.target.value)
+                    }
+                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-400 mb-1">
+                    Clickable Link Text (Portuguese)
+                  </label>
+                  <input
+                    type="text"
+                    value={getTrans(item.linkTextKey, "pt")}
+                    onChange={(e) =>
+                      updateTrans(item.linkTextKey!, "pt", e.target.value)
+                    }
+                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+                  />
+                </div>
+              </div>
+            )}
+
 
 
 

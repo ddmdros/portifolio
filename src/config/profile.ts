@@ -31,6 +31,13 @@ export const PROFILE_CONFIG = {
   googleSkillsProfile: "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
   
   // Perfis de currículo liberados para download público no portfólio
-  availableCvDownloads: ["general"]
+  availableCvDownloads: ["general"],
+  
+  // Links de rodapé das seções do currículo
+  cvProjectsMoreUrl: "",
+  cvProjectsMoreTextKey: "resume.project.more",
+  cvProjectsMoreLinkKey: "resume.project.more.link",
+  cvCertsMoreUrl: "",
+  cvCertsMoreTextKey: "resume.cert.more",
+  cvCertsMoreLinkKey: "resume.cert.more.link"
 };
-

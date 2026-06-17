@@ -104,7 +104,13 @@ function getHtmlTemplate(lang, messages, profile) {
         <p style="margin: 0 0 4px 0; color: #475569; line-height: 1.4;">${getMsg(proj.description)}</p>
         <ul style="padding-left: 12px;">
           ${bullets}
-          ${proj.projectUrl || proj.githubUrl ? `<li style="margin-top: 2px;"><a href="${projectLink}" target="_blank">${getMsg('resume.project.starrCorp.link')}</a></li>` : ''}
+          ${proj.projectUrl || proj.githubUrl || proj.linkUrl ? `
+            <li style="margin-top: 2px;">
+              <a href="${proj.linkUrl || projectLink}" target="_blank">
+                ${proj.linkTextKey ? getMsg(proj.linkTextKey) : getMsg('resume.project.starrCorp.link')}
+              </a>
+            </li>
+          ` : ''}
         </ul>
       </div>
     `;
@@ -151,10 +157,17 @@ function getHtmlTemplate(lang, messages, profile) {
   // Filter experience by active profile
   const resumeExp = EXPERIENCE_DATA.filter(ex => ex.showInResume && ex.showInResume.includes(profile));
 
-  // Construct contact section
   const githubUrl = PROFILE_CONFIG.githubUrl;
   const linkedinUrl = PROFILE_CONFIG.linkedinUrl;
   const portfolioUrl = PROFILE_CONFIG.portfolioUrl;
+
+  const projectsMoreUrl = PROFILE_CONFIG.cvProjectsMoreUrl || `${portfolioUrl}/${lang}/projects`;
+  const projectsMoreTextKey = PROFILE_CONFIG.cvProjectsMoreTextKey || 'resume.project.more';
+  const projectsMoreLinkKey = PROFILE_CONFIG.cvProjectsMoreLinkKey || 'resume.project.more.link';
+
+  const certsMoreUrl = PROFILE_CONFIG.cvCertsMoreUrl || `${portfolioUrl}/${lang}/resume#certifications`;
+  const certsMoreTextKey = PROFILE_CONFIG.cvCertsMoreTextKey || 'resume.cert.more';
+  const certsMoreLinkKey = PROFILE_CONFIG.cvCertsMoreLinkKey || 'resume.cert.more.link';
 
   const expHtml = resumeExp.map(exp => `
     <div class="exp-item">
@@ -166,7 +179,7 @@ function getHtmlTemplate(lang, messages, profile) {
       <ul style="padding-left: 12px; color: #334155;">
         ${exp.descKeys.map(key => `<li>${getMsg(key)}</li>`).join('')}
         ${exp.portfolioUrlKey ? `
-          <li>${getMsg(exp.portfolioUrlKey)} <a href="${linkedinUrl}" target="_blank">${lang === 'pt' ? 'aqui' : 'here'}</a>.</li>
+          <li>${getMsg(exp.portfolioUrlKey)} <a href="${exp.linkUrl || linkedinUrl}" target="_blank">${exp.linkTextKey ? getMsg(exp.linkTextKey) : (lang === 'pt' ? 'aqui' : 'here')}</a>.</li>
         ` : ''}
       </ul>
     </div>
@@ -431,7 +444,7 @@ function getHtmlTemplate(lang, messages, profile) {
     <div class="col">
       <div class="section-title">${lang === 'pt' ? 'Projetos' : 'Projects'}</div>
       ${projectsHtml}
-      <p style="margin: 4px 0 0 0;"><strong>${getMsg('resume.project.more')}</strong> <a href="${portfolioUrl}/${lang}/projects" target="_blank">${getMsg('resume.project.more.link')}</a></p>
+      <p style="margin: 4px 0 0 0;"><strong>${getMsg(projectsMoreTextKey)}</strong> <a href="${projectsMoreUrl}" target="_blank">${getMsg(projectsMoreLinkKey)}</a></p>
     </div>
 
     <div class="col">
@@ -452,7 +465,7 @@ function getHtmlTemplate(lang, messages, profile) {
       <ul style="padding-left: 12px;">
         ${certsHtml}
       </ul>
-      <p style="margin: 4px 0 0 0; padding-left: 12px;"><strong>${lang === 'pt' ? 'Mais certificações:' : 'More certifications:'}</strong> <a href="${portfolioUrl}/${lang}/resume#certifications" target="_blank">${lang === 'pt' ? 'aqui' : 'here'}</a></p>
+      <p style="margin: 4px 0 0 0; padding-left: 12px;"><strong>${getMsg(certsMoreTextKey)}</strong> <a href="${certsMoreUrl}" target="_blank">${getMsg(certsMoreLinkKey)}</a></p>
     </div>
 
     <div class="col">

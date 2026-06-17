@@ -31,7 +31,9 @@ export const PROJECTS_DATA: ProjectType[] = [
       "resume.project.starrCorp.bullet2.sub1",
       "resume.project.starrCorp.bullet2.sub2",
       "resume.project.starrCorp.bullet2.sub3"
-    ]
+    ],
+    "linkUrl": "https://starrcorp-override.com",
+    "linkTextKey": "resume.project.starrCorp.link.override"
   },
   {
     "id": "2",

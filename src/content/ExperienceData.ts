@@ -6,6 +6,8 @@ export interface ExperienceType {
   descKeys: string[];
   showInResume: string[];
   portfolioUrlKey?: string;
+  linkUrl?: string;
+  linkTextKey?: string;
 }
 
 export const EXPERIENCE_DATA: ExperienceType[] = [
@@ -26,7 +28,9 @@ export const EXPERIENCE_DATA: ExperienceType[] = [
       "frontend",
       "fullstack",
       "ia_ml"
-    ]
+    ],
+    "linkUrl": "https://google.com",
+    "linkTextKey": "resume.link.google.text"
   },
   {
     "id": "2",

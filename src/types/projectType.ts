@@ -21,4 +21,7 @@ export interface ProjectType {
   docId?: string;
   showInResume?: string[];
   descKeys?: string[];
+  linkUrl?: string;
+  linkTextKey?: string;
 }
+
