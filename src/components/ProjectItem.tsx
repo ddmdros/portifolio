@@ -92,7 +92,7 @@ const ProjectItem = ({
     }`}>
       {docsUrl ? (
         <Link 
-          to={docsUrl} 
+          to={`/${intl.locale}${docsUrl}`} 
           className="cursor-pointer block w-full"
         >
           {imageElement}
@@ -129,7 +129,7 @@ const ProjectItem = ({
           <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
             {docsUrl && (
               <Link
-                to={docsUrl}
+                to={`/${intl.locale}${docsUrl}`}
                 className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
                 title={intl.formatMessage({ id: "project.docs" })}
               >

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Globe, ChevronDown } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface LanguageSwitcherProps {
   currentLocale: string;
@@ -133,10 +134,27 @@ export const LanguageSwitcher = ({
   setLocale,
   variant = "icon",
 }: LanguageSwitcherProps) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const changeLanguage = (newLang: string) => {
+    setLocale(newLang);
+    
+    const segments = location.pathname.split("/");
+    // If path is like /pt/resume or /en/resume
+    if (segments[1] === "pt" || segments[1] === "en") {
+      segments[1] = newLang;
+    } else {
+      segments.splice(1, 0, newLang);
+    }
+    const newPath = segments.join("/");
+    navigate(`${newPath}${location.hash}${location.search}`, { replace: true });
+  };
+
   return variant === "icon" ? (
-    <IconLanguageSwitcher currentLocale={currentLocale} setLocale={setLocale} />
+    <IconLanguageSwitcher currentLocale={currentLocale} setLocale={changeLanguage} />
   ) : (
-    <ToggleLanguageSwitcher currentLocale={currentLocale} setLocale={setLocale} />
+    <ToggleLanguageSwitcher currentLocale={currentLocale} setLocale={changeLanguage} />
   );
 };
 

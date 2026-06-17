@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import SectionDiv from "./SectionDiv";
 import { GraduationCap, Briefcase, ArrowRight, Award, ExternalLink } from "lucide-react";
 import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
 
 const ResumePreview = () => {
   const navigate = useNavigate();
+  const { locale } = useIntl();
   return (
     <section className="py-20 border-t border-white/5">
       <SectionDiv sectionNumber="03" sectionTitleId="section.title.3" />
@@ -16,7 +17,7 @@ const ResumePreview = () => {
           <FormattedMessage id="home.resume.preview.title" />
         </h2>
         <Link
-          to="/resume"
+          to={`/${locale}/resume`}
           className="self-start md:self-center inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer whitespace-nowrap"
         >
           <FormattedMessage id="home.resume.preview.button" defaultMessage="View Full Resume" />
@@ -27,7 +28,7 @@ const ResumePreview = () => {
       {/* Grid de Destaques em largura total */}
       <div className="grid md:grid-cols-3 gap-6">
         {/* Card de Experiência */}
-        <div onClick={() => navigate("/resume#experience")} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
+        <div onClick={() => navigate(`/${locale}/resume#experience`)} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-lg bg-accent/10 text-accent">
@@ -55,7 +56,7 @@ const ResumePreview = () => {
         </div>
 
         {/* Card de Educação */}
-        <div onClick={() => navigate("/resume#education")} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
+        <div onClick={() => navigate(`/${locale}/resume#education`)} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-lg bg-accent/10 text-accent">
@@ -83,7 +84,7 @@ const ResumePreview = () => {
         </div>
 
         {/* Card de Certificações */}
-        <div onClick={() => navigate("/resume#certifications")} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
+        <div onClick={() => navigate(`/${locale}/resume#certifications`)} className="group bg-card-bg border border-white/10 p-6 rounded-2xl hover:border-accent/40 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full cursor-pointer">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-lg bg-accent/10 text-accent">

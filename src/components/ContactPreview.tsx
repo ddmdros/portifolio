@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import SectionDiv from "./SectionDiv";
 import { Mail, ArrowRight } from "lucide-react";
 
 const ContactPreview = () => {
+  const { locale } = useIntl();
+
   return (
     <section className="py-20 border-t border-white/5 relative overflow-hidden">
       <SectionDiv sectionNumber="04" sectionTitleId="section.title.4" />
@@ -28,7 +30,7 @@ const ContactPreview = () => {
 
         <div className="pt-4">
           <Link
-            to="/contact"
+            to={`/${locale}/contact`}
             className="inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3 px-6 rounded-xl transition-all cursor-pointer btn-shimmer"
           >
             <FormattedMessage id="home.contact.preview.button" defaultMessage="Get In Touch" />

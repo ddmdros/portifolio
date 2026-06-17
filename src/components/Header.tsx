@@ -29,11 +29,11 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
   const navLinks = [
-    { id: "header.home", to: "/" },
-    { id: "header.projects", to: "/projects" },
-    { id: "header.blog", to: "/blog" },
-    { id: "header.contact", to: "/contact" },
-    { id: "header.resume", to: "/resume" },
+    { id: "header.home", to: `/${currentLocale}` },
+    { id: "header.projects", to: `/${currentLocale}/projects` },
+    { id: "header.blog", to: `/${currentLocale}/blog` },
+    { id: "header.contact", to: `/${currentLocale}/contact` },
+    { id: "header.resume", to: `/${currentLocale}/resume` },
   ];
 
   return (
@@ -41,7 +41,7 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between relative">
         {/* Logo */}
         <div className="text-lg font-bold z-50">
-          <Link to="/" onClick={closeMenu}>
+          <Link to={`/${currentLocale}`} onClick={closeMenu}>
             <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
           </Link>
         </div>
@@ -82,7 +82,7 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
         <div className="fixed inset-0 z-40 md:hidden bg-bg/95 backdrop-blur-lg flex flex-col animate-in fade-in slide-in-from-top-6 duration-300 ease-out">
           <div className="h-16 flex items-center justify-between px-6 border-b border-white/5">
             <div className="text-lg font-bold">
-              <Link to="/" onClick={closeMenu}>
+              <Link to={`/${currentLocale}`} onClick={closeMenu}>
                 <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
               </Link>
             </div>

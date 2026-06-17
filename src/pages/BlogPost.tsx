@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 
 const POST_DETAILS = {
@@ -14,6 +14,7 @@ const POST_DETAILS = {
 export const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
   const post = id ? POST_DETAILS[id as keyof typeof POST_DETAILS] : null;
+  const { locale } = useIntl();
 
   if (!post) {
     return (
@@ -21,7 +22,7 @@ export const BlogPost = () => {
         <h1 className="text-3xl font-bold text-white mb-4">
           <FormattedMessage id="blog.notfound" defaultMessage="Post not found" />
         </h1>
-        <Link to="/blog" className="text-accent hover:underline flex items-center justify-center gap-2">
+        <Link to={`/${locale}/blog`} className="text-accent hover:underline flex items-center justify-center gap-2">
           <ArrowLeft size={16} />
           <FormattedMessage id="blog.back" defaultMessage="Back to Blog" />
         </Link>
@@ -32,7 +33,7 @@ export const BlogPost = () => {
   return (
     <article className="max-w-3xl mx-auto px-6 py-12">
       <Link
-        to="/blog"
+        to={`/${locale}/blog`}
         className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-accent transition-colors mb-8"
       >
         <ArrowLeft size={16} />
