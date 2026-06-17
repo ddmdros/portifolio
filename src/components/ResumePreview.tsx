@@ -9,6 +9,11 @@ import { EXPERIENCE_DATA } from "../content/ExperienceData";
 const ResumePreview = () => {
   const navigate = useNavigate();
   const { locale } = useIntl();
+  const getCertUrl = (cert: typeof CERTIFICATIONS_DATA[0]) => {
+    if (locale === "pt" && cert.credentialUrlPt) return cert.credentialUrlPt;
+    if (locale === "en" && cert.credentialUrlEn) return cert.credentialUrlEn;
+    return cert.credentialUrl;
+  };
   return (
     <section className="py-20 border-t border-white/5">
       <SectionDiv sectionNumber="03" sectionTitleId="section.title.3" />
@@ -108,9 +113,9 @@ const ResumePreview = () => {
                 .map((cert) => (
                   <div key={cert.id} className="text-left border-l border-accent/20 pl-3">
                     <p className="text-xs text-gray-300 font-semibold truncate" title={cert.titleKey}>
-                      {cert.credentialUrl ? (
+                      {getCertUrl(cert) ? (
                         <a
-                          href={cert.credentialUrl}
+                          href={getCertUrl(cert)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:text-accent inline-flex items-center gap-1 transition-colors"

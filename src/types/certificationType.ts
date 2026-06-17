@@ -6,5 +6,7 @@ export interface CertificationType {
   showInResume: string[];
   category: string;
   credentialUrl?: string;
+  credentialUrlEn?: string;
+  credentialUrlPt?: string;
   showOnHome?: boolean;
 }

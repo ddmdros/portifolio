@@ -88,14 +88,18 @@ function getHtmlTemplate(lang, messages, profile) {
   // Filter certifications by active profile
   const featuredCerts = CERTIFICATIONS_DATA.filter(c => c.showInResume && c.showInResume.includes(profile));
 
-  const certsHtml = featuredCerts.map(cert => `
-    <li style="margin-bottom: 5px;">
-      <strong>${getMsg(cert.titleKey)}</strong>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #555555; margin-top: 1px;">
-        ${getMsg(cert.orgKey)} &bull; ${cert.year} &bull; <a href="${cert.credentialUrl}" target="_blank" style="color: #059669;">${lang === 'pt' ? 'credencial' : 'credential'}</a>
-      </div>
-    </li>
-  `).join('');
+  const certsHtml = featuredCerts.map(cert => {
+    const certUrl = (lang === 'pt' && cert.credentialUrlPt) ? cert.credentialUrlPt : ((lang === 'en' && cert.credentialUrlEn) ? cert.credentialUrlEn : cert.credentialUrl);
+    const linkHtml = certUrl ? ` &bull; <a href="${certUrl}" target="_blank" style="color: #059669;">${lang === 'pt' ? 'credencial' : 'credential'}</a>` : '';
+    return `
+      <li style="margin-bottom: 5px;">
+        <strong>${getMsg(cert.titleKey)}</strong>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #555555; margin-top: 1px;">
+          ${getMsg(cert.orgKey)} &bull; ${cert.year}${linkHtml}
+        </div>
+      </li>
+    `;
+  }).join('');
 
   // Filter education by active profile
   const resumeEdu = EDUCATION_DATA.filter(e => e.showInResume && e.showInResume.includes(profile));
