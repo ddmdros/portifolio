@@ -84,10 +84,10 @@ export const Resume = () => {
         </div>
 
         {/* Botão de Download com Dropdown de Perfis */}
-        <div className="relative self-start md:self-center" ref={dropdownRef}>
+        <div className="relative w-full md:w-auto md:self-center" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
+            className="w-full md:w-auto flex items-center justify-center md:justify-start gap-2 border border-accent text-accent hover:bg-accent hover:text-black font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
           >
             <Download size={18} />
             <FormattedMessage
@@ -101,7 +101,7 @@ export const Resume = () => {
           </button>
 
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-card-bg/95 backdrop-blur-md border border-white/10 rounded-2xl py-2 shadow-2xl z-50 animate-fade-in">
+            <div className="absolute left-0 right-0 md:left-auto md:right-0 mt-2 w-full md:w-64 bg-card-bg/95 backdrop-blur-md border border-white/10 rounded-2xl py-2 shadow-2xl z-50 animate-fade-in">
               <div className="px-4 py-1.5 text-[10px] font-mono text-accent/70 uppercase border-b border-white/5 mb-1">
                 Select Tailored Profile:
               </div>
