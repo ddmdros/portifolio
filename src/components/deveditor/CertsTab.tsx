@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, AlertTriangle } from "lucide-react";
 import { type CertificationType } from "../../types/certificationType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 
@@ -22,6 +22,14 @@ export const CertsTab = ({
 }: CertsTabProps) => {
   const [certFilter, setCertFilter] = useState<string>("all");
   const homeCertsCount = certs.filter((c) => c.showOnHome).length;
+
+  const existingOrgsEn = Array.from(
+    new Set(certs.map((c) => getTrans(c.orgKey, "en")).filter(Boolean))
+  ).sort();
+
+  const existingOrgsPt = Array.from(
+    new Set(certs.map((c) => getTrans(c.orgKey, "pt")).filter(Boolean))
+  ).sort();
 
   return (
     <div className="space-y-8">
@@ -126,6 +134,53 @@ export const CertsTab = ({
               (c) => c.category === cert.category && c.sectionHighlight
             ).length;
             const isHighlightDisabled = !cert.sectionHighlight && categoryHighlightsCount >= 3;
+
+            const titleEn = getTrans(cert.titleKey, "en").trim();
+            const orgEn = getTrans(cert.orgKey, "en").trim();
+            const isPlaceholder = (titleEn.toLowerCase() === "new certification name" || titleEn === "") &&
+                                  (orgEn.toLowerCase() === "issuer org" || orgEn === "");
+
+            const isDuplicate = !isPlaceholder && certs.some(
+              (c) => {
+                if (c.id === cert.id) return false;
+
+                // Match credential Url (English)
+                if (cert.credentialUrl && c.credentialUrl === cert.credentialUrl) return true;
+                // Match credential Url (Portuguese)
+                if (cert.credentialUrlPt && c.credentialUrlPt === cert.credentialUrlPt) return true;
+
+                const cTitleEn = getTrans(c.titleKey, "en").trim();
+                const cOrgEn = getTrans(c.orgKey, "en").trim();
+                const cIsPlaceholder = (cTitleEn.toLowerCase() === "new certification name" || cTitleEn === "") &&
+                                       (cOrgEn.toLowerCase() === "issuer org" || cOrgEn === "");
+                if (cIsPlaceholder) return false;
+
+                // Match English name + org + year
+                if (
+                  titleEn.toLowerCase() === cTitleEn.toLowerCase() &&
+                  orgEn.toLowerCase() === cOrgEn.toLowerCase() &&
+                  cert.year === c.year
+                ) {
+                  return true;
+                }
+
+                // Match Portuguese name + org + year
+                const titlePt = getTrans(cert.titleKey, "pt").trim().toLowerCase();
+                const cTitlePt = getTrans(c.titleKey, "pt").trim().toLowerCase();
+                const orgPt = getTrans(cert.orgKey, "pt").trim().toLowerCase();
+                const cOrgPt = getTrans(c.orgKey, "pt").trim().toLowerCase();
+
+                if (
+                  titlePt && titlePt === cTitlePt &&
+                  orgPt && orgPt === cOrgPt &&
+                  cert.year === c.year
+                ) {
+                  return true;
+                }
+
+                return false;
+              }
+            );
             return (
               <div
                 key={cert.id}
@@ -136,16 +191,23 @@ export const CertsTab = ({
                 }`}
               >
                 <div className="flex justify-between items-center">
-              <span className="text-xs font-mono text-gray-500">
-                ID: {cert.id}
-              </span>
-              <button
-                onClick={() => setCerts(certs.filter((c) => c.id !== cert.id))}
-                className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"
-              >
-                <Trash2 size={14} />
-              </button>
-            </div>
+                  <span className="text-xs font-mono text-gray-500">
+                    ID: {cert.id}
+                  </span>
+                  <button
+                    onClick={() => setCerts(certs.filter((c) => c.id !== cert.id))}
+                    className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+
+                {isDuplicate && (
+                  <div className="flex items-center gap-1.5 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-semibold animate-pulse">
+                    <AlertTriangle size={12} className="shrink-0" />
+                    Possible duplicate certification detected! (Same URL or same name/org/year)
+                  </div>
+                )}
 
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -183,12 +245,19 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
+                  list={`org-en-list-${cert.id}`}
                   value={getTrans(cert.orgKey, "en")}
                   onChange={(e) =>
                     updateTrans(cert.orgKey, "en", e.target.value)
                   }
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  placeholder="Type or select..."
                 />
+                <datalist id={`org-en-list-${cert.id}`}>
+                  {existingOrgsEn.map((org) => (
+                    <option key={org} value={org} />
+                  ))}
+                </datalist>
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
@@ -196,12 +265,19 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
+                  list={`org-pt-list-${cert.id}`}
                   value={getTrans(cert.orgKey, "pt")}
                   onChange={(e) =>
                     updateTrans(cert.orgKey, "pt", e.target.value)
                   }
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  placeholder="Escreva ou selecione..."
                 />
+                <datalist id={`org-pt-list-${cert.id}`}>
+                  {existingOrgsPt.map((org) => (
+                    <option key={org} value={org} />
+                  ))}
+                </datalist>
               </div>
             </div>
 

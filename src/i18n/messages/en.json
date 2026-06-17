@@ -179,5 +179,21 @@
   "resume.cert.custom14.title": "Internet: Understanding the Fundamentals of the Web",
   "resume.cert.custom14.org": "Alura",
   "resume.cert.custom15.title": "React: Developing with JavaScript",
-  "resume.cert.custom15.org": "Alura"
+  "resume.cert.custom15.org": "Alura",
+  "resume.cert.custom16.title": "Digital Illustration: Creating from the isometric perspective",
+  "resume.cert.custom16.org": "Alura",
+  "resume.cert.custom17.title": "Networks and Protocols: Fundamentals of Web",
+  "resume.cert.custom17.org": "Alura",
+  "resume.cert.custom18.title": "Java: creating your first application",
+  "resume.cert.custom18.org": "Alura",
+  "resume.cert.custom19.title": "Java: consuming API, writing files and handling errors",
+  "resume.cert.custom19.org": "Alura",
+  "resume.cert.custom20.title": "Java: working with lists and collections of data",
+  "resume.cert.custom20.org": "Alura",
+  "resume.cert.custom21.title": "ava: applying Object Orientation",
+  "resume.cert.custom21.org": "Alura",
+  "resume.cert.custom22.title": "Python: creating your first application",
+  "resume.cert.custom22.org": "Alura",
+  "resume.cert.custom23.title": "C#: applying Object Orientation",
+  "resume.cert.custom23.org": "Issuer Org"
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Award, ExternalLink } from "lucide-react";
+import { Award, ExternalLink, Pin, Star } from "lucide-react";
 import { CERTIFICATIONS_DATA } from "../../content/CertificationsData";
 import { SKILLS_DATA } from "../../content/SkillsData";
 
@@ -128,27 +128,43 @@ export const ResumeCertificationsSection = ({
               >
                 <Award size={16} />
               </div>
-              <div>
-                <h4 className="text-sm font-semibold text-white">
-                  {getCertUrl(cert) ? (
-                    <a
-                      href={getCertUrl(cert)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-1 transition-colors ${
-                        cert.sectionHighlight ? "hover:text-amber-400 text-amber-100" : "hover:text-accent"
-                      }`}
-                    >
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <h4 className="text-sm font-semibold text-white">
+                    {getCertUrl(cert) ? (
+                      <a
+                        href={getCertUrl(cert)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-1 transition-colors ${
+                          cert.sectionHighlight ? "hover:text-amber-400 text-amber-100" : "hover:text-accent"
+                        }`}
+                      >
+                        <FormattedMessage id={cert.titleKey} />
+                        <ExternalLink
+                          size={12}
+                          className="shrink-0 opacity-70"
+                        />
+                      </a>
+                    ) : (
                       <FormattedMessage id={cert.titleKey} />
-                      <ExternalLink
-                        size={12}
-                        className="shrink-0 opacity-70"
-                      />
-                    </a>
-                  ) : (
-                    <FormattedMessage id={cert.titleKey} />
-                  )}
-                </h4>
+                    )}
+                  </h4>
+                  <div className="flex gap-1.5 mt-0.5 shrink-0">
+                    {cert.sectionHighlight && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                        <Pin size={10} className="shrink-0" />
+                        <FormattedMessage id="resume.cert.badge.pinned" defaultMessage="Pinned" />
+                      </span>
+                    )}
+                    {cert.showOnHome && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-accent/10 border border-accent/30 text-accent">
+                        <Star size={10} className="shrink-0" />
+                        <FormattedMessage id="resume.cert.badge.featured" defaultMessage="Featured" />
+                      </span>
+                    )}
+                  </div>
+                </div>
                 <p className="text-xs text-gray-500 font-medium">
                   <FormattedMessage id={cert.orgKey} /> &bull; {cert.year}
                   {cert.hours && ` \u2022 ${cert.hours}h`}

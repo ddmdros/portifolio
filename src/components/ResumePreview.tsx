@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import SectionDiv from "./SectionDiv";
-import { GraduationCap, Briefcase, ArrowRight, Award, ExternalLink } from "lucide-react";
+import { GraduationCap, Briefcase, ArrowRight, Award, ExternalLink, Pin } from "lucide-react";
 import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
 import { EDUCATION_DATA } from "../content/EducationData";
 import { EXPERIENCE_DATA } from "../content/ExperienceData";
@@ -130,11 +130,15 @@ const ResumePreview = () => {
                           }`}
                           onClick={(e) => e.stopPropagation()}
                         >
+                          {cert.sectionHighlight && <Pin size={10} className="shrink-0 text-amber-500 rotate-[30deg]" />}
                           <FormattedMessage id={cert.titleKey} />
                           <ExternalLink size={10} className="shrink-0 opacity-70" />
                         </a>
                       ) : (
-                        <FormattedMessage id={cert.titleKey} />
+                        <span className="inline-flex items-center gap-1">
+                          {cert.sectionHighlight && <Pin size={10} className="shrink-0 text-amber-500 rotate-[30deg]" />}
+                          <FormattedMessage id={cert.titleKey} />
+                        </span>
                       )}
                     </p>
                     <p className="text-[10px] text-gray-500">
