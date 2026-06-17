@@ -108,16 +108,26 @@ const ResumePreview = () => {
             
             <div className="pl-[52px] space-y-3">
               {CERTIFICATIONS_DATA.filter((c) => c.showOnHome)
+                .sort((a, b) => (b.sectionHighlight ? 1 : 0) - (a.sectionHighlight ? 1 : 0))
                 .slice(0, 5)
                 .map((cert) => (
-                  <div key={cert.id} className="text-left border-l border-accent/20 pl-3">
-                    <p className="text-xs text-gray-300 font-semibold truncate" title={cert.titleKey}>
+                  <div
+                    key={cert.id}
+                    className={`text-left pl-3 transition-all ${
+                      cert.sectionHighlight
+                        ? "border-l border-amber-500 bg-amber-500/5 shadow-[0_0_10px_rgba(245,158,11,0.03)] rounded-r-lg p-1.5"
+                        : "border-l border-accent/20"
+                    }`}
+                  >
+                    <p className="text-xs font-semibold text-gray-300 truncate" title={cert.titleKey}>
                       {getCertUrl(cert) ? (
                         <a
                           href={getCertUrl(cert)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:text-accent inline-flex items-center gap-1 transition-colors"
+                          className={`inline-flex items-center gap-1 transition-colors ${
+                            cert.sectionHighlight ? "hover:text-amber-400 text-amber-100" : "hover:text-accent text-gray-300"
+                          }`}
                           onClick={(e) => e.stopPropagation()}
                         >
                           <FormattedMessage id={cert.titleKey} />

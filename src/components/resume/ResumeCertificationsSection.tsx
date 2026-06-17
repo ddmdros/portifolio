@@ -20,6 +20,12 @@ export const ResumeCertificationsSection = ({
         ? CERTIFICATIONS_DATA.filter((cert) => cert.showOnHome)
         : CERTIFICATIONS_DATA.filter((cert) => cert.category === certFilter);
 
+  const sortedCertifications = [...displayedCertifications].sort((a, b) => {
+    const aHighlight = a.sectionHighlight ? 1 : 0;
+    const bHighlight = b.sectionHighlight ? 1 : 0;
+    return bHighlight - aHighlight;
+  });
+
   const getCertUrl = (cert: typeof CERTIFICATIONS_DATA[0]) => {
     if (locale === "pt" && cert.credentialUrlPt) return cert.credentialUrlPt;
     return cert.credentialUrl;
@@ -106,9 +112,20 @@ export const ResumeCertificationsSection = ({
             </div>
           ))
         ) : (
-          displayedCertifications.map((cert) => (
-            <div key={cert.id} className="flex gap-3 animate-fade-in">
-              <div className="shrink-0 p-1.5 h-fit rounded bg-accent/10 text-accent">
+          sortedCertifications.map((cert) => (
+            <div
+              key={cert.id}
+              className={`flex gap-3 animate-fade-in p-2.5 rounded-xl transition-all ${
+                cert.sectionHighlight
+                  ? "bg-amber-500/5 border border-amber-500/20 shadow-[0_0_12px_rgba(245,158,11,0.04)]"
+                  : "border border-transparent"
+              }`}
+            >
+              <div
+                className={`shrink-0 p-1.5 h-fit rounded ${
+                  cert.sectionHighlight ? "bg-amber-500/20 text-amber-400" : "bg-accent/10 text-accent"
+                }`}
+              >
                 <Award size={16} />
               </div>
               <div>
@@ -118,7 +135,9 @@ export const ResumeCertificationsSection = ({
                       href={getCertUrl(cert)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-accent inline-flex items-center gap-1 transition-colors"
+                      className={`inline-flex items-center gap-1 transition-colors ${
+                        cert.sectionHighlight ? "hover:text-amber-400 text-amber-100" : "hover:text-accent"
+                      }`}
                     >
                       <FormattedMessage id={cert.titleKey} />
                       <ExternalLink

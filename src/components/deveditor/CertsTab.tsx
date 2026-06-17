@@ -122,12 +122,20 @@ export const CertsTab = ({
           })
           .map((cert) => {
             const cIdx = certs.findIndex((c) => c.id === cert.id);
+            const categoryHighlightsCount = certs.filter(
+              (c) => c.category === cert.category && c.sectionHighlight
+            ).length;
+            const isHighlightDisabled = !cert.sectionHighlight && categoryHighlightsCount >= 3;
             return (
-          <div
-            key={cert.id}
-            className="border border-white/5 p-5 rounded-2xl bg-white/5/20 space-y-4"
-          >
-            <div className="flex justify-between items-center">
+              <div
+                key={cert.id}
+                className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all ${
+                  cert.sectionHighlight
+                    ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.05)]"
+                    : "border-white/5"
+                }`}
+              >
+                <div className="flex justify-between items-center">
               <span className="text-xs font-mono text-gray-500">
                 ID: {cert.id}
               </span>
@@ -326,6 +334,35 @@ export const CertsTab = ({
               </div>
             </div>
 
+            {/* Section Highlight (Pin to Top) */}
+            <div className="border-t border-white/5 pt-3 mt-2 flex justify-between items-center">
+              <label
+                className={`flex items-center gap-1.5 text-xs font-semibold select-none cursor-pointer ${
+                  isHighlightDisabled ? "text-gray-500 cursor-not-allowed" : "text-amber-400"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={cert.sectionHighlight || false}
+                  disabled={isHighlightDisabled}
+                  onChange={(e) => {
+                    setCerts(
+                      updateItemAtIndex(certs, cIdx, {
+                        sectionHighlight: e.target.checked,
+                      }),
+                    );
+                  }}
+                  className="rounded border-white/10 bg-black/40 text-amber-500 focus:ring-amber-500 disabled:opacity-50"
+                />
+                Pin as Section Highlight (Max 3 per category)
+              </label>
+              {isHighlightDisabled && (
+                <span className="text-[10px] text-amber-500/70 font-mono">
+                  Limit of 3 reached
+                </span>
+              )}
+            </div>
+
             {/* Homepage Featured Selection */}
           </div>
         );
@@ -343,6 +380,20 @@ export const CertsTab = ({
             updateTrans(orgKey, "en", "Issuer Org");
             updateTrans(orgKey, "pt", "Org Emissora");
 
+            const defaultCategory = [
+              "ia_ml",
+              "back",
+              "frontend",
+              "cloud",
+              "game_dev",
+              "fundamentos",
+              "idiomas",
+            ].includes(certFilter)
+              ? (certFilter as CertificationType["category"])
+              : "cloud";
+
+            const defaultShowOnHome = certFilter === "featured";
+
             setCerts([
               ...certs,
               {
@@ -351,10 +402,10 @@ export const CertsTab = ({
                 orgKey,
                 year: new Date().getFullYear().toString(),
                 showInResume: [],
-                category: "cloud",
+                category: defaultCategory,
                 credentialUrl: "",
                 credentialUrlPt: "",
-                showOnHome: false,
+                showOnHome: defaultShowOnHome,
               },
             ]);
           }}

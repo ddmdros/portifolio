@@ -11,4 +11,5 @@ export interface CertificationType {
   credentialUrl?: string;
   credentialUrlPt?: string;
   showOnHome?: boolean;
+  sectionHighlight?: boolean;
 }

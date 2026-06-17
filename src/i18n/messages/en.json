@@ -161,7 +161,6 @@
   "resume.cert.filter.frontend": "Frontend",
   "resume.cert.filter.idiomas": "Languages",
   "resume.cert.filter.game_dev": "Game Dev",
-  "resume.cert.filter.fundamentos": "Fundamentals",
   "projects.view.more.cta": "View Other Projects →",
   "projects.view.all.online": "View All Projects Online →",
   "resume.projects.seeMore": "See More Projects",
@@ -178,5 +177,7 @@
   "resume.cert.custom13.title": "Learn Java with Object Oriented Programming",
   "resume.cert.custom13.org": "Alura",
   "resume.cert.custom14.title": "Internet: Understanding the Fundamentals of the Web",
-  "resume.cert.custom14.org": "Alura"
+  "resume.cert.custom14.org": "Alura",
+  "resume.cert.custom15.title": "React: Developing with JavaScript",
+  "resume.cert.custom15.org": "Alura"
 }

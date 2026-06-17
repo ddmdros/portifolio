@@ -102,15 +102,19 @@ function getHtmlTemplate(lang, messages, profile) {
   }).join('');
 
   // Filter certifications by active profile
-  const featuredCerts = CERTIFICATIONS_DATA.filter(c => c.showInResume && c.showInResume.includes(profile));
+  const featuredCerts = CERTIFICATIONS_DATA
+    .filter(c => c.showInResume && c.showInResume.includes(profile))
+    .sort((a, b) => (b.sectionHighlight ? 1 : 0) - (a.sectionHighlight ? 1 : 0));
 
   const certsHtml = featuredCerts.map(cert => {
     const certUrl = (lang === 'pt' && cert.credentialUrlPt) ? cert.credentialUrlPt : cert.credentialUrl;
     const linkHtml = certUrl ? ` &bull; <a href="${certUrl}" target="_blank" style="color: #059669;">${lang === 'pt' ? 'credencial' : 'credential'}</a>` : '';
     const hoursHtml = cert.hours ? ` &bull; ${cert.hours}h` : '';
+    const titleColor = cert.sectionHighlight ? '#b45309' : '#000000';
+    const starHtml = cert.sectionHighlight ? '<span style="color: #d97706;">★</span> ' : '';
     return `
       <li style="margin-bottom: 5px;">
-        <strong>${getMsg(cert.titleKey)}</strong>
+        <strong style="color: ${titleColor};">${starHtml}${getMsg(cert.titleKey)}</strong>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #555555; margin-top: 1px;">
           ${getMsg(cert.orgKey)} &bull; ${cert.year}${hoursHtml}${linkHtml}
         </div>

@@ -15,7 +15,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     ],
     "category": "cloud",
     "credentialUrl": "https://www.credly.com/badges/066915e4-a2d9-4c4c-a188-f5706b4b26f1",
-    "showOnHome": false
+    "showOnHome": true
   },
   {
     "id": "2",
@@ -45,7 +45,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     ],
     "category": "idiomas",
     "credentialUrl": "https://www.efset.org/cert/iwWZUS",
-    "showOnHome": false
+    "showOnHome": true
   },
   {
     "id": "4",
@@ -104,8 +104,9 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
       "cloud",
       "ia_ml"
     ],
-    "category": "cloud",
-    "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7"
+    "category": "ia_ml",
+    "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
+    "showOnHome": true
   },
   {
     "id": "9",
@@ -142,7 +143,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "showInResume": [
       "backend"
     ],
-    "category": "back",
+    "category": "fundamentos",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-aplicando-orientacao-objetos/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-aplicando-orientacao-objetos/certificate",
     "showOnHome": false,
@@ -156,7 +157,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "showInResume": [
       "backend"
     ],
-    "category": "cloud",
+    "category": "back",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-criando-primeira-aplicacao/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/csharp-criando-primeira-aplicacao/certificate",
     "showOnHome": false,
@@ -170,10 +171,10 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "showInResume": [
       "backend"
     ],
-    "category": "cloud",
+    "category": "back",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/degree-java-568827/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/degree-java-568827/certificate",
-    "showOnHome": false,
+    "showOnHome": true,
     "hours": "40"
   },
   {
@@ -184,10 +185,22 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "showInResume": [
       "cloud"
     ],
-    "category": "cloud",
+    "category": "fundamentos",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/internet-entendendo-fundamentos-da-web/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/internet-entendendo-fundamentos-da-web/certificate",
     "showOnHome": false,
     "hours": "8"
+  },
+  {
+    "id": "15",
+    "titleKey": "resume.cert.custom15.title",
+    "orgKey": "resume.cert.custom15.org",
+    "year": "2026",
+    "showInResume": [],
+    "category": "frontend",
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/react-desenvolvendo-javascript/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/react-desenvolvendo-javascript/certificate",
+    "showOnHome": false,
+    "hours": "14"
   }
 ];
