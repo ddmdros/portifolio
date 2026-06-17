@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
 import { type ProjectType, type ProjectCategory } from "../../types/projectType";
+import { updateItemAtIndex } from "../../utils/arrayUtils";
 
 interface ProjectsTabProps {
   projects: ProjectType[];
@@ -144,16 +145,12 @@ export const ProjectsTab = ({
                       : proj.category
                   }
                   onChange={(e) => {
-                    const updated = {
-                      ...proj,
-                      category: e.target.value
-                        .split(",")
-                        .map((t) => t.trim()) as ProjectCategory[],
-                    };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        category: e.target.value
+                          .split(",")
+                          .map((t) => t.trim()) as ProjectCategory[],
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -167,14 +164,10 @@ export const ProjectsTab = ({
                   type="text"
                   value={proj.tags.join(", ")}
                   onChange={(e) => {
-                    const updated = {
-                      ...proj,
-                      tags: e.target.value.split(",").map((t) => t.trim()),
-                    };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        tags: e.target.value.split(",").map((t) => t.trim()),
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -188,11 +181,10 @@ export const ProjectsTab = ({
                   type="text"
                   value={proj.imageUrl}
                   onChange={(e) => {
-                    const updated = { ...proj, imageUrl: e.target.value };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        imageUrl: e.target.value,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -209,14 +201,10 @@ export const ProjectsTab = ({
                   type="text"
                   value={proj.githubUrl || ""}
                   onChange={(e) => {
-                    const updated = {
-                      ...proj,
-                      githubUrl: e.target.value || undefined,
-                    };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        githubUrl: e.target.value || undefined,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -230,14 +218,10 @@ export const ProjectsTab = ({
                   type="text"
                   value={proj.projectUrl || ""}
                   onChange={(e) => {
-                    const updated = {
-                      ...proj,
-                      projectUrl: e.target.value || undefined,
-                    };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        projectUrl: e.target.value || undefined,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -251,14 +235,10 @@ export const ProjectsTab = ({
                   type="text"
                   value={proj.docId || ""}
                   onChange={(e) => {
-                    const updated = {
-                      ...proj,
-                      docId: e.target.value || undefined,
-                    };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        docId: e.target.value || undefined,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -272,11 +252,10 @@ export const ProjectsTab = ({
                   type="checkbox"
                   checked={proj.isWip || false}
                   onChange={(e) => {
-                    const updated = { ...proj, isWip: e.target.checked };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        isWip: e.target.checked,
+                      }),
                     );
                   }}
                   className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -289,11 +268,10 @@ export const ProjectsTab = ({
                   type="checkbox"
                   checked={proj.isFeatured}
                   onChange={(e) => {
-                    const updated = { ...proj, isFeatured: e.target.checked };
                     setProjects(
-                      projects.map((p, idx) =>
-                        idx === pIdx ? updated : p,
-                      ),
+                      updateItemAtIndex(projects, pIdx, {
+                        isFeatured: e.target.checked,
+                      }),
                     );
                   }}
                   className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -317,17 +295,13 @@ export const ProjectsTab = ({
                           proj.showInResume?.includes(profile.id) || false
                         }
                         onChange={() => {
-                          const updated = {
-                            ...proj,
-                            showInResume: toggleProfile(
-                              proj.showInResume,
-                              profile.id,
-                            ),
-                          };
                           setProjects(
-                            projects.map((p, idx) =>
-                              idx === pIdx ? updated : p,
-                            ),
+                            updateItemAtIndex(projects, pIdx, {
+                              showInResume: toggleProfile(
+                                proj.showInResume,
+                                profile.id,
+                              ),
+                            }),
                           );
                         }}
                         className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -362,14 +336,10 @@ export const ProjectsTab = ({
                         "pt",
                         "Texto do marcador (Português)",
                       );
-                      const updated = {
-                        ...proj,
-                        descKeys: [...(proj.descKeys || []), bulletKey],
-                      };
                       setProjects(
-                        projects.map((p, idx) =>
-                          idx === pIdx ? updated : p,
-                        ),
+                        updateItemAtIndex(projects, pIdx, {
+                          descKeys: [...(proj.descKeys || []), bulletKey],
+                        }),
                       );
                     }}
                     className="flex items-center gap-1 text-[10px] bg-white/5 text-gray-300 px-2 py-1 rounded hover:bg-white/10 cursor-pointer"
@@ -387,17 +357,13 @@ export const ProjectsTab = ({
                         </span>
                         <button
                           onClick={() => {
-                            const updated = {
-                              ...proj,
-                              descKeys:
-                                proj.descKeys?.filter(
-                                  (k) => k !== bKey,
-                                ) || [],
-                            };
                             setProjects(
-                              projects.map((p, idx) =>
-                                idx === pIdx ? updated : p,
-                              ),
+                              updateItemAtIndex(projects, pIdx, {
+                                descKeys:
+                                  proj.descKeys?.filter(
+                                    (k) => k !== bKey,
+                                  ) || [],
+                              }),
                             );
                           }}
                           className="text-red-400 hover:text-red-500 text-[10px] cursor-pointer"

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Mail, Send, User, MessageSquare, CheckCircle, AlertCircle, Sparkles } from "lucide-react";
+import { PROFILE_CONFIG } from "../config/profile";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -71,10 +72,10 @@ export const Contact = () => {
               <div className="min-w-0 w-full">
                 <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Email</p>
                 <a
-                  href="mailto:diogomedeirostranslation@gmail.com"
+                  href={`mailto:${PROFILE_CONFIG.emailContact}`}
                   className="text-white hover:text-accent font-medium transition-colors break-all block"
                 >
-                  diogomedeirostranslation@gmail.com
+                  {PROFILE_CONFIG.emailContact}
                 </a>
               </div>
             </div>
@@ -86,12 +87,12 @@ export const Contact = () => {
               <div className="min-w-0 w-full">
                 <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Github</p>
                 <a
-                  href="https://github.com/ddmdros"
+                  href={PROFILE_CONFIG.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white hover:text-accent font-medium transition-colors break-all block"
                 >
-                  github.com/ddmdros
+                  {PROFILE_CONFIG.githubUrl.replace("https://", "")}
                 </a>
               </div>
             </div>

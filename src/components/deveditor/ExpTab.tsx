@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
 import { type ExperienceType } from "../../content/ExperienceData";
+import { updateItemAtIndex } from "../../utils/arrayUtils";
 
 interface ExpTabProps {
   exp: ExperienceType[];
@@ -167,12 +168,10 @@ export const ExpTab = ({
                   type="text"
                   value={item.portfolioUrlKey || ""}
                   onChange={(e) => {
-                    const updated = {
-                      ...item,
-                      portfolioUrlKey: e.target.value || undefined,
-                    };
                     setExp(
-                      exp.map((x, idx) => (idx === eIdx ? updated : x)),
+                      updateItemAtIndex(exp, eIdx, {
+                        portfolioUrlKey: e.target.value || undefined,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
@@ -225,17 +224,13 @@ export const ExpTab = ({
                       type="checkbox"
                       checked={item.showInResume?.includes(profile.id) || false}
                       onChange={() => {
-                        const updated = {
-                          ...item,
-                          showInResume: toggleProfile(
-                            item.showInResume,
-                            profile.id,
-                          ),
-                        };
                         setExp(
-                          exp.map((ex, idx) =>
-                            idx === eIdx ? updated : ex,
-                          ),
+                          updateItemAtIndex(exp, eIdx, {
+                            showInResume: toggleProfile(
+                              item.showInResume,
+                              profile.id,
+                            ),
+                          }),
                         );
                       }}
                       className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -261,12 +256,10 @@ export const ExpTab = ({
                     updateTrans(bulletKey, "en", "New bullet text (English)");
                     updateTrans(bulletKey, "pt", "Texto do marcador (Português)");
 
-                    const updated = {
-                      ...item,
-                      descKeys: [...(item.descKeys || []), bulletKey],
-                    };
                     setExp(
-                      exp.map((x, idx) => (idx === eIdx ? updated : x)),
+                      updateItemAtIndex(exp, eIdx, {
+                        descKeys: [...(item.descKeys || []), bulletKey],
+                      }),
                     );
                   }}
                   className="flex items-center gap-1 text-[10px] bg-white/5 text-gray-300 px-2 py-1 rounded hover:bg-white/10 cursor-pointer"
@@ -284,13 +277,11 @@ export const ExpTab = ({
                       </span>
                       <button
                         onClick={() => {
-                          const updated = {
-                            ...item,
-                            descKeys:
-                              item.descKeys?.filter((k) => k !== bKey) || [],
-                          };
                           setExp(
-                            exp.map((x, idx) => (idx === eIdx ? updated : x)),
+                            updateItemAtIndex(exp, eIdx, {
+                              descKeys:
+                                item.descKeys?.filter((k) => k !== bKey) || [],
+                            }),
                           );
                         }}
                         className="text-red-400 hover:text-red-500 text-[10px] cursor-pointer"

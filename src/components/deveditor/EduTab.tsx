@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
 import { type EducationType } from "../../content/EducationData";
+import { updateItemAtIndex } from "../../utils/arrayUtils";
 
 interface EduTabProps {
   edu: EducationType[];
@@ -170,15 +171,13 @@ export const EduTab = ({
                       const gpaKey = `resume.edu.custom${item.id}.gpa`;
                       updateTrans(gpaKey, "en", "GPA: 9.0/10.0");
                       updateTrans(gpaKey, "pt", "Média: 9,0/10,0");
-                      setEdu(
-                        edu.map((x) =>
-                          x.id === item.id ? { ...x, gpaKey } : x,
-                        ),
-                      );
+                      setEdu(updateItemAtIndex(edu, eIdx, { gpaKey }));
                     } else {
-                      const { gpaKey: _, ...rest } = item;
                       setEdu(
-                        edu.map((x) => (x.id === item.id ? rest : x)),
+                        updateItemAtIndex(edu, eIdx, () => {
+                          const { gpaKey: _, ...rest } = item;
+                          return rest;
+                        }),
                       );
                     }
                   }}
@@ -239,17 +238,13 @@ export const EduTab = ({
                       type="checkbox"
                       checked={item.showInResume?.includes(profile.id) || false}
                       onChange={() => {
-                        const updated = {
-                          ...item,
-                          showInResume: toggleProfile(
-                            item.showInResume,
-                            profile.id,
-                          ),
-                        };
                         setEdu(
-                          edu.map((ed, idx) =>
-                            idx === eIdx ? updated : ed,
-                          ),
+                          updateItemAtIndex(edu, eIdx, {
+                            showInResume: toggleProfile(
+                              item.showInResume,
+                              profile.id,
+                            ),
+                          }),
                         );
                       }}
                       className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"

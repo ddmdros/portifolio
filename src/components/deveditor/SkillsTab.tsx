@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
 import { type SkillType } from "../../content/SkillsData";
+import { updateItemAtIndex } from "../../utils/arrayUtils";
 
 interface SkillsTabProps {
   skills: SkillType[];
@@ -70,9 +71,8 @@ export const SkillsTab = ({
                   type="text"
                   value={skill.name}
                   onChange={(e) => {
-                    const updated = { ...skill, name: e.target.value };
                     setSkills(
-                      skills.map((s, idx) => (idx === sIdx ? updated : s)),
+                      updateItemAtIndex(skills, sIdx, { name: e.target.value }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
@@ -85,9 +85,10 @@ export const SkillsTab = ({
                 <select
                   value={skill.categoryKey}
                   onChange={(e) => {
-                    const updated = { ...skill, categoryKey: e.target.value };
                     setSkills(
-                      skills.map((s, idx) => (idx === sIdx ? updated : s)),
+                      updateItemAtIndex(skills, sIdx, {
+                        categoryKey: e.target.value,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
@@ -124,15 +125,13 @@ export const SkillsTab = ({
                         skill.showInResume?.includes(profile.id) || false
                       }
                       onChange={() => {
-                        const updated = {
-                          ...skill,
-                          showInResume: toggleProfile(
-                            skill.showInResume,
-                            profile.id,
-                          ),
-                        };
                         setSkills(
-                          skills.map((s, idx) => (idx === sIdx ? updated : s)),
+                          updateItemAtIndex(skills, sIdx, {
+                            showInResume: toggleProfile(
+                              skill.showInResume,
+                              profile.id,
+                            ),
+                          }),
                         );
                       }}
                       className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -163,12 +162,10 @@ export const SkillsTab = ({
                           `resume.skills.languages.${skill.name.toLowerCase()}`;
                         updateTrans(k, "en", "English C2 (example)");
                         updateTrans(k, "pt", "Inglês C2 (exemplo)");
-                        const updated = {
-                          ...skill,
-                          resumeDetailsKey: k,
-                        };
                         setSkills(
-                          skills.map((s, idx) => (idx === sIdx ? updated : s)),
+                          updateItemAtIndex(skills, sIdx, {
+                            resumeDetailsKey: k,
+                          }),
                         );
                       }}
                       className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white"
@@ -216,12 +213,10 @@ export const SkillsTab = ({
                       type="text"
                       value={skill.credentialUrl || ""}
                       onChange={(e) => {
-                        const updated = {
-                          ...skill,
-                          credentialUrl: e.target.value || undefined,
-                        };
                         setSkills(
-                          skills.map((s, idx) => (idx === sIdx ? updated : s)),
+                          updateItemAtIndex(skills, sIdx, {
+                            credentialUrl: e.target.value || undefined,
+                          }),
                         );
                       }}
                       className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white"
@@ -241,12 +236,10 @@ export const SkillsTab = ({
                           `resume.skills.languages.${skill.name.toLowerCase()}.cert`;
                         updateTrans(k, "en", "EFL certificate");
                         updateTrans(k, "pt", "EFL certificado");
-                        const updated = {
-                          ...skill,
-                          certTextKey: k,
-                        };
                         setSkills(
-                          skills.map((s, idx) => (idx === sIdx ? updated : s)),
+                          updateItemAtIndex(skills, sIdx, {
+                            certTextKey: k,
+                          }),
                         );
                       }}
                       className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white"

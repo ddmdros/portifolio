@@ -17,7 +17,11 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
-  const [isTouch] = useState(() => typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0));
+  const [isTouch] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window || navigator.maxTouchPoints > 0),
+  );
 
   const categories: { id: string; value: ProjectCategory }[] = [
     { id: "projects.filter.all", value: "all" },
@@ -30,13 +34,13 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
 
   // Filtra as categorias ativas com base nos dados do projeto
   const activeCategoriesInData = new Set(
-    PROJECTS_DATA.flatMap((project) => 
-      Array.isArray(project.category) ? project.category : [project.category]
-    )
+    PROJECTS_DATA.flatMap((project) =>
+      Array.isArray(project.category) ? project.category : [project.category],
+    ),
   );
 
   const availableCategories = categories.filter(
-    (cat) => cat.value === "all" || activeCategoriesInData.has(cat.value)
+    (cat) => cat.value === "all" || activeCategoriesInData.has(cat.value),
   );
 
   // Função para contar quantos projetos pertencem a uma categoria
@@ -55,7 +59,9 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
     if (el) {
       const { scrollLeft, scrollWidth, clientWidth } = el;
       setShowLeftArrow(scrollLeft > SCROLL_TOLERANCE_PX);
-      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - SCROLL_TOLERANCE_PX);
+      setShowRightArrow(
+        scrollLeft < scrollWidth - clientWidth - SCROLL_TOLERANCE_PX,
+      );
     }
   };
 
@@ -80,7 +86,7 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
     <div className="mb-8 border-b border-white/10 pb-2 relative group/scroll-container">
       {/* Seta e gradiente da esquerda */}
       {!isTouch && showLeftArrow && (
-        <div className="absolute left-0 top-0 bottom-2 w-16 bg-gradient-to-r from-card-bg to-transparent pointer-events-none flex items-center z-10">
+        <div className="absolute left-0 top-0 bottom-2 w-16 bg-linear-to-r from-card-bg to-transparent pointer-events-none flex items-center z-10">
           <button
             onClick={() => scroll("left")}
             className="pointer-events-auto bg-black/60 hover:bg-accent hover:text-black text-white p-1.5 rounded-full border border-white/10 hover:border-accent transition-all duration-300 ml-1 shadow-md hover:scale-105 hover:cursor-pointer flex items-center justify-center"
@@ -116,7 +122,7 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
 
       {/* Seta e gradiente da direita */}
       {!isTouch && showRightArrow && (
-        <div className="absolute right-0 top-0 bottom-2 w-16 bg-gradient-to-l from-card-bg to-transparent pointer-events-none flex items-center justify-end z-10">
+        <div className="absolute right-0 top-0 bottom-2 w-16 bg-linear-to-l from-card-bg to-transparent pointer-events-none flex items-center justify-end z-10">
           <button
             onClick={() => scroll("right")}
             className="pointer-events-auto bg-black/60 hover:bg-accent hover:text-black text-white p-1.5 rounded-full border border-white/10 hover:border-accent transition-all duration-300 mr-1 shadow-md hover:scale-105 hover:cursor-pointer flex items-center justify-center"

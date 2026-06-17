@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
 import { type CertificationType } from "../../types/certificationType";
+import { updateItemAtIndex } from "../../utils/arrayUtils";
 
 interface CertsTabProps {
   certs: CertificationType[];
@@ -146,10 +147,7 @@ export const CertsTab = ({
                   type="text"
                   value={cert.year}
                   onChange={(e) => {
-                    const updated = { ...cert, year: e.target.value };
-                    setCerts(
-                      certs.map((c, idx) => (idx === cIdx ? updated : c)),
-                    );
+                    setCerts(updateItemAtIndex(certs, cIdx, { year: e.target.value }));
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
                 />
@@ -161,9 +159,10 @@ export const CertsTab = ({
                 <select
                   value={cert.category}
                   onChange={(e) => {
-                    const updated = { ...cert, category: e.target.value };
                     setCerts(
-                      certs.map((c, idx) => (idx === cIdx ? updated : c)),
+                      updateItemAtIndex(certs, cIdx, {
+                        category: e.target.value as CertificationType["category"],
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
@@ -186,12 +185,10 @@ export const CertsTab = ({
                   type="text"
                   value={cert.credentialUrl || ""}
                   onChange={(e) => {
-                    const updated = {
-                      ...cert,
-                      credentialUrl: e.target.value || undefined,
-                    };
                     setCerts(
-                      certs.map((c, idx) => (idx === cIdx ? updated : c)),
+                      updateItemAtIndex(certs, cIdx, {
+                        credentialUrl: e.target.value || undefined,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
@@ -205,12 +202,10 @@ export const CertsTab = ({
                   type="text"
                   value={cert.credentialUrlEn || ""}
                   onChange={(e) => {
-                    const updated = {
-                      ...cert,
-                      credentialUrlEn: e.target.value || undefined,
-                    };
                     setCerts(
-                      certs.map((c, idx) => (idx === cIdx ? updated : c)),
+                      updateItemAtIndex(certs, cIdx, {
+                        credentialUrlEn: e.target.value || undefined,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
@@ -224,12 +219,10 @@ export const CertsTab = ({
                   type="text"
                   value={cert.credentialUrlPt || ""}
                   onChange={(e) => {
-                    const updated = {
-                      ...cert,
-                      credentialUrlPt: e.target.value || undefined,
-                    };
                     setCerts(
-                      certs.map((c, idx) => (idx === cIdx ? updated : c)),
+                      updateItemAtIndex(certs, cIdx, {
+                        credentialUrlPt: e.target.value || undefined,
+                      }),
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
@@ -254,15 +247,13 @@ export const CertsTab = ({
                         cert.showInResume?.includes(profile.id) || false
                       }
                       onChange={() => {
-                        const updated = {
-                          ...cert,
-                          showInResume: toggleProfile(
-                            cert.showInResume,
-                            profile.id,
-                          ),
-                        };
                         setCerts(
-                          certs.map((c, idx) => (idx === cIdx ? updated : c)),
+                          updateItemAtIndex(certs, cIdx, {
+                            showInResume: toggleProfile(
+                              cert.showInResume,
+                              profile.id,
+                            ),
+                          }),
                         );
                       }}
                       className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -287,12 +278,10 @@ export const CertsTab = ({
                   checked={cert.showOnHome || false}
                   disabled={!cert.showOnHome && homeCertsCount >= 5}
                   onChange={(e) => {
-                    const updated = {
-                      ...cert,
-                      showOnHome: e.target.checked,
-                    };
                     setCerts(
-                      certs.map((c, idx) => (idx === cIdx ? updated : c)),
+                      updateItemAtIndex(certs, cIdx, {
+                        showOnHome: e.target.checked,
+                      }),
                     );
                   }}
                   className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent disabled:opacity-50"

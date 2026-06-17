@@ -8,16 +8,34 @@ if (process.env.VERCEL || process.env.CI) {
   process.exit(0);
 }
 
-const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+// Find Chrome executable in standard platform paths
+const POSSIBLE_CHROME_PATHS = [
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+  path.join(process.env.LOCALAPPDATA || '', 'Google/Chrome/Application/chrome.exe'),
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium-browser',
+  '/usr/bin/chromium'
+];
 
-if (!fs.existsSync(CHROME_PATH)) {
-  console.warn(`WARNING: Headless Chrome executable not found at "${CHROME_PATH}". Skipping PDF generation. (If you are on Windows, ensure Google Chrome is installed).`);
+let CHROME_PATH = '';
+for (const p of POSSIBLE_CHROME_PATHS) {
+  if (p && fs.existsSync(p)) {
+    CHROME_PATH = p;
+    break;
+  }
+}
+
+if (!CHROME_PATH) {
+  console.warn(`WARNING: Google Chrome/Chromium executable not found. Skipping PDF generation.`);
   process.exit(0);
 }
 
 const TEMP_DIR = process.env.TEMP || 'C:\\Users\\Diogo\\AppData\\Local\\Temp';
 const DEST_DIR = path.resolve(__dirname, '../public/assets');
 
+const profileConfigPath = path.resolve(__dirname, '../src/config/profile.ts');
 const projectsDataPath = path.resolve(__dirname, '../src/content/ProjectsData.ts');
 const certsDataPath = path.resolve(__dirname, '../src/content/CertificationsData.ts');
 const eduDataPath = path.resolve(__dirname, '../src/content/EducationData.ts');
@@ -56,13 +74,14 @@ function loadTypeScriptData(filePath) {
 }
 
 // Load data files dynamically
+const PROFILE_CONFIG = loadTypeScriptData(profileConfigPath);
 const PROJECTS_DATA = loadTypeScriptData(projectsDataPath);
 const CERTIFICATIONS_DATA = loadTypeScriptData(certsDataPath);
 const EDUCATION_DATA = loadTypeScriptData(eduDataPath);
 const EXPERIENCE_DATA = loadTypeScriptData(expDataPath);
 const SKILLS_DATA = loadTypeScriptData(skillsDataPath);
 
-console.log('Successfully loaded projects, certifications, education, experience, and skills data from TS files.');
+console.log('Successfully loaded profile configurations and resume/portfolio data from TS files.');
 
 function getHtmlTemplate(lang, messages, profile) {
   const getMsg = (key) => messages[key] || key;
@@ -122,9 +141,9 @@ function getHtmlTemplate(lang, messages, profile) {
   const resumeExp = EXPERIENCE_DATA.filter(ex => ex.showInResume && ex.showInResume.includes(profile));
 
   // Construct contact section
-  const githubUrl = 'https://github.com/ddmdros';
-  const linkedinUrl = 'https://linkedin.com/in/diogo-medeiros';
-  const portfolioUrl = 'https://portifolio-tawny-xi-55.vercel.app';
+  const githubUrl = PROFILE_CONFIG.githubUrl;
+  const linkedinUrl = PROFILE_CONFIG.linkedinUrl;
+  const portfolioUrl = PROFILE_CONFIG.portfolioUrl;
 
   const expHtml = resumeExp.map(exp => `
     <div class="exp-item">
@@ -143,7 +162,7 @@ function getHtmlTemplate(lang, messages, profile) {
   `).join('');
 
   // Add Link to Google Skills Profile as "More certifications"
-  const googleSkillsProfile = 'https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7';
+  const googleSkillsProfile = PROFILE_CONFIG.googleSkillsProfile;
 
   // Dynamic Technical Skills list filtered by active profile
   const resumeSkills = SKILLS_DATA.filter(s => s.showInResume && s.showInResume.includes(profile));
@@ -373,10 +392,10 @@ function getHtmlTemplate(lang, messages, profile) {
 </head>
 <body>
   <div class="header">
-    <h1 class="name">Diogo Medeiros</h1>
+    <h1 class="name">${PROFILE_CONFIG.name}</h1>
     <h2 class="title">${lang === 'pt' ? 'Engenheiro Full-Stack' : 'Full-Stack Engineer'}</h2>
     <p class="contact-bar">
-      Lages, Brazil &bull; <a href="mailto:ddmdros@proton.me">ddmdros@proton.me</a> &bull; <a href="${linkedinUrl}" target="_blank">linkedin.com/in/diogo-medeiros</a> &bull; <a href="${githubUrl}" target="_blank">github.com/ddmdros</a>
+      Lages, Brazil &bull; <a href="mailto:${PROFILE_CONFIG.emailResume}">${PROFILE_CONFIG.emailResume}</a> &bull; <a href="${linkedinUrl}" target="_blank">linkedin.com/in/${PROFILE_CONFIG.linkedinUser}</a> &bull; <a href="${githubUrl}" target="_blank">github.com/${PROFILE_CONFIG.githubUser}</a>
     </p>
   </div>
 
@@ -423,9 +442,9 @@ function getHtmlTemplate(lang, messages, profile) {
     <div class="col">
       <div class="section-title">${lang === 'pt' ? 'Contato' : 'Contact'}</div>
       <ul style="padding-left: 12px; list-style-type: none;">
-        <li style="margin-bottom: 3px;"><strong>&bull; Github:</strong> <a href="${githubUrl}" target="_blank">github.com/ddmdros</a></li>
-        <li style="margin-bottom: 3px;"><strong>&bull; LinkedIn:</strong> <a href="${linkedinUrl}" target="_blank">linkedin.com/in/diogo-medeiros</a></li>
-        <li style="margin-bottom: 3px;"><strong>&bull; ${lang === 'pt' ? 'Portfólio' : 'Portfolio'}:</strong> <a href="${portfolioUrl}" target="_blank">portifolio-tawny-xi-55.vercel.app</a></li>
+        <li style="margin-bottom: 3px;"><strong>&bull; Github:</strong> <a href="${githubUrl}" target="_blank">github.com/${PROFILE_CONFIG.githubUser}</a></li>
+        <li style="margin-bottom: 3px;"><strong>&bull; LinkedIn:</strong> <a href="${linkedinUrl}" target="_blank">linkedin.com/in/${PROFILE_CONFIG.linkedinUser}</a></li>
+        <li style="margin-bottom: 3px;"><strong>&bull; ${lang === 'pt' ? 'Portfólio' : 'Portfolio'}:</strong> <a href="${portfolioUrl}" target="_blank">${portfolioUrl.replace("https://", "")}</a></li>
       </ul>
     </div>
   </div>
