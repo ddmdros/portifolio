@@ -4,7 +4,7 @@ export interface ExperienceType {
   companyKey: string;
   dateKey: string;
   descKeys: string[];
-  showInResume: boolean;
+  showInResume: string[];
   portfolioUrlKey?: string;
 }
 
@@ -17,9 +17,16 @@ export const EXPERIENCE_DATA: ExperienceType[] = [
     descKeys: [
       "resume.exp.keywords.desc1",
       "resume.exp.keywords.desc2",
-      "resume.exp.keywords.desc3",
+      "resume.exp.keywords.desc3"
     ],
-    showInResume: true,
+    showInResume: [
+      "general",
+      "cloud",
+      "backend",
+      "frontend",
+      "fullstack",
+      "ia_ml"
+    ]
   },
   {
     id: "2",
@@ -27,9 +34,16 @@ export const EXPERIENCE_DATA: ExperienceType[] = [
     companyKey: "resume.exp.independent.company",
     dateKey: "resume.exp.independent.date",
     descKeys: [
-      "resume.exp.independent.desc1",
+      "resume.exp.independent.desc1"
     ],
     portfolioUrlKey: "resume.link.portfolio",
-    showInResume: true,
-  },
+    showInResume: [
+      "general",
+      "cloud",
+      "backend",
+      "frontend",
+      "fullstack",
+      "ia_ml"
+    ]
+  }
 ];

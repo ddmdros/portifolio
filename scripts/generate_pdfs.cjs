@@ -64,11 +64,11 @@ const SKILLS_DATA = loadTypeScriptData(skillsDataPath);
 
 console.log('Successfully loaded projects, certifications, education, experience, and skills data from TS files.');
 
-function getHtmlTemplate(lang, messages) {
+function getHtmlTemplate(lang, messages, profile) {
   const getMsg = (key) => messages[key] || key;
 
-  // Filter projects to find items marked showInResume === true
-  const resumeProjects = PROJECTS_DATA.filter(p => p.showInResume === true);
+  // Filter projects by active profile
+  const resumeProjects = PROJECTS_DATA.filter(p => p.showInResume && p.showInResume.includes(profile));
 
   const projectsHtml = resumeProjects.map(proj => {
     const projectLink = proj.projectUrl || proj.githubUrl || '#';
@@ -85,8 +85,8 @@ function getHtmlTemplate(lang, messages) {
     `;
   }).join('');
 
-  // Filter featured certifications
-  const featuredCerts = CERTIFICATIONS_DATA.filter(c => c.showInResume === true);
+  // Filter certifications by active profile
+  const featuredCerts = CERTIFICATIONS_DATA.filter(c => c.showInResume && c.showInResume.includes(profile));
 
   const certsHtml = featuredCerts.map(cert => `
     <li style="margin-bottom: 5px;">
@@ -97,8 +97,8 @@ function getHtmlTemplate(lang, messages) {
     </li>
   `).join('');
 
-  // Filter education
-  const resumeEdu = EDUCATION_DATA.filter(e => e.showInResume === true);
+  // Filter education by active profile
+  const resumeEdu = EDUCATION_DATA.filter(e => e.showInResume && e.showInResume.includes(profile));
 
   const eduHtml = resumeEdu.map(edu => `
     <li style="margin-bottom: 5px;">
@@ -114,8 +114,8 @@ function getHtmlTemplate(lang, messages) {
     </li>
   `).join('');
 
-  // Filter experience
-  const resumeExp = EXPERIENCE_DATA.filter(ex => ex.showInResume === true);
+  // Filter experience by active profile
+  const resumeExp = EXPERIENCE_DATA.filter(ex => ex.showInResume && ex.showInResume.includes(profile));
 
   // Construct contact section
   const githubUrl = 'https://github.com/ddmdros';
@@ -141,8 +141,8 @@ function getHtmlTemplate(lang, messages) {
   // Add Link to Google Skills Profile as "More certifications"
   const googleSkillsProfile = 'https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7';
 
-  // Dynamic Technical Skills list from SKILLS_DATA
-  const resumeSkills = SKILLS_DATA.filter(s => s.showInResume === true);
+  // Dynamic Technical Skills list filtered by active profile
+  const resumeSkills = SKILLS_DATA.filter(s => s.showInResume && s.showInResume.includes(profile));
 
   const techSkillsGrouped = {};
   resumeSkills.forEach(s => {
@@ -442,46 +442,55 @@ function getHtmlTemplate(lang, messages) {
   `;
 }
 
-// Write dynamic HTML templates
-const htmlEn = getHtmlTemplate('en', enMessages);
-const htmlPt = getHtmlTemplate('pt', ptbrMessages);
+// Active CV profiles to compile
+const PROFILES = ['general', 'cloud', 'backend', 'frontend', 'fullstack', 'ia_ml'];
 
-const tempHtmlEnPath = path.join(TEMP_DIR, 'resume_en.html');
-const tempHtmlPtPath = path.join(TEMP_DIR, 'resume_pt.html');
-const tempPdfEnPath = path.join(TEMP_DIR, 'resume_en.pdf');
-const tempPdfPtPath = path.join(TEMP_DIR, 'resume_pt.pdf');
+// Create destination directory if it doesn't exist
+if (!fs.existsSync(DEST_DIR)) {
+  fs.mkdirSync(DEST_DIR, { recursive: true });
+}
 
-fs.writeFileSync(tempHtmlEnPath, htmlEn);
-fs.writeFileSync(tempHtmlPtPath, htmlPt);
-
-console.log('Dynamic HTML files written to temp folder successfully.');
-
-// Compile PDFs using headless Chrome
+// Compile CVs for all profiles in both languages
 try {
-  console.log('Printing English resume from dynamic HTML to PDF...');
-  execSync(`"${CHROME_PATH}" --headless=new --disable-gpu --no-sandbox --print-to-pdf-no-header --print-to-pdf="${tempPdfEnPath}" "${tempHtmlEnPath}"`);
-  console.log('English PDF generated.');
+  PROFILES.forEach(profile => {
+    console.log(`Generating CVs for profile: "${profile}"...`);
+    const htmlEn = getHtmlTemplate('en', enMessages, profile);
+    const htmlPt = getHtmlTemplate('pt', ptbrMessages, profile);
 
-  console.log('Printing Portuguese resume from dynamic HTML to PDF...');
-  execSync(`"${CHROME_PATH}" --headless=new --disable-gpu --no-sandbox --print-to-pdf-no-header --print-to-pdf="${tempPdfPtPath}" "${tempHtmlPtPath}"`);
-  console.log('Portuguese PDF generated.');
+    const tempHtmlEnPath = path.join(TEMP_DIR, `resume_${profile}_en.html`);
+    const tempHtmlPtPath = path.join(TEMP_DIR, `resume_${profile}_pt.html`);
+    const tempPdfEnPath = path.join(TEMP_DIR, `resume_${profile}_en.pdf`);
+    const tempPdfPtPath = path.join(TEMP_DIR, `resume_${profile}_pt.pdf`);
 
-  // Create destination directory if it doesn't exist
-  if (!fs.existsSync(DEST_DIR)) {
-    fs.mkdirSync(DEST_DIR, { recursive: true });
-  }
+    fs.writeFileSync(tempHtmlEnPath, htmlEn);
+    fs.writeFileSync(tempHtmlPtPath, htmlPt);
 
-  // Copy files
-  fs.copyFileSync(tempPdfEnPath, path.join(DEST_DIR, 'resume_en.pdf'));
-  fs.copyFileSync(tempPdfPtPath, path.join(DEST_DIR, 'resume_pt.pdf'));
-  console.log('PDFs copied to destination assets directory successfully.');
+    // Print EN PDF
+    execSync(`"${CHROME_PATH}" --headless=new --disable-gpu --no-sandbox --print-to-pdf-no-header --print-to-pdf="${tempPdfEnPath}" "${tempHtmlEnPath}"`);
+    // Print PT PDF
+    execSync(`"${CHROME_PATH}" --headless=new --disable-gpu --no-sandbox --print-to-pdf-no-header --print-to-pdf="${tempPdfPtPath}" "${tempHtmlPtPath}"`);
 
-  // Clean up
-  fs.unlinkSync(tempHtmlEnPath);
-  fs.unlinkSync(tempHtmlPtPath);
-  fs.unlinkSync(tempPdfEnPath);
-  fs.unlinkSync(tempPdfPtPath);
-  console.log('Cleaned up temporary files successfully.');
+    // Copy to destination
+    const destPdfEnName = `resume_${profile}_en.pdf`;
+    const destPdfPtName = `resume_${profile}_pt.pdf`;
+    
+    fs.copyFileSync(tempPdfEnPath, path.join(DEST_DIR, destPdfEnName));
+    fs.copyFileSync(tempPdfPtPath, path.join(DEST_DIR, destPdfPtName));
+
+    // If general, copy to default filename for fallback
+    if (profile === 'general') {
+      fs.copyFileSync(tempPdfEnPath, path.join(DEST_DIR, 'resume_en.pdf'));
+      fs.copyFileSync(tempPdfPtPath, path.join(DEST_DIR, 'resume_pt.pdf'));
+    }
+
+    // Clean up
+    fs.unlinkSync(tempHtmlEnPath);
+    fs.unlinkSync(tempHtmlPtPath);
+    fs.unlinkSync(tempPdfEnPath);
+    fs.unlinkSync(tempPdfPtPath);
+    console.log(`Profile "${profile}" PDFs generated and copied.`);
+  });
+  console.log('All profile PDFs generated successfully.');
 } catch (err) {
   console.error('Error generating PDFs:', err);
   process.exit(1);

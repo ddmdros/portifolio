@@ -3,6 +3,7 @@ export interface CertificationType {
   titleKey: string;
   orgKey: string;
   year: string;
-  showInResume: boolean;
+  showInResume: string[];
+  category: string;
   credentialUrl?: string;
 }

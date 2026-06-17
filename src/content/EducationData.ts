@@ -4,7 +4,7 @@ export interface EducationType {
   instKey: string;
   dateKey: string;
   gpaKey?: string;
-  showInResume: boolean;
+  showInResume: string[];
 }
 
 export const EDUCATION_DATA: EducationType[] = [
@@ -13,14 +13,28 @@ export const EDUCATION_DATA: EducationType[] = [
     titleKey: "resume.edu.se.title",
     instKey: "resume.edu.se.inst",
     dateKey: "resume.edu.se.date",
-    showInResume: true,
+    showInResume: [
+      "general",
+      "cloud",
+      "backend",
+      "frontend",
+      "fullstack",
+      "ia_ml"
+    ]
   },
   {
     id: "2",
     titleKey: "resume.edu.java.title",
     instKey: "resume.edu.java.inst",
     dateKey: "resume.edu.java.date",
-    showInResume: true,
+    showInResume: [
+      "general",
+      "cloud",
+      "backend",
+      "frontend",
+      "fullstack",
+      "ia_ml"
+    ]
   },
   {
     id: "3",
@@ -28,6 +42,13 @@ export const EDUCATION_DATA: EducationType[] = [
     instKey: "resume.edu.journalism.inst",
     dateKey: "resume.edu.journalism.date",
     gpaKey: "resume.edu.journalism.gpa",
-    showInResume: true,
-  },
+    showInResume: [
+      "general",
+      "cloud",
+      "backend",
+      "frontend",
+      "fullstack",
+      "ia_ml"
+    ]
+  }
 ];

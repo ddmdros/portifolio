@@ -151,5 +151,21 @@
   "docs.readNext.action": "Read Now",
   "resume.skills.languages.english.cert": "EFL certificate",
   "resume.skills.languages.french.cert": "IFESP certificate",
-  "resume.section.projects": "Projects"
+  "resume.section.projects": "Projects",
+  "resume.project.netplay.bullet1": "Built a physical media game marketplace using React, FastAPI, and PostgreSQL.",
+  "resume.project.netplay.bullet2": "Integrated LangChain AI agents for location-based recommendations and automated negotiations.",
+  "resume.project.freelanceBoard.bullet1": "Developed a fully responsive client-side dashboard managing active projects and status toggles.",
+  "resume.project.freelanceBoard.bullet2": "Optimized state management and dynamic UI filters with Vanilla CSS and JS.",
+  "resume.project.dataImmersion.bullet1": "Created an interactive data science dashboard built with Python, Pandas, and Streamlit to analyze financial data.",
+  "resume.project.screenMatch.bullet1": "Developed a Java Spring Boot REST API for movie tracking with JPA, PostgreSQL, and OMDb API consumption.",
+  "resume.profile.general": "General CV",
+  "resume.profile.cloud": "Cloud & DevOps Focus",
+  "resume.profile.backend": "Backend Focus",
+  "resume.profile.frontend": "Frontend Focus",
+  "resume.profile.fullstack": "Fullstack Focus",
+  "resume.profile.ia_ml": "AI & Machine Learning Focus",
+  "resume.cert.filter.all": "All",
+  "resume.cert.filter.cloud": "Cloud & DevOps",
+  "resume.cert.filter.java": "Java & Backend",
+  "resume.cert.filter.languages": "Languages"
 }

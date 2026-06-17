@@ -150,5 +150,21 @@
   "docs.readNext.action": "Ler Agora",
   "resume.skills.languages.english.cert": "EFL certificado",
   "resume.skills.languages.french.cert": "IFESP certificado",
-  "resume.section.projects": "Projetos"
+  "resume.section.projects": "Projetos",
+  "resume.project.netplay.bullet1": "Desenvolveu um marketplace de compartilhamento de jogos físicos usando React, FastAPI e PostgreSQL.",
+  "resume.project.netplay.bullet2": "Integrou agentes de IA com LangChain para recomendações por geolocalização e negociações automatizadas.",
+  "resume.project.freelanceBoard.bullet1": "Desenvolveu um dashboard responsivo gerenciando projetos ativos e filtros de status no lado do cliente.",
+  "resume.project.freelanceBoard.bullet2": "Otimizou o gerenciamento de estado e filtros de interface com Vanilla CSS e JS.",
+  "resume.project.dataImmersion.bullet1": "Criou um dashboard interativo de ciência de dados com Python, Pandas e Streamlit para análise financeira.",
+  "resume.project.screenMatch.bullet1": "Desenvolveu uma API REST Java Spring Boot para rastreamento de filmes com JPA, PostgreSQL e consumo da API OMDb.",
+  "resume.profile.general": "Currículo Geral",
+  "resume.profile.cloud": "Foco Cloud & DevOps",
+  "resume.profile.backend": "Foco Backend",
+  "resume.profile.frontend": "Foco Frontend",
+  "resume.profile.fullstack": "Foco Fullstack",
+  "resume.profile.ia_ml": "Foco IA & Machine Learning",
+  "resume.cert.filter.all": "Todas",
+  "resume.cert.filter.cloud": "Nuvem & DevOps",
+  "resume.cert.filter.java": "Java & Backend",
+  "resume.cert.filter.languages": "Idiomas"
 }

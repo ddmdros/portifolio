@@ -13,14 +13,14 @@ export const PROJECTS_DATA: ProjectType[] = [
     projectUrl: "https://office-mayhem-aqis.vercel.app/",
     isFeatured: true,
     docId: "starr-corp",
-    showInResume: true,
+    showInResume: ["general", "backend", "frontend", "fullstack"],
     descKeys: [
       "resume.project.starrCorp.bullet1",
       "resume.project.starrCorp.bullet2",
       "resume.project.starrCorp.bullet2.sub1",
       "resume.project.starrCorp.bullet2.sub2",
       "resume.project.starrCorp.bullet2.sub3"
-    ],
+    ]
   },
   {
     id: "2",
@@ -32,6 +32,11 @@ export const PROJECTS_DATA: ProjectType[] = [
     githubUrl: "https://github.com/ddmdros/FreelancerDashboard",
     projectUrl: "https://ddmdros.github.io/FreelancerDashboard/",
     isFeatured: false,
+    showInResume: ["frontend"],
+    descKeys: [
+      "resume.project.freelanceBoard.bullet1",
+      "resume.project.freelanceBoard.bullet2"
+    ]
   },
   {
     id: "3",
@@ -43,6 +48,7 @@ export const PROJECTS_DATA: ProjectType[] = [
     githubUrl: "https://github.com/ddmdros/ebac-platformer2d",
     isFeatured: false,
     isWip: true,
+    showInResume: []
   },
   {
     id: "4",
@@ -54,6 +60,10 @@ export const PROJECTS_DATA: ProjectType[] = [
     githubUrl: "https://github.com/ddmdros/imersao-dados-com-python-alura",
     projectUrl: "https://imersao-dados-com-python-alura-diogo-medeiros.streamlit.app/",
     isFeatured: false,
+    showInResume: ["ia_ml"],
+    descKeys: [
+      "resume.project.dataImmersion.bullet1"
+    ]
   },
   {
     id: "5",
@@ -65,6 +75,10 @@ export const PROJECTS_DATA: ProjectType[] = [
     githubUrl: "https://github.com/ddmdros/ScreenMatch-with-SpringBoot",
     isFeatured: false,
     isWip: true,
+    showInResume: ["backend"],
+    descKeys: [
+      "resume.project.screenMatch.bullet1"
+    ]
   },
   {
     id: "6",
@@ -79,5 +93,10 @@ export const PROJECTS_DATA: ProjectType[] = [
     isFeatured: true,
     isWip: true,
     docId: "netplay",
-  },
+    showInResume: ["general", "backend", "fullstack", "ia_ml"],
+    descKeys: [
+      "resume.project.netplay.bullet1",
+      "resume.project.netplay.bullet2"
+    ]
+  }
 ];

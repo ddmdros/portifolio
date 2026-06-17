@@ -8,6 +8,17 @@ import { SKILLS_DATA } from "../content/SkillsData";
 import enMessagesInit from "../i18n/messages/en.json";
 import ptbrMessagesInit from "../i18n/messages/ptbr.json";
 
+const PROFILES = [
+  { id: "general", label: "General" },
+  { id: "cloud", label: "Cloud & DevOps" },
+  { id: "backend", label: "Backend" },
+  { id: "frontend", label: "Frontend" },
+  { id: "fullstack", label: "Fullstack" },
+  { id: "ia_ml", label: "AI & ML" },
+] as const;
+
+
+
 export const DevEditor = () => {
   const [isLocalhost, setIsLocalhost] = useState(false);
   const [activeTab, setActiveTab] = useState<"projects" | "certs" | "edu" | "exp" | "skills" | "trans">("projects");
@@ -40,6 +51,16 @@ export const DevEditor = () => {
       </div>
     );
   }
+
+  // Helper to toggle profile ID in showInResume array
+  const toggleProfile = (arr: string[] | undefined, profileId: string): string[] => {
+    const current = arr || [];
+    if (current.includes(profileId)) {
+      return current.filter(x => x !== profileId);
+    } else {
+      return [...current, profileId];
+    }
+  };
 
   // Translation helpers
   const getTrans = (key: string, lang: "en" | "pt") => {
@@ -80,7 +101,7 @@ export const DevEditor = () => {
       if (result.success) {
         setSaveStatus({
           type: "success",
-          message: "Changes saved and PDF CVs generated successfully!",
+          message: "Changes saved and PDF CVs for all 6 profiles generated successfully!",
         });
       } else {
         setSaveStatus({
@@ -193,7 +214,7 @@ export const DevEditor = () => {
                       tags: ["React"],
                       imageUrl: "/assets/projects/placeholder.png",
                       isFeatured: false,
-                      showInResume: false,
+                      showInResume: [],
                       descKeys: [],
                     },
                   ]);
@@ -341,8 +362,8 @@ export const DevEditor = () => {
                     </div>
                   </div>
 
-                  {/* Toggle controls */}
-                  <div className="flex flex-wrap gap-6 items-center pt-2">
+                  {/* Toggle and Profile checkboxes */}
+                  <div className="space-y-3 pt-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-gray-300 cursor-pointer">
                       <input
                         type="checkbox"
@@ -356,22 +377,32 @@ export const DevEditor = () => {
                       Is Featured (Portfolio home card)
                     </label>
 
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-300 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={proj.showInResume || false}
-                        onChange={(e) => {
-                          const updated = { ...proj, showInResume: e.target.checked };
-                          setProjects(projects.map((p, idx) => (idx === pIdx ? updated : p)));
-                        }}
-                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                      />
-                      Show in CV/Resume
-                    </label>
+                    <div className="border-t border-white/5 pt-2">
+                      <span className="block text-xs font-semibold text-gray-400 mb-1.5">Include in CV Profiles:</span>
+                      <div className="flex flex-wrap gap-4">
+                        {PROFILES.map((profile) => (
+                          <label key={profile.id} className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={proj.showInResume?.includes(profile.id) || false}
+                              onChange={() => {
+                                const updated = {
+                                  ...proj,
+                                  showInResume: toggleProfile(proj.showInResume, profile.id),
+                                };
+                                setProjects(projects.map((p, idx) => (idx === pIdx ? updated : p)));
+                              }}
+                              className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
+                            />
+                            {profile.label}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
                   {/* Resume bullet points */}
-                  {proj.showInResume && (
+                  {proj.showInResume && proj.showInResume.length > 0 && (
                     <div className="border-t border-white/5 pt-4 space-y-3">
                       <div className="flex justify-between items-center">
                         <span className="text-xs font-semibold text-accent">CV Bullet Points</span>
@@ -460,7 +491,8 @@ export const DevEditor = () => {
                       titleKey,
                       orgKey,
                       year: new Date().getFullYear().toString(),
-                      showInResume: false,
+                      showInResume: [],
+                      category: "cloud",
                       credentialUrl: "",
                     },
                   ]);
@@ -539,8 +571,23 @@ export const DevEditor = () => {
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
                       />
                     </div>
-                    <div className="col-span-2">
-                      <label className="block text-xs font-semibold text-gray-400 mb-1">Credential URL</label>
+                    <div className="col-span-1">
+                      <label className="block text-xs font-semibold text-gray-400 mb-1">Category</label>
+                      <select
+                        value={cert.category}
+                        onChange={(e) => {
+                          const updated = { ...cert, category: e.target.value };
+                          setCerts(certs.map((c, idx) => (idx === cIdx ? updated : c)));
+                        }}
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
+                      >
+                        <option value="cloud">Cloud & DevOps</option>
+                        <option value="java">Java & Backend</option>
+                        <option value="languages">Languages</option>
+                      </select>
+                    </div>
+                    <div className="col-span-1">
+                      <label className="block text-xs font-semibold text-gray-400 mb-1">Credential Link</label>
                       <input
                         type="text"
                         value={cert.credentialUrl || ""}
@@ -553,18 +600,29 @@ export const DevEditor = () => {
                     </div>
                   </div>
 
-                  <label className="flex items-center gap-2 text-xs font-semibold text-gray-300 cursor-pointer pt-2">
-                    <input
-                      type="checkbox"
-                      checked={cert.showInResume}
-                      onChange={(e) => {
-                        const updated = { ...cert, showInResume: e.target.checked };
-                        setCerts(certs.map((c, idx) => (idx === cIdx ? updated : c)));
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                    />
-                    Show in CV/Resume
-                  </label>
+                  {/* Profile Selection */}
+                  <div className="border-t border-white/5 pt-2">
+                    <span className="block text-xs font-semibold text-gray-400 mb-1.5">Include in CV Profiles:</span>
+                    <div className="flex flex-wrap gap-4">
+                      {PROFILES.map((profile) => (
+                        <label key={profile.id} className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={cert.showInResume?.includes(profile.id) || false}
+                            onChange={() => {
+                              const updated = {
+                                ...cert,
+                                showInResume: toggleProfile(cert.showInResume, profile.id),
+                              };
+                              setCerts(certs.map((c, idx) => (idx === cIdx ? updated : c)));
+                            }}
+                            className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
+                          />
+                          {profile.label}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -596,7 +654,7 @@ export const DevEditor = () => {
                       titleKey,
                       instKey,
                       dateKey,
-                      showInResume: false,
+                      showInResume: [],
                     },
                   ]);
                 }}
@@ -717,18 +775,29 @@ export const DevEditor = () => {
                     </div>
                   </div>
 
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-300 cursor-pointer pt-2">
-                    <input
-                      type="checkbox"
-                      checked={item.showInResume}
-                      onChange={(e) => {
-                        const updated = { ...item, showInResume: e.target.checked };
-                        setEdu(edu.map((ed, idx) => (idx === eIdx ? updated : ed)));
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                    />
-                    Show in CV/Resume
-                  </label>
+                  {/* Profile Selection */}
+                  <div className="border-t border-white/5 pt-2">
+                    <span className="block text-xs font-semibold text-gray-400 mb-1.5">Include in CV Profiles:</span>
+                    <div className="flex flex-wrap gap-4">
+                      {PROFILES.map((profile) => (
+                        <label key={profile.id} className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={item.showInResume?.includes(profile.id) || false}
+                            onChange={() => {
+                              const updated = {
+                                ...item,
+                                showInResume: toggleProfile(item.showInResume, profile.id),
+                              };
+                              setEdu(edu.map((ed, idx) => (idx === eIdx ? updated : ed)));
+                            }}
+                            className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
+                          />
+                          {profile.label}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -761,7 +830,7 @@ export const DevEditor = () => {
                       companyKey,
                       dateKey,
                       descKeys: [],
-                      showInResume: false,
+                      showInResume: [],
                     },
                   ]);
                 }}
@@ -862,7 +931,7 @@ export const DevEditor = () => {
                           updateTrans(k, "en", e.target.value);
                         }}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
-                        placeholder="Link text in English (e.g. View translation portfolio)"
+                        placeholder="Link text in English"
                       />
                     </div>
                     <div>
@@ -879,23 +948,34 @@ export const DevEditor = () => {
                           updateTrans(k, "pt", e.target.value);
                         }}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
-                        placeholder="Link text in Portuguese (e.g. Ver portfólio de tradução)"
+                        placeholder="Link text in Portuguese"
                       />
                     </div>
                   </div>
 
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-300 cursor-pointer pt-2">
-                    <input
-                      type="checkbox"
-                      checked={item.showInResume}
-                      onChange={(e) => {
-                        const updated = { ...item, showInResume: e.target.checked };
-                        setExp(exp.map((ex, idx) => (idx === eIdx ? updated : ex)));
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                    />
-                    Show in CV/Resume
-                  </label>
+                  {/* Profile Selection */}
+                  <div className="border-t border-white/5 pt-2">
+                    <span className="block text-xs font-semibold text-gray-400 mb-1.5">Include in CV Profiles:</span>
+                    <div className="flex flex-wrap gap-4">
+                      {PROFILES.map((profile) => (
+                        <label key={profile.id} className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={item.showInResume?.includes(profile.id) || false}
+                            onChange={() => {
+                              const updated = {
+                                ...item,
+                                showInResume: toggleProfile(item.showInResume, profile.id),
+                              };
+                              setExp(exp.map((ex, idx) => (idx === eIdx ? updated : ex)));
+                            }}
+                            className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
+                          />
+                          {profile.label}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
 
                   {/* Bullet points */}
                   <div className="border-t border-white/5 pt-4 space-y-3">
@@ -975,7 +1055,7 @@ export const DevEditor = () => {
                       id: newId,
                       categoryKey: "about.stacks.programming.languages",
                       name: "New Skill",
-                      showInResume: false,
+                      showInResume: [],
                     },
                   ]);
                 }}
@@ -1029,23 +1109,32 @@ export const DevEditor = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-4 pt-2">
-                    <label className="flex items-center gap-2 text-xs font-semibold text-gray-300 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={skill.showInResume}
-                        onChange={(e) => {
-                          const updated = { ...skill, showInResume: e.target.checked };
-                          setSkills(skills.map((s, idx) => (idx === sIdx ? updated : s)));
-                        }}
-                        className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                      />
-                      Show in CV/Resume (PDF)
-                    </label>
+                  {/* Profile Selection */}
+                  <div className="border-t border-white/5 pt-2">
+                    <span className="block text-xs font-semibold text-gray-400 mb-1.5">Include in CV Profiles:</span>
+                    <div className="flex flex-wrap gap-4">
+                      {PROFILES.map((profile) => (
+                        <label key={profile.id} className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={skill.showInResume?.includes(profile.id) || false}
+                            onChange={() => {
+                              const updated = {
+                                ...skill,
+                                showInResume: toggleProfile(skill.showInResume, profile.id),
+                              };
+                              setSkills(skills.map((s, idx) => (idx === sIdx ? updated : s)));
+                            }}
+                            className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
+                          />
+                          {profile.label}
+                        </label>
+                      ))}
+                    </div>
                   </div>
 
                   {/* CV details configuration */}
-                  {skill.showInResume && (
+                  {skill.showInResume && skill.showInResume.length > 0 && (
                     <div className="border-t border-white/5 pt-4 space-y-3">
                       <span className="text-xs font-semibold text-accent block">CV Resume Text</span>
 
