@@ -7,7 +7,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
 interface ProjectItemProps {
-  category: ProjectCategory;
+  category: ProjectCategory | ProjectCategory[];
   title: string;
   description: string;
   tags: string[];
@@ -36,22 +36,35 @@ const ProjectItem = ({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const imageElement = (
-    <div className="relative overflow-hidden bg-white/5 w-full h-full aspect-video">
+    <div className="relative overflow-hidden bg-white/5 w-full h-full aspect-video flex items-center justify-center">
       {!imageLoaded && (
         <div className="absolute inset-0 bg-white/5 animate-pulse" />
       )}
+      
+      {/* Blurred background copy for ambient glow */}
+      <img
+        src={imageUrl}
+        className={`absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 select-none pointer-events-none transition-all duration-700 ${
+          imageLoaded ? "opacity-35" : "opacity-0"
+        }`}
+        alt=""
+      />
+
+      {/* Sharp, centered foreground image */}
       <img
         src={imageUrl}
         onLoad={() => setImageLoaded(true)}
-        className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ${
+        className={`relative z-10 h-full max-w-full object-contain group-hover:scale-102 transition-all duration-700 ${
           imageLoaded ? "opacity-100" : "opacity-0"
         }`}
         alt={title}
       />
-      <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+      
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent z-10 pointer-events-none" />
       
       {/* Badges Overlay */}
-      <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-2">
+      <div className="absolute top-3 left-3 z-20 flex flex-wrap gap-2">
         {isFeatured && (
           <span className="bg-accent/25 backdrop-blur-md text-accent border border-accent/30 px-2.5 py-1 text-xs font-semibold rounded-full flex items-center gap-1.5 shadow-lg shadow-accent/5 animate-glow-pulse">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
@@ -91,8 +104,12 @@ const ProjectItem = ({
       )}
 
       <div className="p-5 flex flex-col grow">
-        <div className="mb-3">
-          <KeywordTag label={category} />
+        <div className="mb-3 flex flex-wrap gap-2">
+          {Array.isArray(category) ? (
+            category.map((cat) => <KeywordTag key={cat} label={cat} />)
+          ) : (
+            <KeywordTag label={category} />
+          )}
         </div>
 
         <h2 className="text-xl font-bold mb-2 text-white">

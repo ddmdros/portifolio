@@ -9,7 +9,7 @@ export type ProjectCategory =
 export interface ProjectType {
   id: string;
   title: string;
-  category: ProjectCategory;
+  category: ProjectCategory | ProjectCategory[];
   description: string;
   tags: string[];
   imageUrl: string;

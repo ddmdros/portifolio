@@ -30,7 +30,9 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
 
   // Filtra as categorias ativas com base nos dados do projeto
   const activeCategoriesInData = new Set(
-    PROJECTS_DATA.map((project) => project.category)
+    PROJECTS_DATA.flatMap((project) => 
+      Array.isArray(project.category) ? project.category : [project.category]
+    )
   );
 
   const availableCategories = categories.filter(
@@ -40,7 +42,12 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
   // Função para contar quantos projetos pertencem a uma categoria
   const getCategoryCount = (value: ProjectCategory) => {
     if (value === "all") return PROJECTS_DATA.length;
-    return PROJECTS_DATA.filter((p) => p.category === value).length;
+    return PROJECTS_DATA.filter((p) => {
+      if (Array.isArray(p.category)) {
+        return p.category.includes(value);
+      }
+      return p.category === value;
+    }).length;
   };
 
   const checkScroll = () => {

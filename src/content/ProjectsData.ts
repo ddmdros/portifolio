@@ -61,7 +61,7 @@ export const PROJECTS_DATA: ProjectType[] = [
   {
     id: "6",
     title: "project.title.6",
-    category: "fullstack",
+    category: ["fullstack", "AI & ML"],
     description: "project.description.6",
     tags: ["React", "FastAPI", "Supabase", "LangChain", "PostgreSQL"],
     imageUrl: "/assets/projects/netplay/netplay_preview.png",

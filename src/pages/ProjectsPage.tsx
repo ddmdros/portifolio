@@ -11,7 +11,12 @@ export const ProjectsPage = () => {
   const filteredProjects = (
     filter === "all"
       ? PROJECTS_DATA
-      : PROJECTS_DATA.filter((project) => project.category === filter)
+      : PROJECTS_DATA.filter((project) => {
+          if (Array.isArray(project.category)) {
+            return project.category.includes(filter);
+          }
+          return project.category === filter;
+        })
   ).sort((a, b) => {
     if (a.isFeatured && !b.isFeatured) return -1;
     if (!a.isFeatured && b.isFeatured) return 1;
