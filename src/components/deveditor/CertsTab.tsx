@@ -171,6 +171,7 @@ export const CertsTab = ({
                   <option value="back">Backend</option>
                   <option value="frontend">Frontend</option>
                   <option value="cloud">Cloud & DevOps</option>
+                  <option value="game_dev">Game Development</option>
                   <option value="idiomas">Idiomas</option>
                 </select>
               </div>

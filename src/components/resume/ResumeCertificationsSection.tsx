@@ -52,6 +52,7 @@ export const ResumeCertificationsSection = ({
             { id: "back", labelId: "resume.cert.filter.back" },
             { id: "frontend", labelId: "resume.cert.filter.frontend" },
             { id: "cloud", labelId: "resume.cert.filter.cloud" },
+            { id: "game_dev", labelId: "resume.cert.filter.game_dev" },
             { id: "idiomas", labelId: "resume.cert.filter.idiomas" },
             { id: "all", labelId: "resume.cert.filter.all" },
           ] as const

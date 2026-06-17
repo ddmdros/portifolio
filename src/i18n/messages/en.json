@@ -160,6 +160,7 @@
   "resume.cert.filter.back": "Backend",
   "resume.cert.filter.frontend": "Frontend",
   "resume.cert.filter.idiomas": "Languages",
+  "resume.cert.filter.game_dev": "Game Dev",
   "projects.view.more.cta": "View Other Projects →",
   "projects.view.all.online": "View All Projects Online →",
   "resume.projects.seeMore": "See More Projects",
