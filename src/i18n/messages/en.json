@@ -196,5 +196,7 @@
   "resume.cert.custom22.title": "Python: creating your first application",
   "resume.cert.custom22.org": "Alura",
   "resume.cert.custom23.title": "C#: applying Object Orientation",
-  "resume.cert.custom23.org": "Issuer Org"
+  "resume.cert.custom23.org": "Issuer Org",
+  "resume.profile.ia_ml.description": "Full-Stack Developer and Software Engineering student. With 6 years of experience in game localization, I bring international professional maturity and a rigorous eye for detail to software development.",
+  "resume.profile.ia_ml.header": "Software Engineer focused on AI and ML"
 }

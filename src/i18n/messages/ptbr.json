@@ -195,5 +195,7 @@
   "resume.cert.custom22.title": "Python: crie a sua primeira aplicação",
   "resume.cert.custom22.org": "Alura",
   "resume.cert.custom23.title": "C#: aplicando a Orientação a Objetos",
-  "resume.cert.custom23.org": "Org Emissora"
+  "resume.cert.custom23.org": "Org Emissora",
+  "resume.profile.ia_ml.description": "Desenvolvedor fullstack e estudante de engenharia de software no Instituto INFNET. Aplico ao desenvolvimento de software o rigor técnico e a maturidade profissional que meus seis anos como tradutor sênior de jogos me proporcionaram.",
+  "resume.profile.ia_ml.header": "Engenheiro de Software com êngase em IA e Machine Learning"
 }

@@ -166,7 +166,8 @@ export const SKILLS_DATA: SkillType[] = [
     "showInResume": [
       "backend",
       "frontend",
-      "fullstack"
+      "fullstack",
+      "general"
     ]
   },
   {

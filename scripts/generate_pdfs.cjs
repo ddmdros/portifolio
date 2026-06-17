@@ -89,6 +89,9 @@ function getHtmlTemplate(lang, messages, profile) {
   const profileGoalKey = `resume.profile.${profile}.goal`;
   const profileGoal = messages[profileGoalKey] || getMsg('resume.goal');
 
+  const profileDescKey = `resume.profile.${profile}.description`;
+  const profileDescription = messages[profileDescKey] || getMsg('portifolio.description');
+
   // Filter projects by active profile
   const resumeProjects = PROJECTS_DATA.filter(p => p.showInResume && p.showInResume.includes(profile));
 
@@ -259,9 +262,9 @@ function getHtmlTemplate(lang, messages, profile) {
       text-decoration: underline;
     }
     .header {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 10px;
+      padding-bottom: 6px;
     }
     .name {
       font-size: 26px;
@@ -295,8 +298,8 @@ function getHtmlTemplate(lang, messages, profile) {
       text-transform: uppercase;
       border-bottom: 1px solid #e2e8f0;
       padding-bottom: 2px;
-      margin-top: 12px;
-      margin-bottom: 6px;
+      margin-top: 8px;
+      margin-bottom: 4px;
       letter-spacing: 0.8px;
       display: flex;
       align-items: center;
@@ -311,7 +314,7 @@ function getHtmlTemplate(lang, messages, profile) {
       border-radius: 1px;
     }
     .section-content {
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: #334155;
     }
     ul {
@@ -405,6 +408,11 @@ function getHtmlTemplate(lang, messages, profile) {
     <p class="contact-bar">
       Lages, Brazil &bull; <a href="mailto:${PROFILE_CONFIG.emailResume}">${PROFILE_CONFIG.emailResume}</a> &bull; <a href="${linkedinUrl}" target="_blank">linkedin.com/in/${PROFILE_CONFIG.linkedinUser}</a> &bull; <a href="${githubUrl}" target="_blank">github.com/${PROFILE_CONFIG.githubUser}</a>
     </p>
+  </div>
+
+  <div class="section-title">${lang === 'pt' ? 'Resumo Profissional' : 'Profile Description'}</div>
+  <div class="section-content" style="line-height: 1.45;">
+    ${profileDescription}
   </div>
 
   <div class="section-title">${lang === 'pt' ? 'Objetivo' : 'Goal'}</div>
