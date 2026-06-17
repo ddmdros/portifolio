@@ -25,7 +25,8 @@ export const SKILLS_DATA: SkillType[] = [
     "showInResume": [
       "general",
       "frontend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ]
   },
   {
@@ -35,7 +36,8 @@ export const SKILLS_DATA: SkillType[] = [
     "showInResume": [
       "general",
       "backend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ],
     "resumeDetailsKey": "resume.skills.programming.java"
   },
@@ -45,7 +47,8 @@ export const SKILLS_DATA: SkillType[] = [
     "name": "C#",
     "showInResume": [
       "backend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ],
     "resumeDetailsKey": "resume.skills.programming.csharp"
   },
@@ -55,7 +58,8 @@ export const SKILLS_DATA: SkillType[] = [
     "name": "React",
     "showInResume": [
       "frontend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ]
   },
   {
@@ -77,7 +81,8 @@ export const SKILLS_DATA: SkillType[] = [
     "name": "Tailwind CSS",
     "showInResume": [
       "frontend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ]
   },
   {
@@ -86,7 +91,8 @@ export const SKILLS_DATA: SkillType[] = [
     "name": "Vite",
     "showInResume": [
       "frontend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ]
   },
   {
@@ -96,7 +102,8 @@ export const SKILLS_DATA: SkillType[] = [
     "showInResume": [
       "backend",
       "fullstack",
-      "general"
+      "general",
+      "ia_ml"
     ]
   },
   {
@@ -105,7 +112,8 @@ export const SKILLS_DATA: SkillType[] = [
     "name": "HTML5",
     "showInResume": [
       "frontend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ]
   },
   {
@@ -114,14 +122,17 @@ export const SKILLS_DATA: SkillType[] = [
     "name": "CSS3",
     "showInResume": [
       "frontend",
-      "fullstack"
+      "fullstack",
+      "ia_ml"
     ]
   },
   {
     "id": "s12",
     "categoryKey": "about.stacks.web.game.dev",
     "name": "Unity",
-    "showInResume": []
+    "showInResume": [
+      "ia_ml"
+    ]
   },
   {
     "id": "s13",
@@ -167,7 +178,8 @@ export const SKILLS_DATA: SkillType[] = [
       "backend",
       "frontend",
       "fullstack",
-      "general"
+      "general",
+      "ia_ml"
     ]
   },
   {

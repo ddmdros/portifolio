@@ -7,6 +7,8 @@ import { type SkillType } from "../../content/SkillsData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 import { FileText, Download } from "lucide-react";
 
+import { PROFILE_CONFIG } from "../../config/profile";
+
 interface ResumesTabProps {
   certs: CertificationType[];
   setCerts: React.Dispatch<React.SetStateAction<CertificationType[]>>;
@@ -22,6 +24,8 @@ interface ResumesTabProps {
   updateTrans: (key: string, lang: "en" | "pt", value: string) => void;
   PROFILES: readonly { readonly id: string; readonly label: string }[];
   toggleProfile: (arr: string[] | undefined, profileId: string) => string[];
+  profileConfig: typeof PROFILE_CONFIG;
+  setProfileConfig: React.Dispatch<React.SetStateAction<typeof PROFILE_CONFIG>>;
 }
 
 export const ResumesTab = ({
@@ -39,6 +43,8 @@ export const ResumesTab = ({
   updateTrans,
   PROFILES,
   toggleProfile,
+  profileConfig,
+  setProfileConfig,
 }: ResumesTabProps) => {
   const [activeProfile, setActiveProfile] = useState<string>("general");
   const [certFilter, setCertFilter] = useState<string>("all");
@@ -95,6 +101,34 @@ export const ResumesTab = ({
           >
             <Download size={14} /> Download PT
           </a>
+        </div>
+      </div>
+
+      {/* Public Download Toggle */}
+      <div className="flex flex-wrap items-center justify-between gap-4 bg-white/5 border border-white/10 rounded-2xl p-5">
+        <div className="flex-1 min-w-[200px] text-left">
+          <h3 className="text-sm font-bold text-accent">Disponibilizar para Download Público</h3>
+          <p className="text-xs text-gray-400 mt-1">
+            Se ativado, este currículo estará disponível para download no portfólio publicado (modo público).
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={profileConfig.availableCvDownloads?.includes(activeProfile) || false}
+            onChange={(e) => {
+              const currentDownloads = profileConfig.availableCvDownloads || [];
+              const updated = e.target.checked
+                ? [...currentDownloads, activeProfile]
+                : currentDownloads.filter((x) => x !== activeProfile);
+              setProfileConfig(prev => ({ ...prev, availableCvDownloads: updated }));
+            }}
+            className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent w-5 h-5 cursor-pointer"
+            id="public-download-checkbox"
+          />
+          <label htmlFor="public-download-checkbox" className="text-xs text-gray-300 cursor-pointer select-none font-semibold">
+            Disponibilizar no Portfólio
+          </label>
         </div>
       </div>
 

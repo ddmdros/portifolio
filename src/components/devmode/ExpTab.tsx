@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { Plus, Trash2, GripVertical } from "lucide-react";
-import { type EducationType } from "../../content/EducationData";
+import { type ExperienceType } from "../../content/ExperienceData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 
-interface EduTabProps {
-  edu: EducationType[];
-  setEdu: React.Dispatch<React.SetStateAction<EducationType[]>>;
+interface ExpTabProps {
+  exp: ExperienceType[];
+  setExp: React.Dispatch<React.SetStateAction<ExperienceType[]>>;
   updateTrans: (key: string, lang: "en" | "pt", value: string) => void;
   getTrans: (key: string, lang: "en" | "pt") => string;
 }
 
-export const EduTab = ({
-  edu,
-  setEdu,
+export const ExpTab = ({
+  exp,
+  setExp,
   updateTrans,
   getTrans,
-}: EduTabProps) => {
+}: ExpTabProps) => {
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
   const [canDragId, setCanDragId] = useState<string | null>(null);
@@ -35,13 +35,13 @@ export const EduTab = ({
   const handleDrop = (e: React.DragEvent, targetId: string) => {
     e.preventDefault();
     if (draggedId && draggedId !== targetId) {
-      const fromIdx = edu.findIndex((x) => x.id === draggedId);
-      const toIdx = edu.findIndex((x) => x.id === targetId);
+      const fromIdx = exp.findIndex((x) => x.id === draggedId);
+      const toIdx = exp.findIndex((x) => x.id === targetId);
       if (fromIdx !== -1 && toIdx !== -1) {
-        const newEdu = [...edu];
-        const [moved] = newEdu.splice(fromIdx, 1);
-        newEdu.splice(toIdx, 0, moved);
-        setEdu(newEdu);
+        const newExp = [...exp];
+        const [moved] = newExp.splice(fromIdx, 1);
+        newExp.splice(toIdx, 0, moved);
+        setExp(newExp);
       }
     }
     setDraggedId(null);
@@ -58,39 +58,40 @@ export const EduTab = ({
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center pb-4 border-b border-white/5">
-        <h2 className="text-xl font-bold text-white">Manage Education</h2>
+        <h2 className="text-xl font-bold text-white">Manage Experience</h2>
         <button
           onClick={() => {
-            const newId = (edu.length + 1).toString();
-            const titleKey = `resume.edu.custom${newId}.title`;
-            const instKey = `resume.edu.custom${newId}.inst`;
-            const dateKey = `resume.edu.custom${newId}.date`;
-            updateTrans(titleKey, "en", "Degree Name");
-            updateTrans(titleKey, "pt", "Nome do Curso");
-            updateTrans(instKey, "en", "Institution");
-            updateTrans(instKey, "pt", "Instituição");
+            const newId = (exp.length + 1).toString();
+            const titleKey = `resume.exp.custom${newId}.title`;
+            const companyKey = `resume.exp.custom${newId}.company`;
+            const dateKey = `resume.exp.custom${newId}.date`;
+            updateTrans(titleKey, "en", "Job Title");
+            updateTrans(titleKey, "pt", "Cargo");
+            updateTrans(companyKey, "en", "Company Name");
+            updateTrans(companyKey, "pt", "Nome da Empresa");
             updateTrans(dateKey, "en", "2026 - Present");
             updateTrans(dateKey, "pt", "2026 - Presente");
 
-            setEdu([
-              ...edu,
+            setExp([
+              ...exp,
               {
                 id: newId,
                 titleKey,
-                instKey,
+                companyKey,
                 dateKey,
+                descKeys: [],
                 showInResume: [],
               },
             ]);
           }}
           className="flex items-center gap-1 text-xs bg-white/5 border border-white/10 text-accent font-bold px-3 py-1.5 rounded-lg hover:bg-white/10 cursor-pointer"
         >
-          <Plus size={14} /> Add Education
+          <Plus size={14} /> Add Experience
         </button>
       </div>
 
       <div className="space-y-6">
-        {edu.map((item, eIdx) => (
+        {exp.map((item, eIdx) => (
           <div
             key={item.id}
             draggable={canDragId === item.id}
@@ -122,7 +123,7 @@ export const EduTab = ({
                 </span>
               </div>
               <button
-                onClick={() => setEdu(edu.filter((x) => x.id !== item.id))}
+                onClick={() => setExp(exp.filter((x) => x.id !== item.id))}
                 className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"
               >
                 <Trash2 size={14} />
@@ -132,7 +133,7 @@ export const EduTab = ({
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Degree (English)
+                  Job Title (English)
                 </label>
                 <input
                   type="text"
@@ -145,7 +146,7 @@ export const EduTab = ({
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Degree (Portuguese)
+                  Job Title (Portuguese)
                 </label>
                 <input
                   type="text"
@@ -161,26 +162,26 @@ export const EduTab = ({
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Institution (English)
+                  Company (English)
                 </label>
                 <input
                   type="text"
-                  value={getTrans(item.instKey, "en")}
+                  value={getTrans(item.companyKey, "en")}
                   onChange={(e) =>
-                    updateTrans(item.instKey, "en", e.target.value)
+                    updateTrans(item.companyKey, "en", e.target.value)
                   }
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
                 />
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Institution (Portuguese)
+                  Company (Portuguese)
                 </label>
                 <input
                   type="text"
-                  value={getTrans(item.instKey, "pt")}
+                  value={getTrans(item.companyKey, "pt")}
                   onChange={(e) =>
-                    updateTrans(item.instKey, "pt", e.target.value)
+                    updateTrans(item.companyKey, "pt", e.target.value)
                   }
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
                 />
@@ -216,66 +217,51 @@ export const EduTab = ({
               </div>
             </div>
 
-            <div className="border-t border-white/5 pt-3 space-y-3">
-              <span className="block text-xs font-semibold text-gray-400">
-                GPA / Additional Info (Optional)
-              </span>
-              <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={!!item.gpaKey}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      const gpaKey = `resume.edu.custom${item.id}.gpa`;
-                      updateTrans(gpaKey, "en", "GPA: 9.0/10.0");
-                      updateTrans(gpaKey, "pt", "Média: 9,0/10,0");
-                      setEdu(updateItemAtIndex(edu, eIdx, { gpaKey }));
-                    } else {
-                      setEdu(
-                        updateItemAtIndex(edu, eIdx, () => {
-                          const { gpaKey: _, ...rest } = item;
-                          return rest;
-                        }),
-                      );
-                    }
-                  }}
-                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
-                  id={`gpa-check-${item.id}`}
-                />
-                <label
-                  htmlFor={`gpa-check-${item.id}`}
-                  className="text-xs text-gray-300 cursor-pointer select-none"
-                >
-                  Enable GPA Info
+            <div className="grid md:grid-cols-2 gap-4 border-t border-white/5 pt-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-400 mb-1">
+                  Portfolio Link Description Key (Optional)
                 </label>
+                <input
+                  type="text"
+                  value={item.portfolioUrlKey || ""}
+                  onChange={(e) => {
+                    setExp(
+                      updateItemAtIndex(exp, eIdx, {
+                        portfolioUrlKey: e.target.value || undefined,
+                      }),
+                    );
+                  }}
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
+                  placeholder="e.g. resume.project.starrCorp.link"
+                />
               </div>
-
-              {item.gpaKey && (
-                <div className="grid md:grid-cols-2 gap-4 animate-fade-in pl-4 border-l border-white/10">
+              {item.portfolioUrlKey && (
+                <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-400 mb-1">
-                      GPA Info (English)
+                    <label className="block text-[10px] font-semibold text-gray-400 mb-1">
+                      Link Text (English)
                     </label>
                     <input
                       type="text"
-                      value={getTrans(item.gpaKey, "en")}
+                      value={getTrans(item.portfolioUrlKey, "en")}
                       onChange={(e) =>
-                        updateTrans(item.gpaKey!, "en", e.target.value)
+                        updateTrans(item.portfolioUrlKey!, "en", e.target.value)
                       }
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
+                      className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-400 mb-1">
-                      GPA Info (Portuguese)
+                    <label className="block text-[10px] font-semibold text-gray-400 mb-1">
+                      Link Text (Portuguese)
                     </label>
                     <input
                       type="text"
-                      value={getTrans(item.gpaKey, "pt")}
+                      value={getTrans(item.portfolioUrlKey, "pt")}
                       onChange={(e) =>
-                        updateTrans(item.gpaKey!, "pt", e.target.value)
+                        updateTrans(item.portfolioUrlKey!, "pt", e.target.value)
                       }
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
+                      className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
                     />
                   </div>
                 </div>
@@ -283,6 +269,77 @@ export const EduTab = ({
             </div>
 
 
+
+            {/* Description/Bullets points */}
+            <div className="border-t border-white/5 pt-4 space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-semibold text-accent">
+                  CV Description Bullets
+                </span>
+                <button
+                  onClick={() => {
+                    const bulletId = item.descKeys
+                      ? item.descKeys.length + 1
+                      : 1;
+                    const bulletKey = `resume.exp.custom${item.id}.bullet${bulletId}`;
+                    updateTrans(bulletKey, "en", "New bullet text (English)");
+                    updateTrans(bulletKey, "pt", "Texto do marcador (Português)");
+
+                    setExp(
+                      updateItemAtIndex(exp, eIdx, {
+                        descKeys: [...(item.descKeys || []), bulletKey],
+                      }),
+                    );
+                  }}
+                  className="flex items-center gap-1 text-[10px] bg-white/5 text-gray-300 px-2 py-1 rounded hover:bg-white/10 cursor-pointer"
+                >
+                  <Plus size={10} /> Add Bullet
+                </button>
+              </div>
+
+              <div className="space-y-3 pl-4 border-l border-white/10">
+                {item.descKeys?.map((bKey) => (
+                  <div key={bKey} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[10px] font-mono text-gray-500">
+                        Key: {bKey}
+                      </span>
+                      <button
+                        onClick={() => {
+                          setExp(
+                            updateItemAtIndex(exp, eIdx, {
+                              descKeys:
+                                item.descKeys?.filter((k) => k !== bKey) || [],
+                            }),
+                          );
+                        }}
+                        className="text-red-400 hover:text-red-500 text-[10px] cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        value={getTrans(bKey, "en")}
+                        onChange={(e) =>
+                          updateTrans(bKey, "en", e.target.value)
+                        }
+                        className="bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
+                      />
+                      <input
+                        type="text"
+                        value={getTrans(bKey, "pt")}
+                        onChange={(e) =>
+                          updateTrans(bKey, "pt", e.target.value)
+                        }
+                        className="bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         ))}
       </div>

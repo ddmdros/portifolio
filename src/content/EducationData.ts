@@ -5,6 +5,7 @@ export interface EducationType {
   dateKey: string;
   gpaKey?: string;
   showInResume: string[];
+  showInPortfolio?: boolean;
 }
 
 export const EDUCATION_DATA: EducationType[] = [
@@ -32,7 +33,8 @@ export const EDUCATION_DATA: EducationType[] = [
       "backend",
       "frontend",
       "fullstack",
-      "ia_ml"
+      "ia_ml",
+      "general"
     ]
   },
   {

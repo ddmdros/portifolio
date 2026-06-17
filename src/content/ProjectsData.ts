@@ -22,7 +22,8 @@ export const PROJECTS_DATA: ProjectType[] = [
     "showInResume": [
       "backend",
       "frontend",
-      "fullstack"
+      "fullstack",
+      "general"
     ],
     "descKeys": [
       "resume.project.starrCorp.bullet1",
@@ -68,7 +69,9 @@ export const PROJECTS_DATA: ProjectType[] = [
     "githubUrl": "https://github.com/ddmdros/ebac-platformer2d",
     "isFeatured": false,
     "isWip": true,
-    "showInResume": []
+    "showInResume": [
+      "general"
+    ]
   },
   {
     "id": "4",
@@ -85,8 +88,7 @@ export const PROJECTS_DATA: ProjectType[] = [
     "projectUrl": "https://imersao-dados-com-python-alura-diogo-medeiros.streamlit.app/",
     "isFeatured": false,
     "showInResume": [
-      "ia_ml",
-      "general"
+      "ia_ml"
     ],
     "descKeys": [
       "resume.project.dataImmersion.bullet1"

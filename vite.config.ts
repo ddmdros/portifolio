@@ -22,7 +22,13 @@ export default defineConfig({
             req.on('end', () => {
               try {
                 const payload = JSON.parse(body);
-                const { projects, certifications, education, experience, skills, en, ptbr, generatePdfs = true } = payload;
+                const { projects, certifications, education, experience, skills, profileConfig, en, ptbr, generatePdfs = true } = payload;
+
+                // Write profile.ts
+                if (profileConfig) {
+                  const profileContent = `/**\n * CONFIGURAÇÃO GLOBAL DO PERFIL E DOS LINKS DO PORTFÓLIO E CURRÍCULO (CV)\n * Estes campos definem os links externos, contatos e identidades do CV e do portfólio.\n */\nexport const PROFILE_CONFIG = {\n  // Nome completo exibido no portfólio e currículo\n  name: ${JSON.stringify(profileConfig.name)},\n  \n  // Email de contato principal para mensagens do portfólio\n  emailContact: ${JSON.stringify(profileConfig.emailContact)},\n  \n  // Email exibido no cabeçalho do Currículo (PDF e site)\n  emailResume: ${JSON.stringify(profileConfig.emailResume)},\n  \n  // URL completa do perfil do GitHub\n  githubUrl: ${JSON.stringify(profileConfig.githubUrl)},\n  \n  // Nome de usuário do GitHub (ex: ddmdros)\n  githubUser: ${JSON.stringify(profileConfig.githubUser)},\n  \n  // URL completa do perfil do LinkedIn\n  linkedinUrl: ${JSON.stringify(profileConfig.linkedinUrl)},\n  \n  // Nome de usuário do LinkedIn (ex: diogo-medeiros)\n  linkedinUser: ${JSON.stringify(profileConfig.linkedinUser)},\n  \n  // URL de produção do portfólio online (usado nos links de rodapé do PDF do CV)\n  portfolioUrl: ${JSON.stringify(profileConfig.portfolioUrl)},\n  \n  // Link do perfil público do Google Skills\n  googleSkillsProfile: ${JSON.stringify(profileConfig.googleSkillsProfile)},\n  \n  // Perfis de currículo liberados para download público no portfólio\n  availableCvDownloads: ${JSON.stringify(profileConfig.availableCvDownloads || ["general"])}\n};\n`;
+                  fs.writeFileSync(path.resolve(__dirname, 'src/config/profile.ts'), profileContent);
+                }
 
                 // Write ProjectsData
                 const projectsContent = `import { type ProjectType } from "../types/projectType";\n\nexport const PROJECTS_DATA: ProjectType[] = ${JSON.stringify(projects, null, 2)};\n`;
@@ -33,7 +39,7 @@ export default defineConfig({
                 fs.writeFileSync(path.resolve(__dirname, 'src/content/CertificationsData.ts'), certsContent);
 
                 // Write EducationData
-                const eduContent = `export interface EducationType {\n  id: string;\n  titleKey: string;\n  instKey: string;\n  dateKey: string;\n  gpaKey?: string;\n  showInResume: string[];\n}\n\nexport const EDUCATION_DATA: EducationType[] = ${JSON.stringify(education, null, 2)};\n`;
+                const eduContent = `export interface EducationType {\n  id: string;\n  titleKey: string;\n  instKey: string;\n  dateKey: string;\n  gpaKey?: string;\n  showInResume: string[];\n  showInPortfolio?: boolean;\n}\n\nexport const EDUCATION_DATA: EducationType[] = ${JSON.stringify(education, null, 2)};\n`;
                 fs.writeFileSync(path.resolve(__dirname, 'src/content/EducationData.ts'), eduContent);
 
                 // Write ExperienceData

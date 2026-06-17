@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Download, Code } from "lucide-react";
@@ -7,12 +7,25 @@ import { ExperienceSection } from "../components/resume/ExperienceSection";
 import { EducationSection } from "../components/resume/EducationSection";
 import { ResumeProjectsSection } from "../components/resume/ResumeProjectsSection";
 import { ResumeCertificationsSection } from "../components/resume/ResumeCertificationsSection";
+import { PROFILE_CONFIG } from "../config/profile";
+
+const PROFILE_LABELS: Record<string, { en: string; pt: string }> = {
+  general: { en: "General", pt: "Geral" },
+  cloud: { en: "Cloud & DevOps", pt: "Cloud & DevOps" },
+  backend: { en: "Backend", pt: "Backend" },
+  frontend: { en: "Frontend", pt: "Frontend" },
+  fullstack: { en: "Fullstack", pt: "Fullstack" },
+  ia_ml: { en: "AI & ML", pt: "IA & ML" },
+};
 
 const SCROLL_DELAY_MS = 100;
 
 export const Resume = () => {
   const { hash } = useLocation();
   const { locale } = useIntl();
+
+  const availableProfiles = PROFILE_CONFIG.availableCvDownloads || ["general"];
+  const [selectedDownloadProfile, setSelectedDownloadProfile] = useState(availableProfiles[0] || "general");
 
   useEffect(() => {
     if (hash) {
@@ -54,16 +67,39 @@ export const Resume = () => {
           </h1>
         </div>
 
-        {/* Botão de Download Direto (Apenas Geral) */}
-        <div className="w-full md:w-auto md:self-center">
+        {/* Botão de Download com seletor opcional de perfil */}
+        <div className="w-full md:w-auto flex flex-col sm:flex-row items-stretch sm:items-end gap-3 self-center">
+          {availableProfiles.length > 1 && (
+            <div className="flex flex-col text-left">
+              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">
+                {locale === "pt" ? "Versão do Currículo" : "Resume Version"}
+              </label>
+              <select
+                value={selectedDownloadProfile}
+                onChange={(e) => setSelectedDownloadProfile(e.target.value)}
+                className="bg-white/5 border border-white/10 text-white rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-accent cursor-pointer min-w-[150px]"
+              >
+                {availableProfiles.map((pId) => (
+                  <option key={pId} value={pId} className="bg-bg text-text">
+                    {PROFILE_LABELS[pId]?.[locale === "pt" ? "pt" : "en"] || pId}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           <a
-            href={`/assets/resume_${locale === "pt" ? "pt" : "en"}.pdf`}
+            href={
+              selectedDownloadProfile === "general"
+                ? `/assets/resume_${locale === "pt" ? "pt" : "en"}.pdf`
+                : `/assets/resume_${selectedDownloadProfile}_${locale === "pt" ? "pt" : "en"}.pdf`
+            }
             download={
               locale === "pt"
-                ? "Curriculo_Diogo_Medeiros.pdf"
-                : "Resume_Diogo_Medeiros.pdf"
+                ? `Curriculo_Diogo_Medeiros${selectedDownloadProfile === "general" ? "" : "_" + selectedDownloadProfile}.pdf`
+                : `Resume_Diogo_Medeiros${selectedDownloadProfile === "general" ? "" : "_" + selectedDownloadProfile}.pdf`
             }
-            className="w-full md:w-auto flex items-center justify-center md:justify-start gap-2 bg-accent border border-accent text-accent-text hover:bg-accent-hover font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent border border-accent text-accent-text hover:bg-accent-hover font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
           >
             <Download size={18} />
             <FormattedMessage

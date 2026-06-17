@@ -343,7 +343,7 @@
     color: var(--text-h) !important;
   }
 
-  /* DevEditor specific adjustments for readability */
+  /* DevMode specific adjustments for readability */
   input, textarea, select {
     background-color: #ffffff !important;
     color: #0f172a !important;

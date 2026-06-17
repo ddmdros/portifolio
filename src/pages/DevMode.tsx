@@ -5,16 +5,18 @@ import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
 import { EDUCATION_DATA } from "../content/EducationData";
 import { EXPERIENCE_DATA } from "../content/ExperienceData";
 import { SKILLS_DATA } from "../content/SkillsData";
+import { PROFILE_CONFIG } from "../config/profile";
 import enMessagesInit from "../i18n/messages/en.json";
 import ptbrMessagesInit from "../i18n/messages/ptbr.json";
 
-import { ProjectsTab } from "../components/deveditor/ProjectsTab";
-import { ResumesTab } from "../components/deveditor/ResumesTab";
-import { CertsTab } from "../components/deveditor/CertsTab";
-import { EduTab } from "../components/deveditor/EduTab";
-import { ExpTab } from "../components/deveditor/ExpTab";
-import { SkillsTab } from "../components/deveditor/SkillsTab";
-import { TranslationsTab } from "../components/deveditor/TranslationsTab";
+import { ProjectsTab } from "../components/devmode/ProjectsTab";
+import { ResumesTab } from "../components/devmode/ResumesTab";
+import { CertsTab } from "../components/devmode/CertsTab";
+import { EduTab } from "../components/devmode/EduTab";
+import { ExpTab } from "../components/devmode/ExpTab";
+import { SkillsTab } from "../components/devmode/SkillsTab";
+import { TranslationsTab } from "../components/devmode/TranslationsTab";
+import { ProfileTab } from "../components/devmode/ProfileTab";
 
 const PROFILES = [
   { id: "general", label: "General" },
@@ -25,13 +27,13 @@ const PROFILES = [
   { id: "ia_ml", label: "AI & ML" },
 ] as const;
 
-export const DevEditor = () => {
+export const DevMode = () => {
   const isLocalhost =
     typeof window !== "undefined" &&
     (window.location.hostname === "localhost" ||
       window.location.hostname === "127.0.0.1");
   const [activeTab, setActiveTab] = useState<
-    "projects" | "resumes" | "certs" | "edu" | "exp" | "skills" | "trans"
+    "projects" | "resumes" | "certs" | "edu" | "exp" | "skills" | "trans" | "profile"
   >("projects");
 
   // Local State
@@ -40,6 +42,7 @@ export const DevEditor = () => {
   const [edu, setEdu] = useState(EDUCATION_DATA);
   const [exp, setExp] = useState(EXPERIENCE_DATA);
   const [skills, setSkills] = useState(SKILLS_DATA);
+  const [profileConfig, setProfileConfig] = useState(PROFILE_CONFIG);
   const [enMessages, setEnMessages] =
     useState<Record<string, string>>(enMessagesInit);
   const [ptbrMessages, setPtbrMessages] =
@@ -57,7 +60,7 @@ export const DevEditor = () => {
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
         <h1 className="text-3xl font-bold text-red-500 mb-2">Access Denied</h1>
         <p className="text-gray-400">
-          The Dev Editor is only accessible when running the portfolio locally
+          The Dev Mode is only accessible when running the portfolio locally
           on localhost.
         </p>
       </div>
@@ -164,6 +167,7 @@ export const DevEditor = () => {
           education: edu,
           experience: exp,
           skills,
+          profileConfig,
           en: enMessages,
           ptbr: ptbrMessages,
           generatePdfs,
@@ -206,7 +210,7 @@ export const DevEditor = () => {
             Development Tool
           </span>
           <h1 className="text-3xl font-bold text-white tracking-tight">
-            Local Portfolio & CV Editor
+            Local Portfolio & CV Mode
           </h1>
         </div>
       </div>
@@ -222,6 +226,7 @@ export const DevEditor = () => {
             { id: "exp", label: "Experience" },
             { id: "skills", label: "Skills & Languages" },
             { id: "trans", label: "Global Translations" },
+            { id: "profile", label: "Profile Links" },
           ] as const
         ).map((tab) => (
           <button
@@ -265,6 +270,8 @@ export const DevEditor = () => {
             updateTrans={updateTrans}
             PROFILES={PROFILES}
             toggleProfile={toggleProfile}
+            profileConfig={profileConfig}
+            setProfileConfig={setProfileConfig}
           />
         )}
 
@@ -309,6 +316,13 @@ export const DevEditor = () => {
             enMessages={enMessages}
             ptbrMessages={ptbrMessages}
             updateTrans={updateTrans}
+          />
+        )}
+
+        {activeTab === "profile" && (
+          <ProfileTab
+            profileConfig={profileConfig}
+            setProfileConfig={setProfileConfig}
           />
         )}
       </div>
@@ -363,4 +377,4 @@ export const DevEditor = () => {
   );
 };
 
-export default DevEditor;
+export default DevMode;

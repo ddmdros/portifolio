@@ -1,4 +1,5 @@
-import { Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type SkillType } from "../../content/SkillsData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 
@@ -15,6 +16,45 @@ export const SkillsTab = ({
   updateTrans,
   getTrans,
 }: SkillsTabProps) => {
+  const [draggedId, setDraggedId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [canDragId, setCanDragId] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, id: string) => {
+    setDraggedId(id);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent, id: string) => {
+    e.preventDefault();
+    if (draggedId !== id) {
+      setDragOverId(id);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent, targetId: string) => {
+    e.preventDefault();
+    if (draggedId && draggedId !== targetId) {
+      const fromIdx = skills.findIndex((s) => s.id === draggedId);
+      const toIdx = skills.findIndex((s) => s.id === targetId);
+      if (fromIdx !== -1 && toIdx !== -1) {
+        const newSkills = [...skills];
+        const [moved] = newSkills.splice(fromIdx, 1);
+        newSkills.splice(toIdx, 0, moved);
+        setSkills(newSkills);
+      }
+    }
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedId(null);
+    setDragOverId(null);
+    setCanDragId(null);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center pb-4 border-b border-white/5">
@@ -44,12 +84,34 @@ export const SkillsTab = ({
         {skills.map((skill, sIdx) => (
           <div
             key={skill.id}
-            className="border border-white/5 p-5 rounded-2xl bg-white/5/20 space-y-4"
+            draggable={canDragId === skill.id}
+            onDragStart={(e) => handleDragStart(e, skill.id)}
+            onDragOver={(e) => handleDragOver(e, skill.id)}
+            onDrop={(e) => handleDrop(e, skill.id)}
+            onDragEnd={handleDragEnd}
+            className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
+              draggedId === skill.id ? "opacity-40 scale-[0.98]" : ""
+            } ${
+              dragOverId === skill.id
+                ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
+                : "border-white/5"
+            }`}
           >
-            <div className="flex justify-between items-center">
-              <span className="text-xs font-mono text-gray-500">
-                ID: {skill.id}
-              </span>
+            <div className="flex justify-between items-center select-none">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onMouseDown={() => setCanDragId(skill.id)}
+                  onMouseUp={() => setCanDragId(null)}
+                  className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
+                  title="Drag to reorder"
+                >
+                  <GripVertical size={14} />
+                </button>
+                <span className="text-xs font-mono text-gray-500">
+                  ID: {skill.id}
+                </span>
+              </div>
               <button
                 onClick={() => setSkills(skills.filter((x) => x.id !== skill.id))}
                 className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"

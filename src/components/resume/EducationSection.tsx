@@ -14,7 +14,7 @@ export const EducationSection = () => {
       </h2>
 
       <div className="border-l-2 border-white/10 pl-6 ml-3 space-y-10 relative">
-        {EDUCATION_DATA.map((edu) => (
+        {EDUCATION_DATA.filter((edu) => edu.showInPortfolio !== false).map((edu) => (
           <div key={edu.id} className="relative">
             <div className="absolute -left-7.5 top-1.5 w-4 h-4 bg-bg border-2 border-accent rounded-full flex items-center justify-center">
               {(edu.id === "1" ||
