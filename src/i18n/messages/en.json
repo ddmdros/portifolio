@@ -127,5 +127,21 @@
   "project.title.5": "ScreenMatch API",
   "project.description.5": "A Java Spring Boot REST API for movie and series tracking, integrating JPA, PostgreSQL, and external OMDb API consumption.",
   "project.title.6": "NetPlay: Collaborative Gaming Marketplace",
-  "project.description.6": "A peer-to-peer physical media game sharing marketplace leveraging AI agents (LangChain), vector databases (pgvector), and location-based discovery (PostGIS)."
+  "project.description.6": "A peer-to-peer physical media game sharing marketplace leveraging AI agents (LangChain), vector databases (pgvector), and location-based discovery (PostGIS).",
+  "resume.goal": "Consolidate my transition from gaming linguist to software engineer. Strengthen my development skills by working with languages such as Java and Python, embracing new technologies, and contributing to a forward-thinking international company.",
+  "resume.lgpd": "I hereby authorize the use of my personal data in accordance with the LGPD (Brazilian General Personal Data Protection Law) 13709/2018.",
+  "resume.updated": "Updated to: June 2026",
+  "resume.skills.programming.java": "Java - Intermediate (EBAC)",
+  "resume.skills.programming.csharp": "C# - Intermediate (EBAC)",
+  "resume.skills.programming.web": "CSS, HTML, and JavaScript - Beginner to Intermediate (INFNET)",
+  "resume.skills.languages.english": "C2 English - Proficient (2022)",
+  "resume.skills.languages.french": "Intermediate French (2020)",
+  "resume.project.starrCorp.bullet1": "Built with React, Tailwind, and Typescript.",
+  "resume.project.starrCorp.bullet2": "Worked with:",
+  "resume.project.starrCorp.bullet2.sub1": "Data Architecture and State Control",
+  "resume.project.starrCorp.bullet2.sub2": "react-intl internationalization standard",
+  "resume.project.starrCorp.bullet2.sub3": "Fallow static analysis compliance",
+  "resume.project.starrCorp.link": "Link here",
+  "resume.project.more": "More projects:",
+  "resume.project.more.link": "here"
 }

@@ -126,5 +126,21 @@
   "project.title.5": "ScreenMatch API",
   "project.description.5": "Uma API REST robusta em Java e Spring Boot para catalogação de séries e filmes, com JPA, PostgreSQL e integração com a API do OMDb.",
   "project.title.6": "NetPlay: Marketplace de Jogos Colaborativo",
-  "project.description.6": "Um marketplace P2P para compartilhamento de jogos em mídia física que utiliza agentes de IA (LangChain), busca vetorial (pgvector) e busca espacial por proximidade (PostGIS)."
+  "project.description.6": "Um marketplace P2P para compartilhamento de jogos em mídia física que utiliza agentes de IA (LangChain), busca vetorial (pgvector) e busca espacial por proximidade (PostGIS).",
+  "resume.goal": "Consolidar minha transição de linguista de jogos para engenheiro de software. Fortalecer minhas habilidades de desenvolvimento trabalhando com linguagens como Java e Python, adotando novas tecnologias e contribuindo para uma empresa internacional inovadora.",
+  "resume.lgpd": "Autorizo o uso dos meus dados pessoais em conformidade com a LGPD (Lei Geral de Proteção de Dados Pessoais) 13709/2018.",
+  "resume.updated": "Atualizado em: Junho de 2026",
+  "resume.skills.programming.java": "Java - Intermediário (EBAC)",
+  "resume.skills.programming.csharp": "C# - Intermediário (EBAC)",
+  "resume.skills.programming.web": "CSS, HTML e JavaScript - Iniciante a Intermediário (INFNET)",
+  "resume.skills.languages.english": "Inglês C2 - Proficiente (2022)",
+  "resume.skills.languages.french": "Francês Intermediário (2020)",
+  "resume.project.starrCorp.bullet1": "Desenvolvido com React, Tailwind e TypeScript.",
+  "resume.project.starrCorp.bullet2": "Trabalhou com:",
+  "resume.project.starrCorp.bullet2.sub1": "Arquitetura de dados e controle de estado",
+  "resume.project.starrCorp.bullet2.sub2": "Padrão de internacionalização react-intl",
+  "resume.project.starrCorp.bullet2.sub3": "Conformidade com análise estática do Fallow",
+  "resume.project.starrCorp.link": "Link aqui",
+  "resume.project.more": "Mais projetos:",
+  "resume.project.more.link": "aqui"
 }
