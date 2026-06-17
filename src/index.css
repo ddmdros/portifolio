@@ -1,30 +1,67 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #08060d;
-  --color-card-bg: #111111;
-  --color-card-bg-tag: #121212;
-  --color-text-gray: #b0b0b0;
-
-  --color-text: #9ca3af;
-  --color-text-h: #ffffff;
-  --color-text-muted: #6b6375;
-  --color-text-dim: #4b5563;
-  --color-accent-text: #050505;
-
-  /* --color-accent: #10b981; */
-  --color-accent: #34d399;
-  /* --color-accent-hover: #059669; */
-  --color-accent-hover: #6ee7b7;
-  /* --color-accent-subtle: #064e3b; */
-  --color-accent-subtle: rgba(52, 211, 153, 0.1);
-  --color-accent-bg: rgba(52, 211, 153, 0.05);
-  --color-accent-border: rgba(52, 211, 153, 0.2);
-
-  --color-border: #1f2937;
-
+:root {
+  --bg: #08060d;
+  --card-bg: #111111;
+  --card-bg-tag: #121212;
+  --text-gray: #b0b0b0;
+  --text: #9ca3af;
+  --text-h: #ffffff;
+  --text-muted: #6b6375;
+  --text-dim: #4b5563;
+  --accent-text: #050505;
+  --accent: #34d399;
+  --accent-hover: #6ee7b7;
+  --accent-subtle: rgba(52, 211, 153, 0.1);
+  --accent-bg: rgba(52, 211, 153, 0.05);
+  --accent-border: rgba(52, 211, 153, 0.2);
+  --border: #1f2937;
   --shadow-emerald: 0 0 25px -5px rgba(16, 185, 129, 0.2);
   --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="light"] {
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --card-bg-tag: #f1f5f9;
+  --text-gray: #475569;
+  --text: #334155;
+  --text-h: #0f172a;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+  --accent-text: #ffffff;
+  --accent: #059669;
+  --accent-hover: #047857;
+  --accent-subtle: rgba(5, 150, 105, 0.1);
+  --accent-bg: rgba(5, 150, 105, 0.05);
+  --accent-border: rgba(5, 150, 105, 0.2);
+  --border: #e2e8f0;
+  --shadow-emerald: 0 0 25px -5px rgba(5, 150, 105, 0.15);
+  --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+@theme {
+  --color-bg: var(--bg);
+  --color-card-bg: var(--card-bg);
+  --color-card-bg-tag: var(--card-bg-tag);
+  --color-text-gray: var(--text-gray);
+
+  --color-text: var(--text);
+  --color-text-h: var(--text-h);
+  --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-dim);
+  --color-accent-text: var(--accent-text);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-bg: var(--accent-bg);
+  --color-accent-border: var(--accent-border);
+
+  --color-border: var(--border);
+
+  --shadow-emerald: var(--shadow-emerald);
+  --shadow-subtle: var(--shadow-subtle);
 
   --font-sans: "Inter", system-ui, sans-serif;
   --font-heading: "Inter", system-ui, sans-serif;
@@ -235,3 +272,95 @@
     transition: all 0.7s ease-in-out;
   }
 }
+
+/* Light Theme utility overrides */
+:root[data-theme="light"] {
+  /* Text colors overrides */
+  .text-white {
+    color: var(--text-h) !important;
+  }
+  .text-gray-300 {
+    color: var(--text) !important;
+  }
+  .text-gray-400 {
+    color: var(--text-muted) !important;
+  }
+  .text-gray-500 {
+    color: var(--text-dim) !important;
+  }
+  .text-black {
+    color: var(--accent-text) !important;
+  }
+  
+  /* Hover text colors */
+  .hover\:text-white:hover {
+    color: var(--text-h) !important;
+  }
+  .hover\:text-black:hover {
+    color: var(--accent-text) !important;
+  }
+
+  /* Faint backgrounds overrides (glass and cards) */
+  .bg-white\/5 {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+  }
+  .bg-white\/10 {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  .hover\:bg-white\/5:hover {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+  }
+  .hover\:bg-white\/10:hover {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+  }
+  .bg-black\/60 {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(8px);
+  }
+  .bg-card-bg\/95 {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+  .bg-accent-bg {
+    background-color: rgba(5, 150, 105, 0.08) !important;
+  }
+
+  /* Faint borders overrides */
+  .border-white\/5 {
+    border-color: rgba(0, 0, 0, 0.05) !important;
+  }
+  .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  .border-accent-border {
+    border-color: rgba(5, 150, 105, 0.2) !important;
+  }
+
+  /* Markdown & Prose heading colors */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose strong {
+    color: var(--text-h) !important;
+  }
+
+  /* DevEditor specific adjustments for readability */
+  input, textarea, select {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #94a3b8 !important;
+  }
+  
+  /* Shimmer button overlay in light mode */
+  .btn-shimmer::after {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 0, 0, 0.06),
+      transparent
+    ) !important;
+  }
+}
+

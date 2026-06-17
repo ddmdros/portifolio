@@ -67,12 +67,32 @@ const LanguageRedirect = () => {
 
 function App() {
   const [locale, setLocale] = useState("en");
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") return saved;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return prefersDark ? "dark" : "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   return (
     <BrowserRouter>
       <IntlProvider locale={locale} messages={messagesMap[locale]}>
-        <div className="min-h-screen text-white-900 bg-(--text-h)">
-          <Header currentLocale={locale} setLocale={setLocale} />
+        <div className="min-h-screen bg-bg text-text transition-colors duration-300">
+          <Header
+            currentLocale={locale}
+            setLocale={setLocale}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
 
           <Routes>
             {/* Multi-language parent route */}

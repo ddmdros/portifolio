@@ -3,10 +3,13 @@ import { FormattedMessage } from "react-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { Sun, Moon } from "lucide-react";
 
 interface HeaderProps {
   currentLocale: string;
   setLocale: (lang: string) => void;
+  theme: "dark" | "light";
+  toggleTheme: () => void;
 }
 
 const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
@@ -25,7 +28,7 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
   </svg>
 );
 
-export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
+export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
   const navLinks = [
@@ -37,7 +40,7 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
   ];
 
   return (
-    <header className="sticky top-0 w-full text-white z-50 border-b border-white/10 bg-bg">
+    <header className="sticky top-0 w-full text-text-h z-50 border-b border-white/10 bg-bg transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between relative">
         {/* Logo */}
         <div className="text-lg font-bold z-50">
@@ -47,7 +50,7 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
         </div>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <NavLink
               key={link.id}
@@ -61,20 +64,38 @@ export const Header = ({ currentLocale, setLocale }: HeaderProps) => {
               <FormattedMessage id={link.id} />
             </NavLink>
           ))}
-          <LanguageSwitcher
-            currentLocale={currentLocale}
-            setLocale={setLocale}
-            variant="icon"
-          />
+          <div className="flex items-center gap-1.5 ml-2">
+            <LanguageSwitcher
+              currentLocale={currentLocale}
+              setLocale={setLocale}
+              variant="icon"
+            />
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-gray-300 hover:text-accent rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300 cursor-pointer flex items-center justify-center select-none"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          </div>
         </nav>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 z-50 relative hover:bg-white/10 rounded-lg transition-colors"
-        >
-          <MenuIcon isOpen={isOpen} />
-        </button>
+        {/* Mobile controls */}
+        <div className="flex md:hidden items-center gap-2 z-50">
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-gray-300 hover:text-accent rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300 cursor-pointer flex items-center justify-center select-none"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 relative hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+          >
+            <MenuIcon isOpen={isOpen} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
