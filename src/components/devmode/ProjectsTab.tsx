@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React from "react";
 import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type ProjectType, type ProjectCategory } from "../../types/projectType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
+import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 
 interface ProjectsTabProps {
   projects: ProjectType[];
@@ -16,44 +17,16 @@ export const ProjectsTab = ({
   updateTrans,
   getTrans,
 }: ProjectsTabProps) => {
-  const [draggedId, setDraggedId] = useState<string | null>(null);
-  const [dragOverId, setDragOverId] = useState<string | null>(null);
-  const [canDragId, setCanDragId] = useState<string | null>(null);
-
-  const handleDragStart = (e: React.DragEvent, id: string) => {
-    setDraggedId(id);
-    e.dataTransfer.effectAllowed = "move";
-  };
-
-  const handleDragOver = (e: React.DragEvent, id: string) => {
-    e.preventDefault();
-    if (draggedId !== id) {
-      setDragOverId(id);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault();
-    if (draggedId && draggedId !== targetId) {
-      const fromIdx = projects.findIndex((p) => p.id === draggedId);
-      const toIdx = projects.findIndex((p) => p.id === targetId);
-      if (fromIdx !== -1 && toIdx !== -1) {
-        const newProjects = [...projects];
-        const [moved] = newProjects.splice(fromIdx, 1);
-        newProjects.splice(toIdx, 0, moved);
-        setProjects(newProjects);
-      }
-    }
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
-
-  const handleDragEnd = () => {
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
+  const {
+    draggedId,
+    dragOverId,
+    canDragId,
+    setCanDragId,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
+    handleDragEnd,
+  } = useDragAndDrop(projects, setProjects);
 
   return (
     <div className="space-y-8">

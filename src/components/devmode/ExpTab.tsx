@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React from "react";
 import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type ExperienceType } from "../../content/ExperienceData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
+import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 
 interface ExpTabProps {
   exp: ExperienceType[];
@@ -16,44 +17,16 @@ export const ExpTab = ({
   updateTrans,
   getTrans,
 }: ExpTabProps) => {
-  const [draggedId, setDraggedId] = useState<string | null>(null);
-  const [dragOverId, setDragOverId] = useState<string | null>(null);
-  const [canDragId, setCanDragId] = useState<string | null>(null);
-
-  const handleDragStart = (e: React.DragEvent, id: string) => {
-    setDraggedId(id);
-    e.dataTransfer.effectAllowed = "move";
-  };
-
-  const handleDragOver = (e: React.DragEvent, id: string) => {
-    e.preventDefault();
-    if (draggedId !== id) {
-      setDragOverId(id);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault();
-    if (draggedId && draggedId !== targetId) {
-      const fromIdx = exp.findIndex((x) => x.id === draggedId);
-      const toIdx = exp.findIndex((x) => x.id === targetId);
-      if (fromIdx !== -1 && toIdx !== -1) {
-        const newExp = [...exp];
-        const [moved] = newExp.splice(fromIdx, 1);
-        newExp.splice(toIdx, 0, moved);
-        setExp(newExp);
-      }
-    }
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
-
-  const handleDragEnd = () => {
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
+  const {
+    draggedId,
+    dragOverId,
+    canDragId,
+    setCanDragId,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
+    handleDragEnd,
+  } = useDragAndDrop(exp, setExp);
 
   return (
     <div className="space-y-8">

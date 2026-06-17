@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React from "react";
 import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type EducationType } from "../../content/EducationData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
+import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 
 interface EduTabProps {
   edu: EducationType[];
@@ -16,44 +17,16 @@ export const EduTab = ({
   updateTrans,
   getTrans,
 }: EduTabProps) => {
-  const [draggedId, setDraggedId] = useState<string | null>(null);
-  const [dragOverId, setDragOverId] = useState<string | null>(null);
-  const [canDragId, setCanDragId] = useState<string | null>(null);
-
-  const handleDragStart = (e: React.DragEvent, id: string) => {
-    setDraggedId(id);
-    e.dataTransfer.effectAllowed = "move";
-  };
-
-  const handleDragOver = (e: React.DragEvent, id: string) => {
-    e.preventDefault();
-    if (draggedId !== id) {
-      setDragOverId(id);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault();
-    if (draggedId && draggedId !== targetId) {
-      const fromIdx = edu.findIndex((x) => x.id === draggedId);
-      const toIdx = edu.findIndex((x) => x.id === targetId);
-      if (fromIdx !== -1 && toIdx !== -1) {
-        const newEdu = [...edu];
-        const [moved] = newEdu.splice(fromIdx, 1);
-        newEdu.splice(toIdx, 0, moved);
-        setEdu(newEdu);
-      }
-    }
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
-
-  const handleDragEnd = () => {
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
+  const {
+    draggedId,
+    dragOverId,
+    canDragId,
+    setCanDragId,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
+    handleDragEnd,
+  } = useDragAndDrop(edu, setEdu);
 
   return (
     <div className="space-y-8">

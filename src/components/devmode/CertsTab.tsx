@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Plus, Trash2, AlertTriangle, GripVertical } from "lucide-react";
 import { type CertificationType } from "../../types/certificationType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
+import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 
 interface CertsTabProps {
   certs: CertificationType[];
@@ -19,44 +20,17 @@ export const CertsTab = ({
   const [certFilter, setCertFilter] = useState<string>("all");
   const [showHighlights, setShowHighlights] = useState<boolean>(false);
 
-  const [draggedId, setDraggedId] = useState<string | null>(null);
-  const [dragOverId, setDragOverId] = useState<string | null>(null);
-  const [canDragId, setCanDragId] = useState<string | null>(null);
+  const {
+    draggedId,
+    dragOverId,
+    canDragId,
+    setCanDragId,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
+    handleDragEnd,
+  } = useDragAndDrop(certs, setCerts);
 
-  const handleDragStart = (e: React.DragEvent, id: string) => {
-    setDraggedId(id);
-    e.dataTransfer.effectAllowed = "move";
-  };
-
-  const handleDragOver = (e: React.DragEvent, id: string) => {
-    e.preventDefault();
-    if (draggedId !== id) {
-      setDragOverId(id);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent, targetId: string) => {
-    e.preventDefault();
-    if (draggedId && draggedId !== targetId) {
-      const fromIdx = certs.findIndex((c) => c.id === draggedId);
-      const toIdx = certs.findIndex((c) => c.id === targetId);
-      if (fromIdx !== -1 && toIdx !== -1) {
-        const newCerts = [...certs];
-        const [moved] = newCerts.splice(fromIdx, 1);
-        newCerts.splice(toIdx, 0, moved);
-        setCerts(newCerts);
-      }
-    }
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
-
-  const handleDragEnd = () => {
-    setDraggedId(null);
-    setDragOverId(null);
-    setCanDragId(null);
-  };
   const homeCertsCount = certs.filter((c) => c.showOnHome).length;
 
   const existingOrgsEn = Array.from(
