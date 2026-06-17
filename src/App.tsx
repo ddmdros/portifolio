@@ -13,6 +13,7 @@ import { Resume } from "./pages/Resume";
 import ptbrMessages from "./i18n/messages/ptbr.json";
 import enMessages from "./i18n/messages/en.json";
 import { DocsPage } from "./content/pages/DocsPage";
+import { DevEditor } from "./pages/DevEditor";
 
 const messagesMap: Record<string, Record<string, string>> = {
   pt: ptbrMessages,
@@ -83,6 +84,7 @@ function App() {
               <Route path="contact" element={<Contact />} />
               <Route path="resume" element={<Resume />} />
               <Route path="docs/:slug" element={<DocsPage />} />
+              <Route path="dev-editor" element={<DevEditor />} />
             </Route>
 
             {/* Fallback for paths without language prefix */}

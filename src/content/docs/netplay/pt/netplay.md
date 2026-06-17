@@ -59,7 +59,7 @@ O ecossistema é estruturado em três camadas principais de dados, garantindo in
 
 1. **Camada de Identidade e Conhecimento:** Gerenciada via **Supabase (PostgreSQL)**. A tabela `users` guarda reputação e dados espaciais (PostGIS), enquanto a `game_catalog` serve como a biblioteca universal para compreensão semântica.
 2. **Camada de Marketplace:** As tabelas `user_inventory` e `user_wishlist` mapeiam a oferta e a demanda, conectando usuários a cópias físicas específicas de jogos.
-3. **Camada de Inteligência e Transação:** A tabela `chat_memory` mantém o contexto usando estratégias de sumarização do LangChain, enquanto a `transactions` atua como o registro definitivo dos acordos entre locadores e locatários.
+3. **Camada de Inteligência e Transação:** A tabela `chat_memory` mantém o histórico básico da conversa (com sumarização planejada para versões futuras), enquanto a `transactions` atua como o registro definitivo dos acordos entre locadores e locatários.
 
 ### RAG e Fluxo de Agentes
 
@@ -135,10 +135,10 @@ Para garantir alto desempenho e escalabilidade, a stack integra infraestrutura m
 
 ## 4. Qualidade de Código e Lógica do Agente
 
-A lógica de agentes foi desenhada para fluxos complexos, utilizando:
+A lógica de agentes foi desenhada para resolução focada de consultas, utilizando:
 
-* **Estratégias de Sumarização:** Para lidar com grandes janelas de contexto, o agente adota uma estratégia mista: mantém intactas as últimas 4-5 mensagens para um fluxo natural enquanto comprime o histórico anterior.
-* **Humano no Circuito (Human-in-the-Loop):** Usuários podem acionar atualizações de perfil ou expansões de busca diretamente pelo chat, tornando o sistema altamente interativo.
+* **Tool Calling com LangChain:** O agente vincula dinamicamente as intenções do usuário a ferramentas específicas para buscar registros em tempo real no banco de dados.
+* **Memória Estruturada:** Armazenamento padrão de sessão para manter a janela ativa de conversa.
 
 ---
 
@@ -163,6 +163,8 @@ netplay/
 ## 6. Próximos Passos e Melhorias Futuras
 
 * **Integração com LangGraph:** Migração para lógica de agentes baseada em grafos para fluxos de transação de múltiplas etapas mais complexos.
+* **Estratégias de Sumarização:** Implementação de sumarização dinâmica para lidar com grandes janelas de contexto, mantendo intactas as últimas 4-5 mensagens para um fluxo natural enquanto comprime o histórico anterior.
+* **Humano no Circuito (Human-in-the-Loop):** Integração de fluxos de aprovação do usuário (como confirmações explícitas) para ações críticas (ex: atualizações de perfil ou execuções de transações).
 * **Mapeamento Visual:** Integração da **Google Maps API** para exibir os resultados da busca como pins interativos no mapa.
 * **Gamificação:** Implementação de um sistema de troféus e reputação para incentivar ainda mais a atividade colaborativa circular.
 * **Automated Cataloging:** Aprimoramento do backend para importar e vetorizar automaticamente novos itens via API do RAWG conforme os usuários registram suas coleções.

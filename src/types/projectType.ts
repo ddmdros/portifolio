@@ -19,4 +19,6 @@ export interface ProjectType {
   isFeatured: boolean;
   isWip?: boolean;
   docId?: string;
+  showInResume?: boolean;
+  descKeys?: string[];
 }

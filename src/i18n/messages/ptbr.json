@@ -142,5 +142,13 @@
   "resume.project.starrCorp.bullet2.sub3": "Conformidade com análise estática do Fallow",
   "resume.project.starrCorp.link": "Link aqui",
   "resume.project.more": "Mais projetos:",
-  "resume.project.more.link": "aqui"
+  "resume.project.more.link": "aqui",
+  "resume.link.here": "aqui",
+  "docs.back": "Voltar para Projetos",
+  "docs.readNext": "Continuar Lendo",
+  "docs.readNext.subtitle": "Documentação do Próximo Projeto",
+  "docs.readNext.action": "Ler Agora",
+  "resume.skills.languages.english.cert": "EFL certificado",
+  "resume.skills.languages.french.cert": "IFESP certificado",
+  "resume.section.projects": "Projetos"
 }

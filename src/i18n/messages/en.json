@@ -143,5 +143,13 @@
   "resume.project.starrCorp.bullet2.sub3": "Fallow static analysis compliance",
   "resume.project.starrCorp.link": "Link here",
   "resume.project.more": "More projects:",
-  "resume.project.more.link": "here"
+  "resume.project.more.link": "here",
+  "resume.link.here": "here",
+  "docs.back": "Back to Projects",
+  "docs.readNext": "Continue Reading",
+  "docs.readNext.subtitle": "Next Project Documentation",
+  "docs.readNext.action": "Read Now",
+  "resume.skills.languages.english.cert": "EFL certificate",
+  "resume.skills.languages.french.cert": "IFESP certificate",
+  "resume.section.projects": "Projects"
 }

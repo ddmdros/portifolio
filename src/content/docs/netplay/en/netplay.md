@@ -59,7 +59,7 @@ The ecosystem is structured into three main layers of data, ensuring both semant
 
 1. **Identity & Knowledge Layer:** Managed via **Supabase (PostgreSQL)**. `users` holds reputation and spatial data (PostGIS), while `game_catalog` acts as the universal library for semantic understanding.
 2. **Marketplace Layer:** `user_inventory` and `user_wishlist` map the supply and demand, linking users to specific physical media copies.
-3. **Intelligence & Transaction Layer:** `chat_memory` maintains context using LangChain summarization strategies, while `transactions` acts as the definitive ledger for "handshakes" between lenders and borrowers.
+3. **Intelligence & Transaction Layer:** `chat_memory` maintains basic conversation context (with summarization planned for future releases), while `transactions` acts as the definitive ledger for "handshakes" between lenders and borrowers.
 
 ### RAG and Agentic Workflow
 
@@ -135,10 +135,10 @@ To ensure high performance and scalability, the stack integrates modern infrastr
 
 ## 4. Code Quality & Agent Logic
 
-The agentic logic is designed for complex flows, using:
+The agentic logic is designed for focused query resolution, utilizing:
 
-* **Summarization Strategies:** To handle long context windows, the agent implements a mixed strategy: keeping the last 4-5 messages intact for natural flow while compressing older context.
-* **Human-in-the-Loop:** Users can trigger profile updates or search expansions directly via chat, making the system highly interactive.
+* **LangChain Tool Calling:** The agent dynamically binds user intents to specific tools to retrieve live database records.
+* **Structured Memory:** Standard session storage holds the active conversation window.
 
 ---
 
@@ -163,6 +163,8 @@ netplay/
 ## 6. Next Steps and Future Improvements
 
 * **LangGraph Integration:** Moving toward graph-based agent logic for more complex, multi-step transaction flows.
+* **Summarization Strategies:** Implementing dynamic summarization to handle long conversation windows, keeping the last 4-5 messages intact while compressing older history.
+* **Human-in-the-Loop:** Integrating user approval flows (like confirmation prompts) for critical actions like profile updates or transaction executions.
 * **Visual Mapping:** Integrating the **Google Maps API** to display search results as interactive pins on a map.
 * **Gamification:** Implementing a trophy and reputation system to further incentivize circular activity.
 * **Automated Cataloging:** Enhancing the backend to automatically ingest and vectorize new items via the RAWG API as users register their collections.

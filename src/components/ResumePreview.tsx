@@ -3,6 +3,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import SectionDiv from "./SectionDiv";
 import { GraduationCap, Briefcase, ArrowRight, Award, ExternalLink } from "lucide-react";
 import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
+import { EDUCATION_DATA } from "../content/EducationData";
+import { EXPERIENCE_DATA } from "../content/ExperienceData";
 
 const ResumePreview = () => {
   const navigate = useNavigate();
@@ -36,20 +38,20 @@ const ResumePreview = () => {
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg">
-                  <FormattedMessage id="resume.exp.keywords.company" />
+                  <FormattedMessage id={EXPERIENCE_DATA[0].companyKey} />
                 </h3>
                 <span className="text-xs text-accent font-medium font-mono">
-                  <FormattedMessage id="resume.exp.keywords.date" />
+                  <FormattedMessage id={EXPERIENCE_DATA[0].dateKey} />
                 </span>
               </div>
             </div>
             
             <div className="pl-[52px] space-y-1">
               <p className="text-sm text-gray-300 font-semibold">
-                <FormattedMessage id="resume.exp.keywords.title" />
+                <FormattedMessage id={EXPERIENCE_DATA[0].titleKey} />
               </p>
               <p className="text-xs text-gray-500 leading-relaxed">
-                <FormattedMessage id="resume.exp.keywords.desc1" />
+                <FormattedMessage id={EXPERIENCE_DATA[0].descKeys[0]} />
               </p>
             </div>
           </div>
@@ -64,20 +66,20 @@ const ResumePreview = () => {
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg">
-                  <FormattedMessage id="resume.edu.se.inst" />
+                  <FormattedMessage id={EDUCATION_DATA[0].instKey} />
                 </h3>
                 <span className="text-xs text-accent font-medium font-mono">
-                  <FormattedMessage id="resume.edu.se.date" />
+                  <FormattedMessage id={EDUCATION_DATA[0].dateKey} />
                 </span>
               </div>
             </div>
             
             <div className="pl-[52px] space-y-1">
               <p className="text-sm text-gray-300 font-semibold">
-                <FormattedMessage id="resume.edu.se.title" />
+                <FormattedMessage id={EDUCATION_DATA[0].titleKey} />
               </p>
               <p className="text-xs text-gray-500 leading-relaxed">
-                <FormattedMessage id="resume.edu.java.title" /> & <FormattedMessage id="resume.edu.journalism.title" />
+                <FormattedMessage id={EDUCATION_DATA[1].titleKey} /> & <FormattedMessage id={EDUCATION_DATA[2].titleKey} />
               </p>
             </div>
           </div>
@@ -101,7 +103,7 @@ const ResumePreview = () => {
             </div>
             
             <div className="pl-[52px] space-y-3">
-              {CERTIFICATIONS_DATA.filter((c) => c.featured)
+              {CERTIFICATIONS_DATA.filter((c) => c.showInResume)
                 .slice(0, 2)
                 .map((cert) => (
                   <div key={cert.id} className="text-left border-l border-accent/20 pl-3">

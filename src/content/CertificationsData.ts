@@ -6,7 +6,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.gcp.title",
     orgKey: "resume.cert.gcp.org",
     year: "2026",
-    featured: true,
+    showInResume: true,
     credentialUrl: "https://www.credly.com/badges/066915e4-a2d9-4c4c-a188-f5706b4b26f1",
   },
   {
@@ -14,7 +14,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.java.title",
     orgKey: "resume.cert.java.org",
     year: "2025",
-    featured: true,
+    showInResume: true,
     credentialUrl: "https://cursos.alura.com.br/degree/certificate/3fb06a58-bd70-4d8a-9a69-afb2229303cc?lang=pt_BR",
   },
   {
@@ -22,7 +22,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.english.title",
     orgKey: "resume.cert.english.org",
     year: "2022",
-    featured: true,
+    showInResume: true,
     credentialUrl: "https://www.efset.org/cert/iwWZUS",
   },
   {
@@ -30,7 +30,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.gcp.network.title",
     orgKey: "resume.cert.gcp.org",
     year: "2026",
-    featured: false,
+    showInResume: false,
     credentialUrl: "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
   },
   {
@@ -38,7 +38,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.gcp.appdev.title",
     orgKey: "resume.cert.gcp.org",
     year: "2026",
-    featured: false,
+    showInResume: false,
     credentialUrl: "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
   },
   {
@@ -46,7 +46,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.gcp.mlapi.title",
     orgKey: "resume.cert.gcp.org",
     year: "2026",
-    featured: false,
+    showInResume: false,
     credentialUrl: "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
   },
   {
@@ -54,7 +54,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.gcp.loadbalance.title",
     orgKey: "resume.cert.gcp.org",
     year: "2026",
-    featured: false,
+    showInResume: false,
     credentialUrl: "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
   },
   {
@@ -62,7 +62,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     titleKey: "resume.cert.gcp.genai.title",
     orgKey: "resume.cert.gcp.org",
     year: "2026",
-    featured: false,
+    showInResume: false,
     credentialUrl: "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
   },
 ];

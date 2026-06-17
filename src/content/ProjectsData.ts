@@ -13,6 +13,14 @@ export const PROJECTS_DATA: ProjectType[] = [
     projectUrl: "https://office-mayhem-aqis.vercel.app/",
     isFeatured: true,
     docId: "starr-corp",
+    showInResume: true,
+    descKeys: [
+      "resume.project.starrCorp.bullet1",
+      "resume.project.starrCorp.bullet2",
+      "resume.project.starrCorp.bullet2.sub1",
+      "resume.project.starrCorp.bullet2.sub2",
+      "resume.project.starrCorp.bullet2.sub3"
+    ],
   },
   {
     id: "2",

@@ -3,6 +3,6 @@ export interface CertificationType {
   titleKey: string;
   orgKey: string;
   year: string;
-  featured: boolean;
+  showInResume: boolean;
   credentialUrl?: string;
 }
