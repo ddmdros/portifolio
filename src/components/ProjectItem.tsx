@@ -36,9 +36,7 @@ const ProjectItem = ({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const imageElement = (
-    <div className={`relative overflow-hidden bg-white/5 w-full h-full ${
-      isFeatured ? "aspect-video md:aspect-auto md:h-full" : "aspect-video"
-    }`}>
+    <div className="relative overflow-hidden bg-white/5 w-full h-full aspect-video">
       {!imageLoaded && (
         <div className="absolute inset-0 bg-white/5 animate-pulse" />
       )}
@@ -76,23 +74,23 @@ const ProjectItem = ({
   return (
     <div className={`group bg-card-bg border rounded-xl overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col h-full ${
       isFeatured 
-        ? "border-accent/20 hover:border-accent/40 hover:shadow-emerald md:flex-row md:col-span-2 md:min-h-[380px]" 
+        ? "border-accent/20 hover:border-accent/40 hover:shadow-emerald" 
         : "border-white/10 hover:border-white/20"
     }`}>
       {docsUrl ? (
         <Link 
           to={docsUrl} 
-          className={`cursor-pointer block w-full ${isFeatured ? "md:w-1/2 md:shrink-0" : ""}`}
+          className="cursor-pointer block w-full"
         >
           {imageElement}
         </Link>
       ) : (
-        <div className={`w-full ${isFeatured ? "md:w-1/2 md:shrink-0" : ""}`}>
+        <div className="w-full">
           {imageElement}
         </div>
       )}
 
-      <div className={`p-5 flex flex-col grow ${isFeatured ? "md:p-8 md:w-1/2 justify-center" : ""}`}>
+      <div className="p-5 flex flex-col grow">
         <div className="mb-3">
           <KeywordTag label={category} />
         </div>

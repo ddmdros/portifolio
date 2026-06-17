@@ -26,6 +26,29 @@ The user interacts with an AI agent that understands context, location, and user
 * **Profile & Reputation Management:** Users can query their own stats, contributing to a secure and active circular economy.
 * **Metadata-Rich Recommendations:** The agent provides verified technical data (release dates, platforms, age rating) integrated with the RAWG API.
 
+### App Interfaces & Screenshots
+
+Here is a visual showcase of the mobile application interfaces:
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_chat_en.png" alt="AI Chat Agent" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">AI Chat Agent</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_profile_en.png" alt="User Profile" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Profile & Stats</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_transactions_en.png" alt="Transactions Ledger" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Deals & Handshakes</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_settings_en.png" alt="Account Settings" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Settings & Language</p>
+  </div>
+</div>
+
 ---
 
 ## 2. Data Architecture and AI Integration
@@ -58,14 +81,55 @@ def search_local_games(query: str, user_lat: float, user_lon: float):
 
 To ensure high performance and scalability, the stack integrates modern infrastructure with production-ready tooling.
 
-| Layer / Component | Technology | Technical Rationale |
-| --- | --- | --- |
-| **Backend** | Python / FastAPI | High-performance asynchronous framework for AI-intensive operations. |
-| **AI Orchestration** | LangChain | Manages agentic logic, conversation memory, and tool integration. |
-| **Database** | Supabase (PostGres) | Enterprise-grade relational infrastructure with PostGIS for spatial queries. |
-| **Vector Store** | pgvector | Enables semantic search and context injection for the RAG pipeline. |
-| **Frontend** | React / Vite | SPA framework for a reactive, dynamic chat experience. |
-| **External API** | RAWG API | Provides verified metadata, preventing hallucinations regarding release dates and platforms. |
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Backend</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">Python / FastAPI</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">High-performance asynchronous framework for AI-intensive operations.</p>
+  </div>
+  
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">AI Orchestration</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">LangChain</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Manages agentic logic, conversation memory, and tool integration.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Database</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">Supabase</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Enterprise-grade relational database with PostGIS for spatial queries.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Vector Store</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">pgvector</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Enables semantic similarity search and context injection for RAG pipeline.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Frontend</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">React / Vite</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">SPA framework for a reactive, dynamic chatbot interface.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">External API</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">RAWG API</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Provides verified game metadata, preventing model hallucinations.</p>
+  </div>
+</div>
 
 ---
 
@@ -107,6 +171,7 @@ netplay/
 
 ### Contacts & Project Links
 
+* **Project Link:** https://llm-project-tau.vercel.app/
 * **Diogo Medeiros:** ddmdros@proton.me | [GitHub](https://github.com/ddmdros) | [LinkedIn](https://www.linkedin.com/in/diogo-medeiros/) | [Portfolio](https://portifolio-tawny-xi-55.vercel.app/)
 * **Stephanie Pinho:** [GitHub](https://github.com/stephanielumertz) | [LinkedIn](https://www.linkedin.com/in/stephanielumertz/)
 * **Project Team Email:** steandydevs@gmail.com

@@ -8,10 +8,15 @@ import { type ProjectCategory } from "../types/projectType";
 export const ProjectsPage = () => {
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");
 
-  const filteredProjects =
+  const filteredProjects = (
     filter === "all"
       ? PROJECTS_DATA
-      : PROJECTS_DATA.filter((project) => project.category === filter);
+      : PROJECTS_DATA.filter((project) => project.category === filter)
+  ).sort((a, b) => {
+    if (a.isFeatured && !b.isFeatured) return -1;
+    if (!a.isFeatured && b.isFeatured) return 1;
+    return 0;
+  });
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">

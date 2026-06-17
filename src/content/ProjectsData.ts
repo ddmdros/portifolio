@@ -68,7 +68,8 @@ export const PROJECTS_DATA: ProjectType[] = [
     docsUrl: "/docs/netplay",
     githubUrl: "https://github.com/steadydevs/llm_project",
     projectUrl: "https://llm-project-tau.vercel.app/",
-    isFeatured: false,
+    isFeatured: true,
+    isWip: true,
     docId: "netplay",
   },
 ];

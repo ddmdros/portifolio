@@ -26,6 +26,29 @@ O usuário interage com um agente de IA que compreende o contexto, a localizaç�
 * **Gerenciamento de Perfil e Reputação:** Usuários podem consultar suas próprias estatísticas, contribuindo para uma economia circular segura e ativa.
 * **Recomendações Ricas em Metadados:** O agente fornece dados técnicos verificados (datas de lançamento, plataformas, classificação indicativa) integrados com a API do RAWG.
 
+### Interfaces do Aplicativo & Capturas de Tela
+
+Abaixo está uma demonstração visual das principais telas da aplicação móvel:
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_chat.png" alt="Assistente de Chat por IA" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Assistente de Chat por IA</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_profile.png" alt="Perfil do Usuário" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Perfil & Estatísticas</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_transactions.png" alt="Negociações e Empréstimos" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Negociações & Transações</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_wishlist.png" alt="Lista de Desejos P2P" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Lista de Desejos P2P</p>
+  </div>
+</div>
+
 ---
 
 ## 2. Arquitetura de Dados e Integração de IA
@@ -58,14 +81,55 @@ def search_local_games(query: str, user_lat: float, user_lon: float):
 
 Para garantir alto desempenho e escalabilidade, a stack integra infraestrutura moderna com ferramentas prontas para produção.
 
-| Camada / Componente | Tecnologia | Justificativa Técnica |
-| --- | --- | --- |
-| **Backend** | Python / FastAPI | Framework assíncrono de alto desempenho para operações intensivas de IA. |
-| **Orquestração de IA** | LangChain | Gerencia a lógica do agente, memória de conversa e integração de ferramentas. |
-| **Banco de Dados** | Supabase (PostgreSQL) | Infraestrutura relacional de nível corporativo com PostGIS para consultas espaciais. |
-| **Banco Vetorial** | pgvector | Permite busca semântica e injeção de contexto no pipeline RAG. |
-| **Frontend** | React / Vite | Framework SPA para uma experiência de chat dinâmica e reativa. |
-| **API Externa** | API RAWG | Fornece metadados verificados, evitando alucinações sobre datas de lançamento e plataformas. |
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Backend</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">Python / FastAPI</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Framework assíncrono de alto desempenho para operações intensivas de IA.</p>
+  </div>
+  
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Orquestração de IA</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">LangChain</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Gerencia a lógica do agente, memória de conversa e integração de ferramentas.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Banco de Dados</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">Supabase</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Banco de dados relacional de nível corporativo com PostGIS para consultas espaciais.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Banco Vetorial</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">pgvector</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Permite busca semântica e injeção de contexto no pipeline RAG.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">Frontend</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">React / Vite</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Framework SPA para uma experiência de chatbot dinâmica e reativa.</p>
+  </div>
+
+  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-bold text-accent uppercase tracking-wider">API Externa</span>
+      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">RAWG API</span>
+    </div>
+    <p class="text-sm text-gray-300 leading-relaxed">Fornece metadados de jogos verificados, prevenindo alucinações da IA.</p>
+  </div>
+</div>
 
 ---
 
@@ -107,6 +171,7 @@ netplay/
 
 ### Contatos & Links do Projeto
 
+* **Link do Projeto:** https://llm-project-tau.vercel.app/
 * **Diogo Medeiros:** ddmdros@proton.me | [GitHub](https://github.com/ddmdros) | [LinkedIn](https://www.linkedin.com/in/diogo-medeiros/) | [Portfólio](https://portifolio-tawny-xi-55.vercel.app/)
 * **Stephanie Pinho:** [GitHub](https://github.com/stephanielumertz) | [LinkedIn](https://www.linkedin.com/in/stephanielumertz/)
 * **E-mail da Dupla:** steandydevs@gmail.com
