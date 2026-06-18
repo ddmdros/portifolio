@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp } from "lucide-react";
-
-interface DragState {
-  draggedId: string | null;
-  dragOverId: string | null;
-  canDragId: string | null;
-  setCanDragId: (id: string | null) => void;
-  handleDragStart: (e: React.DragEvent, id: string) => void;
-  handleDragOver: (e: React.DragEvent, id: string) => void;
-  handleDrop: (e: React.DragEvent, targetId: string) => void;
-  handleDragEnd: () => void;
-}
+import { type DragState } from "../../hooks/useDragAndDrop";
 
 interface DevModeTabPanelProps<T extends { id: string }> {
   title: string;
@@ -46,12 +36,8 @@ export function DevModeTabPanel<T extends { id: string }>({
   const {
     draggedId,
     dragOverId,
-    canDragId,
     setCanDragId,
-    handleDragStart,
-    handleDragOver,
-    handleDrop,
-    handleDragEnd,
+    getDragProps,
   } = dragState;
 
   return (
@@ -82,11 +68,7 @@ export function DevModeTabPanel<T extends { id: string }>({
             return (
               <div
                 key={item.id}
-                draggable={canDragId === item.id}
-                onDragStart={(e) => handleDragStart(e, item.id)}
-                onDragOver={(e) => handleDragOver(e, item.id)}
-                onDrop={(e) => handleDrop(e, item.id)}
-                onDragEnd={handleDragEnd}
+                {...getDragProps(item.id)}
                 className={`border rounded-2xl bg-white/5/20 transition-all duration-200 ${
                   draggedId === item.id ? "opacity-40 scale-[0.98]" : ""
                 } ${

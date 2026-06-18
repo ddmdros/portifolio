@@ -1,4 +1,5 @@
 import React from "react";
+import { Plus } from "lucide-react";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 
 interface TranslatedTextInputProps {
@@ -171,5 +172,137 @@ export function CustomLinkFields<T extends { id: string; linkUrl?: string; linkT
         </div>
       )}
     </>
+  );
+}
+
+interface BulletPointsEditorProps<T extends { id: string; descKeys?: string[] }> {
+  item: T;
+  items: T[];
+  setItems: React.Dispatch<React.SetStateAction<T[]>>;
+  updateTrans: (key: string, lang: "en" | "pt", value: string) => void;
+  getTrans: (key: string, lang: "en" | "pt") => string;
+  bulletKeyPrefix: string;
+  label?: string;
+}
+
+export function BulletPointsEditor<T extends { id: string; descKeys?: string[] }>({
+  item,
+  items,
+  setItems,
+  updateTrans,
+  getTrans,
+  bulletKeyPrefix,
+  label = "CV Bullet Points",
+}: BulletPointsEditorProps<T>) {
+  const itemIdx = items.findIndex((x) => x.id === item.id);
+  const descKeys = item.descKeys || [];
+
+  const handleAddBullet = () => {
+    const bulletId = descKeys.length + 1;
+    const bulletKey = `${bulletKeyPrefix}${bulletId}`;
+    updateTrans(bulletKey, "en", "New bullet text (English)");
+    updateTrans(bulletKey, "pt", "Texto do marcador (Português)");
+
+    setItems(
+      updateItemAtIndex(items, itemIdx, (oldItem) => ({
+        ...oldItem,
+        descKeys: [...(oldItem.descKeys || []), bulletKey],
+      }))
+    );
+  };
+
+  const handleRemoveBullet = (bKey: string) => {
+    setItems(
+      updateItemAtIndex(items, itemIdx, (oldItem) => ({
+        ...oldItem,
+        descKeys: (oldItem.descKeys || []).filter((k) => k !== bKey),
+      }))
+    );
+  };
+
+  return (
+    <div className="border-t border-white/5 pt-4 space-y-3">
+      <div className="flex justify-between items-center">
+        <span className="text-xs font-semibold text-accent">
+          {label}
+        </span>
+        <button
+          onClick={handleAddBullet}
+          className="flex items-center gap-1 text-[10px] bg-white/5 text-gray-300 px-2 py-1 rounded hover:bg-white/10 cursor-pointer"
+        >
+          <Plus size={10} /> Add Bullet
+        </button>
+      </div>
+
+      <div className="space-y-3 pl-4 border-l border-white/10">
+        {descKeys.map((bKey) => (
+          <div key={bKey} className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] font-mono text-gray-500">
+                Key: {bKey}
+              </span>
+              <button
+                onClick={() => handleRemoveBullet(bKey)}
+                className="text-red-400 hover:text-red-500 text-[10px] cursor-pointer"
+              >
+                Remove
+              </button>
+            </div>
+            <div className="grid md:grid-cols-2 gap-3">
+              <input
+                type="text"
+                value={getTrans(bKey, "en")}
+                onChange={(e) => updateTrans(bKey, "en", e.target.value)}
+                className="bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
+                placeholder="English text"
+              />
+              <input
+                type="text"
+                value={getTrans(bKey, "pt")}
+                onChange={(e) => updateTrans(bKey, "pt", e.target.value)}
+                className="bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
+                placeholder="Portuguese text"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+interface CategoryFilterProps {
+  categories: readonly { id: string; label: string }[];
+  activeCategory: string;
+  setActiveCategory: (id: string) => void;
+  small?: boolean;
+}
+
+export function CategoryFilter({
+  categories,
+  activeCategory,
+  setActiveCategory,
+  small = false,
+}: CategoryFilterProps) {
+  return (
+    <div className="flex flex-wrap gap-1.5 border-b border-white/5 pb-3">
+      {categories.map((tab) => (
+        <button
+          key={tab.id}
+          onClick={() => setActiveCategory(tab.id)}
+          className={`font-mono rounded border transition-all cursor-pointer select-none ${
+            small
+              ? "px-1.5 py-0.5 text-[9px]"
+              : "px-2.5 py-1 text-[10px]"
+          } ${
+            activeCategory === tab.id
+              ? "bg-accent border-accent text-black font-bold"
+              : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
+          }`}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
   );
 }

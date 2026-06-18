@@ -3,5 +3,8 @@
     "@rolldown/plugin-babel",
     "@vitejs/plugin-react",
     "babel-plugin-react-compiler"
+  ],
+  "ignorePatterns": [
+    "src/utils/arrayUtils.ts"
   ]
 }

@@ -5,7 +5,7 @@ import { updateItemAtIndex } from "../../utils/arrayUtils";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 import { checkDuplicateCertification } from "../../utils/validationUtils";
 import { DevModeTabPanel } from "./DevModeTabPanel";
-import { TranslatedTextInput } from "./DevModeInputs";
+import { TranslatedTextInput, CategoryFilter } from "./DevModeInputs";
 
 interface CertsTabProps {
   certs: CertificationType[];
@@ -170,33 +170,21 @@ export const CertsTab = ({
           </div>
 
           {/* Certifications Filter Tabs in Editor */}
-          <div className="flex flex-wrap gap-1.5 border-b border-white/5 pb-3">
-            {(
-              [
-                { id: "all", label: "All" },
-                { id: "featured", label: "Featured" },
-                { id: "ia_ml", label: "IA & ML" },
-                { id: "back", label: "Backend" },
-                { id: "frontend", label: "Frontend" },
-                { id: "cloud", label: "Cloud & DevOps" },
-                { id: "game_dev", label: "Game Dev" },
-                { id: "fundamentos", label: "Fundamentos" },
-                { id: "idiomas", label: "Idiomas" },
-              ] as const
-            ).map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setCertFilter(tab.id)}
-                className={`px-2.5 py-1 text-[10px] font-mono rounded-lg border transition-all cursor-pointer ${
-                  certFilter === tab.id
-                    ? "bg-accent border-accent text-black font-bold"
-                    : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+          <CategoryFilter
+            categories={[
+              { id: "all", label: "All" },
+              { id: "featured", label: "Featured" },
+              { id: "ia_ml", label: "IA & ML" },
+              { id: "back", label: "Backend" },
+              { id: "frontend", label: "Frontend" },
+              { id: "cloud", label: "Cloud & DevOps" },
+              { id: "game_dev", label: "Game Dev" },
+              { id: "fundamentos", label: "Fundamentos" },
+              { id: "idiomas", label: "Idiomas" },
+            ] as const}
+            activeCategory={certFilter}
+            setActiveCategory={setCertFilter}
+          />
         </div>
       }
       renderCardHeader={(item) => {

@@ -112,7 +112,8 @@ export const EduTab = ({
                     } else {
                       setEdu(
                         updateItemAtIndex(edu, eIdx, () => {
-                          const { gpaKey: _, ...rest } = item;
+                          const rest = { ...item };
+                          delete rest.gpaKey;
                           return rest;
                         })
                       );

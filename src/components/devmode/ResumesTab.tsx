@@ -15,6 +15,7 @@ import { ProfileDownloadPnl } from "./resumes/ProfileDownloadPnl";
 import { ProfilePublishToggle } from "./resumes/ProfilePublishToggle";
 import { ProfileCustomTexts } from "./resumes/ProfileCustomTexts";
 import { ResumeColumn } from "./resumes/ResumeColumn";
+import { CategoryFilter } from "./DevModeInputs";
 
 interface ResumesTabProps {
   certs: CertificationType[];
@@ -64,8 +65,8 @@ export const ResumesTab = ({
   const dragSkills = useDragAndDrop(skills, setSkills);
 
   const certFilterElement = (
-    <div className="flex flex-wrap gap-1 mb-2 border-b border-white/5 pb-2">
-      {[
+    <CategoryFilter
+      categories={[
         { id: "all", label: "All" },
         { id: "ia_ml", label: "IA" },
         { id: "back", label: "Back" },
@@ -74,21 +75,27 @@ export const ResumesTab = ({
         { id: "game_dev", label: "Game" },
         { id: "fundamentos", label: "Fund" },
         { id: "idiomas", label: "Lang" },
-      ].map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => setCertFilter(tab.id)}
-          className={`px-1.5 py-0.5 text-[9px] font-mono rounded border transition-all cursor-pointer select-none ${
-            certFilter === tab.id
-              ? "bg-accent border-accent text-black font-bold"
-              : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
-          }`}
-        >
-          {tab.label}
-        </button>
-      ))}
-    </div>
+      ] as const}
+      activeCategory={certFilter}
+      setActiveCategory={setCertFilter}
+      small={true}
+    />
   );
+
+  const handleToggle = <T extends { id: string; showInResume?: string[] }>(
+    item: T,
+    items: T[],
+    setItems: React.Dispatch<React.SetStateAction<T[]>>
+  ) => {
+    const idx = items.findIndex((x) => x.id === item.id);
+    if (idx !== -1) {
+      setItems(
+        updateItemAtIndex(items, idx, {
+          showInResume: toggleProfile(item.showInResume, activeProfile),
+        } as Partial<T>)
+      );
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -144,18 +151,9 @@ export const ResumesTab = ({
           items={projects}
           checkedCount={projects.filter((p) => p.showInResume?.includes(activeProfile)).length}
           emptyMessage="No projects found."
-          {...dragProj}
+          dragState={dragProj}
           isChecked={(proj) => proj.showInResume?.includes(activeProfile) || false}
-          onToggle={(proj) => {
-            const idx = projects.findIndex((p) => p.id === proj.id);
-            if (idx !== -1) {
-              setProjects(
-                updateItemAtIndex(projects, idx, {
-                  showInResume: toggleProfile(proj.showInResume, activeProfile),
-                })
-              );
-            }
-          }}
+          onToggle={(proj) => handleToggle(proj, projects, setProjects)}
           renderItemContent={(proj) => {
             const title = getTrans(proj.title, "en") || getTrans(proj.title, "pt") || proj.title;
             return <span className="line-clamp-2 leading-tight select-none">{title}</span>;
@@ -168,19 +166,10 @@ export const ResumesTab = ({
           items={certs.filter((c) => certFilter === "all" || c.category === certFilter)}
           checkedCount={certs.filter((c) => c.showInResume?.includes(activeProfile)).length}
           emptyMessage="No matching certifications found."
-          {...dragCert}
+          dragState={dragCert}
           filterElement={certFilterElement}
           isChecked={(cert) => cert.showInResume?.includes(activeProfile) || false}
-          onToggle={(cert) => {
-            const idx = certs.findIndex((c) => c.id === cert.id);
-            if (idx !== -1) {
-              setCerts(
-                updateItemAtIndex(certs, idx, {
-                  showInResume: toggleProfile(cert.showInResume, activeProfile),
-                })
-              );
-            }
-          }}
+          onToggle={(cert) => handleToggle(cert, certs, setCerts)}
           renderItemContent={(cert) => {
             const title = getTrans(cert.titleKey, "en") || getTrans(cert.titleKey, "pt") || cert.titleKey;
             const org = getTrans(cert.orgKey, "en") || getTrans(cert.orgKey, "pt") || cert.orgKey;
@@ -199,18 +188,9 @@ export const ResumesTab = ({
           items={exp}
           checkedCount={exp.filter((e) => e.showInResume?.includes(activeProfile)).length}
           emptyMessage="No experience found."
-          {...dragExp}
+          dragState={dragExp}
           isChecked={(item) => item.showInResume?.includes(activeProfile) || false}
-          onToggle={(item) => {
-            const idx = exp.findIndex((e) => e.id === item.id);
-            if (idx !== -1) {
-              setExp(
-                updateItemAtIndex(exp, idx, {
-                  showInResume: toggleProfile(item.showInResume, activeProfile),
-                })
-              );
-            }
-          }}
+          onToggle={(item) => handleToggle(item, exp, setExp)}
           renderItemContent={(item) => {
             const title = getTrans(item.titleKey, "en") || getTrans(item.titleKey, "pt") || item.titleKey;
             const company = getTrans(item.companyKey, "en") || getTrans(item.companyKey, "pt") || item.companyKey;
@@ -229,18 +209,9 @@ export const ResumesTab = ({
           items={edu}
           checkedCount={edu.filter((e) => e.showInResume?.includes(activeProfile)).length}
           emptyMessage="No education found."
-          {...dragEdu}
+          dragState={dragEdu}
           isChecked={(item) => item.showInResume?.includes(activeProfile) || false}
-          onToggle={(item) => {
-            const idx = edu.findIndex((e) => e.id === item.id);
-            if (idx !== -1) {
-              setEdu(
-                updateItemAtIndex(edu, idx, {
-                  showInResume: toggleProfile(item.showInResume, activeProfile),
-                })
-              );
-            }
-          }}
+          onToggle={(item) => handleToggle(item, edu, setEdu)}
           renderItemContent={(item) => {
             const title = getTrans(item.titleKey, "en") || getTrans(item.titleKey, "pt") || item.titleKey;
             const inst = getTrans(item.instKey, "en") || getTrans(item.instKey, "pt") || item.instKey;
@@ -259,18 +230,9 @@ export const ResumesTab = ({
           items={skills}
           checkedCount={skills.filter((s) => s.showInResume?.includes(activeProfile)).length}
           emptyMessage="No skills found."
-          {...dragSkills}
+          dragState={dragSkills}
           isChecked={(skill) => skill.showInResume?.includes(activeProfile) || false}
-          onToggle={(skill) => {
-            const idx = skills.findIndex((s) => s.id === skill.id);
-            if (idx !== -1) {
-              setSkills(
-                updateItemAtIndex(skills, idx, {
-                  showInResume: toggleProfile(skill.showInResume, activeProfile),
-                })
-              );
-            }
-          }}
+          onToggle={(skill) => handleToggle(skill, skills, setSkills)}
           renderItemContent={(skill) => {
             const category = getTrans(skill.categoryKey, "en") || skill.categoryKey;
             return (

@@ -1,21 +1,13 @@
 import React from "react";
 import { GripVertical } from "lucide-react";
+import { type DragState } from "../../../hooks/useDragAndDrop";
 
 interface ResumeColumnProps<T extends { id: string }> {
   title: string;
   items: T[];
   checkedCount: number;
   emptyMessage?: string;
-
-  // Drag-and-drop state & handlers
-  draggedId: string | null;
-  dragOverId: string | null;
-  canDragId: string | null;
-  setCanDragId: (id: string | null) => void;
-  handleDragStart: (e: React.DragEvent, id: string) => void;
-  handleDragOver: (e: React.DragEvent, id: string) => void;
-  handleDrop: (e: React.DragEvent, targetId: string) => void;
-  handleDragEnd: () => void;
+  dragState: DragState;
 
   // Callbacks
   isChecked: (item: T) => boolean;
@@ -31,19 +23,14 @@ export function ResumeColumn<T extends { id: string }>({
   items,
   checkedCount,
   emptyMessage = "No items found.",
-  draggedId,
-  dragOverId,
-  canDragId,
-  setCanDragId,
-  handleDragStart,
-  handleDragOver,
-  handleDrop,
-  handleDragEnd,
+  dragState,
   isChecked,
   onToggle,
   renderItemContent,
   filterElement,
 }: ResumeColumnProps<T>) {
+  const { draggedId, dragOverId, setCanDragId, getDragProps } = dragState;
+
   return (
     <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col h-[500px]">
       <h3 className="text-xs font-bold text-accent tracking-wider uppercase border-b border-white/5 pb-2 mb-3 text-left">
@@ -61,11 +48,7 @@ export function ResumeColumn<T extends { id: string }>({
             return (
               <div
                 key={item.id}
-                draggable={canDragId === item.id}
-                onDragStart={(e) => handleDragStart(e, item.id)}
-                onDragOver={(e) => handleDragOver(e, item.id)}
-                onDrop={(e) => handleDrop(e, item.id)}
-                onDragEnd={handleDragEnd}
+                {...getDragProps(item.id)}
                 className={`flex items-start gap-1 p-2 rounded-xl transition-all border ${
                   draggedId === item.id ? "opacity-40 scale-[0.98]" : ""
                 } ${
