@@ -27,13 +27,62 @@ export const PROJECTS_DATA: ProjectType[] = [
     ],
     "descKeys": [
       "resume.project.starrCorp.bullet1",
-      "resume.project.starrCorp.bullet2",
       "resume.project.starrCorp.bullet2.sub1",
       "resume.project.starrCorp.bullet2.sub2",
       "resume.project.starrCorp.bullet2.sub3"
+    ]
+  },
+  {
+    "id": "6",
+    "title": "project.title.6",
+    "category": [
+      "fullstack",
+      "AI & ML"
     ],
-    "linkUrl": "https://starrcorp-override.com",
-    "linkTextKey": "resume.project.starrCorp.link.override"
+    "description": "project.description.6",
+    "tags": [
+      "React",
+      "FastAPI",
+      "Supabase",
+      "LangChain",
+      "PostgreSQL"
+    ],
+    "imageUrl": "/assets/projects/netplay/netplay_preview.png",
+    "docsUrl": "/docs/netplay",
+    "githubUrl": "https://github.com/steadydevs/llm_project",
+    "projectUrl": "https://llm-project-tau.vercel.app/",
+    "isFeatured": true,
+    "isWip": true,
+    "docId": "netplay",
+    "showInResume": [
+      "general",
+      "backend",
+      "fullstack",
+      "ia_ml"
+    ],
+    "descKeys": [
+      "resume.project.netplay.bullet1",
+      "project.title.6.bullet3",
+      "project.title.6.bullet4"
+    ]
+  },
+  {
+    "id": "3",
+    "title": "project.title.3",
+    "category": "game development",
+    "description": "project.description.3",
+    "tags": [
+      "Unity",
+      "C#",
+      "Game Design"
+    ],
+    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/HugoScreenShot.png",
+    "githubUrl": "https://github.com/ddmdros/ebac-platformer2d",
+    "isFeatured": false,
+    "isWip": true,
+    "showInResume": [
+      "general"
+    ]
   },
   {
     "id": "2",
@@ -55,24 +104,6 @@ export const PROJECTS_DATA: ProjectType[] = [
     "descKeys": [
       "resume.project.freelanceBoard.bullet1",
       "resume.project.freelanceBoard.bullet2"
-    ]
-  },
-  {
-    "id": "3",
-    "title": "project.title.3",
-    "category": "game development",
-    "description": "project.description.3",
-    "tags": [
-      "Unity",
-      "C#",
-      "Game Design"
-    ],
-    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/HugoScreenShot.png",
-    "githubUrl": "https://github.com/ddmdros/ebac-platformer2d",
-    "isFeatured": false,
-    "isWip": true,
-    "showInResume": [
-      "general"
     ]
   },
   {
@@ -116,39 +147,6 @@ export const PROJECTS_DATA: ProjectType[] = [
     ],
     "descKeys": [
       "resume.project.screenMatch.bullet1"
-    ]
-  },
-  {
-    "id": "6",
-    "title": "project.title.6",
-    "category": [
-      "fullstack",
-      "AI & ML"
-    ],
-    "description": "project.description.6",
-    "tags": [
-      "React",
-      "FastAPI",
-      "Supabase",
-      "LangChain",
-      "PostgreSQL"
-    ],
-    "imageUrl": "/assets/projects/netplay/netplay_preview.png",
-    "docsUrl": "/docs/netplay",
-    "githubUrl": "https://github.com/steadydevs/llm_project",
-    "projectUrl": "https://llm-project-tau.vercel.app/",
-    "isFeatured": true,
-    "isWip": true,
-    "docId": "netplay",
-    "showInResume": [
-      "general",
-      "backend",
-      "fullstack",
-      "ia_ml"
-    ],
-    "descKeys": [
-      "resume.project.netplay.bullet1",
-      "resume.project.netplay.bullet2"
     ]
   }
 ];

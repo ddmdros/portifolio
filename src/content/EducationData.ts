@@ -24,6 +24,14 @@ export const EDUCATION_DATA: EducationType[] = [
     ]
   },
   {
+    "id": "custom-edu-1781742523179",
+    "titleKey": "resume.edu.customcustom-edu-1781742523179.title",
+    "instKey": "resume.edu.customcustom-edu-1781742523179.inst",
+    "dateKey": "resume.edu.customcustom-edu-1781742523179.date",
+    "showInResume": [],
+    "showInPortfolio": true
+  },
+  {
     "id": "2",
     "titleKey": "resume.edu.java.title",
     "instKey": "resume.edu.java.inst",
