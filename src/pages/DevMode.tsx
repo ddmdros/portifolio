@@ -8,6 +8,7 @@ import { SKILLS_DATA } from "../content/SkillsData";
 import { PROFILE_CONFIG } from "../config/profile";
 import enMessagesInit from "../i18n/messages/en.json";
 import ptbrMessagesInit from "../i18n/messages/ptbr.json";
+import { checkDuplicateCertification } from "../utils/validationUtils";
 
 import { ProjectsTab } from "../components/devmode/ProjectsTab";
 import { ResumesTab } from "../components/devmode/ResumesTab";
@@ -97,53 +98,9 @@ export const DevMode = () => {
   // Save changes handler
   const handleSave = async (generatePdfs: boolean) => {
     // Check for duplicate certifications first
-    const hasDuplicate = certs.some((cert) => {
-      const titleEn = getTrans(cert.titleKey, "en").trim();
-      const orgEn = getTrans(cert.orgKey, "en").trim();
-      const isPlaceholder = (titleEn.toLowerCase() === "new certification name" || titleEn === "") &&
-                            (orgEn.toLowerCase() === "issuer org" || orgEn === "");
-      if (isPlaceholder) return false;
-
-      return certs.some((c) => {
-        if (c.id === cert.id) return false;
-
-        // Match credential Url (English)
-        if (cert.credentialUrl && c.credentialUrl === cert.credentialUrl) return true;
-        // Match credential Url (Portuguese)
-        if (cert.credentialUrlPt && c.credentialUrlPt === cert.credentialUrlPt) return true;
-
-        const cTitleEn = getTrans(c.titleKey, "en").trim();
-        const cOrgEn = getTrans(c.orgKey, "en").trim();
-        const cIsPlaceholder = (cTitleEn.toLowerCase() === "new certification name" || cTitleEn === "") &&
-                               (cOrgEn.toLowerCase() === "issuer org" || cOrgEn === "");
-        if (cIsPlaceholder) return false;
-
-        // Match English name + org + year
-        if (
-          titleEn.toLowerCase() === cTitleEn.toLowerCase() &&
-          orgEn.toLowerCase() === cOrgEn.toLowerCase() &&
-          cert.year === c.year
-        ) {
-          return true;
-        }
-
-        // Match Portuguese name + org + year
-        const titlePt = getTrans(cert.titleKey, "pt").trim().toLowerCase();
-        const cTitlePt = getTrans(c.titleKey, "pt").trim().toLowerCase();
-        const orgPt = getTrans(cert.orgKey, "pt").trim().toLowerCase();
-        const cOrgPt = getTrans(c.orgKey, "pt").trim().toLowerCase();
-
-        if (
-          titlePt && titlePt === cTitlePt &&
-          orgPt && orgPt === cOrgPt &&
-          cert.year === c.year
-        ) {
-          return true;
-        }
-
-        return false;
-      });
-    });
+    const hasDuplicate = certs.some((cert) =>
+      checkDuplicateCertification(cert, certs, getTrans)
+    );
 
     if (hasDuplicate) {
       setSaveStatus({
