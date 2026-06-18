@@ -1,8 +1,10 @@
 import React from "react";
-import { Plus, Trash2, GripVertical } from "lucide-react";
+import { Plus } from "lucide-react";
 import { type ProjectType, type ProjectCategory } from "../../types/projectType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { DevModeTabPanel } from "./DevModeTabPanel";
+import { TranslatedTextInput, CustomLinkFields } from "./DevModeInputs";
 
 interface ProjectsTabProps {
   projects: ProjectType[];
@@ -17,151 +19,75 @@ export const ProjectsTab = ({
   updateTrans,
   getTrans,
 }: ProjectsTabProps) => {
-  const {
-    draggedId,
-    dragOverId,
-    canDragId,
-    setCanDragId,
-    handleDragStart,
-    handleDragOver,
-    handleDrop,
-    handleDragEnd,
-  } = useDragAndDrop(projects, setProjects);
+  const dragState = useDragAndDrop(projects, setProjects);
+
+  const handleAdd = () => {
+    const newId = `p${projects.length + 1}_${Date.now().toString().slice(-4)}`;
+    const titleKey = `project.title.${newId}`;
+    const descKey = `project.description.${newId}`;
+    updateTrans(titleKey, "en", "New Project Title");
+    updateTrans(titleKey, "pt", "Título do Novo Projeto");
+    updateTrans(descKey, "en", "New Project Description");
+    updateTrans(descKey, "pt", "Descrição do Novo Projeto");
+
+    setProjects([
+      ...projects,
+      {
+        id: newId,
+        title: titleKey,
+        category: "fullstack",
+        description: descKey,
+        tags: ["React"],
+        imageUrl: "/assets/projects/placeholder.png",
+        isFeatured: false,
+        showInResume: [],
+        descKeys: [],
+      },
+    ]);
+  };
 
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-center pb-4 border-b border-white/5">
-        <h2 className="text-xl font-bold text-white">Manage Projects</h2>
-        <button
-          onClick={() => {
-            const newId = `p${projects.length + 1}_${Date.now().toString().slice(-4)}`;
-            const titleKey = `project.title.${newId}`;
-            const descKey = `project.description.${newId}`;
-            updateTrans(titleKey, "en", "New Project Title");
-            updateTrans(titleKey, "pt", "Título do Novo Projeto");
-            updateTrans(descKey, "en", "New Project Description");
-            updateTrans(descKey, "pt", "Descrição do Novo Projeto");
+    <DevModeTabPanel
+      title="Manage Projects"
+      description="Manage your portfolio projects and showcase details."
+      items={projects}
+      onAdd={handleAdd}
+      onDelete={(id) => setProjects(projects.filter((p) => p.id !== id))}
+      addButtonLabel="Add Project"
+      emptyMessage="No projects found. Click 'Add Project' to create one."
+      dragState={dragState}
+      renderCardHeader={(item) => {
+        const title = getTrans(item.title, "en") || "New Project";
+        return (
+          <div className="flex items-center gap-2">
+            <span>{title}</span>
+            <span className="text-xs font-mono text-gray-500 font-normal">
+              (ID: {item.id})
+            </span>
+          </div>
+        );
+      }}
+      renderCardDetails={(item) => {
+        const pIdx = projects.findIndex((x) => x.id === item.id);
+        return (
+          <>
+            <TranslatedTextInput
+              labelEn="Title (English)"
+              labelPt="Title (Portuguese)"
+              translationKey={item.title}
+              updateTrans={updateTrans}
+              getTrans={getTrans}
+            />
 
-            setProjects([
-              ...projects,
-              {
-                id: newId,
-                title: titleKey,
-                category: "fullstack",
-                description: descKey,
-                tags: ["React"],
-                imageUrl: "/assets/projects/placeholder.png",
-                isFeatured: false,
-                showInResume: [],
-                descKeys: [],
-              },
-            ]);
-          }}
-          className="flex items-center gap-1 text-xs bg-white/5 border border-white/10 text-accent font-bold px-3 py-1.5 rounded-lg hover:bg-white/10 cursor-pointer"
-        >
-          <Plus size={14} /> Add Project
-        </button>
-      </div>
-
-      <div className="space-y-6">
-        {projects.map((proj, pIdx) => (
-          <div
-            key={proj.id}
-            draggable={canDragId === proj.id}
-            onDragStart={(e) => handleDragStart(e, proj.id)}
-            onDragOver={(e) => handleDragOver(e, proj.id)}
-            onDrop={(e) => handleDrop(e, proj.id)}
-            onDragEnd={handleDragEnd}
-            className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
-              draggedId === proj.id ? "opacity-40 scale-[0.98]" : ""
-            } ${
-              dragOverId === proj.id
-                ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
-                : "border-white/5"
-            }`}
-          >
-            <div className="flex justify-between items-center select-none">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onMouseDown={() => setCanDragId(proj.id)}
-                  onMouseUp={() => setCanDragId(null)}
-                  className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
-                  title="Drag to reorder"
-                >
-                  <GripVertical size={14} />
-                </button>
-                <span className="text-xs font-mono text-gray-500">
-                  ID: {proj.id}
-                </span>
-              </div>
-              <button
-                onClick={() =>
-                  setProjects(projects.filter((p) => p.id !== proj.id))
-                }
-                className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"
-              >
-                <Trash2 size={14} />
-              </button>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Title (English)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(proj.title, "en")}
-                  onChange={(e) =>
-                    updateTrans(proj.title, "en", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Title (Portuguese)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(proj.title, "pt")}
-                  onChange={(e) =>
-                    updateTrans(proj.title, "pt", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Description (English)
-                </label>
-                <textarea
-                  rows={2}
-                  value={getTrans(proj.description, "en")}
-                  onChange={(e) =>
-                    updateTrans(proj.description, "en", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Description (Portuguese)
-                </label>
-                <textarea
-                  rows={2}
-                  value={getTrans(proj.description, "pt")}
-                  onChange={(e) =>
-                    updateTrans(proj.description, "pt", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-            </div>
+            <TranslatedTextInput
+              labelEn="Description (English)"
+              labelPt="Description (Portuguese)"
+              translationKey={item.description}
+              updateTrans={updateTrans}
+              getTrans={getTrans}
+              isTextArea={true}
+              rows={2}
+            />
 
             <div className="grid md:grid-cols-3 gap-4">
               <div>
@@ -171,9 +97,9 @@ export const ProjectsTab = ({
                 <input
                   type="text"
                   value={
-                    Array.isArray(proj.category)
-                      ? proj.category.join(", ")
-                      : proj.category
+                    Array.isArray(item.category)
+                      ? item.category.join(", ")
+                      : item.category
                   }
                   onChange={(e) => {
                     setProjects(
@@ -181,7 +107,7 @@ export const ProjectsTab = ({
                         category: e.target.value
                           .split(",")
                           .map((t) => t.trim()) as ProjectCategory[],
-                      }),
+                      })
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -193,12 +119,12 @@ export const ProjectsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={proj.tags.join(", ")}
+                  value={item.tags.join(", ")}
                   onChange={(e) => {
                     setProjects(
                       updateItemAtIndex(projects, pIdx, {
                         tags: e.target.value.split(",").map((t) => t.trim()),
-                      }),
+                      })
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -210,12 +136,12 @@ export const ProjectsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={proj.imageUrl}
+                  value={item.imageUrl}
                   onChange={(e) => {
                     setProjects(
                       updateItemAtIndex(projects, pIdx, {
                         imageUrl: e.target.value,
-                      }),
+                      })
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -230,12 +156,12 @@ export const ProjectsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={proj.githubUrl || ""}
+                  value={item.githubUrl || ""}
                   onChange={(e) => {
                     setProjects(
                       updateItemAtIndex(projects, pIdx, {
                         githubUrl: e.target.value || undefined,
-                      }),
+                      })
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -247,12 +173,12 @@ export const ProjectsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={proj.projectUrl || ""}
+                  value={item.projectUrl || ""}
                   onChange={(e) => {
                     setProjects(
                       updateItemAtIndex(projects, pIdx, {
                         projectUrl: e.target.value || undefined,
-                      }),
+                      })
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -264,12 +190,12 @@ export const ProjectsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={proj.docId || ""}
+                  value={item.docId || ""}
                   onChange={(e) => {
                     setProjects(
                       updateItemAtIndex(projects, pIdx, {
                         docId: e.target.value || undefined,
-                      }),
+                      })
                     );
                   }}
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
@@ -277,92 +203,29 @@ export const ProjectsTab = ({
               </div>
             </div>
 
-            {/* Custom URL and Custom Text Key fields */}
-            <div className="grid md:grid-cols-2 gap-4 border-t border-white/5 pt-3">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Custom Clickable Link URL (Optional - default: Live URL / GitHub URL)
-                </label>
-                <input
-                  type="text"
-                  value={proj.linkUrl || ""}
-                  onChange={(e) => {
-                    setProjects(
-                      updateItemAtIndex(projects, pIdx, {
-                        linkUrl: e.target.value || undefined,
-                      }),
-                    );
-                  }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                  placeholder="e.g. https://github.com/ddmdros/officeMayhem"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Custom Clickable Link Text Key (Optional - default: "Link here" / "Link aqui")
-                </label>
-                <input
-                  type="text"
-                  value={proj.linkTextKey || ""}
-                  onChange={(e) => {
-                    const nextKey = e.target.value || undefined;
-                    if (nextKey && !getTrans(nextKey, "en") && !getTrans(nextKey, "pt")) {
-                      updateTrans(nextKey, "en", "Link here");
-                      updateTrans(nextKey, "pt", "Link aqui");
-                    }
-                    setProjects(
-                      updateItemAtIndex(projects, pIdx, {
-                        linkTextKey: nextKey,
-                      }),
-                    );
-                  }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                  placeholder="e.g. resume.project.custom.link"
-                />
-              </div>
-            </div>
-
-            {proj.linkTextKey && (
-              <div className="grid md:grid-cols-2 gap-4 pt-1">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 mb-1">
-                    Clickable Link Text (English)
-                  </label>
-                  <input
-                    type="text"
-                    value={getTrans(proj.linkTextKey, "en")}
-                    onChange={(e) =>
-                      updateTrans(proj.linkTextKey!, "en", e.target.value)
-                    }
-                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 mb-1">
-                    Clickable Link Text (Portuguese)
-                  </label>
-                  <input
-                    type="text"
-                    value={getTrans(proj.linkTextKey, "pt")}
-                    onChange={(e) =>
-                      updateTrans(proj.linkTextKey!, "pt", e.target.value)
-                    }
-                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                  />
-                </div>
-              </div>
-            )}
+            <CustomLinkFields
+              item={item}
+              items={projects}
+              setItems={setProjects}
+              updateTrans={updateTrans}
+              getTrans={getTrans}
+              urlLabel="Custom Clickable Link URL (Optional - default: Live URL / GitHub URL)"
+              urlPlaceholder="e.g. https://github.com/ddmdros/officeMayhem"
+              textKeyPlaceholder="resume.project.custom.link"
+              defaultTextEn="Link here"
+              defaultTextPt="Link aqui"
+            />
 
             <div className="flex flex-wrap gap-6 border-t border-white/5 pt-3">
               <label className="flex items-center gap-2 text-xs font-semibold text-gray-300 cursor-pointer select-none">
                 <input
                   type="checkbox"
-                  checked={proj.isWip || false}
+                  checked={item.isWip || false}
                   onChange={(e) => {
                     setProjects(
                       updateItemAtIndex(projects, pIdx, {
                         isWip: e.target.checked,
-                      }),
+                      })
                     );
                   }}
                   className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -373,12 +236,12 @@ export const ProjectsTab = ({
               <label className="flex items-center gap-2 text-xs font-semibold text-gray-300 cursor-pointer select-none">
                 <input
                   type="checkbox"
-                  checked={proj.isFeatured}
+                  checked={item.isFeatured}
                   onChange={(e) => {
                     setProjects(
                       updateItemAtIndex(projects, pIdx, {
                         isFeatured: e.target.checked,
-                      }),
+                      })
                     );
                   }}
                   className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
@@ -388,7 +251,7 @@ export const ProjectsTab = ({
             </div>
 
             {/* Resume bullet points */}
-            {proj.showInResume && proj.showInResume.length > 0 && (
+            {item.showInResume && item.showInResume.length > 0 && (
               <div className="border-t border-white/5 pt-4 space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-xs font-semibold text-accent">
@@ -396,24 +259,24 @@ export const ProjectsTab = ({
                   </span>
                   <button
                     onClick={() => {
-                      const bulletId = proj.descKeys
-                        ? proj.descKeys.length + 1
+                      const bulletId = item.descKeys
+                        ? item.descKeys.length + 1
                         : 1;
-                      const bulletKey = `${proj.title}.bullet${bulletId}`;
+                      const bulletKey = `${item.title}.bullet${bulletId}`;
                       updateTrans(
                         bulletKey,
                         "en",
-                        "New bullet text (English)",
+                        "New bullet text (English)"
                       );
                       updateTrans(
                         bulletKey,
                         "pt",
-                        "Texto do marcador (Português)",
+                        "Texto do marcador (Português)"
                       );
                       setProjects(
                         updateItemAtIndex(projects, pIdx, {
-                          descKeys: [...(proj.descKeys || []), bulletKey],
-                        }),
+                          descKeys: [...(item.descKeys || []), bulletKey],
+                        })
                       );
                     }}
                     className="flex items-center gap-1 text-[10px] bg-white/5 text-gray-300 px-2 py-1 rounded hover:bg-white/10 cursor-pointer"
@@ -423,7 +286,7 @@ export const ProjectsTab = ({
                 </div>
 
                 <div className="space-y-3 pl-4 border-l border-white/10">
-                  {proj.descKeys?.map((bKey) => (
+                  {item.descKeys?.map((bKey) => (
                     <div key={bKey} className="space-y-2">
                       <div className="flex justify-between items-center">
                         <span className="text-[10px] font-mono text-gray-500">
@@ -434,10 +297,10 @@ export const ProjectsTab = ({
                             setProjects(
                               updateItemAtIndex(projects, pIdx, {
                                 descKeys:
-                                  proj.descKeys?.filter(
-                                    (k) => k !== bKey,
+                                  item.descKeys?.filter(
+                                    (k) => k !== bKey
                                   ) || [],
-                              }),
+                              })
                             );
                           }}
                           className="text-red-400 hover:text-red-500 text-[10px] cursor-pointer"
@@ -470,9 +333,11 @@ export const ProjectsTab = ({
                 </div>
               </div>
             )}
-          </div>
-        ))}
-      </div>
-    </div>
+          </>
+        );
+      }}
+    />
   );
 };
+
+

@@ -1,8 +1,9 @@
 import React from "react";
-import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type SkillType } from "../../content/SkillsData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { DevModeTabPanel } from "./DevModeTabPanel";
+import { TranslatedTextInput } from "./DevModeInputs";
 
 interface SkillsTabProps {
   skills: SkillType[];
@@ -17,82 +18,43 @@ export const SkillsTab = ({
   updateTrans,
   getTrans,
 }: SkillsTabProps) => {
-  const {
-    draggedId,
-    dragOverId,
-    canDragId,
-    setCanDragId,
-    handleDragStart,
-    handleDragOver,
-    handleDrop,
-    handleDragEnd,
-  } = useDragAndDrop(skills, setSkills);
+  const dragState = useDragAndDrop(skills, setSkills);
+
+  const handleAdd = () => {
+    const newId = `s${skills.length + 1}_${Date.now().toString().slice(-4)}`;
+    setSkills([
+      ...skills,
+      {
+        id: newId,
+        categoryKey: "about.stacks.programming.languages",
+        name: "New Skill",
+        showInResume: [],
+      },
+    ]);
+  };
 
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-center pb-4 border-b border-white/5">
-        <h2 className="text-xl font-bold text-white">
-          Manage Skills & Languages
-        </h2>
-        <button
-          onClick={() => {
-            const newId = `s${skills.length + 1}_${Date.now().toString().slice(-4)}`;
-            setSkills([
-              ...skills,
-              {
-                id: newId,
-                categoryKey: "about.stacks.programming.languages",
-                name: "New Skill",
-                showInResume: [],
-              },
-            ]);
-          }}
-          className="flex items-center gap-1 text-xs bg-white/5 border border-white/10 text-accent font-bold px-3 py-1.5 rounded-lg hover:bg-white/10 cursor-pointer"
-        >
-          <Plus size={14} /> Add Skill/Language
-        </button>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {skills.map((skill, sIdx) => (
-          <div
-            key={skill.id}
-            draggable={canDragId === skill.id}
-            onDragStart={(e) => handleDragStart(e, skill.id)}
-            onDragOver={(e) => handleDragOver(e, skill.id)}
-            onDrop={(e) => handleDrop(e, skill.id)}
-            onDragEnd={handleDragEnd}
-            className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
-              draggedId === skill.id ? "opacity-40 scale-[0.98]" : ""
-            } ${
-              dragOverId === skill.id
-                ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
-                : "border-white/5"
-            }`}
-          >
-            <div className="flex justify-between items-center select-none">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onMouseDown={() => setCanDragId(skill.id)}
-                  onMouseUp={() => setCanDragId(null)}
-                  className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
-                  title="Drag to reorder"
-                >
-                  <GripVertical size={14} />
-                </button>
-                <span className="text-xs font-mono text-gray-500">
-                  ID: {skill.id}
-                </span>
-              </div>
-              <button
-                onClick={() => setSkills(skills.filter((x) => x.id !== skill.id))}
-                className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"
-              >
-                <Trash2 size={14} />
-              </button>
-            </div>
-
+    <DevModeTabPanel
+      title="Manage Skills & Languages"
+      description="Manage your tech stack categories and language proficiencies."
+      items={skills}
+      onAdd={handleAdd}
+      onDelete={(id) => setSkills(skills.filter((x) => x.id !== id))}
+      addButtonLabel="Add Skill/Language"
+      emptyMessage="No skills found. Click 'Add Skill/Language' to create one."
+      dragState={dragState}
+      renderCardHeader={(item) => (
+        <div className="flex items-center gap-2">
+          <span>{item.name || "New Skill"}</span>
+          <span className="text-xs font-mono text-gray-500 font-normal">
+            (ID: {item.id})
+          </span>
+        </div>
+      )}
+      renderCardDetails={(item) => {
+        const sIdx = skills.findIndex((x) => x.id === item.id);
+        return (
+          <>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-gray-400 mb-1">
@@ -100,13 +62,13 @@ export const SkillsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={skill.name}
+                  value={item.name}
                   onChange={(e) => {
                     setSkills(
-                      updateItemAtIndex(skills, sIdx, { name: e.target.value }),
+                      updateItemAtIndex(skills, sIdx, { name: e.target.value })
                     );
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
                 />
               </div>
               <div>
@@ -114,15 +76,15 @@ export const SkillsTab = ({
                   Category
                 </label>
                 <select
-                  value={skill.categoryKey}
+                  value={item.categoryKey}
                   onChange={(e) => {
                     setSkills(
                       updateItemAtIndex(skills, sIdx, {
                         categoryKey: e.target.value,
-                      }),
+                      })
                     );
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
                 >
                   <option value="about.stacks.programming.languages">
                     Programming Languages
@@ -140,10 +102,8 @@ export const SkillsTab = ({
               </div>
             </div>
 
-
-
             {/* Language profile details */}
-            {skill.categoryKey === "resume.skills.languages" && (
+            {item.categoryKey === "resume.skills.languages" && (
               <div className="border-t border-white/5 pt-3 space-y-3 animate-fade-in">
                 <span className="block text-xs font-semibold text-accent">
                   Language details
@@ -155,50 +115,31 @@ export const SkillsTab = ({
                     </label>
                     <input
                       type="text"
-                      value={skill.resumeDetailsKey || ""}
+                      value={item.resumeDetailsKey || ""}
                       onChange={(e) => {
                         const k =
                           e.target.value ||
-                          `resume.skills.languages.${skill.name.toLowerCase()}`;
+                          `resume.skills.languages.${item.name.toLowerCase()}`;
                         updateTrans(k, "en", "English C2 (example)");
                         updateTrans(k, "pt", "Inglês C2 (exemplo)");
                         setSkills(
                           updateItemAtIndex(skills, sIdx, {
                             resumeDetailsKey: k,
-                          }),
+                          })
                         );
                       }}
-                      className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white"
+                      className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white focus:border-accent focus:outline-none"
                       placeholder="e.g. resume.skills.languages.english"
                     />
                   </div>
-                  {skill.resumeDetailsKey && (
-                    <div className="grid grid-cols-2 gap-2">
-                      <input
-                        type="text"
-                        value={getTrans(skill.resumeDetailsKey, "en")}
-                        onChange={(e) =>
-                          updateTrans(
-                            skill.resumeDetailsKey!,
-                            "en",
-                            e.target.value,
-                          )
-                        }
-                        className="bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
-                        placeholder="EN text"
-                      />
-                      <input
-                        type="text"
-                        value={getTrans(skill.resumeDetailsKey, "pt")}
-                        onChange={(e) =>
-                          updateTrans(
-                            skill.resumeDetailsKey!,
-                            "pt",
-                            e.target.value,
-                          )
-                        }
-                        className="bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
-                        placeholder="PT text"
+                  {item.resumeDetailsKey && (
+                    <div className="pl-4 border-l border-white/10 animate-fade-in flex-1">
+                      <TranslatedTextInput
+                        labelEn="Resume Details (English)"
+                        labelPt="Resume Details (Portuguese)"
+                        translationKey={item.resumeDetailsKey}
+                        updateTrans={updateTrans}
+                        getTrans={getTrans}
                       />
                     </div>
                   )}
@@ -211,15 +152,15 @@ export const SkillsTab = ({
                     </label>
                     <input
                       type="text"
-                      value={skill.credentialUrl || ""}
+                      value={item.credentialUrl || ""}
                       onChange={(e) => {
                         setSkills(
                           updateItemAtIndex(skills, sIdx, {
                             credentialUrl: e.target.value || undefined,
-                          }),
+                          })
                         );
                       }}
-                      className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white"
+                      className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white focus:border-accent focus:outline-none"
                       placeholder="e.g. https://www.efset.org/..."
                     />
                   </div>
@@ -229,74 +170,42 @@ export const SkillsTab = ({
                     </label>
                     <input
                       type="text"
-                      value={skill.certTextKey || ""}
+                      value={item.certTextKey || ""}
                       onChange={(e) => {
                         const k =
                           e.target.value ||
-                          `resume.skills.languages.${skill.name.toLowerCase()}.cert`;
+                          `resume.skills.languages.${item.name.toLowerCase()}.cert`;
                         updateTrans(k, "en", "EFL certificate");
                         updateTrans(k, "pt", "EFL certificado");
                         setSkills(
                           updateItemAtIndex(skills, sIdx, {
                             certTextKey: k,
-                          }),
+                          })
                         );
                       }}
-                      className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white"
+                      className="w-full bg-black/40 border border-white/10 rounded px-2.5 py-1 text-xs text-white focus:border-accent focus:outline-none"
                       placeholder="e.g. resume.skills.languages.english.cert"
                     />
                   </div>
                 </div>
 
-                {skill.certTextKey && (
-                  <div className="grid md:grid-cols-2 gap-3 pl-4 border-l border-white/10">
-                    <div>
-                      <label className="block text-[10px] font-semibold text-gray-500 mb-1">
-                        Certificate Text (English)
-                      </label>
-                      <input
-                        type="text"
-                        value={getTrans(skill.certTextKey, "en")}
-                        onChange={(e) => {
-                          const k = skill.certTextKey!;
-                          if (!getTrans(k, "en")) {
-                            updateTrans(k, "en", "EFL certificate");
-                          }
-                          updateTrans(k, "en", e.target.value);
-                        }}
-                        className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
-                        placeholder="e.g. EFL certificate"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[10px] font-semibold text-gray-500 mb-1">
-                        Certificate Text (Portuguese)
-                      </label>
-                      <input
-                        type="text"
-                        value={getTrans(skill.certTextKey, "pt")}
-                        onChange={(e) => {
-                          const k = skill.certTextKey!;
-                          if (!getTrans(k, "pt")) {
-                            updateTrans(
-                              k,
-                              "pt",
-                              "EFL certificado",
-                            );
-                          }
-                          updateTrans(k, "pt", e.target.value);
-                        }}
-                        className="w-full bg-black/40 border border-white/10 rounded px-2 py-1 text-xs text-white"
-                        placeholder="e.g. EFL certificado"
-                      />
-                    </div>
+                {item.certTextKey && (
+                  <div className="pl-4 border-l border-white/10 animate-fade-in">
+                    <TranslatedTextInput
+                      labelEn="Certificate Text (English)"
+                      labelPt="Certificate Text (Portuguese)"
+                      translationKey={item.certTextKey}
+                      updateTrans={updateTrans}
+                      getTrans={getTrans}
+                    />
                   </div>
                 )}
               </div>
             )}
-          </div>
-        ))}
-      </div>
-    </div>
+          </>
+        );
+      }}
+    />
   );
 };
+

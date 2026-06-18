@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { Plus, Trash2, AlertTriangle, GripVertical } from "lucide-react";
+import React, { useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import { type CertificationType } from "../../types/certificationType";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 import { checkDuplicateCertification } from "../../utils/validationUtils";
+import { DevModeTabPanel } from "./DevModeTabPanel";
+import { TranslatedTextInput } from "./DevModeInputs";
 
 interface CertsTabProps {
   certs: CertificationType[];
@@ -21,16 +23,7 @@ export const CertsTab = ({
   const [certFilter, setCertFilter] = useState<string>("all");
   const [showHighlights, setShowHighlights] = useState<boolean>(false);
 
-  const {
-    draggedId,
-    dragOverId,
-    canDragId,
-    setCanDragId,
-    handleDragStart,
-    handleDragOver,
-    handleDrop,
-    handleDragEnd,
-  } = useDragAndDrop(certs, setCerts);
+  const dragState = useDragAndDrop(certs, setCerts);
 
   const homeCertsCount = certs.filter((c) => c.showOnHome).length;
 
@@ -42,200 +35,217 @@ export const CertsTab = ({
     new Set(certs.map((c) => getTrans(c.orgKey, "pt")).filter(Boolean))
   ).sort();
 
+  const filteredCerts = certs.filter((cert) => {
+    if (certFilter === "all") return true;
+    if (certFilter === "featured") return cert.showOnHome;
+    return cert.category === certFilter;
+  });
+
+  const handleAdd = () => {
+    const newId = (certs.length + 1).toString();
+    const titleKey = `resume.cert.custom${newId}.title`;
+    const orgKey = `resume.cert.custom${newId}.org`;
+    updateTrans(titleKey, "en", "New Certification Name");
+    updateTrans(titleKey, "pt", "Nome da Nova Certificação");
+    updateTrans(orgKey, "en", "Issuer Org");
+    updateTrans(orgKey, "pt", "Org Emissora");
+
+    const defaultCategory = [
+      "ia_ml",
+      "back",
+      "frontend",
+      "cloud",
+      "game_dev",
+      "fundamentos",
+      "idiomas",
+    ].includes(certFilter)
+      ? (certFilter as CertificationType["category"])
+      : "cloud";
+
+    const defaultShowOnHome = certFilter === "featured";
+
+    setCerts([
+      ...certs,
+      {
+        id: newId,
+        titleKey,
+        orgKey,
+        year: new Date().getFullYear().toString(),
+        showInResume: [],
+        category: defaultCategory,
+        credentialUrl: "",
+        credentialUrlPt: "",
+        showOnHome: defaultShowOnHome,
+      },
+    ]);
+  };
+
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-center pb-4 border-b border-white/5">
-        <div>
-          <h2 className="text-xl font-bold text-white">Manage Certifications</h2>
-          <p className="text-xs text-gray-400 mt-1">
-            Feature up to 5 certifications on the homepage ({homeCertsCount}/5 selected)
-          </p>
+    <DevModeTabPanel
+      title="Manage Certifications"
+      description={`Feature up to 5 certifications on the homepage (${homeCertsCount}/5 selected)`}
+      items={filteredCerts}
+      onAdd={handleAdd}
+      onDelete={(id) => setCerts(certs.filter((x) => x.id !== id))}
+      addButtonLabel="Add Certification"
+      emptyMessage="No certifications found. Click 'Add Certification' to create one."
+      dragState={dragState}
+      cardExtraHeaderContent={(item) => (
+        <div className="flex items-center gap-2">
+          {item.sectionHighlight && (
+            <span className="text-[10px] px-2 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded font-bold font-mono">
+              Pinned
+            </span>
+          )}
+          {item.showOnHome && (
+            <span className="text-[10px] px-2 py-0.5 bg-accent/10 text-accent border border-accent/20 rounded font-bold font-mono">
+              Home
+            </span>
+          )}
         </div>
-      </div>
+      )}
+      filterElement={
+        <div className="space-y-6">
+          {/* Dedicated Featured Section */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
+            <button
+              onClick={() => setShowHighlights(!showHighlights)}
+              className="flex justify-between items-center w-full text-left font-bold text-accent text-sm cursor-pointer select-none focus:outline-none"
+            >
+              <span>Homepage Highlights (Featured Certifications) ({homeCertsCount}/5 selected)</span>
+              <span className="text-xs font-normal text-gray-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-xl hover:text-white hover:bg-white/10 transition-all select-none">
+                {showHighlights ? "Hide Config ▲" : "Show Config ▼"}
+              </span>
+            </button>
 
-      {/* Dedicated Featured Section */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
-        <button
-          onClick={() => setShowHighlights(!showHighlights)}
-          className="flex justify-between items-center w-full text-left font-bold text-accent text-sm cursor-pointer select-none focus:outline-none"
-        >
-          <span>Homepage Highlights (Featured Certifications) ({homeCertsCount}/5 selected)</span>
-          <span className="text-xs font-normal text-gray-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-xl hover:text-white hover:bg-white/10 transition-all select-none">
-            {showHighlights ? "Hide Config ▲" : "Show Config ▼"}
-          </span>
-        </button>
+            {showHighlights && (
+              <div className="space-y-4 animate-fade-in">
+                <p className="text-xs text-gray-400">
+                  Select exactly up to 5 certifications to feature on the homepage.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1 text-left">
+                  {certs.map((c) => {
+                    const isChecked = c.showOnHome || false;
+                    const isDisabled = !isChecked && homeCertsCount >= 5;
+                    const certTitle = getTrans(c.titleKey, "en") || getTrans(c.titleKey, "pt") || c.titleKey;
+                    const certOrg = getTrans(c.orgKey, "en") || getTrans(c.orgKey, "pt") || c.orgKey;
 
-        {showHighlights && (
-          <div className="space-y-4 animate-fade-in">
-            <p className="text-xs text-gray-400">
-              Select exactly up to 5 certifications to feature on the homepage.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1 text-left">
-              {certs.map((c) => {
-                const isChecked = c.showOnHome || false;
-                const isDisabled = !isChecked && homeCertsCount >= 5;
-                const certTitle = getTrans(c.titleKey, "en") || getTrans(c.titleKey, "pt") || c.titleKey;
-                const certOrg = getTrans(c.orgKey, "en") || getTrans(c.orgKey, "pt") || c.orgKey;
-
-                return (
-                  <label
-                    key={c.id}
-                    className={`flex items-start gap-2.5 p-3 rounded-xl border transition-all cursor-pointer ${
-                      isChecked
-                        ? "bg-accent/10 border-accent text-white"
-                        : isDisabled
-                          ? "bg-black/20 border-white/5 text-gray-500 cursor-not-allowed opacity-50"
-                          : "bg-black/40 border-white/10 text-gray-300 hover:bg-black/60 hover:text-white"
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      disabled={isDisabled}
-                      onChange={(e) => {
-                        const cIdx = certs.findIndex((x) => x.id === c.id);
-                        if (cIdx !== -1) {
-                          setCerts(
-                            updateItemAtIndex(certs, cIdx, {
-                              showOnHome: e.target.checked,
-                            }),
-                          );
-                        }
-                      }}
-                      className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5"
-                    />
-                    <div className="text-xs">
-                      <span className="font-semibold block">{certTitle}</span>
-                      <span className="text-[10px] text-gray-400">{certOrg} ({c.year})</span>
-                    </div>
-                  </label>
-                );
-              })}
-            </div>
+                    return (
+                      <label
+                        key={c.id}
+                        className={`flex items-start gap-2.5 p-3 rounded-xl border transition-all cursor-pointer ${
+                          isChecked
+                            ? "bg-accent/10 border-accent text-white"
+                            : isDisabled
+                              ? "bg-black/20 border-white/5 text-gray-500 cursor-not-allowed opacity-50"
+                              : "bg-black/40 border-white/10 text-gray-300 hover:bg-black/60 hover:text-white"
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          disabled={isDisabled}
+                          onChange={(e) => {
+                            const cIdx = certs.findIndex((x) => x.id === c.id);
+                            if (cIdx !== -1) {
+                              setCerts(
+                                updateItemAtIndex(certs, cIdx, {
+                                  showOnHome: e.target.checked,
+                                })
+                              );
+                            }
+                          }}
+                          className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent mt-0.5"
+                        />
+                        <div className="text-xs">
+                          <span className="font-semibold block">{certTitle}</span>
+                          <span className="text-[10px] text-gray-400">{certOrg} ({c.year})</span>
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      {/* Certifications Filter Tabs in Editor */}
-      <div className="flex flex-wrap gap-1.5 border-b border-white/5 pb-3">
-        {(
-          [
-            { id: "all", label: "All" },
-            { id: "featured", label: "Featured" },
-            { id: "ia_ml", label: "IA & ML" },
-            { id: "back", label: "Backend" },
-            { id: "frontend", label: "Frontend" },
-            { id: "cloud", label: "Cloud & DevOps" },
-            { id: "game_dev", label: "Game Dev" },
-            { id: "fundamentos", label: "Fundamentos" },
-            { id: "idiomas", label: "Idiomas" },
-          ] as const
-        ).map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setCertFilter(tab.id)}
-            className={`px-2.5 py-1 text-[10px] font-mono rounded-lg border transition-all cursor-pointer ${
-              certFilter === tab.id
-                ? "bg-accent border-accent text-black font-bold"
-                : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {certs
-          .filter((cert) => {
-            if (certFilter === "all") return true;
-            if (certFilter === "featured") return cert.showOnHome;
-            return cert.category === certFilter;
-          })
-          .map((cert) => {
-            const cIdx = certs.findIndex((c) => c.id === cert.id);
-            const categoryHighlightsCount = certs.filter(
-              (c) => c.category === cert.category && c.sectionHighlight
-            ).length;
-            const isHighlightDisabled = !cert.sectionHighlight && categoryHighlightsCount >= 3;
-
-            const isDuplicate = checkDuplicateCertification(cert, certs, getTrans);
-            return (
-              <div
-                key={cert.id}
-                draggable={canDragId === cert.id}
-                onDragStart={(e) => handleDragStart(e, cert.id)}
-                onDragOver={(e) => handleDragOver(e, cert.id)}
-                onDrop={(e) => handleDrop(e, cert.id)}
-                onDragEnd={handleDragEnd}
-                className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
-                  draggedId === cert.id ? "opacity-40 scale-[0.98]" : ""
-                } ${
-                  dragOverId === cert.id
-                    ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
-                    : cert.sectionHighlight
-                      ? "border-amber-500/30 bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.05)]"
-                      : "border-white/5"
+          {/* Certifications Filter Tabs in Editor */}
+          <div className="flex flex-wrap gap-1.5 border-b border-white/5 pb-3">
+            {(
+              [
+                { id: "all", label: "All" },
+                { id: "featured", label: "Featured" },
+                { id: "ia_ml", label: "IA & ML" },
+                { id: "back", label: "Backend" },
+                { id: "frontend", label: "Frontend" },
+                { id: "cloud", label: "Cloud & DevOps" },
+                { id: "game_dev", label: "Game Dev" },
+                { id: "fundamentos", label: "Fundamentos" },
+                { id: "idiomas", label: "Idiomas" },
+              ] as const
+            ).map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setCertFilter(tab.id)}
+                className={`px-2.5 py-1 text-[10px] font-mono rounded-lg border transition-all cursor-pointer ${
+                  certFilter === tab.id
+                    ? "bg-accent border-accent text-black font-bold"
+                    : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
                 }`}
               >
-                <div className="flex justify-between items-center select-none">
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onMouseDown={() => setCanDragId(cert.id)}
-                      onMouseUp={() => setCanDragId(null)}
-                      className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
-                      title="Drag to reorder"
-                    >
-                      <GripVertical size={14} />
-                    </button>
-                    <span className="text-xs font-mono text-gray-500">
-                      ID: {cert.id}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => setCerts(certs.filter((c) => c.id !== cert.id))}
-                    className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"
-                  >
-                    <Trash2 size={14} />
-                  </button>
-                </div>
-
-                {isDuplicate && (
-                  <div className="flex items-center gap-1.5 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-semibold animate-pulse">
-                    <AlertTriangle size={12} className="shrink-0" />
-                    Possible duplicate certification detected! (Same URL or same name/org/year)
-                  </div>
-                )}
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Name (English)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(cert.titleKey, "en")}
-                  onChange={(e) =>
-                    updateTrans(cert.titleKey, "en", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Name (Portuguese)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(cert.titleKey, "pt")}
-                  onChange={(e) =>
-                    updateTrans(cert.titleKey, "pt", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
-                />
-              </div>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      }
+      renderCardHeader={(item) => {
+        const title = getTrans(item.titleKey, "en") || getTrans(item.titleKey, "pt") || "New Certification";
+        const org = getTrans(item.orgKey, "en") || getTrans(item.orgKey, "pt") || "";
+        const isDuplicate = checkDuplicateCertification(item, certs, getTrans);
+        return (
+          <div className="flex flex-col gap-1 text-left">
+            <div className="flex items-center gap-2">
+              <span>{title}</span>
+              {org && <span className="text-gray-400">({org})</span>}
+              <span className="text-xs font-mono text-gray-500 font-normal">
+                (ID: {item.id})
+              </span>
             </div>
+            {isDuplicate && (
+              <div className="flex items-center gap-1.5 p-1 px-2 rounded bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-semibold">
+                <AlertTriangle size={10} className="shrink-0" />
+                Possible duplicate!
+              </div>
+            )}
+          </div>
+        );
+      }}
+      renderCardDetails={(item) => {
+        const cIdx = certs.findIndex((x) => x.id === item.id);
+        const categoryHighlightsCount = certs.filter(
+          (c) => c.category === item.category && c.sectionHighlight
+        ).length;
+        const isHighlightDisabled = !item.sectionHighlight && categoryHighlightsCount >= 3;
+
+        const isDuplicate = checkDuplicateCertification(item, certs, getTrans);
+
+        return (
+          <>
+            {isDuplicate && (
+              <div className="flex items-center gap-1.5 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-semibold animate-pulse">
+                <AlertTriangle size={12} className="shrink-0" />
+                Possible duplicate certification detected! (Same URL or same name/org/year)
+              </div>
+            )}
+
+            <TranslatedTextInput
+              labelEn="Name (English)"
+              labelPt="Name (Portuguese)"
+              translationKey={item.titleKey}
+              updateTrans={updateTrans}
+              getTrans={getTrans}
+            />
 
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -244,15 +254,15 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
-                  list={`org-en-list-${cert.id}`}
-                  value={getTrans(cert.orgKey, "en")}
+                  list={`org-en-list-${item.id}`}
+                  value={getTrans(item.orgKey, "en")}
                   onChange={(e) =>
-                    updateTrans(cert.orgKey, "en", e.target.value)
+                    updateTrans(item.orgKey, "en", e.target.value)
                   }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                   placeholder="Type or select..."
                 />
-                <datalist id={`org-en-list-${cert.id}`}>
+                <datalist id={`org-en-list-${item.id}`}>
                   {existingOrgsEn.map((org) => (
                     <option key={org} value={org} />
                   ))}
@@ -264,15 +274,15 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
-                  list={`org-pt-list-${cert.id}`}
-                  value={getTrans(cert.orgKey, "pt")}
+                  list={`org-pt-list-${item.id}`}
+                  value={getTrans(item.orgKey, "pt")}
                   onChange={(e) =>
-                    updateTrans(cert.orgKey, "pt", e.target.value)
+                    updateTrans(item.orgKey, "pt", e.target.value)
                   }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                   placeholder="Escreva ou selecione..."
                 />
-                <datalist id={`org-pt-list-${cert.id}`}>
+                <datalist id={`org-pt-list-${item.id}`}>
                   {existingOrgsPt.map((org) => (
                     <option key={org} value={org} />
                   ))}
@@ -287,11 +297,11 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={cert.year}
+                  value={item.year}
                   onChange={(e) => {
                     setCerts(updateItemAtIndex(certs, cIdx, { year: e.target.value }));
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                 />
               </div>
               <div>
@@ -300,15 +310,15 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={cert.hours || ""}
+                  value={item.hours || ""}
                   onChange={(e) => {
                     setCerts(
                       updateItemAtIndex(certs, cIdx, {
                         hours: e.target.value || undefined,
-                      }),
+                      })
                     );
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                   placeholder="e.g. 40"
                 />
               </div>
@@ -317,15 +327,15 @@ export const CertsTab = ({
                   Category
                 </label>
                 <select
-                  value={cert.category}
+                  value={item.category}
                   onChange={(e) => {
                     setCerts(
                       updateItemAtIndex(certs, cIdx, {
                         category: e.target.value as CertificationType["category"],
-                      }),
+                      })
                     );
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                 >
                   <option value="ia_ml">IA & ML</option>
                   <option value="back">Backend</option>
@@ -345,15 +355,15 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={cert.credentialUrl || ""}
+                  value={item.credentialUrl || ""}
                   onChange={(e) => {
                     setCerts(
                       updateItemAtIndex(certs, cIdx, {
                         credentialUrl: e.target.value || undefined,
-                      }),
+                      })
                     );
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                 />
               </div>
               <div>
@@ -362,37 +372,35 @@ export const CertsTab = ({
                 </label>
                 <input
                   type="text"
-                  value={cert.credentialUrlPt || ""}
+                  value={item.credentialUrlPt || ""}
                   onChange={(e) => {
                     setCerts(
                       updateItemAtIndex(certs, cIdx, {
                         credentialUrlPt: e.target.value || undefined,
-                      }),
+                      })
                     );
                   }}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                 />
               </div>
             </div>
-
-
 
             {/* Section Highlight (Pin to Top) */}
             <div className="border-t border-white/5 pt-3 mt-2 flex justify-between items-center">
               <label
                 className={`flex items-center gap-1.5 text-xs font-semibold select-none cursor-pointer ${
-                  isHighlightDisabled ? "text-gray-500 cursor-not-allowed" : "text-amber-400"
+                  isHighlightDisabled ? "text-gray-500 cursor-not-allowed opacity-50" : "text-amber-400"
                 }`}
               >
                 <input
                   type="checkbox"
-                  checked={cert.sectionHighlight || false}
+                  checked={item.sectionHighlight || false}
                   disabled={isHighlightDisabled}
                   onChange={(e) => {
                     setCerts(
                       updateItemAtIndex(certs, cIdx, {
                         sectionHighlight: e.target.checked,
-                      }),
+                      })
                     );
                   }}
                   className="rounded border-white/10 bg-black/40 text-amber-500 focus:ring-amber-500 disabled:opacity-50"
@@ -405,58 +413,10 @@ export const CertsTab = ({
                 </span>
               )}
             </div>
-
-            {/* Homepage Featured Selection */}
-          </div>
+          </>
         );
-      })}
-    </div>
-
-      <div className="flex justify-center pt-4">
-        <button
-          onClick={() => {
-            const newId = (certs.length + 1).toString();
-            const titleKey = `resume.cert.custom${newId}.title`;
-            const orgKey = `resume.cert.custom${newId}.org`;
-            updateTrans(titleKey, "en", "New Certification Name");
-            updateTrans(titleKey, "pt", "Nome da Nova Certificação");
-            updateTrans(orgKey, "en", "Issuer Org");
-            updateTrans(orgKey, "pt", "Org Emissora");
-
-            const defaultCategory = [
-              "ia_ml",
-              "back",
-              "frontend",
-              "cloud",
-              "game_dev",
-              "fundamentos",
-              "idiomas",
-            ].includes(certFilter)
-              ? (certFilter as CertificationType["category"])
-              : "cloud";
-
-            const defaultShowOnHome = certFilter === "featured";
-
-            setCerts([
-              ...certs,
-              {
-                id: newId,
-                titleKey,
-                orgKey,
-                year: new Date().getFullYear().toString(),
-                showInResume: [],
-                category: defaultCategory,
-                credentialUrl: "",
-                credentialUrlPt: "",
-                showOnHome: defaultShowOnHome,
-              },
-            ]);
-          }}
-          className="flex items-center gap-1.5 text-xs bg-white/5 border border-white/10 text-accent font-bold px-4 py-2 rounded-lg hover:bg-white/10 cursor-pointer"
-        >
-          <Plus size={14} /> Add Certification
-        </button>
-      </div>
-    </div>
+      }}
+    />
   );
 };
+

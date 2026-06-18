@@ -1,8 +1,9 @@
 import React from "react";
-import { Plus, Trash2, GripVertical } from "lucide-react";
 import { type EducationType } from "../../content/EducationData";
 import { updateItemAtIndex } from "../../utils/arrayUtils";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { DevModeTabPanel } from "./DevModeTabPanel";
+import { TranslatedTextInput } from "./DevModeInputs";
 
 interface EduTabProps {
   edu: EducationType[];
@@ -17,178 +18,82 @@ export const EduTab = ({
   updateTrans,
   getTrans,
 }: EduTabProps) => {
-  const {
-    draggedId,
-    dragOverId,
-    canDragId,
-    setCanDragId,
-    handleDragStart,
-    handleDragOver,
-    handleDrop,
-    handleDragEnd,
-  } = useDragAndDrop(edu, setEdu);
+  const dragState = useDragAndDrop(edu, setEdu);
+
+  const handleAdd = () => {
+    const newId = `custom-edu-${Date.now()}`;
+    const titleKey = `resume.edu.custom${newId}.title`;
+    const instKey = `resume.edu.custom${newId}.inst`;
+    const dateKey = `resume.edu.custom${newId}.date`;
+
+    updateTrans(titleKey, "en", "New Degree Name");
+    updateTrans(titleKey, "pt", "Novo Nome do Diploma/Curso");
+    updateTrans(instKey, "en", "Institution Name");
+    updateTrans(instKey, "pt", "Nome da Instituição");
+    updateTrans(dateKey, "en", "Period (e.g. 2023 - 2026)");
+    updateTrans(dateKey, "pt", "Período (Ex: 2023 - 2026)");
+
+    setEdu([
+      ...edu,
+      {
+        id: newId,
+        titleKey,
+        instKey,
+        dateKey,
+        showInResume: [],
+        showInPortfolio: true,
+      },
+    ]);
+  };
 
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-center pb-4 border-b border-white/5">
-        <h2 className="text-xl font-bold text-white">Manage Education</h2>
-        <button
-          onClick={() => {
-            const newId = (edu.length + 1).toString();
-            const titleKey = `resume.edu.custom${newId}.title`;
-            const instKey = `resume.edu.custom${newId}.inst`;
-            const dateKey = `resume.edu.custom${newId}.date`;
-            updateTrans(titleKey, "en", "Degree Name");
-            updateTrans(titleKey, "pt", "Nome do Curso");
-            updateTrans(instKey, "en", "Institution");
-            updateTrans(instKey, "pt", "Instituição");
-            updateTrans(dateKey, "en", "2026 - Present");
-            updateTrans(dateKey, "pt", "2026 - Presente");
+    <DevModeTabPanel
+      title="Education History"
+      description="Manage your schools, degrees, and study dates for the CV."
+      items={edu}
+      onAdd={handleAdd}
+      onDelete={(id) => setEdu(edu.filter((x) => x.id !== id))}
+      addButtonLabel="Add Education"
+      emptyMessage="No education items found. Click 'Add Education' to create one."
+      dragState={dragState}
+      renderCardHeader={(item) => {
+        const title = getTrans(item.titleKey, "en") || "New Education";
+        return (
+          <div className="flex items-center gap-2">
+            <span>{title}</span>
+            <span className="text-xs font-mono text-gray-500 font-normal">
+              (ID: {item.id})
+            </span>
+          </div>
+        );
+      }}
+      renderCardDetails={(item) => {
+        const eIdx = edu.findIndex((x) => x.id === item.id);
+        return (
+          <>
+            <TranslatedTextInput
+              labelEn="Degree (English)"
+              labelPt="Degree (Portuguese)"
+              translationKey={item.titleKey}
+              updateTrans={updateTrans}
+              getTrans={getTrans}
+            />
 
-            setEdu([
-              ...edu,
-              {
-                id: newId,
-                titleKey,
-                instKey,
-                dateKey,
-                showInResume: [],
-                showInPortfolio: true,
-              },
-            ]);
-          }}
-          className="flex items-center gap-1 text-xs bg-white/5 border border-white/10 text-accent font-bold px-3 py-1.5 rounded-lg hover:bg-white/10 cursor-pointer"
-        >
-          <Plus size={14} /> Add Education
-        </button>
-      </div>
+            <TranslatedTextInput
+              labelEn="Institution (English)"
+              labelPt="Institution (Portuguese)"
+              translationKey={item.instKey}
+              updateTrans={updateTrans}
+              getTrans={getTrans}
+            />
 
-      <div className="space-y-6">
-        {edu.map((item, eIdx) => (
-          <div
-            key={item.id}
-            draggable={canDragId === item.id}
-            onDragStart={(e) => handleDragStart(e, item.id)}
-            onDragOver={(e) => handleDragOver(e, item.id)}
-            onDrop={(e) => handleDrop(e, item.id)}
-            onDragEnd={handleDragEnd}
-            className={`border p-5 rounded-2xl bg-white/5/20 space-y-4 transition-all duration-200 ${
-              draggedId === item.id ? "opacity-40 scale-[0.98]" : ""
-            } ${
-              dragOverId === item.id
-                ? "border-accent border-dashed bg-accent/5 scale-[1.01]"
-                : "border-white/5"
-            }`}
-          >
-            <div className="flex justify-between items-center select-none">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onMouseDown={() => setCanDragId(item.id)}
-                  onMouseUp={() => setCanDragId(null)}
-                  className="text-gray-500 hover:text-accent cursor-grab active:cursor-grabbing p-1 bg-white/5 rounded-lg transition-colors"
-                  title="Drag to reorder"
-                >
-                  <GripVertical size={14} />
-                </button>
-                <span className="text-xs font-mono text-gray-500">
-                  ID: {item.id}
-                </span>
-              </div>
-              <button
-                onClick={() => setEdu(edu.filter((x) => x.id !== item.id))}
-                className="text-red-400 hover:text-red-500 p-1.5 bg-red-500/10 rounded-lg cursor-pointer"
-              >
-                <Trash2 size={14} />
-              </button>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Degree (English)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(item.titleKey, "en")}
-                  onChange={(e) =>
-                    updateTrans(item.titleKey, "en", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Degree (Portuguese)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(item.titleKey, "pt")}
-                  onChange={(e) =>
-                    updateTrans(item.titleKey, "pt", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Institution (English)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(item.instKey, "en")}
-                  onChange={(e) =>
-                    updateTrans(item.instKey, "en", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Institution (Portuguese)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(item.instKey, "pt")}
-                  onChange={(e) =>
-                    updateTrans(item.instKey, "pt", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Date / Period (English)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(item.dateKey, "en")}
-                  onChange={(e) =>
-                    updateTrans(item.dateKey, "en", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
-                  Date / Period (Portuguese)
-                </label>
-                <input
-                  type="text"
-                  value={getTrans(item.dateKey, "pt")}
-                  onChange={(e) =>
-                    updateTrans(item.dateKey, "pt", e.target.value)
-                  }
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
-                />
-              </div>
-            </div>
+            <TranslatedTextInput
+              labelEn="Date / Period (English)"
+              labelPt="Date / Period (Portuguese)"
+              translationKey={item.dateKey}
+              updateTrans={updateTrans}
+              getTrans={getTrans}
+            />
 
             <div className="border-t border-white/5 pt-3 space-y-3">
               <span className="block text-xs font-semibold text-gray-400">
@@ -209,49 +114,30 @@ export const EduTab = ({
                         updateItemAtIndex(edu, eIdx, () => {
                           const { gpaKey: _, ...rest } = item;
                           return rest;
-                        }),
+                        })
                       );
                     }
                   }}
-                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
+                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent w-4 h-4 cursor-pointer"
                   id={`gpa-check-${item.id}`}
                 />
                 <label
                   htmlFor={`gpa-check-${item.id}`}
-                  className="text-xs text-gray-300 cursor-pointer select-none"
+                  className="text-xs text-gray-300 cursor-pointer select-none font-semibold"
                 >
                   Enable GPA Info
                 </label>
               </div>
 
               {item.gpaKey && (
-                <div className="grid md:grid-cols-2 gap-4 animate-fade-in pl-4 border-l border-white/10">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-400 mb-1">
-                      GPA Info (English)
-                    </label>
-                    <input
-                      type="text"
-                      value={getTrans(item.gpaKey, "en")}
-                      onChange={(e) =>
-                        updateTrans(item.gpaKey!, "en", e.target.value)
-                      }
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-400 mb-1">
-                      GPA Info (Portuguese)
-                    </label>
-                    <input
-                      type="text"
-                      value={getTrans(item.gpaKey, "pt")}
-                      onChange={(e) =>
-                        updateTrans(item.gpaKey!, "pt", e.target.value)
-                      }
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
-                    />
-                  </div>
+                <div className="pl-4 border-l border-white/10 animate-fade-in">
+                  <TranslatedTextInput
+                    labelEn="GPA Info (English)"
+                    labelPt="GPA Info (Portuguese)"
+                    translationKey={item.gpaKey}
+                    updateTrans={updateTrans}
+                    getTrans={getTrans}
+                  />
                 </div>
               )}
 
@@ -263,25 +149,24 @@ export const EduTab = ({
                     setEdu(
                       updateItemAtIndex(edu, eIdx, {
                         showInPortfolio: e.target.checked,
-                      }),
+                      })
                     );
                   }}
-                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent"
+                  className="rounded border-white/10 bg-black/40 text-accent focus:ring-accent w-4 h-4 cursor-pointer"
                   id={`portfolio-check-${item.id}`}
                 />
                 <label
                   htmlFor={`portfolio-check-${item.id}`}
-                  className="text-xs text-gray-300 cursor-pointer select-none"
+                  className="text-xs text-gray-300 cursor-pointer select-none font-semibold"
                 >
                   Exibir no Portfólio (Linha do tempo)
                 </label>
               </div>
             </div>
-
-
-          </div>
-        ))}
-      </div>
-    </div>
+          </>
+        );
+      }}
+    />
   );
 };
+
