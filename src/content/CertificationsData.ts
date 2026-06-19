@@ -15,7 +15,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     ],
     "category": "cloud",
     "credentialUrl": "https://www.credly.com/badges/066915e4-a2d9-4c4c-a188-f5706b4b26f1",
-    "showOnHome": true
+    "showOnHome": true,
+    "sectionHighlight": true
   },
   {
     "id": "2",
@@ -45,7 +46,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     ],
     "category": "idiomas",
     "credentialUrl": "https://www.efset.org/cert/iwWZUS",
-    "showOnHome": true
+    "showOnHome": true,
+    "sectionHighlight": true
   },
   {
     "id": "4",
@@ -110,7 +112,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     ],
     "category": "ia_ml",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7/badges/22801698",
-    "showOnHome": true
+    "showOnHome": true,
+    "sectionHighlight": true
   },
   {
     "id": "9",
@@ -180,7 +183,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/degree-java-568827/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/degree-java-568827/certificate",
     "showOnHome": true,
-    "hours": "40"
+    "hours": "40",
+    "sectionHighlight": true
   },
   {
     "id": "14",
@@ -293,5 +297,18 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/python-crie-sua-primeira-aplicacao/certificate",
     "showOnHome": false,
     "hours": "8"
+  },
+  {
+    "id": "23",
+    "titleKey": "resume.cert.custom23.title",
+    "orgKey": "resume.cert.custom23.org",
+    "year": "2026",
+    "showInResume": [],
+    "category": "ia_ml",
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-chatbots-rag/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-chatbots-rag/certificate",
+    "showOnHome": true,
+    "hours": "8",
+    "sectionHighlight": true
   }
 ];
