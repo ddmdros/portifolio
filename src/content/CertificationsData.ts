@@ -124,7 +124,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
       "ia_ml",
       "general"
     ],
-    "category": "ia_ml",
+    "category": "ia_agents",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=en",
     "showOnHome": false,
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-python-criando-ferramentas-openai/certificate?lang=pt_BR"
@@ -304,11 +304,25 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "orgKey": "resume.cert.custom23.org",
     "year": "2026",
     "showInResume": [],
-    "category": "ia_ml",
+    "category": "ia_agents",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-chatbots-rag/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-chatbots-rag/certificate",
     "showOnHome": true,
     "hours": "8",
     "sectionHighlight": true
+  },
+  {
+    "id": "24",
+    "titleKey": "resume.cert.custom24.title",
+    "orgKey": "resume.cert.custom24.org",
+    "year": "2026",
+    "showInResume": [
+      "general",
+      "ia_ml"
+    ],
+    "category": "ia_agents",
+    "showOnHome": false,
+    "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/inteligencia-artificial-preparacao-mercado/certificate?lang=en",
+    "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/inteligencia-artificial-preparacao-mercado/certificate"
   }
 ];

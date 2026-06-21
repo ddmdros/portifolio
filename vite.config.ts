@@ -40,7 +40,7 @@ export default defineConfig({
                 fs.writeFileSync(path.resolve(__dirname, 'src/content/CertificationsData.ts'), certsContent);
 
                 // Write EducationData
-                const eduContent = `export interface EducationType {\n  id: string;\n  titleKey: string;\n  instKey: string;\n  dateKey: string;\n  gpaKey?: string;\n  showInResume: string[];\n  showInPortfolio?: boolean;\n}\n\nexport const EDUCATION_DATA: EducationType[] = ${JSON.stringify(education, null, 2)};\n`;
+                const eduContent = `export interface EducationCourse {\n  id: string;\n  titleEn: string;\n  titlePt: string;\n  subtitleEn?: string;\n  subtitlePt?: string;\n  completion: number;\n  certificateId?: string;\n  grade?: number;\n  expectedDateEn?: string;\n  expectedDatePt?: string;\n  isEmphasis?: boolean;\n  isCurrent?: boolean;\n}\n\nexport interface EducationLevel {\n  id: string;\n  titleEn: string;\n  titlePt: string;\n  descEn?: string;\n  descPt?: string;\n  courses: EducationCourse[];\n}\n\nexport interface EducationType {\n  id: string;\n  titleKey: string;\n  instKey: string;\n  dateKey: string;\n  gpaKey?: string;\n  showInResume: string[];\n  showInPortfolio?: boolean;\n  certificationIds?: string[];\n  levels?: EducationLevel[];\n}\n\nexport const EDUCATION_DATA: EducationType[] = ${JSON.stringify(education, null, 2)};\n`;
                 fs.writeFileSync(path.resolve(__dirname, 'src/content/EducationData.ts'), eduContent);
 
                 // Write ExperienceData

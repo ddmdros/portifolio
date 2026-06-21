@@ -154,6 +154,7 @@
   "resume.profile.fullstack": "Foco Fullstack",
   "resume.profile.ia_ml": "Foco IA & Machine Learning",
   "resume.cert.filter.all": "Todas",
+  "resume.cert.filter.ia_agents": "Agentes de IA",
   "resume.cert.filter.cloud": "Nuvem & DevOps",
   "resume.cert.filter.java": "Java & Backend",
   "resume.cert.filter.languages": "Idiomas",
@@ -161,6 +162,7 @@
   "resume.cert.filter.frontend": "Frontend",
   "resume.cert.filter.idiomas": "Idiomas",
   "resume.cert.filter.game_dev": "Game Dev",
+  "resume.cert.filter.fundamentos": "Fundamentos",
   "projects.view.more.cta": "Ver Outros Projetos →",
   "projects.view.all.online": "Ver Todos os Projetos Online →",
   "resume.projects.seeMore": "Ver Mais Projetos",
@@ -196,6 +198,8 @@
   "resume.cert.custom22.org": "Alura",
   "resume.cert.custom23.title": "Arquiteturas RAG com LLMs: embeddings, busca semântica e criação de agentes com LangChain",
   "resume.cert.custom23.org": "Alura",
+  "resume.cert.custom24.title": "Inteligência artificial: preparação para o mercado",
+  "resume.cert.custom24.org": "Alura",
   "resume.profile.ia_ml.description": "Desenvolvedor fullstack e estudante de engenharia de software no Instituto INFNET. Aplico ao desenvolvimento de software o rigor técnico e a maturidade profissional que meus seis anos como tradutor sênior de jogos me proporcionaram.",
   "resume.profile.ia_ml.header": "Engenheiro de Software com ênfase em IA e Machine Learning",
   "r": "aqui",
@@ -226,5 +230,6 @@
   "resume.edu.customcustom-edu-1781742523179.inst": "Alura",
   "resume.edu.customcustom-edu-1781742523179.date": "2026 - presente",
   "project.title.6.bullet3": "MVP de marketplace de compartilhamento de jogos físicos",
-  "project.title.6.bullet4": "Integração de agentes de IA com LangChain para recomendações por geolocalização e negociações automatizadas"
+  "project.title.6.bullet4": "Integração de agentes de IA com LangChain para recomendações por geolocalização e negociações automatizadas",
+  "resume.education.certs.title": "Certificados Obtidos:"
 }

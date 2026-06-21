@@ -52,6 +52,7 @@ export const CertsTab = ({
 
     const defaultCategory = [
       "ia_ml",
+      "ia_agents",
       "back",
       "frontend",
       "cloud",
@@ -173,7 +174,7 @@ export const CertsTab = ({
           <CategoryFilter
             categories={[
               { id: "all", label: "All" },
-              { id: "featured", label: "Featured" },
+              { id: "ia_agents", label: "AI Agents" },
               { id: "ia_ml", label: "IA & ML" },
               { id: "back", label: "Backend" },
               { id: "frontend", label: "Frontend" },
@@ -326,6 +327,7 @@ export const CertsTab = ({
                   className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-accent focus:outline-none"
                 >
                   <option value="ia_ml">IA & ML</option>
+                  <option value="ia_agents">Agentes de IA</option>
                   <option value="back">Backend</option>
                   <option value="frontend">Frontend</option>
                   <option value="cloud">Cloud & DevOps</option>

@@ -300,6 +300,55 @@
     color: var(--accent-text) !important;
   }
 
+  /* Amber contrast overrides for light theme */
+  .bg-amber-500\/5 {
+    background-color: #fdfaf4 !important; /* Refined soft warm-cream gold tint */
+  }
+  .border-amber-500\/20 {
+    border-color: #ebdcb9 !important; /* Refined soft champagne gold/sand border */
+  }
+  .bg-amber-500\/20 {
+    background-color: #fbeed5 !important; /* Soft, clean gold background for icons */
+  }
+  .bg-amber-500\/10 {
+    background-color: #fef3c7 !important; /* Soft gold background for badges */
+  }
+  .border-amber-500\/30 {
+    border-color: #fcd34d !important; /* Clean warm gold badge border */
+  }
+  .text-amber-100 {
+    color: #0f172a !important; /* var(--text-h) */
+  }
+  .text-amber-400 {
+    color: #b45309 !important; /* Rich gold-bronze (amber-700) for contrast */
+  }
+  .text-amber-500 {
+    color: #b45309 !important; /* Rich gold-bronze (amber-700) for contrast */
+  }
+  .hover\:text-amber-400:hover {
+    color: #854d0e !important; /* Deeper gold-brown (amber-800) on hover */
+  }
+  .bg-amber-400 {
+    background-color: #b45309 !important;
+  }
+  .bg-amber-500 {
+    background-color: #b45309 !important;
+  }
+
+  /* Emerald contrast overrides for light theme */
+  .text-emerald-400 {
+    color: #047857 !important; /* Rich green (emerald-700) for contrast */
+  }
+  .text-emerald-500 {
+    color: #047857 !important;
+  }
+  .bg-emerald-500\/10 {
+    background-color: #ecfdf5 !important; /* Soft green tint for badges */
+  }
+  .border-emerald-500\/20 {
+    border-color: #a7f3d0 !important; /* Soft green border */
+  }
+
   /* Faint backgrounds overrides (glass and cards) */
   .bg-white\/5 {
     background-color: rgba(0, 0, 0, 0.04) !important;
@@ -316,6 +365,12 @@
   .bg-black\/60 {
     background-color: rgba(255, 255, 255, 0.75) !important;
     backdrop-filter: blur(8px);
+  }
+  .bg-black\/10 {
+    background-color: rgba(5, 150, 105, 0.03) !important; /* Soft, premium emerald/mint tint */
+  }
+  .bg-card-bg\/30 {
+    background-color: var(--color-card-bg) !important; /* #ffffff */
   }
   .bg-card-bg\/95 {
     background-color: rgba(255, 255, 255, 0.95) !important;

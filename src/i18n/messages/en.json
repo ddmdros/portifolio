@@ -155,6 +155,7 @@
   "resume.profile.fullstack": "Fullstack Focus",
   "resume.profile.ia_ml": "AI & Machine Learning Focus",
   "resume.cert.filter.all": "All",
+  "resume.cert.filter.ia_agents": "AI Agents",
   "resume.cert.filter.cloud": "Cloud & DevOps",
   "resume.cert.filter.java": "Java & Backend",
   "resume.cert.filter.languages": "Languages",
@@ -199,6 +200,8 @@
   "resume.cert.custom22.org": "Alura",
   "resume.cert.custom23.title": "RAG Architectures with LLMs: embeddings, semantic search, and agents with LangChain",
   "resume.cert.custom23.org": "Alura",
+  "resume.cert.custom24.title": "Artificial Intelligence: Preparing for the Market",
+  "resume.cert.custom24.org": "Alura",
   "resume.profile.ia_ml.description": "Full-Stack Developer and Software Engineering student. With 6 years of experience in game localization, I bring international professional maturity and a rigorous eye for detail to software development.",
   "resume.profile.ia_ml.header": "Software Engineer focused on AI and ML",
   "r": "here",
@@ -229,5 +232,6 @@
   "resume.edu.customcustom-edu-1781742523179.inst": "Alura",
   "resume.edu.customcustom-edu-1781742523179.date": "2026 - present",
   "project.title.6.bullet3": "Built an MVP for physical media game marketplace",
-  "project.title.6.bullet4": "Integrated AI agents for location-based recommendations and automated negotiations"
+  "project.title.6.bullet4": "Integrated AI agents for location-based recommendations and automated negotiations",
+  "resume.education.certs.title": "Certificates Obtained:"
 }

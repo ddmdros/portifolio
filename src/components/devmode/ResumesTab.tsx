@@ -68,6 +68,7 @@ export const ResumesTab = ({
     <CategoryFilter
       categories={[
         { id: "all", label: "All" },
+        { id: "ia_agents", label: "Agentes" },
         { id: "ia_ml", label: "IA" },
         { id: "back", label: "Back" },
         { id: "frontend", label: "Front" },

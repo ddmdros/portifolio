@@ -11,14 +11,12 @@ interface ResumeCertificationsSectionProps {
 export const ResumeCertificationsSection = ({
   locale,
 }: ResumeCertificationsSectionProps) => {
-  const [certFilter, setCertFilter] = useState<string>("featured");
+  const [certFilter, setCertFilter] = useState<string>("all");
 
   const displayedCertifications =
     certFilter === "all"
       ? CERTIFICATIONS_DATA
-      : certFilter === "featured"
-        ? CERTIFICATIONS_DATA.filter((cert) => cert.showOnHome)
-        : CERTIFICATIONS_DATA.filter((cert) => cert.category === certFilter);
+      : CERTIFICATIONS_DATA.filter((cert) => cert.category === certFilter);
 
   const sortedCertifications = [...displayedCertifications].sort((a, b) => {
     const aHighlight = a.sectionHighlight ? 1 : 0;
@@ -52,7 +50,8 @@ export const ResumeCertificationsSection = ({
       <div className="flex flex-wrap gap-1.5 border-b border-white/5 pb-3">
         {(
           [
-            { id: "featured", labelId: "resume.cert.filter.featured" },
+            { id: "all", labelId: "resume.cert.filter.all" },
+            { id: "ia_agents", labelId: "resume.cert.filter.ia_agents" },
             { id: "ia_ml", labelId: "resume.cert.filter.ia_ml" },
             { id: "back", labelId: "resume.cert.filter.back" },
             { id: "frontend", labelId: "resume.cert.filter.frontend" },
@@ -60,7 +59,6 @@ export const ResumeCertificationsSection = ({
             { id: "game_dev", labelId: "resume.cert.filter.game_dev" },
             { id: "fundamentos", labelId: "resume.cert.filter.fundamentos" },
             { id: "idiomas", labelId: "resume.cert.filter.idiomas" },
-            { id: "all", labelId: "resume.cert.filter.all" },
           ] as const
         ).map((tab) => (
           <button

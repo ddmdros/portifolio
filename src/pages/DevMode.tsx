@@ -245,6 +245,7 @@ export const DevMode = () => {
           <EduTab
             edu={edu}
             setEdu={setEdu}
+            certs={certs}
             updateTrans={updateTrans}
             getTrans={getTrans}
           />
