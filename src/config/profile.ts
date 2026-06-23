@@ -35,9 +35,9 @@ export const PROFILE_CONFIG = {
   
   // Links de rodapé das seções do currículo
   cvProjectsMoreUrl: "",
-  cvProjectsMoreTextKey: "resume.project.more",
-  cvProjectsMoreLinkKey: "resume.project.more.link",
+  cvProjectsMoreTextKey: "More Projects",
+  cvProjectsMoreLinkKey: "https://portifolio-tawny-xi-55.vercel.app/en/projects",
   cvCertsMoreUrl: "",
-  cvCertsMoreTextKey: "resume.cert.more",
-  cvCertsMoreLinkKey: "resume.cert.more.link"
+  cvCertsMoreTextKey: "More Certifications",
+  cvCertsMoreLinkKey: "https://portifolio-tawny-xi-55.vercel.app/en/resume"
 };

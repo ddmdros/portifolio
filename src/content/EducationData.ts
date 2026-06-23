@@ -383,7 +383,9 @@ export const EDUCATION_DATA: EducationType[] = [
     "titleKey": "resume.edu.customcustom-edu-1781742523179.title",
     "instKey": "resume.edu.customcustom-edu-1781742523179.inst",
     "dateKey": "resume.edu.customcustom-edu-1781742523179.date",
-    "showInResume": [],
+    "showInResume": [
+      "ia_ml"
+    ],
     "showInPortfolio": true,
     "certificationIds": [
       "9",

@@ -56,7 +56,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "year": "2026",
     "showInResume": [
       "cloud",
-      "general"
+      "general",
+      "ia_ml"
     ],
     "category": "cloud",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7/badges/23484244"
@@ -70,7 +71,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
       "cloud",
       "backend",
       "fullstack",
-      "general"
+      "general",
+      "ia_ml"
     ],
     "category": "cloud",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7/badges/23479859"
@@ -95,7 +97,8 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "year": "2026",
     "showInResume": [
       "cloud",
-      "general"
+      "general",
+      "ia_ml"
     ],
     "category": "cloud",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7"
@@ -303,7 +306,9 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     "titleKey": "resume.cert.custom23.title",
     "orgKey": "resume.cert.custom23.org",
     "year": "2026",
-    "showInResume": [],
+    "showInResume": [
+      "ia_ml"
+    ],
     "category": "ia_agents",
     "credentialUrl": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-chatbots-rag/certificate?lang=en",
     "credentialUrlPt": "https://cursos.alura.com.br/user/diogome-deiros/course/langchain-chatbots-rag/certificate",
