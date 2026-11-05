@@ -132,25 +132,46 @@ export const EDUCATION_DATA: EducationType[] = [
             "id": "infnet-c-3-1",
             "titleEn": "Data Visualization and Introduction to SQL",
             "titlePt": "Visualização de Dados e Introdução a SQL",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 100
+            "subtitleEn": "Looker Studio reports, SQL SELECT, GROUP BY and ORDER BY",
+            "subtitlePt": "Relatórios no Looker Studio, SQL SELECT, GROUP BY e ORDER BY",
+            "completion": 100,
+            "grade": 100
           },
           {
             "id": "infnet-c-3-2",
             "titleEn": "Programming with Python",
             "titlePt": "Programação com Python",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 100
+            "subtitleEn": "Control flow, loops, lists, functions and string methods",
+            "subtitlePt": "Decisão, repetição, listas, funções e métodos de strings",
+            "completion": 100,
+            "grade": 100
+          },
+          {
+            "id": "infnet-c-4-1",
+            "titleEn": "Foundations of Relational Modeling and SQL",
+            "titlePt": "Fundamentos de Modelagem Relacional e SQL",
+            "subtitleEn": "Relational modeling with constraints, normalization, SQL joins and aggregations",
+            "subtitlePt": "Modelagem relacional com restrições, normalização, SQL com junções e agregações",
+            "completion": 100,
+            "grade": 100
+          },
+          {
+            "id": "infnet-c-4-2",
+            "titleEn": "Python for Data",
+            "titlePt": "Python para Dados",
+            "subtitleEn": "Files, JSON, Pandas, debugging and web scraping with BeautifulSoup",
+            "subtitlePt": "Arquivos, JSON, Pandas, depuração e web scraping com BeautifulSoup",
+            "completion": 100,
+            "grade": 100
           },
           {
             "id": "infnet-c-3-3",
             "titleEn": "Block Project: Data Foundations",
-            "titlePt": "Projeto de Bloco",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 100
+            "titlePt": "Projeto de Bloco: Fundamentos de Dados",
+            "subtitleEn": "Python and SQL over CSV and JSON data, queries with aggregations, web scraping into SQL",
+            "subtitlePt": "Python e SQL com dados de CSV e JSON, consultas com agregações, web scraping para SQL",
+            "completion": 100,
+            "grade": 99
           },
           {
             "id": "infnet-c-3-4",
@@ -174,22 +195,6 @@ export const EDUCATION_DATA: EducationType[] = [
             "titlePt": "Disciplina Optativa: Clube de Programação e Machine Learning",
             "subtitleEn": "Elective Course",
             "subtitlePt": "Disciplina Optativa",
-            "completion": 100
-          },
-          {
-            "id": "infnet-c-4-1",
-            "titleEn": "Foundations of Relational Modeling and SQL",
-            "titlePt": "Fundamentos de Modelagem Relacional e SQL",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 100
-          },
-          {
-            "id": "infnet-c-4-2",
-            "titleEn": "Python for Data",
-            "titlePt": "Python para Dados",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
             "completion": 100
           }
         ]
