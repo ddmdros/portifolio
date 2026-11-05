@@ -379,7 +379,7 @@ export const EduTab = ({
                                         };
                                         
                                         // Also automatically add this certificate ID to the main certificationIds list of the education item if not already there
-                                        let nextCertIds = [...(item.certificationIds || [])];
+                                        const nextCertIds = [...(item.certificationIds || [])];
                                         if (val && !nextCertIds.includes(val)) {
                                           nextCertIds.push(val);
                                         }
