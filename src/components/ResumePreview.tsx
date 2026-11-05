@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { SectionDiv } from "./SectionDiv";
 import { GraduationCap, Briefcase, ArrowRight, Award, ExternalLink, Pin } from "lucide-react";
-import { CERTIFICATIONS_DATA } from "../content/CertificationsData";
+import { VISIBLE_CERTIFICATIONS } from "../content/visibleCertifications";
 import { EDUCATION_DATA } from "../content/EducationData";
 import { EXPERIENCE_DATA } from "../content/ExperienceData";
 
@@ -10,7 +10,7 @@ const ResumePreview = () => {
   const navigate = useNavigate();
   const { locale } = useIntl();
   const homeExperience = EXPERIENCE_DATA.find((e) => e.showOnHome) ?? EXPERIENCE_DATA[0];
-  const getCertUrl = (cert: typeof CERTIFICATIONS_DATA[0]) => {
+  const getCertUrl = (cert: typeof VISIBLE_CERTIFICATIONS[0]) => {
     if (locale === "pt" && cert.credentialUrlPt) return cert.credentialUrlPt;
     return cert.credentialUrl;
   };
@@ -108,13 +108,13 @@ const ResumePreview = () => {
                   <FormattedMessage id="resume.section.certifications" defaultMessage="Certifications" />
                 </h3>
                 <span className="text-xs text-accent font-medium font-mono">
-                  <FormattedMessage id="home.certs.all" /> ({CERTIFICATIONS_DATA.length}) &rarr;
+                  <FormattedMessage id="home.certs.all" /> ({VISIBLE_CERTIFICATIONS.length}) &rarr;
                 </span>
               </div>
             </div>
             
             <div className="pl-[52px] space-y-3">
-              {CERTIFICATIONS_DATA.filter((c) => c.showOnHome)
+              {VISIBLE_CERTIFICATIONS.filter((c) => c.showOnHome)
                 .sort((a, b) => (b.sectionHighlight ? 1 : 0) - (a.sectionHighlight ? 1 : 0))
                 .slice(0, 3)
                 .map((cert) => (

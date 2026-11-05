@@ -66,6 +66,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "4",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.gcp.network.title",
     "orgKey": "resume.cert.gcp.org",
     "year": "2026",
@@ -79,6 +80,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "5",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.gcp.appdev.title",
     "orgKey": "resume.cert.gcp.org",
     "year": "2026",
@@ -94,6 +96,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "6",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.gcp.mlapi.title",
     "orgKey": "resume.cert.gcp.org",
     "year": "2026",
@@ -107,6 +110,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "7",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.gcp.loadbalance.title",
     "orgKey": "resume.cert.gcp.org",
     "year": "2026",
@@ -120,6 +124,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "8",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.gcp.genai.title",
     "orgKey": "resume.cert.gcp.org",
     "year": "2026",
@@ -148,6 +153,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "10",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom10.title",
     "orgKey": "resume.cert.custom10.org",
     "year": "2026",
@@ -162,6 +168,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "11",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom11.title",
     "orgKey": "resume.cert.custom11.org",
     "year": "2026",
@@ -176,6 +183,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "12",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom12.title",
     "orgKey": "resume.cert.custom12.org",
     "year": "2025",
@@ -205,6 +213,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "14",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom14.title",
     "orgKey": "resume.cert.custom14.org",
     "year": "2026",
@@ -219,6 +228,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "15",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom15.title",
     "orgKey": "resume.cert.custom15.org",
     "year": "2026",
@@ -233,6 +243,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "16",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom16.title",
     "orgKey": "resume.cert.custom16.org",
     "year": "2026",
@@ -245,6 +256,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "17",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom17.title",
     "orgKey": "resume.cert.custom17.org",
     "year": "2025",
@@ -257,6 +269,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "18",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom18.title",
     "orgKey": "resume.cert.custom18.org",
     "year": "2025",
@@ -269,6 +282,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "19",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom19.title",
     "orgKey": "resume.cert.custom19.org",
     "year": "2025",
@@ -281,6 +295,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "20",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom20.title",
     "orgKey": "resume.cert.custom20.org",
     "year": "2025",
@@ -293,6 +308,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "21",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom21.title",
     "orgKey": "resume.cert.custom21.org",
     "year": "2026",
@@ -305,6 +321,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "22",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom22.title",
     "orgKey": "resume.cert.custom22.org",
     "year": "2025",
@@ -332,6 +349,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
   },
   {
     "id": "24",
+    "showInPortfolio": false,
     "titleKey": "resume.cert.custom24.title",
     "orgKey": "resume.cert.custom24.org",
     "year": "2026",
