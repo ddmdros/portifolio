@@ -89,24 +89,6 @@ export const PROJECTS_DATA: ProjectType[] = [
     ]
   },
   {
-    "id": "3",
-    "title": "project.title.3",
-    "category": "game development",
-    "description": "project.description.3",
-    "tags": [
-      "Unity",
-      "C#",
-      "Game Design"
-    ],
-    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/HugoScreenShot.png",
-    "githubUrl": "https://github.com/ddmdros/ebac-platformer2d",
-    "isFeatured": false,
-    "isWip": true,
-    "showInResume": [
-      "general"
-    ]
-  },
-  {
     "id": "2",
     "title": "project.title.2",
     "category": "frontend",
@@ -126,28 +108,6 @@ export const PROJECTS_DATA: ProjectType[] = [
     "descKeys": [
       "resume.project.freelanceBoard.bullet1",
       "resume.project.freelanceBoard.bullet2"
-    ]
-  },
-  {
-    "id": "5",
-    "title": "project.title.5",
-    "category": "backend",
-    "description": "project.description.5",
-    "tags": [
-      "Java",
-      "Spring Boot",
-      "PostgreSQL",
-      "JPA"
-    ],
-    "imageUrl": "https://raw.githubusercontent.com/ddmdros/portifolio-html-css-vanilla/main/assets/screenMatch1.jpg",
-    "githubUrl": "https://github.com/ddmdros/ScreenMatch-with-SpringBoot",
-    "isFeatured": false,
-    "isWip": true,
-    "showInResume": [
-      "backend"
-    ],
-    "descKeys": [
-      "resume.project.screenMatch.bullet1"
     ]
   }
 ];
