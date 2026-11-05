@@ -177,16 +177,16 @@ export const EDUCATION_DATA: EducationType[] = [
             "id": "infnet-c-3-4",
             "titleEn": "Elective: Introduction to Data Science with R",
             "titlePt": "Disciplina Optativa: Introdução à Ciência de Dados com R",
-            "subtitleEn": "Elective Course",
-            "subtitlePt": "Disciplina Optativa",
+            "subtitleEn": "Elective Course · 54 h",
+            "subtitlePt": "Disciplina Optativa · 54 h",
             "completion": 100
           },
           {
             "id": "infnet-c-3-5",
             "titleEn": "Elective: Recommendation Systems Algorithms for Streaming",
             "titlePt": "Disciplina Optativa: Algoritmos de sistemas de recomendação para plataformas de streaming",
-            "subtitleEn": "Elective Course",
-            "subtitlePt": "Disciplina Optativa",
+            "subtitleEn": "Elective Course · 27 h",
+            "subtitlePt": "Disciplina Optativa · 27 h",
             "completion": 100
           },
           {
@@ -210,6 +210,8 @@ export const EDUCATION_DATA: EducationType[] = [
             "id": "infnet-c-5-1",
             "titleEn": "Foundations of Development with Java",
             "titlePt": "Fundamentos de Desenvolvimento com Java",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
             "completion": 0,
             "isCurrent": true
           },
@@ -217,39 +219,57 @@ export const EDUCATION_DATA: EducationType[] = [
             "id": "infnet-c-5-2",
             "titleEn": "Foundations of Development with C#",
             "titlePt": "Fundamentos de Desenvolvimento com C#",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
             "completion": 0,
             "isCurrent": true
+          },
+          {
+            "id": "infnet-c-6-1",
+            "titleEn": "Web Services with Spring Boot and MongoDB",
+            "titlePt": "Desenvolvimento de Serviços Web com Spring Boot e MongoDB",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
+            "completion": 0,
+            "expectedDateEn": "1st Sem. 2027",
+            "expectedDatePt": "1º Sem. 2027"
+          },
+          {
+            "id": "infnet-c-6-2",
+            "titleEn": ".NET Web Development and Relational Databases",
+            "titlePt": "Desenvolvimento Web .NET e Bases de Dados Relacionais",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
+            "completion": 0,
+            "expectedDateEn": "1st Sem. 2027",
+            "expectedDatePt": "1º Sem. 2027"
           },
           {
             "id": "infnet-c-5-3",
             "titleEn": "Block Project: Back-end Development",
             "titlePt": "Projeto de Bloco: Desenvolvimento Back-End",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
             "completion": 0,
             "isCurrent": true
           },
           {
             "id": "infnet-c-5-4",
             "titleEn": "Elective: Data Analysis with Power BI",
-            "titlePt": "Optativa: Análise de Dados com Power BI",
+            "titlePt": "Disciplina Optativa: Análise de Dados com Power BI",
+            "subtitleEn": "Elective Course",
+            "subtitlePt": "Disciplina Optativa",
             "completion": 0,
             "isCurrent": true
           },
           {
             "id": "infnet-c-5-5",
             "titleEn": "Elective: Neural Networks and Deep Learning",
-            "titlePt": "Optativa: Redes Neurais e Deep Learning",
+            "titlePt": "Disciplina Optativa: Redes Neurais e Deep Learning",
+            "subtitleEn": "Elective Course",
+            "subtitlePt": "Disciplina Optativa",
             "completion": 0,
             "isCurrent": true
-          },
-          {
-            "id": "infnet-c-6-1",
-            "titleEn": "Back-end Development - Advanced Practices",
-            "titlePt": "Desenvolvimento Back-end - Práticas Avançadas",
-            "subtitleEn": "1st Cycle Block",
-            "subtitlePt": "Bloco de 1ª Roda",
-            "completion": 0,
-            "expectedDateEn": "1st Sem. 2027",
-            "expectedDatePt": "1º Sem. 2027"
           }
         ]
       },
