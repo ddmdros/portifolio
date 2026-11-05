@@ -123,8 +123,8 @@ export const EDUCATION_DATA: EducationType[] = [
       },
       {
         "id": "infnet-lvl-2",
-        "titleEn": "2nd Semester (Current)",
-        "titlePt": "2º Semestre (Atual)",
+        "titleEn": "2nd Semester",
+        "titlePt": "2º Semestre",
         "descEn": "Data Foundations",
         "descPt": "Fundamentos de Dados",
         "courses": [
@@ -132,40 +132,61 @@ export const EDUCATION_DATA: EducationType[] = [
             "id": "infnet-c-3-1",
             "titleEn": "Data Visualization and Introduction to SQL",
             "titlePt": "Visualização de Dados e Introdução a SQL",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 100
+            "subtitleEn": "Looker Studio reports, SQL SELECT, GROUP BY and ORDER BY",
+            "subtitlePt": "Relatórios no Looker Studio, SQL SELECT, GROUP BY e ORDER BY",
+            "completion": 100,
+            "grade": 100
           },
           {
             "id": "infnet-c-3-2",
             "titleEn": "Programming with Python",
             "titlePt": "Programação com Python",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 100
+            "subtitleEn": "Control flow, loops, lists, functions and string methods",
+            "subtitlePt": "Decisão, repetição, listas, funções e métodos de strings",
+            "completion": 100,
+            "grade": 100
+          },
+          {
+            "id": "infnet-c-4-1",
+            "titleEn": "Foundations of Relational Modeling and SQL",
+            "titlePt": "Fundamentos de Modelagem Relacional e SQL",
+            "subtitleEn": "Relational modeling with constraints, normalization, SQL joins and aggregations",
+            "subtitlePt": "Modelagem relacional com restrições, normalização, SQL com junções e agregações",
+            "completion": 100,
+            "grade": 100
+          },
+          {
+            "id": "infnet-c-4-2",
+            "titleEn": "Python for Data",
+            "titlePt": "Python para Dados",
+            "subtitleEn": "Files, JSON, Pandas, debugging and web scraping with BeautifulSoup",
+            "subtitlePt": "Arquivos, JSON, Pandas, depuração e web scraping com BeautifulSoup",
+            "completion": 100,
+            "grade": 100
           },
           {
             "id": "infnet-c-3-3",
             "titleEn": "Block Project: Data Foundations",
-            "titlePt": "Projeto de Bloco",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 100
+            "titlePt": "Projeto de Bloco: Fundamentos de Dados",
+            "subtitleEn": "Python and SQL over CSV and JSON data, queries with aggregations, web scraping into SQL",
+            "subtitlePt": "Python e SQL com dados de CSV e JSON, consultas com agregações, web scraping para SQL",
+            "completion": 100,
+            "grade": 99
           },
           {
             "id": "infnet-c-3-4",
             "titleEn": "Elective: Introduction to Data Science with R",
             "titlePt": "Disciplina Optativa: Introdução à Ciência de Dados com R",
-            "subtitleEn": "Elective Course",
-            "subtitlePt": "Disciplina Optativa",
+            "subtitleEn": "Elective Course · 54 h",
+            "subtitlePt": "Disciplina Optativa · 54 h",
             "completion": 100
           },
           {
             "id": "infnet-c-3-5",
             "titleEn": "Elective: Recommendation Systems Algorithms for Streaming",
             "titlePt": "Disciplina Optativa: Algoritmos de sistemas de recomendação para plataformas de streaming",
-            "subtitleEn": "Elective Course",
-            "subtitlePt": "Disciplina Optativa",
+            "subtitleEn": "Elective Course · 27 h",
+            "subtitlePt": "Disciplina Optativa · 27 h",
             "completion": 100
           },
           {
@@ -175,55 +196,80 @@ export const EDUCATION_DATA: EducationType[] = [
             "subtitleEn": "Elective Course",
             "subtitlePt": "Disciplina Optativa",
             "completion": 100
-          },
-          {
-            "id": "infnet-c-4-1",
-            "titleEn": "Foundations of Relational Modeling and SQL",
-            "titlePt": "Fundamentos de Modelagem Relacional e SQL",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 0,
-            "expectedDateEn": "2nd Sem. 2026",
-            "expectedDatePt": "2º Sem. 2026"
-          },
-          {
-            "id": "infnet-c-4-2",
-            "titleEn": "Python for Data",
-            "titlePt": "Python para Dados",
-            "subtitleEn": "Data Foundations Block",
-            "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 0,
-            "expectedDateEn": "2nd Sem. 2026",
-            "expectedDatePt": "2º Sem. 2026"
           }
         ]
       },
       {
         "id": "infnet-lvl-3",
-        "titleEn": "3rd Semester",
-        "titlePt": "3º Semestre",
+        "titleEn": "3rd Semester (Current)",
+        "titlePt": "3º Semestre (Atual)",
         "descEn": "Back-end Development",
         "descPt": "Desenvolvimento Back-end",
         "courses": [
           {
             "id": "infnet-c-5-1",
-            "titleEn": "Back-end Development",
-            "titlePt": "Desenvolvimento Back-end",
-            "subtitleEn": "1st Cycle Block",
-            "subtitlePt": "Bloco de 1ª Roda",
+            "titleEn": "Foundations of Development with Java",
+            "titlePt": "Fundamentos de Desenvolvimento com Java",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
             "completion": 0,
-            "expectedDateEn": "2nd Sem. 2026",
-            "expectedDatePt": "2º Sem. 2026"
+            "isCurrent": true
+          },
+          {
+            "id": "infnet-c-5-2",
+            "titleEn": "Foundations of Development with C#",
+            "titlePt": "Fundamentos de Desenvolvimento com C#",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
+            "completion": 0,
+            "isCurrent": true
           },
           {
             "id": "infnet-c-6-1",
-            "titleEn": "Back-end Development - Advanced Practices",
-            "titlePt": "Desenvolvimento Back-end",
-            "subtitleEn": "1st Cycle Block",
-            "subtitlePt": "Bloco de 1ª Roda",
+            "titleEn": "Web Services with Spring Boot and MongoDB",
+            "titlePt": "Desenvolvimento de Serviços Web com Spring Boot e MongoDB",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
             "completion": 0,
             "expectedDateEn": "1st Sem. 2027",
             "expectedDatePt": "1º Sem. 2027"
+          },
+          {
+            "id": "infnet-c-6-2",
+            "titleEn": ".NET Web Development and Relational Databases",
+            "titlePt": "Desenvolvimento Web .NET e Bases de Dados Relacionais",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
+            "completion": 0,
+            "expectedDateEn": "1st Sem. 2027",
+            "expectedDatePt": "1º Sem. 2027"
+          },
+          {
+            "id": "infnet-c-5-3",
+            "titleEn": "Block Project: Back-end Development",
+            "titlePt": "Projeto de Bloco: Desenvolvimento Back-End",
+            "subtitleEn": "Back-end Development Block",
+            "subtitlePt": "Bloco Desenvolvimento Back-End",
+            "completion": 0,
+            "isCurrent": true
+          },
+          {
+            "id": "infnet-c-5-4",
+            "titleEn": "Elective: Data Analysis with Power BI",
+            "titlePt": "Disciplina Optativa: Análise de Dados com Power BI",
+            "subtitleEn": "Elective Course",
+            "subtitlePt": "Disciplina Optativa",
+            "completion": 0,
+            "isCurrent": true
+          },
+          {
+            "id": "infnet-c-5-5",
+            "titleEn": "Elective: Neural Networks and Deep Learning",
+            "titlePt": "Disciplina Optativa: Redes Neurais e Deep Learning",
+            "subtitleEn": "Elective Course",
+            "subtitlePt": "Disciplina Optativa",
+            "completion": 0,
+            "isCurrent": true
           }
         ]
       },
