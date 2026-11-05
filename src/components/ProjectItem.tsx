@@ -9,114 +9,99 @@ import { Link } from "react-router-dom";
 interface ProjectItemProps {
   category: ProjectCategory | ProjectCategory[];
   title: string;
+  resultKey?: string;
+  summaryKey?: string;
   description: string;
   tags: string[];
   imageUrl: string;
   docsUrl?: string;
   githubUrl?: string;
   projectUrl?: string;
-  isFeatured?: boolean;
   isWip?: boolean;
 }
+
+const secondaryLink =
+  "relative z-20 flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors";
 
 const ProjectItem = ({
   category,
   title,
+  resultKey,
+  summaryKey,
   description,
   tags,
   imageUrl,
   docsUrl,
   githubUrl,
   projectUrl,
-  isFeatured = false,
   isWip = false,
 }: ProjectItemProps) => {
   const intl = useIntl();
-
   const [imageLoaded, setImageLoaded] = useState(false);
+  const titleText = intl.formatMessage({ id: title });
 
-  const imageElement = (
-    <div className="relative overflow-hidden bg-white/5 w-full h-full aspect-video flex items-center justify-center">
-      {!imageLoaded && (
-        <div className="absolute inset-0 bg-white/5 animate-pulse" />
-      )}
-      
-      {/* Blurred background copy for ambient glow */}
-      <img
-        src={imageUrl}
-        className={`absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 select-none pointer-events-none transition-all duration-700 ${
-          imageLoaded ? "opacity-35" : "opacity-0"
-        }`}
-        alt=""
-      />
+  return (
+    // The title link is stretched over the whole card (after:inset-0), so the card is
+    // clickable with a single focusable element; the other links sit above it (z-20).
+    <article className="group relative bg-card-bg border border-white/10 rounded-xl overflow-hidden hover:-translate-y-1 hover:border-accent/40 focus-within:border-accent/60 transition-all duration-300 flex flex-col h-full motion-reduce:transform-none">
+      <div className="relative overflow-hidden bg-white/5 w-full aspect-video flex items-center justify-center">
+        {!imageLoaded && <div className="absolute inset-0 bg-white/5 animate-pulse" />}
 
-      {/* Sharp, centered foreground image */}
-      <img
-        src={imageUrl}
-        onLoad={() => setImageLoaded(true)}
-        className={`relative z-10 h-full max-w-full object-contain group-hover:scale-102 transition-all duration-700 ${
-          imageLoaded ? "opacity-100" : "opacity-0"
-        }`}
-        alt={title}
-      />
-      
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent z-10 pointer-events-none" />
-      
-      {/* Badges Overlay */}
-      <div className="absolute top-3 left-3 z-20 flex flex-wrap gap-2">
-        {isFeatured && (
-          <span className="bg-accent/25 backdrop-blur-md text-accent border border-accent/30 px-2.5 py-1 text-xs font-semibold rounded-full flex items-center gap-1.5 shadow-lg shadow-accent/5 animate-glow-pulse">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <FormattedMessage id="project.badge.featured" />
-          </span>
-        )}
+        <img
+          src={imageUrl}
+          className={`absolute inset-0 w-full h-full object-cover blur-xl scale-110 select-none pointer-events-none transition-opacity duration-700 ${
+            imageLoaded ? "opacity-35" : "opacity-0"
+          }`}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
+
+        <img
+          src={imageUrl}
+          onLoad={() => setImageLoaded(true)}
+          loading="lazy"
+          className={`relative z-10 h-full max-w-full object-contain transition-opacity duration-700 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          alt={titleText}
+        />
+
         {isWip && (
-          <span className="bg-amber-500/25 backdrop-blur-md text-amber-400 border border-amber-500/30 px-2.5 py-1 text-xs font-semibold rounded-full flex items-center gap-1.5 shadow-lg shadow-amber-500/5">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
-            </span>
+          <span className="absolute top-3 right-3 z-20 bg-amber-500/25 backdrop-blur-md text-amber-400 border border-amber-500/30 px-2.5 py-1 text-xs font-semibold rounded-full">
             <FormattedMessage id="project.badge.wip" />
           </span>
         )}
       </div>
-    </div>
-  );
-
-  return (
-    <div className={`group bg-card-bg border rounded-xl overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col h-full ${
-      isFeatured 
-        ? "border-accent/20 hover:border-accent/40 hover:shadow-emerald" 
-        : "border-white/10 hover:border-white/20"
-    }`}>
-      {docsUrl ? (
-        <Link 
-          to={`/${intl.locale}${docsUrl}`} 
-          className="cursor-pointer block w-full"
-        >
-          {imageElement}
-        </Link>
-      ) : (
-        <div className="w-full">
-          {imageElement}
-        </div>
-      )}
 
       <div className="p-5 flex flex-col grow">
         <div className="mb-3 flex flex-wrap gap-2">
-          {Array.isArray(category) ? (
-            category.map((cat) => <KeywordTag key={cat} label={cat} />)
-          ) : (
-            <KeywordTag label={category} />
-          )}
+          {(Array.isArray(category) ? category : [category]).map((cat) => (
+            <KeywordTag key={cat} label={cat} />
+          ))}
         </div>
 
-        <h2 className="text-xl font-bold mb-2 text-white">
-          <FormattedMessage id={title} />
-        </h2>
+        <h3 className="text-xl font-bold mb-2 text-white">
+          {docsUrl ? (
+            <Link
+              to={`/${intl.locale}${docsUrl}`}
+              className="after:absolute after:inset-0 after:z-10 focus:outline-none group-hover:text-accent transition-colors"
+            >
+              {titleText}
+            </Link>
+          ) : (
+            titleText
+          )}
+        </h3>
+
+        {resultKey && (
+          <p className="font-mono text-xs text-accent mb-3 leading-relaxed">
+            <FormattedMessage id={resultKey} />
+          </p>
+        )}
+
         <p className="text-gray-400 text-sm mb-4 leading-relaxed grow">
-          <FormattedMessage id={description} />
+          <FormattedMessage id={summaryKey ?? description} />
         </p>
 
         <div className="pt-4 flex flex-col gap-4">
@@ -128,51 +113,29 @@ const ProjectItem = ({
 
           <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
             {docsUrl && (
-              <Link
-                to={`/${intl.locale}${docsUrl}`}
-                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-                title={intl.formatMessage({ id: "project.docs" })}
-              >
-                <FaBook size={16} />
-                <span>
-                  <FormattedMessage id="project.docs" />
-                </span>
-              </Link>
+              <span className="flex items-center gap-2 text-sm text-accent">
+                <FaBook size={16} aria-hidden="true" />
+                <FormattedMessage id="project.card.open" />
+              </span>
             )}
 
             {githubUrl && (
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={intl.formatMessage({ id: "project.github" })}
-                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-              >
-                <FaGithub size={16} />
-                <span>
-                  <FormattedMessage id="project.github" />
-                </span>
+              <a href={githubUrl} target="_blank" rel="noopener noreferrer" className={secondaryLink}>
+                <FaGithub size={16} aria-hidden="true" />
+                <FormattedMessage id="project.github" />
               </a>
             )}
 
             {projectUrl && (
-              <a
-                href={projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-                title={intl.formatMessage({ id: "projects.external.link" })}
-              >
-                <ExternalLink size={16} />
-                <span>
-                  <FormattedMessage id="projects.external.link" />
-                </span>
+              <a href={projectUrl} target="_blank" rel="noopener noreferrer" className={secondaryLink}>
+                <ExternalLink size={16} aria-hidden="true" />
+                <FormattedMessage id="projects.external.link" />
               </a>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

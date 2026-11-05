@@ -1,7 +1,7 @@
 # Starr Corp: Office Mayhem Documentation
 
 **Author:** Diogo de Souza Medeiros  
-**Last modified:** 06/08/2026  
+**Last modified:** Jun 8, 2026  
 **Main technologies used:** React, TypeScript
 
 ---

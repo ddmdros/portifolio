@@ -2,7 +2,7 @@
 
 **Authors:** Diogo Medeiros, Stephanie Pinho
 
-**Last modified:** 11/05/2026
+**Last modified:** Nov 5, 2026
 
 **Main technologies:** Python, LangChain, Ollama (`llama3.1:8b`, `nomic-embed-text`), Chroma, GitHub Actions
 

@@ -29,24 +29,6 @@ export const EducationSection = () => {
 
       <div className="border-l-2 border-white/10 pl-6 ml-3 space-y-10 relative">
         {EDUCATION_DATA.filter((edu) => edu.showInPortfolio !== false).map((edu) => {
-          let globalCompletion = 0;
-          let totalCourses = 0;
-          let totalCompletion = 0;
-          if (edu.levels) {
-            if (edu.id === "1") {
-              const completedLevels = edu.levels.filter((lvl) =>
-                lvl.courses.every((c) => c.completion === 100)
-              ).length;
-              globalCompletion = Math.round((completedLevels / edu.levels.length) * 100);
-            } else {
-              edu.levels.forEach((lvl) => {
-                totalCourses += lvl.courses.length;
-                totalCompletion += lvl.courses.reduce((sum, c) => sum + c.completion, 0);
-              });
-              globalCompletion = totalCourses > 0 ? Math.round(totalCompletion / totalCourses) : 0;
-            }
-          }
-
           return (
             <div key={edu.id} className="relative">
             <div className="absolute -left-7.5 top-1.5 w-4 h-4 bg-bg border-2 border-accent rounded-full flex items-center justify-center">
@@ -81,28 +63,13 @@ export const EducationSection = () => {
                     onClick={() => toggleExpand(edu.id)}
                     className="w-full flex flex-col md:flex-row md:items-center justify-between p-4 gap-4 hover:bg-white/5 transition-all text-left cursor-pointer"
                   >
-                    <div className="flex-1 space-y-1.5">
-                      <div className="flex items-center justify-between text-xs font-semibold text-gray-400">
-                        <span>
-                          {edu.id === "1"
-                            ? (locale === "pt" ? "Progresso da Graduação" : "Graduation Progress")
-                            : (locale === "pt" ? "Progresso da Carreira" : "Career Progress")
-                          }
-                        </span>
-                        <span className="text-accent font-mono font-bold">
-                          {globalCompletion}%
-                        </span>
-                      </div>
-                      
-                      {/* Visual Progress Bar */}
-                      <div className="h-2 w-full bg-accent-subtle rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-accent rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(52,211,153,0.3)]"
-                          style={{ width: `${globalCompletion}%` }}
-                        />
-                      </div>
-                    </div>
-                    
+                    {/* Show the expected date, not a completion percentage. */}
+                    <span className="flex-1 text-xs font-semibold text-gray-400">
+                      {edu.id === "1"
+                        ? <FormattedMessage id="resume.edu.se.expected" />
+                        : <FormattedMessage id="resume.edu.alura.status" />}
+                    </span>
+
                     <div className="flex items-center gap-1.5 text-xs text-accent font-semibold shrink-0">
                       <span>
                         {expandedEdus[edu.id]

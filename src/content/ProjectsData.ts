@@ -4,6 +4,8 @@ export const PROJECTS_DATA: ProjectType[] = [
   {
     "id": "7",
     "title": "project.title.7",
+    "resultKey": "project.result.7",
+    "summaryKey": "project.summary.7",
     "category": "AI & ML",
     "description": "project.description.7",
     "tags": [
@@ -33,6 +35,8 @@ export const PROJECTS_DATA: ProjectType[] = [
   {
     "id": "8",
     "title": "project.title.8",
+    "resultKey": "project.result.8",
+    "summaryKey": "project.summary.8",
     "category": "AI & ML",
     "description": "project.description.8",
     "tags": [
@@ -59,6 +63,8 @@ export const PROJECTS_DATA: ProjectType[] = [
   {
     "id": "6",
     "title": "project.title.6",
+    "resultKey": "project.result.6",
+    "summaryKey": "project.summary.6",
     "category": [
       "fullstack",
       "AI & ML"
@@ -71,7 +77,7 @@ export const PROJECTS_DATA: ProjectType[] = [
       "OpenAI",
       "React"
     ],
-    "imageUrl": "/assets/projects/netplay/netplay_assistant.png",
+    "imageUrl": "/assets/projects/netplay/cover.svg",
     "docsUrl": "/docs/netplay",
     "githubUrl": "https://github.com/ddmdros/Netplay",
     "isFeatured": true,
@@ -125,7 +131,7 @@ export const PROJECTS_DATA: ProjectType[] = [
     "docsUrl": "/docs/starr-corp",
     "githubUrl": "https://github.com/ddmdros/officeMayhem",
     "projectUrl": "https://office-mayhem-aqis.vercel.app/",
-    "isFeatured": true,
+    "isFeatured": false,
     "docId": "starr-corp",
     "showInResume": [
       "backend",

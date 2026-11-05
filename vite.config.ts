@@ -44,7 +44,7 @@ export default defineConfig({
                 fs.writeFileSync(path.resolve(__dirname, 'src/content/EducationData.ts'), eduContent);
 
                 // Write ExperienceData
-                const expContent = `export interface ExperienceType {\n  id: string;\n  titleKey: string;\n  companyKey: string;\n  dateKey: string;\n  descKeys: string[];\n  showInResume: string[];\n  portfolioUrlKey?: string;\n  linkUrl?: string;\n  linkTextKey?: string;\n}\n\nexport const EXPERIENCE_DATA: ExperienceType[] = ${JSON.stringify(experience, null, 2)};\n`;
+                const expContent = `export interface ExperienceType {\n  id: string;\n  titleKey: string;\n  companyKey: string;\n  dateKey: string;\n  descKeys: string[];\n  showInResume: string[];\n  portfolioUrlKey?: string;\n  linkUrl?: string;\n  linkTextKey?: string;\n  showOnHome?: boolean;\n}\n\nexport const EXPERIENCE_DATA: ExperienceType[] = ${JSON.stringify(experience, null, 2)};\n`;
                 fs.writeFileSync(path.resolve(__dirname, 'src/content/ExperienceData.ts'), expContent);
 
                 // Write SkillsData

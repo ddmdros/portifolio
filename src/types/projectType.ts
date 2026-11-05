@@ -11,6 +11,8 @@ export interface ProjectType {
   title: string;
   category: ProjectCategory | ProjectCategory[];
   description: string;
+  resultKey?: string;
+  summaryKey?: string;
   tags: string[];
   imageUrl: string;
   docsUrl?: string;

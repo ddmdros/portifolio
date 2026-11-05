@@ -9,6 +9,7 @@ import { EXPERIENCE_DATA } from "../content/ExperienceData";
 const ResumePreview = () => {
   const navigate = useNavigate();
   const { locale } = useIntl();
+  const homeExperience = EXPERIENCE_DATA.find((e) => e.showOnHome) ?? EXPERIENCE_DATA[0];
   const getCertUrl = (cert: typeof CERTIFICATIONS_DATA[0]) => {
     if (locale === "pt" && cert.credentialUrlPt) return cert.credentialUrlPt;
     return cert.credentialUrl;
@@ -42,20 +43,20 @@ const ResumePreview = () => {
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg">
-                  <FormattedMessage id={EXPERIENCE_DATA[0].companyKey} />
+                  <FormattedMessage id={homeExperience.companyKey} />
                 </h3>
                 <span className="text-xs text-accent font-medium font-mono">
-                  <FormattedMessage id={EXPERIENCE_DATA[0].dateKey} />
+                  <FormattedMessage id={homeExperience.dateKey} />
                 </span>
               </div>
             </div>
             
             <div className="pl-[52px] space-y-1">
               <p className="text-sm text-gray-300 font-semibold">
-                <FormattedMessage id={EXPERIENCE_DATA[0].titleKey} />
+                <FormattedMessage id={homeExperience.titleKey} />
               </p>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                <FormattedMessage id={EXPERIENCE_DATA[0].descKeys[0]} />
+              <p className="text-xs text-gray-400 leading-relaxed">
+                <FormattedMessage id={homeExperience.descKeys[0]} />
               </p>
             </div>
           </div>
@@ -82,8 +83,14 @@ const ResumePreview = () => {
               <p className="text-sm text-gray-300 font-semibold">
                 <FormattedMessage id={EDUCATION_DATA[0].titleKey} />
               </p>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                <FormattedMessage id={EDUCATION_DATA[1].titleKey} /> & <FormattedMessage id={EDUCATION_DATA[2].titleKey} />
+              <p className="text-xs text-gray-400 leading-relaxed">
+                <FormattedMessage id="resume.edu.se.expected" />
+              </p>
+              <p className="text-sm text-gray-300 font-semibold pt-3">
+                <FormattedMessage id="resume.edu.journalism.title" />
+              </p>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                <FormattedMessage id="resume.edu.journalism.inst" /> &bull; <FormattedMessage id="resume.edu.journalism.gpa" />
               </p>
             </div>
           </div>
@@ -101,7 +108,7 @@ const ResumePreview = () => {
                   <FormattedMessage id="resume.section.certifications" defaultMessage="Certifications" />
                 </h3>
                 <span className="text-xs text-accent font-medium font-mono">
-                  {CERTIFICATIONS_DATA.length} <FormattedMessage id="resume.section.certifications" defaultMessage="Certifications" />
+                  <FormattedMessage id="home.certs.all" /> ({CERTIFICATIONS_DATA.length}) &rarr;
                 </span>
               </div>
             </div>
@@ -109,7 +116,7 @@ const ResumePreview = () => {
             <div className="pl-[52px] space-y-3">
               {CERTIFICATIONS_DATA.filter((c) => c.showOnHome)
                 .sort((a, b) => (b.sectionHighlight ? 1 : 0) - (a.sectionHighlight ? 1 : 0))
-                .slice(0, 5)
+                .slice(0, 3)
                 .map((cert) => (
                   <div
                     key={cert.id}
@@ -119,7 +126,7 @@ const ResumePreview = () => {
                         : "border-l border-accent/20"
                     }`}
                   >
-                    <p className="text-xs font-semibold text-gray-300 truncate" title={cert.titleKey}>
+                    <p className="text-xs font-semibold text-gray-300">
                       {getCertUrl(cert) ? (
                         <a
                           href={getCertUrl(cert)}
@@ -141,7 +148,7 @@ const ResumePreview = () => {
                         </span>
                       )}
                     </p>
-                    <p className="text-[10px] text-gray-500">
+                    <p className="text-xs text-gray-400">
                       <FormattedMessage id={cert.orgKey} /> &bull; {cert.year}
                       {cert.hours && ` \u2022 ${cert.hours}h`}
                     </p>

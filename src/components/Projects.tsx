@@ -17,7 +17,7 @@ const Projects = () => {
       </h2>
 
       <div className="bg-card-bg border border-white/10 rounded-2xl p-6 md:p-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredProjects.map((project) => (
             <ProjectItem key={project.id} {...project} />
           ))}

@@ -1,20 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { IntlProvider, FormattedMessage } from "react-intl";
 import { BrowserRouter, Routes, Route, useParams, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { ArrowUp } from "lucide-react";
 
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
-import { Blog } from "./pages/Blog";
-import { BlogPost } from "./pages/BlogPost";
-import { ProjectsPage } from "./pages/ProjectsPage";
-import { Contact } from "./pages/Contact";
-import { Resume } from "./pages/Resume";
 
 import ptbrMessages from "./i18n/messages/ptbr.json";
 import enMessages from "./i18n/messages/en.json";
-import { DocsPage } from "./content/pages/DocsPage";
-import { DevMode } from "./pages/DevMode";
+
+// Secondary pages load on demand, so the home page ships less JavaScript.
+const Blog = lazy(() => import("./pages/Blog").then((m) => ({ default: m.Blog })));
+const BlogPost = lazy(() => import("./pages/BlogPost").then((m) => ({ default: m.BlogPost })));
+const ProjectsPage = lazy(() => import("./pages/ProjectsPage").then((m) => ({ default: m.ProjectsPage })));
+const Contact = lazy(() => import("./pages/Contact").then((m) => ({ default: m.Contact })));
+const Resume = lazy(() => import("./pages/Resume").then((m) => ({ default: m.Resume })));
+const DocsPage = lazy(() => import("./content/pages/DocsPage").then((m) => ({ default: m.DocsPage })));
+// Dev Mode edits content files through the Vite dev server, so it is left out of production builds.
+const DevMode = import.meta.env.DEV
+  ? lazy(() => import("./pages/DevMode").then((m) => ({ default: m.DevMode })))
+  : null;
 
 const messagesMap: Record<string, Record<string, string>> = {
   pt: ptbrMessages,
@@ -44,6 +49,7 @@ const LanguageLayout = ({ setLocale }: { setLocale: (lang: string) => void }) =>
   useEffect(() => {
     if (isValidLang && lang) {
       setLocale(lang);
+      document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
     }
   }, [lang, isValidLang, setLocale]);
 
@@ -109,6 +115,7 @@ function App() {
               toggleTheme={toggleTheme}
             />
 
+            <Suspense fallback={<div className="min-h-[60vh]" />}>
             <Routes>
               {/* Multi-language parent route */}
               <Route path="/:lang" element={<LanguageLayout setLocale={setLocale} />}>
@@ -119,12 +126,13 @@ function App() {
                 <Route path="contact" element={<Contact />} />
                 <Route path="resume" element={<Resume />} />
                 <Route path="docs/:slug" element={<DocsPage />} />
-                <Route path="dev-mode" element={<DevMode />} />
+                {DevMode && <Route path="dev-mode" element={<DevMode />} />}
               </Route>
 
               {/* Fallback for paths without language prefix */}
               <Route path="*" element={<LanguageRedirect />} />
             </Routes>
+            </Suspense>
           </div>
 
           <footer className="max-w-5xl w-full mx-auto px-6 py-8 flex justify-center border-t border-white/5 mt-12">

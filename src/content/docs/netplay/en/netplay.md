@@ -2,7 +2,7 @@
 
 **Authors:** Diogo Medeiros, Stephanie Pinho
 
-**Last modified:** 2026-11-05
+**Last modified:** Nov 5, 2026
 
 **Main technologies:** Python, FastAPI, LangChain (`create_agent`), OpenAI `gpt-4o-mini`, RAWG API, React + TypeScript
 

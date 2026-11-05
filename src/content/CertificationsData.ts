@@ -2,6 +2,21 @@ import { type CertificationType } from "../types/certificationType";
 
 export const CERTIFICATIONS_DATA: CertificationType[] = [
   {
+    "id": "genai-leader",
+    "titleKey": "resume.cert.gcp.genaileader.title",
+    "orgKey": "resume.cert.gcp.org",
+    "year": "2026",
+    "showInResume": [
+      "general",
+      "cloud",
+      "ia_ml"
+    ],
+    "category": "ia_ml",
+    "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7",
+    "showOnHome": true,
+    "sectionHighlight": true
+  },
+  {
     "id": "1",
     "titleKey": "resume.cert.gcp.title",
     "orgKey": "resume.cert.gcp.org",
@@ -115,8 +130,7 @@ export const CERTIFICATIONS_DATA: CertificationType[] = [
     ],
     "category": "ia_ml",
     "credentialUrl": "https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7/badges/22801698",
-    "showOnHome": true,
-    "sectionHighlight": true
+    "showOnHome": false
   },
   {
     "id": "9",

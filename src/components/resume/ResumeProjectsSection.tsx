@@ -45,20 +45,38 @@ export const ResumeProjectsSection = ({ locale }: ResumeProjectsSectionProps) =>
                       <FormattedMessage id={key} />
                     </li>
                   ))}
-                  {(proj.projectUrl || proj.githubUrl) && (
-                    <li className="list-none pt-2">
-                      <a
-                        href={proj.projectUrl || proj.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
-                      >
-                        <FormattedMessage
-                          id="resume.project.starrCorp.link"
-                          defaultMessage="Link here"
-                        />
-                        <ExternalLink size={12} />
-                      </a>
+                  {(proj.docsUrl || proj.githubUrl || proj.projectUrl) && (
+                    <li className="list-none pt-2 flex flex-wrap gap-4">
+                      {proj.docsUrl && (
+                        <Link
+                          to={`/${locale}${proj.docsUrl}`}
+                          className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
+                        >
+                          <FormattedMessage id="resume.project.starrCorp.link" defaultMessage="Case study" />
+                        </Link>
+                      )}
+                      {proj.githubUrl && (
+                        <a
+                          href={proj.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
+                        >
+                          <FormattedMessage id="resume.project.code" defaultMessage="Code" />
+                          <ExternalLink size={12} aria-hidden="true" />
+                        </a>
+                      )}
+                      {proj.projectUrl && (
+                        <a
+                          href={proj.projectUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
+                        >
+                          <FormattedMessage id="projects.external.link" defaultMessage="Live project" />
+                          <ExternalLink size={12} aria-hidden="true" />
+                        </a>
+                      )}
                     </li>
                   )}
                 </ul>

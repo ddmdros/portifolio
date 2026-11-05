@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -14,6 +14,7 @@ interface HeaderProps {
 
 const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
   <svg
+    aria-hidden="true"
     className="w-6 h-6"
     fill="none"
     stroke="currentColor"
@@ -29,12 +30,13 @@ const MenuIcon = ({ isOpen }: { isOpen: boolean }) => (
 );
 
 export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderProps) => {
+  const intl = useIntl();
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
   const navLinks = [
     { id: "header.home", to: `/${currentLocale}` },
     { id: "header.projects", to: `/${currentLocale}/projects` },
-    { id: "header.blog", to: `/${currentLocale}/blog` },
+    // The blog route stays live, but it is out of the menu until there are a few posts.
     { id: "header.contact", to: `/${currentLocale}/contact` },
     { id: "header.resume", to: `/${currentLocale}/resume` },
   ];
@@ -86,7 +88,7 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
             <button
               onClick={toggleTheme}
               className="p-2 text-gray-300 hover:text-accent rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300 cursor-pointer flex items-center justify-center select-none"
-              aria-label="Toggle theme"
+              aria-label={intl.formatMessage({ id: "header.theme" })}
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
@@ -98,12 +100,14 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
           <button
             onClick={toggleTheme}
             className="p-2 text-gray-300 hover:text-accent rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300 cursor-pointer flex items-center justify-center select-none"
-            aria-label="Toggle theme"
+            aria-label={intl.formatMessage({ id: "header.theme" })}
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={intl.formatMessage({ id: isOpen ? "header.menu.close" : "header.menu.open" })}
+            aria-expanded={isOpen}
             className="p-2 relative hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
           >
             <MenuIcon isOpen={isOpen} />
@@ -122,6 +126,7 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
             </div>
             <button
               onClick={closeMenu}
+              aria-label={intl.formatMessage({ id: "header.menu.close" })}
               className="p-2 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
             >
               <MenuIcon isOpen={isOpen} />

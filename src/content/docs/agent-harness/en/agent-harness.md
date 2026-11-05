@@ -2,7 +2,7 @@
 
 **Author:** Diogo Medeiros
 
-**Last modified:** 11/05/2026
+**Last modified:** Nov 5, 2026
 
 **Main technologies:** Python (standard library only), Claude Code, Google Antigravity (Gemini), GitHub Actions
 
