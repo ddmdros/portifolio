@@ -71,7 +71,7 @@ export const PROJECTS_DATA: ProjectType[] = [
       "OpenAI",
       "React"
     ],
-    "imageUrl": "/assets/projects/netplay/netplay_preview.png",
+    "imageUrl": "/assets/projects/netplay/netplay_assistant.png",
     "docsUrl": "/docs/netplay",
     "githubUrl": "https://github.com/ddmdros/Netplay",
     "isFeatured": true,

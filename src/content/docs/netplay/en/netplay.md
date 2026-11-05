@@ -1,173 +1,80 @@
-# NetPlay: Collaborative Gaming Marketplace Documentation
+# NetPlay: a games assistant with tool calling
 
-**Authors:** Diogo de Souza Medeiros, Stephanie Pinho
+**Authors:** Diogo Medeiros, Stephanie Pinho
 
-**Last modified:** 06/08/2026
+**Last modified:** 2026-11-05
 
-**Main technologies used:** React, TypeScript, FastAPI, LangChain, PostgreSQL
+**Main technologies:** Python, FastAPI, LangChain (`create_agent`), OpenAI `gpt-4o-mini`, RAWG API, React + TypeScript
 
-> **Code status (Nov 2026).** This document describes the product as designed. What the [repository](https://github.com/ddmdros/Netplay) has today: a LangChain agent (gpt-4o-mini) with tool calling on the RAWG API, a FastAPI service, a React chat, and database tools (PostgreSQL + PostGIS) bound to the user on the server, with tests and CI. The database schema, pgvector, and the mobile app screens are not in the repository yet.
+**Code:** [github.com/ddmdros/Netplay](https://github.com/ddmdros/Netplay)
 
 ---
 
-## 1. Introduction
+## 1. What it is
 
-### Overview
+A games assistant in which a LangChain agent decides on its own when to fetch real game data from the [RAWG API](https://rawg.io/apidocs): release date, studio, genre, age rating and stores. The agent sits behind a FastAPI service, and the conversation happens in a React chat.
 
-**NetPlay** is a P2P (Peer-to-Peer) collaborative economy platform designed to connect users within the same city for the lending, trading, and purchasing of physical media games. By leveraging Retrieval-Augmented Generation (RAG) and spatial intelligence, the platform allows users to find rare or expensive titles based on their specific taste and proximity.
-
-### Architectural Rationale
-
-The project serves as a technical case study in integrating **LLM-based agents** with **relational and spatial databases**. The architecture was designed to solve the "hallucination problem" of traditional LLMs by grounding the chatbot's knowledge in real-time inventory data and external gaming metadata, ensuring that recommendations are always accurate, locally available, and relevant to the user's profile.
-
-### Dynamics and Usability Flow
-
-The user interacts with an AI agent that understands context, location, and user history. The idealized flow includes:
-
-* **Location-Based Discovery:** Using PostGIS to calculate proximity and find games within a specific radius (e.g., 10km).
-* **Profile & Reputation Management:** Users can query their own stats, contributing to a secure and active circular economy.
-* **Metadata-Rich Recommendations:** The agent provides verified technical data (release dates, platforms, age rating) integrated with the RAWG API.
-
-### App Interfaces & Screenshots
-
-Here is a visual showcase of the mobile application interfaces:
-
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
-  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
-    <img src="/assets/projects/netplay/netplay_chat_en.png" alt="AI Chat Agent" class="rounded-lg max-h-[350px] mx-auto object-contain" />
-    <p class="text-xs text-gray-400 mt-2 font-mono">AI Chat Agent</p>
-  </div>
-  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
-    <img src="/assets/projects/netplay/netplay_profile_en.png" alt="User Profile" class="rounded-lg max-h-[350px] mx-auto object-contain" />
-    <p class="text-xs text-gray-400 mt-2 font-mono">Profile & Stats</p>
-  </div>
-  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
-    <img src="/assets/projects/netplay/netplay_transactions_en.png" alt="Transactions Ledger" class="rounded-lg max-h-[350px] mx-auto object-contain" />
-    <p class="text-xs text-gray-400 mt-2 font-mono">Deals & Handshakes</p>
-  </div>
-  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
-    <img src="/assets/projects/netplay/netplay_settings_en.png" alt="Account Settings" class="rounded-lg max-h-[350px] mx-auto object-contain" />
-    <p class="text-xs text-gray-400 mt-2 font-mono">Settings & Language</p>
-  </div>
+<div class="my-8 text-center">
+  <img src="/assets/projects/netplay/netplay_assistant.png" alt="NetPlay chat" class="rounded-lg max-h-[450px] mx-auto object-contain border border-white/10" />
+  <p class="text-xs text-gray-400 mt-2 font-mono">The React chat, as it is in the repository</p>
 </div>
 
----
+The product idea behind it is a P2P marketplace for physical game media. That part does not exist in code yet and is listed under "Next steps", at the end of the page.
 
-## 2. Data Architecture and AI Integration
-
-The ecosystem is structured into three main layers of data, ensuring both semantic intelligence and spatial precision.
-
-### The Ecosystem Flow
-
-1. **Identity & Knowledge Layer:** Managed via **Supabase (PostgreSQL)**. `users` holds reputation and spatial data (PostGIS), while `game_catalog` acts as the universal library for semantic understanding.
-2. **Marketplace Layer:** `user_inventory` and `user_wishlist` map the supply and demand, linking users to specific physical media copies.
-3. **Intelligence & Transaction Layer:** `chat_memory` maintains basic conversation context (with summarization planned for future releases), while `transactions` acts as the definitive ledger for "handshakes" between lenders and borrowers.
-
-### RAG and Agentic Workflow
-
-The RAG pipeline solves the critical limitations of standard LLMs:
-
-* **Vector Search:** `pgvector` allows for semantic similarity searches between games.
-* **Tool Calling:** The agent utilizes custom tools (`search_local_games`, `get_account_info`) to fetch real-time data instead of relying on outdated training sets.
-
-```python
-# Conceptual Tool Calling implementation
-def search_local_games(query: str, user_lat: float, user_lon: float):
-    # PostGIS query to find games within a 10km radius
-    return db.query("SELECT * FROM inventory WHERE ST_DWithin(...)")
-```
-
----
-
-## 3. Technical Specifications
-
-To ensure high performance and scalability, the stack integrates modern infrastructure with production-ready tooling.
-
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
-  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
-    <div class="flex items-center justify-between gap-2 mb-3">
-      <span class="text-xs font-bold text-accent uppercase tracking-wider">Backend</span>
-      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">Python / FastAPI</span>
-    </div>
-    <p class="text-sm text-gray-300 leading-relaxed">High-performance asynchronous framework for AI-intensive operations.</p>
-  </div>
-  
-  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
-    <div class="flex items-center justify-between gap-2 mb-3">
-      <span class="text-xs font-bold text-accent uppercase tracking-wider">AI Orchestration</span>
-      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">LangChain</span>
-    </div>
-    <p class="text-sm text-gray-300 leading-relaxed">Manages agentic logic, conversation memory, and tool integration.</p>
-  </div>
-
-  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
-    <div class="flex items-center justify-between gap-2 mb-3">
-      <span class="text-xs font-bold text-accent uppercase tracking-wider">Database</span>
-      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">Supabase</span>
-    </div>
-    <p class="text-sm text-gray-300 leading-relaxed">Enterprise-grade relational database with PostGIS for spatial queries.</p>
-  </div>
-
-  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
-    <div class="flex items-center justify-between gap-2 mb-3">
-      <span class="text-xs font-bold text-accent uppercase tracking-wider">Vector Store</span>
-      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">pgvector</span>
-    </div>
-    <p class="text-sm text-gray-300 leading-relaxed">Enables semantic similarity search and context injection for RAG pipeline.</p>
-  </div>
-
-  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
-    <div class="flex items-center justify-between gap-2 mb-3">
-      <span class="text-xs font-bold text-accent uppercase tracking-wider">Frontend</span>
-      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">React / Vite</span>
-    </div>
-    <p class="text-sm text-gray-300 leading-relaxed">SPA framework for a reactive, dynamic chatbot interface.</p>
-  </div>
-
-  <div class="bg-white/5 border border-white/10 rounded-xl p-5 hover:border-accent/30 hover:shadow-[0_0_15px_rgba(52,211,153,0.05)] transition-all duration-300">
-    <div class="flex items-center justify-between gap-2 mb-3">
-      <span class="text-xs font-bold text-accent uppercase tracking-wider">External API</span>
-      <span class="bg-white/10 text-white text-xs px-2.5 py-0.5 rounded-full font-mono shrink-0">RAWG API</span>
-    </div>
-    <p class="text-sm text-gray-300 leading-relaxed">Provides verified game metadata, preventing model hallucinations.</p>
-  </div>
-</div>
-
----
-
-## 4. Code Quality & Agent Logic
-
-The agentic logic is designed for focused query resolution, utilizing:
-
-* **LangChain Tool Calling:** The agent dynamically binds user intents to specific tools to retrieve live database records.
-* **Structured Memory:** Standard session storage holds the active conversation window.
-
----
-
-## 5. Project Structure
+## 2. How it works
 
 ```text
-netplay/
- ┣ backend/
- ┃ ┣ src/agents/        # LangChain agent (create_agent) and prompt
- ┃ ┣ src/tools/         # tools: RAWG and database (PostGIS, bound to the user)
- ┃ ┣ src/api/           # FastAPI routes (/api/chat)
- ┃ ┣ src/rawg.py        # RAWG API client
- ┃ ┗ tests/             # offline tests
- ┗ frontend/
-   ┗ src/               # React + TypeScript chat (Vite)
+chat (React) -> POST /api/chat (FastAPI) -> agent (LangChain, gpt-4o-mini)
+                                              |  calls the tool when it needs data
+                                              v
+                                   buscar_informacoes_de_jogos -> RAWG API
+                                              |
+                                              v
+                                   answer built from what RAWG returned
 ```
 
----
+- **Tool calling:** the model receives the tool's description and chooses when to call it. The prompt forbids making up game data, and the answer comes from what RAWG returned.
+- **Structured context:** the RAWG client fetches the games and each one's details and gives the model a text with the name, genre, studio, recommended audience, stores and an excerpt of the description.
+- **History:** the front end sends the latest messages, and the API uses the 10 most recent.
+- **Tests with no network and no keys:** RAWG is mocked, a fake model that calls tools goes through the real agent, from the tool call to the final answer, and the API is tested with FastAPI's `TestClient`. CI runs the tests, the lint and the front-end build on every push.
 
-## 6. Next Steps and Future Improvements
+## 3. The November 2026 revision
 
-* **LangGraph Integration:** Moving toward graph-based agent logic for more complex, multi-step transaction flows.
-* **Summarization Strategies:** Implementing dynamic summarization to handle long conversation windows, keeping the last 4-5 messages intact while compressing older history.
-* **Human-in-the-Loop:** Integrating user approval flows (like confirmation prompts) for critical actions like profile updates or transaction executions.
-* **Visual Mapping:** Integrating the **Google Maps API** to display search results as interactive pins on a map.
-* **Gamification:** Implementing a trophy and reputation system to further incentivize circular activity.
-* **Automated Cataloging:** Enhancing the backend to automatically ingest and vectorize new items via the RAWG API as users register their collections.
+The first version (May 2026) used `create_tool_calling_agent` and `AgentExecutor`, which were removed from LangChain in version 1.x, and the backend did not start. The revision:
+
+- migrated the agent to `create_agent`;
+- fixed the imports: the route called a function that did not exist, and the agent imported the tool from the wrong file;
+- removed the marketplace tools, which depended on a database whose schema was never in the repository;
+- restricted CORS and added the conversation history, the tests and CI.
+
+## 4. Next steps
+
+The P2P marketplace, as designed:
+
+- **Database:** Postgres with PostGIS for users, inventory, wishlists and transactions, with the schema and migrations in the repository.
+- **Location tools for the agent:** find copies for trade or rent within a radius of the user, and read the user's account. The tools are bound to the logged-in user on the server and do not take an id as an argument, so the model cannot query another person.
+- **Login,** so the API knows who the user is.
+- **Semantic search** over the game catalog with pgvector.
+- **Human approval** before any action that changes data, such as a trade request or a profile update.
+- **Long conversations:** summarize older messages and keep the last few intact.
+- **A map** of the search results and a reputation system.
+
+Screens planned for the app (not in the repository yet):
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-8">
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_profile_en.png" alt="Profile and reputation" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Profile and reputation</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_transactions_en.png" alt="Trades and transactions" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Trades and transactions</p>
+  </div>
+  <div class="text-center bg-white/5 p-2 rounded-xl border border-white/10">
+    <img src="/assets/projects/netplay/netplay_settings_en.png" alt="Settings" class="rounded-lg max-h-[350px] mx-auto object-contain" />
+    <p class="text-xs text-gray-400 mt-2 font-mono">Settings</p>
+  </div>
+</div>
 
 ---
 
