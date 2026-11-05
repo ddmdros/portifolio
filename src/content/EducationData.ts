@@ -171,7 +171,7 @@ export const EDUCATION_DATA: EducationType[] = [
             "subtitleEn": "Python and SQL over CSV and JSON data, queries with aggregations, web scraping into SQL",
             "subtitlePt": "Python e SQL com dados de CSV e JSON, consultas com agregações, web scraping para SQL",
             "completion": 100,
-            "grade": 99
+            "grade": 95
           },
           {
             "id": "infnet-c-3-4",
