@@ -15,6 +15,7 @@ interface ProfileConfigType {
   cvCertsMoreUrl: string;
   cvCertsMoreTextKey: string;
   cvCertsMoreLinkKey: string;
+  handmadeCv: { pt: string; en: string };
 }
 
 interface ProfileTabProps {

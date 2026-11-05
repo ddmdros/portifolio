@@ -91,7 +91,7 @@ export const Resume = () => {
           <a
             href={
               selectedDownloadProfile === "general"
-                ? `/assets/resume_${locale === "pt" ? "pt" : "en"}.pdf`
+                ? PROFILE_CONFIG.handmadeCv[locale === "pt" ? "pt" : "en"]
                 : `/assets/resume_${selectedDownloadProfile}_${locale === "pt" ? "pt" : "en"}.pdf`
             }
             download={

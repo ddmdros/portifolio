@@ -1,126 +1,64 @@
 # Diogo Medeiros
-## Full-Stack Engineer
-Lages, Brazil • ddmdros@proton.me • [linkedin.com/in/diogo-medeiros](https://linkedin.com/in/diogo-medeiros) • [github.com/ddmdros](https://github.com/ddmdros)
 
----
+Software Engineering Student \| AI agents, LLMs, and model evaluation
 
-### GOAL
-Consolidate my transition from gaming linguist to software engineer. Strengthen my development skills by working with languages such as Java and Python, embracing new technologies, and contributing to a forward-thinking international company.
+Lages, SC, Brazil · ddmdros@proton.me · linkedin.com/in/diogo-medeiros · github.com/ddmdros · portifolio-tawny-xi-55.vercel.app
 
----
+## Summary
 
-### EDUCATION
-* **B.S. in Software Engineering** — INFNET Institute (2025-2029)
-* **Bachelor of Journalism** — UFSC (2017-2022)
-  * GPA: 3.8/4.0 (9.54/10)
+I use AI in production in my own work: I designed and built a Python harness of LLM agents that translates and reviews games for real clients and tripled my throughput, from 300 to about 900 words per hour. I also evaluate model outputs (RLHF) against rubrics. Six years in game localization, two of them in-house in Dublin on AAA titles; currently studying Software Engineering at Infnet.
 
----
+## AI Projects
 
-<div style="display: flex; justify-content: space-between; gap: 40px;">
-  <div style="flex: 1;">
-    <h3>PROJECTS</h3>
-    <p><strong>Starr Corp: Office Mayhem</strong></p>
-    <p>Interactive web game of strategy and narrative set in a chaotic corporate environment.</p>
-    <ul>
-      <li>Built with React, Tailwind, and Typescript.</li>
-      <li>Worked with:
-        <ul>
-          <li>Data Architecture and State Control</li>
-          <li>react-intl internationalization standard</li>
-          <li>Fallow static analysis compliance</li>
-        </ul>
-      </li>
-      <li><a href="https://office-mayhem-aqis.vercel.app/">Link here</a></li>
-    </ul>
-    <p><strong>More projects:</strong> <a href="https://portifolio-tawny-xi-55.vercel.app/en/projects">here</a></p>
-  </div>
-  
-  <div style="flex: 1;">
-    <h3>SKILLS</h3>
-    <ul>
-      <li><strong>Programming</strong>
-        <ul>
-          <li><strong>Java</strong> - Intermediate</li>
-          <li><strong>C#</strong> - Intermediate</li>
-          <li><strong>CSS, HTML, and JavaScript</strong> - Beginner to Intermediate (INFNET)</li>
-        </ul>
-      </li>
-      <li><strong>Languages</strong>
-        <ul>
-          <li><strong>C2 English</strong> - Proficient (2022)
-            <ul>
-              <li>EFL <a href="https://www.efset.org/cert/iwWZUS">certificate here</a></li>
-            </ul>
-          </li>
-          <li><strong>Intermediate French</strong> (2020)
-            <ul>
-              <li>IFESP <a href="https://diogomedeiros.carrd.co/">certificate here</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
+### Multi-agent harness for game translation
 
----
+Python, Claude Code, Antigravity (Gemini) · 2026 · in production · open core: [github.com/ddmdros/agent-harness](https://github.com/ddmdros/agent-harness)
 
-### EXPERIENCE
+- Designed and built, with Claude Code, an agent pipeline: a translator agent and reviewer subagents (accuracy, fluency, and game mechanics) that run in parallel, merge their suggestions by a fixed rule, and leave the final call to a human.
+- Raised my throughput from 300 to about 900 words per hour (40k words in Sep–Oct 2026, excluding what the translation memory already covered), with human review kept on every delivery.
+- Wrote Python hooks that decide, from a declarative map, where each agent may write. An anonymization layer with a pre-commit hook keeps client data out of git.
+- Measured the token cost of each session from the transcripts. In unattended mode, the agent logs every choice it made on its own to a queue for human approval.
+- About 6.6k lines of Python with automated tests and 53 architecture decision records (ADRs). The same rules apply to Claude and Gemini.
 
-**Bungie and Supercell - Dublin, Ireland** (Jan 2023 - Nov 2024)  
-*In-house Brazilian Portuguese Translator & Editor at Keywords Studios*  
-* Worked on-site with Bungie (2023, Destiny 2) and Supercell (2024) teams.
-* Supported major titles like Destiny 2 (316K+ peak concurrent players) and Supercell games (5B+ downloads), keeping glossary consistency under tight live-service deadlines.
-* Collaborated with international multicultural teams of 40–60 professionals to ensure cultural precision.
+### Other AI projects
 
-**Independent Gaming Linguist** (Oct 2020 - Present)  
-*Self-Employed*  
-* Translated over 1 million words across a wide range of games, including *Wartales*, *Railway Empire 2*, and others.
-* Game translator portfolio available [here](https://diogomedeiros.carrd.co/).
+- **Multi-agent study harness** (Node.js, Claude Code, Antigravity): task backlog with claims that expire after 3 hours, hooks that stop agents from writing to graded assignments, and a script-generated dashboard.
+- **Local RAG with evaluation**, built in a pair (Python, LangChain, Ollama, Chroma): similarity, MMR, and multi-query retrieval, with an evaluation set for retrieval and refusals. [github.com/ddmdros/rag-gta](https://github.com/ddmdros/rag-gta)
+- **Tool-calling agent**, built in a pair (Python, FastAPI, LangChain, PostgreSQL, React): a gaming marketplace where the agent queries a public API and the database. [github.com/ddmdros/Netplay](https://github.com/ddmdros/Netplay)
 
----
+## Experience
 
-<div style="display: flex; justify-content: space-between; gap: 40px;">
-  <div style="flex: 1;">
-    <h3>CERTIFICATIONS</h3>
-    <ul>
-      <li><strong>Google Cloud Computing Foundations Certificate</strong>
-        <ul>
-          <li>Google, 2026: <a href="https://www.credly.com/badges/066915e4-a2d9-4c4c-a188-f5706b4b26f1">here</a></li>
-        </ul>
-      </li>
-      <li><strong>Object-Oriented Programming in Java Specialization</strong>
-        <ul>
-          <li>Alura: <a href="https://cursos.alura.com.br/degree/certificate/3fb06a58-bd70-4d8a-9a69-afb2229303cc?lang=pt_BR">certificate here</a></li>
-        </ul>
-      </li>
-      <li><strong>More certifications:</strong> <a href="https://www.skills.google/public_profiles/34ba9945-3ca3-4701-9312-d811fca01bf7">here</a></li>
-    </ul>
-  </div>
-  
-  <div style="flex: 1;">
-    <h3>CONTACT</h3>
-    <ul>
-      <li><strong>Github:</strong> [github.com/ddmdros](https://github.com/ddmdros)</li>
-      <li><strong>LinkedIn:</strong> [linkedin.com/in/diogo-medeiros](https://linkedin.com/in/diogo-medeiros)</li>
-      <li><strong>Portfolio:</strong> [portifolio-tawny-xi-55.vercel.app](https://portifolio-tawny-xi-55.vercel.app)</li>
-    </ul>
-  </div>
-</div>
+### AI Evaluator (RLHF and data annotation)
 
----
+Freelance, short-term projects via micro1 and Mercor · 2026
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-size: 0.8em; color: #555;">
-  <div style="display: flex; align-items: center; gap: 10px;">
-    <svg width="120" height="45" viewBox="0 0 150 60" xmlns="http://www.w3.org/2000/svg">
-      <path d="M 15,35 C 10,25 25,10 28,20 C 30,30 20,45 15,45 C 10,45 15,35 22,35 C 26,35 28,42 28,45 C 28,48 35,35 38,38 C 40,40 42,45 42,45 C 42,45 46,36 48,39 C 50,42 50,45 52,45 M 65,35 C 60,25 70,15 72,22 C 74,30 70,45 68,45 C 65,45 68,36 74,38 C 78,40 82,38 84,41 C 86,44 88,40 90,43 M 92,43 C 95,38 98,41 100,43 M 102,43 C 105,38 108,41 110,43 M 112,43 C 115,38 118,41 120,43 C 122,45 130,40 135,42 M 18,48 Q 60,42 140,30" 
-            fill="none" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-    <div style="max-width: 300px; line-height: 1.2;">
-      I hereby authorize the use of my personal data in accordance with the LGPD (Brazilian General Personal Data Protection Law) 13709/2018.
-    </div>
-  </div>
-  <div>
-    Updated to: June 2026
-  </div>
-</div>
+- Evaluated and compared Portuguese LLM responses against rubrics (RLHF), rated images, and annotated robotics data for model training.
+
+### In-house Brazilian Portuguese Translator and Editor
+
+Keywords Studios, on the Bungie and Supercell teams · Dublin, Ireland · Jan 2023 – Nov 2024
+
+- Translated and ran linguistic quality assurance (LQA) on Destiny 2 (316k+ peak concurrent players) and Supercell games (5B+ downloads), with weekly live-service releases, in international teams of 40 to 60 people.
+
+### Game Translator and Localizer
+
+Freelance · Oct 2020 – present
+
+- Translated over 1 million words from English into Brazilian Portuguese across indie and AAA games, such as Wartales and Railway Empire 2. Since 2026, I work with the agent harness described above.
+
+## Education
+
+- **B.Sc. in Software Engineering**, Instituto Infnet · 2025 – Oct 2029 (expected). Next block: AI Agent Analysis and Security.
+- **B.A. in Journalism**, Federal University of Santa Catarina (UFSC) · 2017 – 2022 · GPA 3.8/4.0
+
+## Skills
+
+- **Applied AI:** LLM agents and subagents, prompt and context engineering, hooks and guardrails, RAG, tool calling, output evaluation (RLHF, rubrics), token cost. Tools: Claude Code, Antigravity (Gemini), LangChain, Ollama, Chroma, OpenAI
+- **Languages and frameworks:** Python, Java, C#, TypeScript, JavaScript, SQL · FastAPI, Spring Boot, PostgreSQL, React, Vite
+- **Engineering:** Git, automated testing (pytest, JUnit), ADRs, spec-driven development with OpenSpec
+
+## Certifications and languages
+
+Google Cloud: **Generative AI Leader** and **Cloud Computing Foundations** (2026) · Alura: **Object-Oriented Programming in Java**
+
+Portuguese (native) · English C2 (EF SET, 2022: efset.org/cert/iwWZUS) · French (intermediate)

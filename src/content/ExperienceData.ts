@@ -12,6 +12,19 @@ export interface ExperienceType {
 
 export const EXPERIENCE_DATA: ExperienceType[] = [
   {
+    "id": "3",
+    "titleKey": "resume.exp.aieval.title",
+    "companyKey": "resume.exp.aieval.company",
+    "dateKey": "resume.exp.aieval.date",
+    "descKeys": [
+      "resume.exp.aieval.desc1"
+    ],
+    "showInResume": [
+      "general",
+      "ia_ml"
+    ]
+  },
+  {
     "id": "1",
     "titleKey": "resume.exp.keywords.title",
     "companyKey": "resume.exp.keywords.company",
@@ -38,7 +51,8 @@ export const EXPERIENCE_DATA: ExperienceType[] = [
     "companyKey": "resume.exp.independent.company",
     "dateKey": "resume.exp.independent.date",
     "descKeys": [
-      "resume.exp.independent.desc1"
+      "resume.exp.independent.desc1",
+      "resume.exp.independent.desc3"
     ],
     "portfolioUrlKey": "resume.link.portfolio",
     "showInResume": [

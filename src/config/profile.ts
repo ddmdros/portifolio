@@ -32,6 +32,13 @@ export const PROFILE_CONFIG = {
   
   // Perfis de currículo liberados para download público no portfólio
   availableCvDownloads: ["general"],
+
+  // CV de uma página feito à mão (fonte em cv/). Substitui o PDF gerado do perfil "general"
+  // no botão de download. O gerador (scripts/generate_pdfs.cjs) continua gerando os outros perfis.
+  handmadeCv: {
+    pt: "/assets/Diogo_Medeiros_CV_AI_Engineer_pt.pdf",
+    en: "/assets/Diogo_Medeiros_CV_AI_Engineer_en.pdf",
+  },
   
   // Links de rodapé das seções do currículo
   cvProjectsMoreUrl: "",

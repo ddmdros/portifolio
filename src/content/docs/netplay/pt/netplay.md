@@ -4,7 +4,9 @@
 
 **Última modificação:** 08/06/2026
 
-**Principais tecnologias utilizadas:** React, TypeScript, FastAPI, Supabase, LangChain
+**Principais tecnologias utilizadas:** React, TypeScript, FastAPI, LangChain, PostgreSQL
+
+> **Estado do código (nov/2026).** Este documento descreve o produto como foi desenhado. O que está no [repositório](https://github.com/ddmdros/Netplay) hoje: agente LangChain (gpt-4o-mini) com tool calling na API RAWG, API FastAPI, chat em React e as ferramentas de banco (PostgreSQL + PostGIS) presas ao usuário no servidor, com testes e CI. O esquema do banco, o pgvector e as telas do app móvel ainda não estão no repositório.
 
 ---
 
@@ -146,16 +148,14 @@ A lógica de agentes foi desenhada para resolução focada de consultas, utiliza
 
 ```text
 netplay/
- ┣ src/
- ┃ ┣ components/        # Interface do chat, cards com resultados dos jogos
- ┃ ┣ hooks/             # Ferramentas do agente e gerenciamento de estado
- ┃ ┣ services/          # Integração com APIs (FastAPI/Supabase/RAWG)
- ┃ ┗ types/             # Contratos TypeScript para entidades de jogo e usuário
  ┣ backend/
- ┃ ┣ agents/            # Lógica do LangChain/LangGraph
- ┃ ┣ database/          # Esquemas SQL (extensões PostGIS/Vector)
- ┃ ┗ routes/            # Endpoints do FastAPI
- ┗ vite.config.ts       # Configurações de compilação e otimização
+ ┃ ┣ src/agents/        # agente LangChain (create_agent) e prompt
+ ┃ ┣ src/tools/         # ferramentas: RAWG e banco (PostGIS, presas ao usuário)
+ ┃ ┣ src/api/           # rotas FastAPI (/api/chat)
+ ┃ ┣ src/rawg.py        # cliente da API RAWG
+ ┃ ┗ tests/             # testes sem rede
+ ┗ frontend/
+   ┗ src/               # chat em React + TypeScript (Vite)
 ```
 
 ---
@@ -173,10 +173,8 @@ netplay/
 
 ### Contatos & Links do Projeto
 
-* **Link do Projeto:** https://llm-project-tau.vercel.app/
 * **Diogo Medeiros:** ddmdros@proton.me | [GitHub](https://github.com/ddmdros) | [LinkedIn](https://www.linkedin.com/in/diogo-medeiros/) | [Portfólio](https://portifolio-tawny-xi-55.vercel.app/)
 * **Stephanie Pinho:** [GitHub](https://github.com/stephanielumertz) | [LinkedIn](https://www.linkedin.com/in/stephanielumertz/)
 * **E-mail da Dupla:** steandydevs@gmail.com
 * **Links do Projeto:**
-  * **Deploy de Demonstração:** [Vercel](https://llm-project-tau.vercel.app/)
   * **Código Fonte:** [GitHub](https://github.com/ddmdros/Netplay)

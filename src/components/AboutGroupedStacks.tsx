@@ -11,6 +11,11 @@ import {
   SiGooglecloud,
   SiSupabase,
   SiVite,
+  SiClaude,
+  SiGooglegemini,
+  SiLangchain,
+  SiOllama,
+  SiFastapi,
 } from "react-icons/si";
 
 import { FaJava, FaHtml5, FaCss3 } from "react-icons/fa";
@@ -21,6 +26,15 @@ import { SectionDiv } from "./SectionDiv";
 import { FormattedMessage } from "react-intl";
 
 const techStackGroups = [
+  {
+    category: "about.stacks.ai",
+    technologies: [
+      { name: "Claude Code", icon: <SiClaude /> },
+      { name: "Antigravity (Gemini)", icon: <SiGooglegemini /> },
+      { name: "LangChain", icon: <SiLangchain /> },
+      { name: "Ollama", icon: <SiOllama /> },
+    ],
+  },
   {
     category: "about.stacks.programming.languages",
     technologies: [
@@ -46,6 +60,7 @@ const techStackGroups = [
   {
     category: "about.stacks.data.devops",
     technologies: [
+      { name: "FastAPI", icon: <SiFastapi /> },
       { name: "PostgreSQL", icon: <SiPostgresql /> },
       { name: "Git & CI/CD", icon: <SiGit /> },
       { name: "Google Cloud", icon: <SiGooglecloud /> },

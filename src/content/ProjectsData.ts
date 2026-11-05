@@ -2,6 +2,61 @@ import { type ProjectType } from "../types/projectType";
 
 export const PROJECTS_DATA: ProjectType[] = [
   {
+    "id": "7",
+    "title": "project.title.7",
+    "category": "AI & ML",
+    "description": "project.description.7",
+    "tags": [
+      "Python",
+      "Claude Code",
+      "Antigravity",
+      "Hooks",
+      "CI"
+    ],
+    "imageUrl": "/assets/projects/agent-harness/cover.svg",
+    "docsUrl": "/docs/agent-harness",
+    "githubUrl": "https://github.com/ddmdros/agent-harness",
+    "isFeatured": true,
+    "docId": "agent-harness",
+    "showInResume": [
+      "general",
+      "backend",
+      "fullstack",
+      "ia_ml"
+    ],
+    "descKeys": [
+      "project.title.7.bullet1",
+      "project.title.7.bullet2",
+      "project.title.7.bullet3"
+    ]
+  },
+  {
+    "id": "8",
+    "title": "project.title.8",
+    "category": "AI & ML",
+    "description": "project.description.8",
+    "tags": [
+      "Python",
+      "LangChain",
+      "Ollama",
+      "Chroma",
+      "Evals"
+    ],
+    "imageUrl": "/assets/projects/rag-gta/cover.svg",
+    "docsUrl": "/docs/rag-gta",
+    "githubUrl": "https://github.com/ddmdros/rag-gta",
+    "isFeatured": true,
+    "docId": "rag-gta",
+    "showInResume": [
+      "general",
+      "ia_ml"
+    ],
+    "descKeys": [
+      "project.title.8.bullet1",
+      "project.title.8.bullet2"
+    ]
+  },
+  {
     "id": "6",
     "title": "project.title.6",
     "category": [
@@ -10,16 +65,15 @@ export const PROJECTS_DATA: ProjectType[] = [
     ],
     "description": "project.description.6",
     "tags": [
-      "React",
+      "Python",
       "FastAPI",
-      "Supabase",
       "LangChain",
-      "PostgreSQL"
+      "OpenAI",
+      "React"
     ],
     "imageUrl": "/assets/projects/netplay/netplay_preview.png",
     "docsUrl": "/docs/netplay",
     "githubUrl": "https://github.com/ddmdros/Netplay",
-    "projectUrl": "https://llm-project-tau.vercel.app/",
     "isFeatured": true,
     "isWip": true,
     "docId": "netplay",
@@ -31,7 +85,6 @@ export const PROJECTS_DATA: ProjectType[] = [
     ],
     "descKeys": [
       "resume.project.netplay.bullet1",
-      "project.title.6.bullet3",
       "project.title.6.bullet4"
     ]
   },

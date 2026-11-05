@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#052e16"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <g transform="translate(0,80)">
+  <text x="80" y="110" fill="#e2e8f0" font-size="54" font-weight="700">rag-gta</text>
+  <text x="80" y="160" fill="#94a3b8" font-size="26">local RAG · Ollama + Chroma + LangChain · with an eval set</text>
+  <g font-size="24" fill="#e2e8f0">
+    <rect x="80" y="260" width="200" height="90" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="180" y="313" text-anchor="middle">question</text>
+    <rect x="350" y="260" width="250" height="90" rx="14" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+    <text x="475" y="300" text-anchor="middle">retriever</text>
+    <text x="475" y="330" text-anchor="middle" font-size="18" fill="#94a3b8">similarity · MMR · multi-query</text>
+    <rect x="670" y="260" width="230" height="90" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="785" y="300" text-anchor="middle">llama3.1:8b</text>
+    <text x="785" y="330" text-anchor="middle" font-size="18" fill="#94a3b8">temperature 0</text>
+    <rect x="970" y="260" width="230" height="90" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="1085" y="300" text-anchor="middle">answer</text>
+    <text x="1085" y="330" text-anchor="middle" font-size="18" fill="#94a3b8">+ sources</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="3" fill="none" marker-end="url(#a)">
+    <path d="M280 305H345"/>
+    <path d="M600 305H665"/>
+    <path d="M900 305H965"/>
+  </g>
+  <g font-size="22" fill="#cbd5e1">
+    <rect x="80" y="450" width="1120" height="180" rx="14" fill="#0b1220" stroke="#334155" stroke-width="2"/>
+    <text x="110" y="500" fill="#4ade80">$ python -m rag_gta eval glossary --mode similarity</text>
+    <text x="110" y="545">retrieval_hit   answer_hit   false_refusal   refusal_ok</text>
+    <text x="110" y="590" fill="#94a3b8">  did it find it?  did it say it?  refused by mistake?  admitted it didn't know?</text>
+  </g>
+</g>
+</svg>

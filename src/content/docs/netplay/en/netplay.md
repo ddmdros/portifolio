@@ -4,7 +4,9 @@
 
 **Last modified:** 06/08/2026
 
-**Main technologies used:** React, TypeScript, FastAPI, Supabase, LangChain
+**Main technologies used:** React, TypeScript, FastAPI, LangChain, PostgreSQL
+
+> **Code status (Nov 2026).** This document describes the product as designed. What the [repository](https://github.com/ddmdros/Netplay) has today: a LangChain agent (gpt-4o-mini) with tool calling on the RAWG API, a FastAPI service, a React chat, and database tools (PostgreSQL + PostGIS) bound to the user on the server, with tests and CI. The database schema, pgvector, and the mobile app screens are not in the repository yet.
 
 ---
 
@@ -146,16 +148,14 @@ The agentic logic is designed for focused query resolution, utilizing:
 
 ```text
 netplay/
- ┣ src/
- ┃ ┣ components/        # Chat interface, cards for game results
- ┃ ┣ hooks/             # Agent tools and state management
- ┃ ┣ services/          # API integration (FastAPI/Supabase/RAWG)
- ┃ ┗ types/             # TypeScript contracts for game and user entities
  ┣ backend/
- ┃ ┣ agents/            # LangChain/LangGraph logic
- ┃ ┣ database/          # SQL schemas (PostGIS/Vector extensions)
- ┃ ┗ routes/            # FastAPI endpoints
- ┗ vite.config.ts       # Build and optimization settings
+ ┃ ┣ src/agents/        # LangChain agent (create_agent) and prompt
+ ┃ ┣ src/tools/         # tools: RAWG and database (PostGIS, bound to the user)
+ ┃ ┣ src/api/           # FastAPI routes (/api/chat)
+ ┃ ┣ src/rawg.py        # RAWG API client
+ ┃ ┗ tests/             # offline tests
+ ┗ frontend/
+   ┗ src/               # React + TypeScript chat (Vite)
 ```
 
 ---
@@ -173,10 +173,8 @@ netplay/
 
 ### Contacts & Project Links
 
-* **Project Link:** https://llm-project-tau.vercel.app/
 * **Diogo Medeiros:** ddmdros@proton.me | [GitHub](https://github.com/ddmdros) | [LinkedIn](https://www.linkedin.com/in/diogo-medeiros/) | [Portfolio](https://portifolio-tawny-xi-55.vercel.app/)
 * **Stephanie Pinho:** [GitHub](https://github.com/stephanielumertz) | [LinkedIn](https://www.linkedin.com/in/stephanielumertz/)
 * **Project Team Email:** steandydevs@gmail.com
 * **Project Links:**
-  * **Demo Deploy:** [Vercel](https://llm-project-tau.vercel.app/)
   * **Source Code:** [GitHub](https://github.com/ddmdros/Netplay)
