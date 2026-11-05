@@ -59,6 +59,18 @@ The glossary's expected terms are checked against the CSV in a test: the evaluat
 
 Only `multiquery` refuses every out-of-glossary question, at about four times the latency. `mmr` misses one term: in a glossary, where each document is one term, retrieving diverse chunks hurts. That is why the glossary defaults to `similarity`.
 
+### Results (lore)
+
+Same models and runner, 11/05/2026 ([run](https://github.com/ddmdros/rag-gta/actions/runs/42053328578)), corpus of 17 GTA Wiki articles (364 chunks):
+
+| Mode | Retrieval | Answer | False refusal | Correct refusal | s/question |
+|---|---|---|---|---|---|
+| similarity | 10/10 | 9/10 | 0 | 3/3 | 149 |
+| mmr | 10/10 | 9/10 | 0 | 3/3 | 124 |
+| multiquery | 10/10 | 10/10 | 0 | 0/3 | 203 |
+
+Retrieval found the right chunk for every question, even with English articles and Portuguese questions, so every miss is in generation. `similarity` misses CJ's brother and `mmr` misses Vice City's protagonist, with the right chunk in the context. `multiquery` gets all ten answers but refuses none of the three out-of-corpus questions, the opposite of what it did on the glossary. Because a wrong answer to an out-of-scope question is worse than a slow one, the lore keeps `mmr` as its default.
+
 ## 4. Evolution
 
 The project started as six separate prototypes built in a pair: a CrewAI agent, a retrieval chain, an agent over the lore, LCEL with MMR, per-session memory, and multi-query with sources. In November 2026, I merged everything into one package with the three retrieval modes as options, tests that run without Ollama, and the evaluation set. I fixed what the earlier versions let slip:

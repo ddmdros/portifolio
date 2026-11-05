@@ -59,6 +59,18 @@ Os termos esperados do glossário são conferidos contra o CSV num teste: a aval
 
 O `multiquery` é o único que recusa todas as perguntas fora do glossário, mas custa cerca de 4 vezes mais tempo. O `mmr` perde um termo: num glossário, em que cada documento é um termo, buscar trechos diferentes entre si atrapalha. Por isso o padrão do glossário é `similarity`.
 
+### Resultados (lore)
+
+Mesmos modelos e runner, 05/11/2026 ([rodada](https://github.com/ddmdros/rag-gta/actions/runs/42053328578)), corpus de 17 artigos do GTA Wiki (364 trechos):
+
+| Modo | Recuperação | Resposta | Recusa indevida | Recusa correta | s/pergunta |
+|---|---|---|---|---|---|
+| similarity | 10/10 | 9/10 | 0 | 3/3 | 149 |
+| mmr | 10/10 | 9/10 | 0 | 3/3 | 124 |
+| multiquery | 10/10 | 10/10 | 0 | 0/3 | 203 |
+
+A busca achou o trecho certo em todas as perguntas, mesmo com artigos em inglês e perguntas em português: toda falha está na geração. O `similarity` erra o irmão de CJ e o `mmr` erra o protagonista de Vice City, com o trecho certo no contexto. O `multiquery` acerta as dez respostas, mas não recusa nenhuma das três perguntas fora do corpus, o contrário do que fez no glossário. Como responder errado ao que está fora do escopo é pior do que responder devagar, o padrão da lore continua `mmr`.
+
 ## 4. Evolução
 
 O projeto começou em dupla como seis protótipos separados: um agente CrewAI, uma cadeia de recuperação, um agente sobre a lore, LCEL com MMR, memória por sessão e multi-query com fontes. Em novembro de 2026, juntei tudo num pacote com os três modos de busca como opção, testes sem Ollama e o conjunto de avaliação. Corrigi o que as versões anteriores deixavam escapar:
