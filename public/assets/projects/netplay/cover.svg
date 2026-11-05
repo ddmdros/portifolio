@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#2a1640"/>
+    </linearGradient>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <g transform="translate(0,80)">
+  <text x="80" y="110" fill="#e2e8f0" font-size="54" font-weight="700">netplay</text>
+  <text x="80" y="160" fill="#94a3b8" font-size="26">React chat · FastAPI · LangChain agent · tool calling</text>
+  <g font-size="24" fill="#e2e8f0">
+    <rect x="80" y="260" width="200" height="90" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="180" y="313" text-anchor="middle">chat (React)</text>
+    <rect x="350" y="260" width="230" height="90" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="465" y="313" text-anchor="middle">/api/chat</text>
+    <rect x="650" y="260" width="250" height="90" rx="14" fill="#1e293b" stroke="#c084fc" stroke-width="2"/>
+    <text x="775" y="300" text-anchor="middle">agent</text>
+    <text x="775" y="328" text-anchor="middle" font-size="18" fill="#94a3b8">gpt-4o-mini</text>
+    <rect x="980" y="200" width="220" height="74" rx="14" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <text x="1090" y="245" text-anchor="middle">RAWG API</text>
+    <rect x="980" y="336" width="220" height="74" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="1090" y="381" text-anchor="middle">answer</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="3" fill="none" marker-end="url(#a)">
+    <path d="M280 305H345"/>
+    <path d="M580 305H645"/>
+    <path d="M900 290L975 240"/>
+    <path d="M900 320L975 370"/>
+  </g>
+  <text x="937" y="222" fill="#94a3b8" font-size="18" text-anchor="middle">tool call</text>
+  <g font-size="22" fill="#cbd5e1">
+    <rect x="80" y="480" width="1120" height="150" rx="14" fill="#0b1220" stroke="#334155" stroke-width="2"/>
+    <text x="110" y="525"><tspan fill="#c084fc">tool</tspan> buscar_informacoes_de_jogos(<tspan fill="#fde68a">"Hades"</tspan>)</text>
+    <text x="110" y="565">  → release date, studio, genre, age rating, stores</text>
+    <text x="110" y="605" fill="#64748b"># offline tests: RAWG and the model are mocked in CI</text>
+  </g>
+  </g>
+</svg>

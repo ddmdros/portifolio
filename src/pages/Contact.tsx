@@ -10,24 +10,20 @@ export const Contact = () => {
     subject: "",
     message: "",
   });
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
+  // No backend: the form builds a mailto: link, so the message is sent from the
+  // visitor's own email app and nothing is lost silently.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       setStatus("error");
       return;
     }
-    setStatus("sending");
-
-    // Simulação de envio com timer
-    setTimeout(() => {
-      setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      
-      // Reseta o status de sucesso após 5 segundos
-      setTimeout(() => setStatus("idle"), 5000);
-    }, 1500);
+    const subject = formData.subject || `Portfolio contact from ${formData.name}`;
+    const body = `${formData.message}\n\n${formData.name} <${formData.email}>`;
+    window.location.href = `mailto:${PROFILE_CONFIG.emailContact}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus("success");
   };
 
   const handleChange = (
@@ -107,13 +103,14 @@ export const Contact = () => {
             <div className="grid sm:grid-cols-2 gap-6">
               {/* Campo Nome */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+                <label htmlFor="contact-name" className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
                   <User size={12} className="text-accent" />
                   <FormattedMessage id="contact.form.name" defaultMessage="Name" />
                 </label>
                 <input
                   type="text"
-                  name="name"
+                  id="contact-name"
+                name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -123,13 +120,14 @@ export const Contact = () => {
 
               {/* Campo Email */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+                <label htmlFor="contact-email" className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
                   <Mail size={12} className="text-accent" />
                   <FormattedMessage id="contact.form.email" defaultMessage="Email" />
                 </label>
                 <input
                   type="email"
-                  name="email"
+                  id="contact-email"
+                name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -140,12 +138,13 @@ export const Contact = () => {
 
             {/* Campo Assunto */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+              <label htmlFor="contact-subject" className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
                 <MessageSquare size={12} className="text-accent" />
                 <FormattedMessage id="contact.form.subject" defaultMessage="Subject" />
               </label>
               <input
                 type="text"
+                id="contact-subject"
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
@@ -155,11 +154,12 @@ export const Contact = () => {
 
             {/* Campo Mensagem */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+              <label htmlFor="contact-message" className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
                 <MessageSquare size={12} className="text-accent" />
                 <FormattedMessage id="contact.form.message" defaultMessage="Message" />
               </label>
               <textarea
+                id="contact-message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
@@ -168,6 +168,10 @@ export const Contact = () => {
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all resize-none"
               />
             </div>
+
+            <p className="text-xs text-gray-400">
+              <FormattedMessage id="contact.form.mailto.note" />
+            </p>
 
             {/* Status Feedback */}
             {status === "success" && (
@@ -187,20 +191,10 @@ export const Contact = () => {
             {/* Botão de Enviar */}
             <button
               type="submit"
-              disabled={status === "sending"}
               className="w-full flex items-center justify-center gap-2 bg-accent-subtle border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3.5 px-6 rounded-xl transition-all hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed btn-shimmer"
             >
-              {status === "sending" ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-accent border-t-transparent animate-spin rounded-full" />
-                  <FormattedMessage id="contact.form.sending" defaultMessage="Sending..." />
-                </>
-              ) : (
-                <>
-                  <Send size={18} />
-                  <FormattedMessage id="contact.form.send" defaultMessage="Send Message" />
-                </>
-              )}
+              <Send size={18} aria-hidden="true" />
+              <FormattedMessage id="contact.form.send" defaultMessage="Send Message" />
             </button>
           </form>
         </div>

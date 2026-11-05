@@ -8,7 +8,7 @@ interface Props {
 
 export const MarkdownRenderer = ({ content }: Props) => (
   <div className="w-full px-4 sm:px-6 lg:px-8">
-    <div className="prose prose-invert prose-emerald max-w-none">
+    <div className="prose dark:prose-invert max-w-none prose-code:before:content-none prose-code:after:content-none">
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
         {content}
       </ReactMarkdown>

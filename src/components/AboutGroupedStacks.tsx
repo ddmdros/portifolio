@@ -1,112 +1,94 @@
-import {
-  SiPython,
-  SiJavascript,
-  SiReact,
-  SiTypescript,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiPostgresql,
-  SiGit,
-  SiUnity,
-  SiGooglecloud,
-  SiSupabase,
-  SiVite,
-  SiClaude,
-  SiGooglegemini,
-  SiLangchain,
-  SiOllama,
-  SiFastapi,
-} from "react-icons/si";
-
-import { FaJava, FaHtml5, FaCss3 } from "react-icons/fa";
-
-import { TbBrandCSharp } from "react-icons/tb";
-
+import { Link } from "react-router-dom";
+import { FormattedMessage, useIntl } from "react-intl";
 import { SectionDiv } from "./SectionDiv";
-import { FormattedMessage } from "react-intl";
 
-const techStackGroups = [
+// Each layer says what I do and which project proves it.
+// Proof links point to case studies (internal) or repositories (external).
+const stackLayers: {
+  titleKey: string;
+  itemsKey: string;
+  proof: { label: string; to?: string; href?: string }[];
+}[] = [
   {
-    category: "about.stacks.ai",
-    technologies: [
-      { name: "Claude Code", icon: <SiClaude /> },
-      { name: "Antigravity (Gemini)", icon: <SiGooglegemini /> },
-      { name: "LangChain", icon: <SiLangchain /> },
-      { name: "Ollama", icon: <SiOllama /> },
+    titleKey: "stack.agents",
+    itemsKey: "stack.agents.items",
+    proof: [{ label: "agent-harness", to: "/docs/agent-harness" }],
+  },
+  {
+    titleKey: "stack.retrieval",
+    itemsKey: "stack.retrieval.items",
+    proof: [
+      { label: "rag-gta", to: "/docs/rag-gta" },
+      { label: "Netplay", to: "/docs/netplay" },
     ],
   },
   {
-    category: "about.stacks.programming.languages",
-    technologies: [
-      { name: "Python", icon: <SiPython /> },
-      { name: "JavaScript", icon: <SiJavascript /> },
-      { name: "Java", icon: <FaJava /> },
-      { name: "C#", icon: <TbBrandCSharp /> },
-    ],
+    titleKey: "stack.backend",
+    itemsKey: "stack.backend.items",
+    proof: [{ label: "Netplay", to: "/docs/netplay" }],
   },
   {
-    category: "about.stacks.web.game.dev",
-    technologies: [
-      { name: "React", icon: <SiReact /> },
-      { name: "TypeScript", icon: <SiTypescript /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss /> },
-      { name: "Vite", icon: <SiVite /> },
-      { name: "Node.js", icon: <SiNodedotjs /> },
-      { name: "HTML5", icon: <FaHtml5 /> },
-      { name: "CSS3", icon: <FaCss3 /> },
-      { name: "Unity", icon: <SiUnity /> },
-    ],
-  },
-  {
-    category: "about.stacks.data.devops",
-    technologies: [
-      { name: "FastAPI", icon: <SiFastapi /> },
-      { name: "PostgreSQL", icon: <SiPostgresql /> },
-      { name: "Git & CI/CD", icon: <SiGit /> },
-      { name: "Google Cloud", icon: <SiGooglecloud /> },
-      { name: "Supabase", icon: <SiSupabase /> },
+    titleKey: "stack.shipping",
+    itemsKey: "stack.shipping.items",
+    proof: [
+      { label: "agent-harness CI", href: "https://github.com/ddmdros/agent-harness/actions" },
+      { label: "rag-gta evals", href: "https://github.com/ddmdros/rag-gta/actions" },
     ],
   },
 ];
 
 const AboutGroupedStacks = () => {
+  const { locale } = useIntl();
+
   return (
     <section className="py-20">
       <SectionDiv sectionNumber="01" sectionTitleId="section.title.1" />
 
-      <div className="grid lg:grid-cols-2 gap-16 items-start">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
         <div className="space-y-6">
           <h2 className="text-4xl md:text-5xl font-bold text-text-h leading-tight">
-            <FormattedMessage id={"about.title"} />
+            <FormattedMessage id="about.title" />
           </h2>
           <p className="text-gray-400 leading-relaxed whitespace-pre-line">
-            <FormattedMessage id={"about.description"} />
+            <FormattedMessage id="about.description" />
           </p>
         </div>
 
-        <div className="space-y-8">
-          {techStackGroups.map((group) => (
-            <div key={group.category}>
-              <h3 className="text-xl font-semibold text-white mb-4">
-                <FormattedMessage id={group.category} />
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {group.technologies.map((tech) => (
-                  <div
-                    key={tech.name}
-                    className="flex flex-col items-center justify-center p-4 bg-card-bg border border-white/10 rounded-xl hover:border-accent/50 transition-all hover:scale-105"
-                  >
-                    <div className="text-2xl mb-2 text-gray-300">
-                      {tech.icon}
-                    </div>
-                    <span className="text-xs text-gray-400 font-medium text-center">
-                      {tech.name}
-                    </span>
-                  </div>
-                ))}
+        <div>
+          <h3 className="text-xl font-semibold text-white mb-4">
+            <FormattedMessage id="stack.title" />
+          </h3>
+          <dl className="divide-y divide-white/10 border-y border-white/10">
+            {stackLayers.map((layer) => (
+              <div key={layer.titleKey} className="py-4 grid sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4">
+                <dt className="font-mono text-xs uppercase tracking-widest text-accent pt-0.5">
+                  <FormattedMessage id={layer.titleKey} />
+                </dt>
+                <dd className="space-y-2">
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    <FormattedMessage id={layer.itemsKey} />
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    <FormattedMessage id="stack.proof" />:{" "}
+                    {layer.proof.map((p, i) => (
+                      <span key={p.label}>
+                        {i > 0 && " · "}
+                        {p.to ? (
+                          <Link to={`/${locale}${p.to}`} className="underline decoration-white/20 underline-offset-4 hover:text-accent">
+                            {p.label}
+                          </Link>
+                        ) : (
+                          <a href={p.href} target="_blank" rel="noopener noreferrer" className="underline decoration-white/20 underline-offset-4 hover:text-accent">
+                            {p.label}
+                          </a>
+                        )}
+                      </span>
+                    ))}
+                  </p>
+                </dd>
               </div>
-            </div>
-          ))}
+            ))}
+          </dl>
         </div>
       </div>
     </section>

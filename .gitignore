@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Generated profile CVs (scripts/generate_pdfs.cjs). Kept local for Dev Mode;
+# the public CV is the handmade one (cv/ -> public/assets/Diogo_Medeiros_CV_*.pdf).
+# If a profile is enabled in availableCvDownloads, commit its PDF explicitly.
+public/assets/resume_*.pdf

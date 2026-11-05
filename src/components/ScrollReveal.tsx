@@ -6,7 +6,10 @@ interface ScrollRevealProps {
 }
 
 export const ScrollReveal = ({ children, className = "" }: ScrollRevealProps) => {
-  const [isVisible, setIsVisible] = useState(false);
+  // With reduced motion, content is visible from the start instead of fading in on scroll.
+  const [isVisible, setIsVisible] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
