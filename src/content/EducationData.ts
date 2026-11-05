@@ -123,8 +123,8 @@ export const EDUCATION_DATA: EducationType[] = [
       },
       {
         "id": "infnet-lvl-2",
-        "titleEn": "2nd Semester (Current)",
-        "titlePt": "2º Semestre (Atual)",
+        "titleEn": "2nd Semester",
+        "titlePt": "2º Semestre",
         "descEn": "Data Foundations",
         "descPt": "Fundamentos de Dados",
         "courses": [
@@ -182,9 +182,7 @@ export const EDUCATION_DATA: EducationType[] = [
             "titlePt": "Fundamentos de Modelagem Relacional e SQL",
             "subtitleEn": "Data Foundations Block",
             "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 0,
-            "expectedDateEn": "2nd Sem. 2026",
-            "expectedDatePt": "2º Sem. 2026"
+            "completion": 100
           },
           {
             "id": "infnet-c-4-2",
@@ -192,33 +190,56 @@ export const EDUCATION_DATA: EducationType[] = [
             "titlePt": "Python para Dados",
             "subtitleEn": "Data Foundations Block",
             "subtitlePt": "Bloco Fundamentos de Dados",
-            "completion": 0,
-            "expectedDateEn": "2nd Sem. 2026",
-            "expectedDatePt": "2º Sem. 2026"
+            "completion": 100
           }
         ]
       },
       {
         "id": "infnet-lvl-3",
-        "titleEn": "3rd Semester",
-        "titlePt": "3º Semestre",
+        "titleEn": "3rd Semester (Current)",
+        "titlePt": "3º Semestre (Atual)",
         "descEn": "Back-end Development",
         "descPt": "Desenvolvimento Back-end",
         "courses": [
           {
             "id": "infnet-c-5-1",
-            "titleEn": "Back-end Development",
-            "titlePt": "Desenvolvimento Back-end",
-            "subtitleEn": "1st Cycle Block",
-            "subtitlePt": "Bloco de 1ª Roda",
+            "titleEn": "Foundations of Development with Java",
+            "titlePt": "Fundamentos de Desenvolvimento com Java",
             "completion": 0,
-            "expectedDateEn": "2nd Sem. 2026",
-            "expectedDatePt": "2º Sem. 2026"
+            "isCurrent": true
+          },
+          {
+            "id": "infnet-c-5-2",
+            "titleEn": "Foundations of Development with C#",
+            "titlePt": "Fundamentos de Desenvolvimento com C#",
+            "completion": 0,
+            "isCurrent": true
+          },
+          {
+            "id": "infnet-c-5-3",
+            "titleEn": "Block Project: Back-end Development",
+            "titlePt": "Projeto de Bloco: Desenvolvimento Back-End",
+            "completion": 0,
+            "isCurrent": true
+          },
+          {
+            "id": "infnet-c-5-4",
+            "titleEn": "Elective: Data Analysis with Power BI",
+            "titlePt": "Optativa: Análise de Dados com Power BI",
+            "completion": 0,
+            "isCurrent": true
+          },
+          {
+            "id": "infnet-c-5-5",
+            "titleEn": "Elective: Neural Networks and Deep Learning",
+            "titlePt": "Optativa: Redes Neurais e Deep Learning",
+            "completion": 0,
+            "isCurrent": true
           },
           {
             "id": "infnet-c-6-1",
             "titleEn": "Back-end Development - Advanced Practices",
-            "titlePt": "Desenvolvimento Back-end",
+            "titlePt": "Desenvolvimento Back-end - Práticas Avançadas",
             "subtitleEn": "1st Cycle Block",
             "subtitlePt": "Bloco de 1ª Roda",
             "completion": 0,
