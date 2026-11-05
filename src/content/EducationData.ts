@@ -602,20 +602,6 @@ export const EDUCATION_DATA: EducationType[] = [
     ]
   },
   {
-    "id": "2",
-    "titleKey": "resume.edu.java.title",
-    "instKey": "resume.edu.java.inst",
-    "dateKey": "resume.edu.java.date",
-    "showInResume": [
-      "cloud",
-      "backend",
-      "frontend",
-      "fullstack",
-      "ia_ml",
-      "general"
-    ]
-  },
-  {
     "id": "3",
     "titleKey": "resume.edu.journalism.title",
     "instKey": "resume.edu.journalism.inst",

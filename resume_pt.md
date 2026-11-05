@@ -11,8 +11,7 @@ Consolidar minha transição de linguista de jogos para engenheiro de software. 
 
 ### FORMAÇÃO
 * **Bacharelado em Engenharia de Software** — Instituto INFNET (2025-2029)
-* **Especialização em Java Back-End** — EBAC (2025-presente)
-* **Bacharelado em Jornalismo** — UFSC (2017-2026)
+* **Bacharelado em Jornalismo** — UFSC (2017-2022)
   * Média Global: 9.54/10 (GPA: 3.8/4.0)
 
 ---
@@ -41,8 +40,8 @@ Consolidar minha transição de linguista de jogos para engenheiro de software. 
     <ul>
       <li><strong>Programação</strong>
         <ul>
-          <li><strong>Java</strong> - Intermediário (EBAC)</li>
-          <li><strong>C#</strong> - Intermediário (EBAC)</li>
+          <li><strong>Java</strong> - Intermediário</li>
+          <li><strong>C#</strong> - Intermediário</li>
           <li><strong>CSS, HTML e JavaScript</strong> - Iniciante a Intermediário (INFNET)</li>
         </ul>
       </li>

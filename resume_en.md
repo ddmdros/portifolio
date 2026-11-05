@@ -11,8 +11,7 @@ Consolidate my transition from gaming linguist to software engineer. Strengthen 
 
 ### EDUCATION
 * **B.S. in Software Engineering** — INFNET Institute (2025-2029)
-* **Java Back-end Specialization** — EBAC (2025-present)
-* **Bachelor of Journalism** — UFSC (2017-2026)
+* **Bachelor of Journalism** — UFSC (2017-2022)
   * GPA: 3.8/4.0 (9.54/10)
 
 ---
@@ -41,8 +40,8 @@ Consolidate my transition from gaming linguist to software engineer. Strengthen 
     <ul>
       <li><strong>Programming</strong>
         <ul>
-          <li><strong>Java</strong> - Intermediate (EBAC)</li>
-          <li><strong>C#</strong> - Intermediate (EBAC)</li>
+          <li><strong>Java</strong> - Intermediate</li>
+          <li><strong>C#</strong> - Intermediate</li>
           <li><strong>CSS, HTML, and JavaScript</strong> - Beginner to Intermediate (INFNET)</li>
         </ul>
       </li>
