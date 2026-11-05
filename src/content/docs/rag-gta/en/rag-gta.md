@@ -47,6 +47,18 @@ Each corpus has a question set: the glossary has 15 answerable questions and 4 t
 
 The glossary's expected terms are checked against the CSV in a test: the evaluation tests the system, not the memory of whoever wrote the questions. The evaluation runs on GitHub Actions (the **Eval** workflow), with Ollama installed on the runner.
 
+### Results (glossary)
+
+`llama3.1:8b` + `nomic-embed-text`, CPU-only GitHub Actions runner, 11/05/2026:
+
+| Mode | Retrieval | Answer | False refusal | Correct refusal | s/question |
+|---|---|---|---|---|---|
+| similarity | 15/15 | 15/15 | 0 | 3/4 | 16 |
+| mmr | 14/15 | 14/15 | 0 | 3/4 | 16 |
+| multiquery | 15/15 | 15/15 | 0 | 4/4 | 66 |
+
+Only `multiquery` refuses every out-of-glossary question, at about four times the latency. `mmr` misses one term: in a glossary, where each document is one term, retrieving diverse chunks hurts. That is why the glossary defaults to `similarity`.
+
 ## 4. Evolution
 
 The project started as six separate prototypes built in a pair: a CrewAI agent, a retrieval chain, an agent over the lore, LCEL with MMR, per-session memory, and multi-query with sources. In November 2026, I merged everything into one package with the three retrieval modes as options, tests that run without Ollama, and the evaluation set. I fixed what the earlier versions let slip:

@@ -47,6 +47,18 @@ Cada corpus tem um conjunto de perguntas: o glossário tem 15 com resposta e 4 q
 
 Os termos esperados do glossário são conferidos contra o CSV num teste: a avaliação testa o sistema, não a memória de quem escreveu as perguntas. A avaliação roda no GitHub Actions (workflow **Eval**), com o Ollama instalado no runner.
 
+### Resultados (glossário)
+
+`llama3.1:8b` + `nomic-embed-text`, runner do GitHub Actions só com CPU, 05/11/2026:
+
+| Modo | Recuperação | Resposta | Recusa indevida | Recusa correta | s/pergunta |
+|---|---|---|---|---|---|
+| similarity | 15/15 | 15/15 | 0 | 3/4 | 16 |
+| mmr | 14/15 | 14/15 | 0 | 3/4 | 16 |
+| multiquery | 15/15 | 15/15 | 0 | 4/4 | 66 |
+
+O `multiquery` é o único que recusa todas as perguntas fora do glossário, mas custa cerca de 4 vezes mais tempo. O `mmr` perde um termo: num glossário, em que cada documento é um termo, buscar trechos diferentes entre si atrapalha. Por isso o padrão do glossário é `similarity`.
+
 ## 4. Evolução
 
 O projeto começou em dupla como seis protótipos separados: um agente CrewAI, uma cadeia de recuperação, um agente sobre a lore, LCEL com MMR, memória por sessão e multi-query com fontes. Em novembro de 2026, juntei tudo num pacote com os três modos de busca como opção, testes sem Ollama e o conjunto de avaliação. Corrigi o que as versões anteriores deixavam escapar:
