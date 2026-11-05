@@ -40,7 +40,7 @@ Keywords Studios, on the Bungie and Supercell teams · Dublin, Ireland · Jan 20
 
 - Translated and ran linguistic quality assurance (LQA) on Destiny 2 (316k+ peak concurrent players) and Supercell games (5B+ downloads), with weekly live-service releases, in international teams of 40 to 60 people.
 
-### Game Translator and Localizer
+### Game Translator and Linguist
 
 Freelance · Oct 2020 – present
 
