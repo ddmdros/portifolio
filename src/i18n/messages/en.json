@@ -234,7 +234,7 @@
   "project.title.7.bullet2": "A translator and parallel reviewers merged by a fixed rule in code, not an LLM judge: the human only sees what needs a decision.",
   "project.title.7.bullet3": "Standard-library Python, automated tests, and CI on Linux and Windows (Python 3.11 to 3.13).",
   "project.title.8": "rag-gta: local RAG with an evaluation set",
-  "project.description.8": "Fully local RAG (Ollama, Chroma, and LangChain) over two corpora: Grand Theft Auto lore, with the source of every answer, and an EN → PT-BR localization glossary. It has three retrieval modes and an evaluation set that scores retrieval, answers, and refusals separately. Built with Stephanie Pinho.",
+  "project.description.8": "Fully local RAG (Ollama, Chroma, and LangChain) over two corpora: Grand Theft Auto lore, with the source of every answer, and an EN → PT-BR localization glossary I co-authored. It has three retrieval modes and an evaluation set that scores retrieval, answers, and refusals separately. Built with Stephanie Pinho.",
   "project.title.8.bullet1": "Three retrieval modes (similarity, MMR, and multi-query) and question rewriting from the chat history.",
   "project.title.8.bullet2": "Evaluation with separate metrics (retrieval hit, answer hit, false refusal, correct refusal), run on GitHub Actions.",
   "resume.exp.aieval.title": "AI Evaluator (RLHF and data annotation)",

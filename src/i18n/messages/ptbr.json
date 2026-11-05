@@ -232,7 +232,7 @@
   "project.title.7.bullet2": "Tradutor e revisores em paralelo, juntados por uma regra fixa em código, sem juiz LLM: o humano vê só o que precisa de decisão.",
   "project.title.7.bullet3": "Python só com a biblioteca padrão, testes automatizados e CI em Linux e Windows (Python 3.11 a 3.13).",
   "project.title.8": "rag-gta: RAG local com avaliação",
-  "project.description.8": "RAG 100% local (Ollama, Chroma e LangChain) sobre dois corpora: a lore de GTA, com a fonte de cada resposta, e um glossário de localização EN → PT-BR. Tem três modos de busca e um conjunto de avaliação que mede separadamente recuperação, resposta e recusa. Feito em dupla com Stephanie Pinho.",
+  "project.description.8": "RAG 100% local (Ollama, Chroma e LangChain) sobre dois corpora: a lore de GTA, com a fonte de cada resposta, e um glossário de localização EN → PT-BR que escrevi em coautoria. Tem três modos de busca e um conjunto de avaliação que mede separadamente recuperação, resposta e recusa. Feito em dupla com Stephanie Pinho.",
   "project.title.8.bullet1": "Três modos de recuperação (similarity, MMR e multi-query) e reescrita da pergunta com o histórico da conversa.",
   "project.title.8.bullet2": "Avaliação com métricas separadas (recuperação, resposta, recusa indevida e recusa correta), rodando no GitHub Actions.",
   "resume.exp.aieval.title": "Avaliador de IA (RLHF e anotação de dados)",

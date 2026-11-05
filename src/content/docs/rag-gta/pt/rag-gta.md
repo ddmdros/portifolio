@@ -15,7 +15,7 @@
 Um RAG que roda inteiro na máquina, sem API paga e sem mandar dados para fora. Responde em português sobre dois corpora:
 
 - **lore:** o universo Grand Theft Auto, a partir de artigos do GTA Wiki, com a fonte de cada resposta;
-- **glossário:** um glossário de localização de games EN → PT-BR, em que a resposta precisa sair *exatamente* como está na fonte.
+- **glossário:** um glossário de localização de games EN → PT-BR que escrevi em coautoria, em que a resposta precisa sair *exatamente* como está na fonte.
 
 O mesmo pipeline nos dois domínios mostra onde cada configuração ajuda e onde atrapalha.
 
@@ -70,6 +70,6 @@ O projeto começou em dupla como seis protótipos separados: um agente CrewAI, u
 
 ## 5. Dados e créditos
 
-- **Glossário:** *Video Games Localization Glossary – Portuguese (Brazil)*, sob CC BY-NC 4.0.
+- **Glossário:** *Video Games Localization Glossary – Portuguese (Brazil)*, de Diogo Medeiros e Bruna Beatriz Gabriel, publicado no projeto colaborativo [Multilingual Gameloc Glossaries](https://locdandloaded.net/2022/06/14/multilingual-gameloc-glossaries/), de Lucile Danilov, sob CC BY-NC 4.0.
 - **Lore:** artigos do [GTA Wiki](https://gta.fandom.com), sob CC BY-SA, baixados por uma lista fixa de artigos para que qualquer pessoa remonte o mesmo corpus. Grand Theft Auto é marca da Rockstar Games; este é um projeto de estudo, sem relação com a empresa.
 - Feito em dupla por Diogo Medeiros e Stephanie Pinho ([GitHub](https://github.com/stephanielumertz), [LinkedIn](https://www.linkedin.com/in/stephanielumertz/)).

@@ -23,7 +23,7 @@ Python, Claude Code, Antigravity (Gemini) · 2026 · em produção · núcleo ab
 ### Outros projetos de IA
 
 - **Harness de estudo com vários agentes** (Node.js, Claude Code, Antigravity): backlog com reserva de tarefa que expira em 3 horas, hooks que impedem o agente de escrever nos trabalhos avaliados e painel gerado por script.
-- **RAG local com avaliação**, em dupla (Python, LangChain, Ollama, Chroma): busca por similaridade, MMR e múltiplas consultas, com avaliação: 15/15 na recuperação e 4/4 recusas no glossário. [github.com/ddmdros/rag-gta](https://github.com/ddmdros/rag-gta)
+- **RAG local com avaliação**, em dupla (Python, LangChain, Ollama, Chroma): três modos de busca; 15/15 na recuperação e 4/4 recusas sobre um glossário de localização PT-BR de que sou coautor. [github.com/ddmdros/rag-gta](https://github.com/ddmdros/rag-gta)
 - **Agente com tool calling**, em dupla (Python, FastAPI, LangChain, React): assistente de games em que o agente decide quando consultar uma API pública de jogos, com testes sem rede e CI. [github.com/ddmdros/Netplay](https://github.com/ddmdros/Netplay)
 
 ## Experiência

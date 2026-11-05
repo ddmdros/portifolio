@@ -15,7 +15,7 @@
 A RAG system that runs entirely on the local machine, with no paid API and no data leaving it. It answers in Portuguese over two corpora:
 
 - **lore:** the Grand Theft Auto universe, from GTA Wiki articles, with the source of every answer;
-- **glossary:** an EN → PT-BR game localization glossary, where the answer must come out *exactly* as in the source.
+- **glossary:** an EN → PT-BR game localization glossary I co-authored, where the answer must come out *exactly* as in the source.
 
 Running the same pipeline on both domains shows where each configuration helps and where it hurts.
 
@@ -70,6 +70,6 @@ The project started as six separate prototypes built in a pair: a CrewAI agent, 
 
 ## 5. Data and credits
 
-- **Glossary:** *Video Games Localization Glossary – Portuguese (Brazil)*, under CC BY-NC 4.0.
+- **Glossary:** *Video Games Localization Glossary – Portuguese (Brazil)*, by Diogo Medeiros and Bruna Beatriz Gabriel, published in Lucile Danilov's collaborative [Multilingual Gameloc Glossaries](https://locdandloaded.net/2022/06/14/multilingual-gameloc-glossaries/) project, under CC BY-NC 4.0.
 - **Lore:** [GTA Wiki](https://gta.fandom.com) articles, under CC BY-SA, fetched from a fixed list so anyone can rebuild the same corpus. Grand Theft Auto is a trademark of Rockstar Games; this is a study project with no affiliation.
 - Built by Diogo Medeiros and Stephanie Pinho ([GitHub](https://github.com/stephanielumertz), [LinkedIn](https://www.linkedin.com/in/stephanielumertz/)).
