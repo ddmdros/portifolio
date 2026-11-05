@@ -18,7 +18,7 @@ export const PROJECTS_DATA: ProjectType[] = [
     ],
     "imageUrl": "/assets/projects/netplay/netplay_preview.png",
     "docsUrl": "/docs/netplay",
-    "githubUrl": "https://github.com/steadydevs/llm_project",
+    "githubUrl": "https://github.com/ddmdros/Netplay",
     "projectUrl": "https://llm-project-tau.vercel.app/",
     "isFeatured": true,
     "isWip": true,

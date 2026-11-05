@@ -179,4 +179,4 @@ netplay/
 * **Project Team Email:** steandydevs@gmail.com
 * **Project Links:**
   * **Demo Deploy:** [Vercel](https://llm-project-tau.vercel.app/)
-  * **Source Code:** [GitHub](https://github.com/steadydevs/llm_project)
+  * **Source Code:** [GitHub](https://github.com/ddmdros/Netplay)

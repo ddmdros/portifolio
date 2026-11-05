@@ -179,4 +179,4 @@ netplay/
 * **E-mail da Dupla:** steandydevs@gmail.com
 * **Links do Projeto:**
   * **Deploy de Demonstração:** [Vercel](https://llm-project-tau.vercel.app/)
-  * **Código Fonte:** [GitHub](https://github.com/steadydevs/llm_project)
+  * **Código Fonte:** [GitHub](https://github.com/ddmdros/Netplay)
