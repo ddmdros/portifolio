@@ -27,18 +27,17 @@
 <p class="contact"><span style="white-space:nowrap">Lages, SC</span> · <span style="white-space:nowrap">ddmdros@proton.me</span> · <span style="white-space:nowrap">linkedin.com/in/diogo-medeiros</span> · <span style="white-space:nowrap">github.com/ddmdros</span> · <span style="white-space:nowrap">portifolio-tawny-xi-55.vercel.app</span></p>
 
 <h2>Resumo</h2>
-<p>Uso IA em produção no meu próprio trabalho: projetei e construí um harness de agentes de LLM em Python que traduz e revisa jogos para clientes reais e triplicou minha produtividade, de 300 para cerca de 900 palavras por hora. Também avalio respostas de modelos (RLHF) com rubricas. Tenho 6 anos de localização de jogos, 2 deles in-house em Dublin em títulos AAA, e curso Engenharia de Software no Infnet.</p>
+<p>Projetei e construí um harness de agentes de LLM em Python: hooks decidem onde cada agente pode escrever, uma regra fixa junta as sugestões dos revisores e as decisões de julgamento vão para uma fila de aprovação humana, com 46 testes e CI em Linux e Windows. Também avalio respostas de modelos (RLHF) com rubricas. Tenho 6 anos de localização de jogos, 2 deles in-house em Dublin em títulos AAA, e curso Engenharia de Software no Infnet.</p>
 
 <h2>Projetos de IA</h2>
 
-<h3>Harness multiagente para tradução de jogos</h3>
-<p class="meta">Python, Claude Code, Antigravity (Gemini) · 2026 · em produção · núcleo aberto: <a href="https://github.com/ddmdros/agent-harness">github.com/ddmdros/agent-harness</a></p>
+<h3>agent-harness: travas para agentes de LLM</h3>
+<p class="meta">Python (só biblioteca padrão), Claude Code, Antigravity (Gemini) · 2026 · <a href="https://github.com/ddmdros/agent-harness">github.com/ddmdros/agent-harness</a></p>
 <ul>
-  <li>Projetei e construí, com Claude Code, um pipeline de agentes: um agente tradutor e subagentes revisores (fidelidade, naturalidade e mecânica de jogo) que rodam em paralelo, juntam as sugestões por regra e deixam a decisão final para um humano.</li>
-  <li>Aumentei minha produtividade de 300 para cerca de 900 palavras por hora (40 mil palavras em set–out/2026, sem contar o que a memória de tradução já cobria), sem tirar a revisão humana de cada entrega.</li>
-  <li>Escrevi travas (hooks) em Python que decidem, a partir de um mapa declarativo, onde cada agente pode escrever. Uma camada de anonimização com pre-commit impede que dado de cliente entre no git.</li>
-  <li>Medi o custo de cada sessão em tokens a partir dos transcripts. Em modo sem supervisão, o agente registra numa fila cada escolha que fez sozinho, para aprovação humana.</li>
-  <li>Cerca de 6,6 mil linhas de Python com testes automatizados e 53 registros de decisão (ADRs). As mesmas regras valem para Claude e Gemini.</li>
+  <li>Projetei e construí, com Claude Code, um pipeline de tradução com vários agentes: um agente tradutor e dois subagentes revisores (estilo e mecânica de jogo) rodam em paralelo, uma regra fixa em código junta as sugestões por prioridade e só os segmentos que exigem julgamento chegam a um humano.</li>
+  <li>Escrevi travas (hooks) em Python que decidem, a partir de um mapa declarativo de zonas, onde cada agente pode escrever; o que fica fora do mapa é bloqueado. Um único ponto de entrada atende Claude Code e Antigravity.</li>
+  <li>Em modo sem supervisão, todo "perguntar" vira "negar"; as escolhas que o agente faz sozinho vão para uma fila de aprovação humana, cada escrita entra num registro de auditoria só de acréscimo e o custo em tokens é medido por agente a partir dos transcripts.</li>
+  <li>Demonstrado num jogo fictício, com 46 testes automatizados, CI em Linux e Windows e 6 registros de decisão (ADRs).</li>
 </ul>
 
 <h3>Outros projetos de IA</h3>
@@ -65,7 +64,7 @@
 <h3>Tradutor de jogos</h3>
 <p class="meta">Autônomo · out/2020 – atual</p>
 <ul>
-  <li>Traduzi mais de 1 milhão de palavras do inglês para o português em jogos indie e AAA, como Wartales e Railway Empire 2. Desde 2026, trabalho com o harness de agentes descrito acima.</li>
+  <li>Traduzi mais de 1 milhão de palavras do inglês para o português em jogos indie e AAA, como Wartales e Railway Empire 2.</li>
 </ul>
 
 <h2>Formação</h2>
