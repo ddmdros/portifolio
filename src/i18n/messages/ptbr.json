@@ -273,5 +273,6 @@
   "evidence.netplay.answer": "responde só com o que a RAWG devolveu",
   "evidence.netplay.ci": "# CI: a RAWG e o modelo são simulados; os testes rodam sem rede e sem chaves",
   "projects.page.title": "Meus projetos",
-  "projects.no.projects": "Ainda não há projetos nesta categoria."
+  "projects.no.projects": "Ainda não há projetos nesta categoria.",
+  "evidence.netplay.call": "chama a ferramenta da RAWG com \"Hades\""
 }

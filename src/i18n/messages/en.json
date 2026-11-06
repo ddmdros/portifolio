@@ -273,5 +273,6 @@
   "evidence.netplay.answer": "answers only from what RAWG returned",
   "evidence.netplay.ci": "# CI: RAWG and the model are mocked; the tests run with no network and no keys",
   "projects.page.title": "My projects",
-  "projects.no.projects": "No projects in this category yet."
+  "projects.no.projects": "No projects in this category yet.",
+  "evidence.netplay.call": "calls the RAWG tool with \"Hades\""
 }

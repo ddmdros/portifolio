@@ -23,7 +23,7 @@ const Panel = ({ children }: { children: ReactNode }) => (
 const HarnessEvidence = () => (
   <Panel>
     <p className={dim}>
-      ui_002 · "Not enough Stamina" · <FormattedMessage id="evidence.harness.limit" />
+      ui_002 · "Not enough Stamina" · EN → PT-BR · <FormattedMessage id="evidence.harness.limit" />
     </p>
     <dl className="mt-1 grid grid-cols-[6rem_minmax(0,1fr)] sm:grid-cols-[6.5rem_minmax(0,1fr)_auto] gap-x-3">
       <dt className={dim}>drafter</dt>
@@ -95,7 +95,8 @@ const RagEvidence = () => (
   </Panel>
 );
 
-// Data: the tool and its RAWG fields from the NetPlay repository; the question is an example.
+// Data: the RAWG tool and its fields from the NetPlay repository; the question is an example.
+// The tool name is Portuguese in the code, so the panel describes the call in the page language.
 const NetplayEvidence = () => (
   <Panel>
     <p className={dim}>
@@ -105,7 +106,9 @@ const NetplayEvidence = () => (
       <dt className={dim}>user</dt>
       <dd><FormattedMessage id="evidence.netplay.question" /></dd>
       <dt className={dim}>agent</dt>
-      <dd className="break-all">→ <span className={strong}>buscar_informacoes_de_jogos("Hades")</span></dd>
+      <dd className={strong}>
+        → <FormattedMessage id="evidence.netplay.call" />
+      </dd>
       <dt className={dim}>RAWG</dt>
       <dd>← <FormattedMessage id="evidence.netplay.fields" /></dd>
       <dt className={dim}>agent</dt>
