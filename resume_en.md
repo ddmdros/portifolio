@@ -2,7 +2,7 @@
 
 Software Engineering Student \| AI agents, LLMs, and model evaluation
 
-Lages, SC, Brazil · ddmdros@proton.me · linkedin.com/in/diogo-medeiros · github.com/ddmdros · portifolio-tawny-xi-55.vercel.app
+Lages, SC, Brazil · diiogomedeirosdev@gmail.com · linkedin.com/in/diogo-medeiros · github.com/ddmdros · portifolio-tawny-xi-55.vercel.app
 
 ## Summary
 

@@ -2,7 +2,7 @@
 
 Estudante de Engenharia de Software \| Agentes de IA, LLMs e avaliação de modelos
 
-Lages, SC · ddmdros@proton.me · linkedin.com/in/diogo-medeiros · github.com/ddmdros · portifolio-tawny-xi-55.vercel.app
+Lages, SC · diiogomedeirosdev@gmail.com · linkedin.com/in/diogo-medeiros · github.com/ddmdros · portifolio-tawny-xi-55.vercel.app
 
 ## Resumo
 

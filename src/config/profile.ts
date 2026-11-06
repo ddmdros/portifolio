@@ -7,10 +7,10 @@ export const PROFILE_CONFIG = {
   name: "Diogo Medeiros",
   
   // Email de contato principal para mensagens do portfólio
-  emailContact: "diogomedeirostranslation@gmail.com",
+  emailContact: "diiogomedeirosdev@gmail.com",
   
   // Email exibido no cabeçalho do Currículo (PDF e site)
-  emailResume: "ddmdros@proton.me",
+  emailResume: "diiogomedeirosdev@gmail.com",
   
   // URL completa do perfil do GitHub
   githubUrl: "https://github.com/ddmdros",
