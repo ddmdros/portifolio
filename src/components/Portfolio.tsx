@@ -10,8 +10,7 @@ const Portfolio = () => {
   const cvLang = locale === "pt" ? "pt" : "en";
 
   return (
-    <section className="relative flex flex-col md:flex-row md:items-center gap-6 md:gap-10 bg-card-bg/50 border border-white/10 p-6 md:p-10 rounded-3xl overflow-hidden">
-      <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/10 blur-[100px] rounded-full" aria-hidden="true" />
+    <section className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10 py-6 md:py-10">
 
       <img
         src={`${PROFILE_CONFIG.githubUrl}.png`}
@@ -22,8 +21,7 @@ const Portfolio = () => {
       />
 
       <div className="flex-1 space-y-4">
-        <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-subtle border border-accent-border text-xs font-medium text-accent">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
+        <p className="font-mono text-xs text-text-dim">
           <FormattedMessage id="hero.availability" />
         </p>
 

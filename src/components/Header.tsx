@@ -55,7 +55,7 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
         {/* Logo */}
         <div className="text-lg font-bold z-50">
           <Link to={`/${currentLocale}`} onClick={(e) => { closeMenu(); handleHomeClick(e); }}>
-            <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
+            <FormattedMessage id="header.logo" defaultMessage="Diogo Medeiros" />
           </Link>
         </div>
 
@@ -121,7 +121,7 @@ export const Header = ({ currentLocale, setLocale, theme, toggleTheme }: HeaderP
           <div className="h-16 flex items-center justify-between px-6 border-b border-white/5">
             <div className="text-lg font-bold">
               <Link to={`/${currentLocale}`} onClick={(e) => { closeMenu(); handleHomeClick(e); }}>
-                <FormattedMessage id="header.logo" defaultMessage="diogo.dev" />
+                <FormattedMessage id="header.logo" defaultMessage="Diogo Medeiros" />
               </Link>
             </div>
             <button

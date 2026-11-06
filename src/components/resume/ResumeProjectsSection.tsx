@@ -45,16 +45,8 @@ export const ResumeProjectsSection = ({ locale }: ResumeProjectsSectionProps) =>
                       <FormattedMessage id={key} />
                     </li>
                   ))}
-                  {(proj.docsUrl || proj.githubUrl || proj.projectUrl) && (
+                  {(proj.githubUrl || proj.projectUrl) && (
                     <li className="list-none pt-2 flex flex-wrap gap-4">
-                      {proj.docsUrl && (
-                        <Link
-                          to={`/${locale}${proj.docsUrl}`}
-                          className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
-                        >
-                          <FormattedMessage id="resume.project.starrCorp.link" defaultMessage="Case study" />
-                        </Link>
-                      )}
                       {proj.githubUrl && (
                         <a
                           href={proj.githubUrl}

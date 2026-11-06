@@ -159,7 +159,7 @@ export const DevMode = () => {
   };
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-12 relative animate-fade-in-up">
+    <main className="max-w-6xl mx-auto px-6 py-12 relative">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-white/10">
         <div>
@@ -321,7 +321,7 @@ export const DevMode = () => {
         <button
           onClick={() => handleSave(true)}
           disabled={isSaving}
-          className="flex items-center gap-2 bg-accent text-black font-bold py-2.5 px-6 rounded-xl hover:bg-accent/90 disabled:opacity-50 transition-all cursor-pointer select-none btn-shimmer"
+          className="flex items-center gap-2 bg-accent text-black font-bold py-2.5 px-6 rounded-xl hover:bg-accent/90 disabled:opacity-50 transition-all cursor-pointer select-none"
         >
           {isSaving ? (
             <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />

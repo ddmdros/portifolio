@@ -34,16 +34,12 @@ export const Contact = () => {
   };
 
   return (
-    <main className="max-w-5xl mx-auto px-6 py-12 md:py-20 relative overflow-hidden animate-fade-in-up">
-      {/* Decorações flutuantes de fundo */}
-      <div className="absolute top-1/4 left-1/10 w-72 h-72 bg-accent/5 blur-[120px] rounded-full -z-10 animate-drift-slow" />
-      <div className="absolute bottom-1/4 right-1/10 w-80 h-80 bg-accent/10 blur-[150px] rounded-full -z-10 animate-drift-reverse" />
-
+    <main className="max-w-5xl mx-auto px-6 py-12 md:py-20">
       {/* Título da página */}
       <div className="flex items-center gap-4 mb-4">
         <div className="w-8 h-0.5 bg-accent"></div>
         <span className="font-mono text-accent text-xs tracking-widest uppercase">
-          03. <FormattedMessage id="contact.page.title" defaultMessage="Contact" />
+          <FormattedMessage id="contact.page.title" defaultMessage="Contact" />
         </span>
       </div>
 
@@ -191,7 +187,7 @@ export const Contact = () => {
             {/* Botão de Enviar */}
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-accent-subtle border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3.5 px-6 rounded-xl transition-all hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed btn-shimmer"
+              className="w-full flex items-center justify-center gap-2 bg-accent-subtle border border-accent text-accent hover:bg-accent hover:text-black font-bold py-3.5 px-6 rounded-xl transition-all hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send size={18} aria-hidden="true" />
               <FormattedMessage id="contact.form.send" defaultMessage="Send Message" />

@@ -3,29 +3,16 @@ import Projects from "../components/Projects";
 import AboutGroupedStacks from "../components/AboutGroupedStacks";
 import ResumePreview from "../components/ResumePreview";
 import ContactPreview from "../components/ContactPreview";
-import { ScrollReveal } from "../components/ScrollReveal";
 
+// Every section is visible as soon as the page loads: no entrance or scroll-reveal animation.
 export const Home = () => {
   return (
-    <main className="block max-w-5xl mx-auto p-6 mt-10 animate-fade-in-up">
+    <main className="block max-w-5xl mx-auto p-6 mt-10">
       <Portfolio />
-      
-      <ScrollReveal className="py-6">
-        <AboutGroupedStacks />
-      </ScrollReveal>
-      
-      <ScrollReveal className="py-6">
-        <Projects />
-      </ScrollReveal>
-      
-      <ScrollReveal className="py-6">
-        <ResumePreview />
-      </ScrollReveal>
-      
-      <ScrollReveal className="py-6">
-        <ContactPreview />
-      </ScrollReveal>
+      <AboutGroupedStacks />
+      <Projects />
+      <ResumePreview />
+      <ContactPreview />
     </main>
   );
 };
-

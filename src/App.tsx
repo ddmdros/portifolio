@@ -15,7 +15,7 @@ const BlogPost = lazy(() => import("./pages/BlogPost").then((m) => ({ default: m
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage").then((m) => ({ default: m.ProjectsPage })));
 const Contact = lazy(() => import("./pages/Contact").then((m) => ({ default: m.Contact })));
 const Resume = lazy(() => import("./pages/Resume").then((m) => ({ default: m.Resume })));
-const DocsPage = lazy(() => import("./content/pages/DocsPage").then((m) => ({ default: m.DocsPage })));
+const DocsRedirect = lazy(() => import("./pages/DocsRedirect").then((m) => ({ default: m.DocsRedirect })));
 // Dev Mode edits content files through the Vite dev server, so it is left out of production builds.
 const DevMode = import.meta.env.DEV
   ? lazy(() => import("./pages/DevMode").then((m) => ({ default: m.DevMode })))
@@ -125,7 +125,7 @@ function App() {
                 <Route path="blog/:id" element={<BlogPost />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="resume" element={<Resume />} />
-                <Route path="docs/:slug" element={<DocsPage />} />
+                <Route path="docs/:slug" element={<DocsRedirect />} />
                 {DevMode && <Route path="dev-mode" element={<DevMode />} />}
               </Route>
 

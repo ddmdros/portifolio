@@ -108,7 +108,7 @@ const ProjectFilter = ({ activeCategory, onFilterChange }: FilterProps) => {
             onClick={() => onFilterChange(cat.value)}
             className={`uppercase text-xs px-5 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap border ${
               activeCategory === cat.value
-                ? "bg-accent text-black border-accent shadow-[0_0_15px_rgba(16,185,129,0.3)] animate-glow-pulse"
+                ? "bg-accent text-black border-accent"
                 : "bg-transparent text-gray-400 border-white/10 hover:border-accent/50 hover:text-white"
             }`}
           >
