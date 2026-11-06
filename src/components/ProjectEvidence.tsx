@@ -23,6 +23,9 @@ const Panel = ({ children }: { children: ReactNode }) => (
 const HarnessEvidence = () => (
   <Panel>
     <p className={dim}>
+      <FormattedMessage id="evidence.harness.demo" />
+    </p>
+    <p className={`mt-2 ${dim}`}>
       ui_002 · "Not enough Stamina" · EN → PT-BR · <FormattedMessage id="evidence.harness.limit" />
     </p>
     <dl className="mt-1 grid grid-cols-[6rem_minmax(0,1fr)] sm:grid-cols-[6.5rem_minmax(0,1fr)_auto] gap-x-3">

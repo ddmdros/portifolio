@@ -49,8 +49,7 @@ export const EXPERIENCE_DATA: ExperienceType[] = [
     "companyKey": "resume.exp.independent.company",
     "dateKey": "resume.exp.independent.date",
     "descKeys": [
-      "resume.exp.independent.desc1",
-      "resume.exp.independent.desc3"
+      "resume.exp.independent.desc1"
     ],
     "portfolioUrlKey": "resume.link.portfolio",
     "showInResume": [
