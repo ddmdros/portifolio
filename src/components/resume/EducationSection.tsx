@@ -106,7 +106,7 @@ export const EducationSection = () => {
                             isLevelCompleted
                               ? "border-emerald-500/20 bg-emerald-500/[0.02]"
                               : isLevelInProgress
-                                ? "border-amber-500/25 bg-amber-500/[0.02]"
+                                ? "border-border bg-black/10"
                                 : "border-white/5 bg-black/10"
                           }`}>
                             <button
@@ -115,7 +115,7 @@ export const EducationSection = () => {
                                 isLevelCompleted
                                   ? "hover:bg-emerald-500/[0.05]"
                                   : isLevelInProgress
-                                    ? "hover:bg-amber-500/[0.05]"
+                                    ? "hover:bg-white/5"
                                     : "hover:bg-white/5"
                               }`}
                             >
@@ -125,7 +125,7 @@ export const EducationSection = () => {
                                     isLevelCompleted
                                       ? "text-emerald-400"
                                       : isLevelInProgress
-                                        ? "text-amber-400"
+                                        ? "text-white"
                                         : "text-gray-400"
                                   }`}>
                                     {locale === "pt" ? level.titlePt : level.titleEn}
@@ -136,7 +136,7 @@ export const EducationSection = () => {
                                     </span>
                                   )}
                                   {isLevelInProgress && (
-                                    <span className="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-1.5 py-0.5 rounded tracking-wider uppercase">
+                                    <span className="text-[9px] font-bold text-gray-300 border border-text-dim/40 px-1.5 py-0.5 rounded tracking-wider uppercase">
                                       {locale === "pt" ? "Em andamento" : "In Progress"}
                                     </span>
                                   )}
@@ -146,7 +146,7 @@ export const EducationSection = () => {
                                     isLevelCompleted
                                       ? "text-emerald-500/70"
                                       : isLevelInProgress
-                                        ? "text-amber-500/70"
+                                        ? "text-gray-400"
                                         : "text-gray-500"
                                   }`}>
                                     {locale === "pt" ? level.descPt : level.descEn}
@@ -157,7 +157,7 @@ export const EducationSection = () => {
                                 isLevelCompleted
                                   ? "text-emerald-500/60"
                                   : isLevelInProgress
-                                    ? "text-amber-500/60"
+                                    ? "text-gray-400"
                                     : "text-gray-500"
                               }>
                                 {isLevelExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -233,7 +233,7 @@ export const EducationSection = () => {
                                             </span>
                                           )
                                         ) : isCurrent ? (
-                                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-[10px] font-semibold text-amber-400 whitespace-nowrap">
+                                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded border border-text-dim/40 text-[10px] font-semibold text-gray-300 whitespace-nowrap">
                                             {locale === "pt" && course.expectedDatePt
                                               ? course.expectedDatePt
                                               : course.expectedDateEn

@@ -34,7 +34,7 @@
   <text x="937" y="222" fill="#94a3b8" font-size="18" text-anchor="middle">tool call</text>
   <g font-size="22" fill="#cbd5e1">
     <rect x="80" y="480" width="1120" height="150" rx="14" fill="#0b1220" stroke="#334155" stroke-width="2"/>
-    <text x="110" y="525"><tspan fill="#c084fc">tool</tspan> buscar_informacoes_de_jogos(<tspan fill="#fde68a">"Hades"</tspan>)</text>
+    <text x="110" y="525"><tspan fill="#c084fc">tool</tspan> RAWG lookup: <tspan fill="#fde68a">"Hades"</tspan></text>
     <text x="110" y="565">  → release date, studio, genre, age rating, stores</text>
     <text x="110" y="605" fill="#64748b"># offline tests: RAWG and the model are mocked in CI</text>
   </g>

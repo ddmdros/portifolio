@@ -58,7 +58,7 @@ const AboutGroupedStacks = () => {
           <dl className="divide-y divide-white/10 border-y border-white/10">
             {stackLayers.map((layer) => (
               <div key={layer.titleKey} className="py-4 grid sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4">
-                <dt className="font-mono text-xs uppercase tracking-widest text-accent pt-0.5">
+                <dt className="font-mono text-xs uppercase tracking-widest text-text-dim pt-0.5">
                   <FormattedMessage id={layer.titleKey} />
                 </dt>
                 <dd className="space-y-2">

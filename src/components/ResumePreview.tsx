@@ -26,7 +26,7 @@ const Entry = ({ title, place, date }: { title: ReactNode; place: ReactNode; dat
   <li className="space-y-0.5">
     <p className="text-sm text-gray-300 font-semibold leading-snug">{title}</p>
     <p className="text-xs text-gray-400 leading-relaxed">{place}</p>
-    <p className="text-xs font-mono text-accent">{date}</p>
+    <p className="text-xs font-mono text-text-dim">{date}</p>
   </li>
 );
 

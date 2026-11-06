@@ -10,7 +10,7 @@
   --card-bg-tag: #121212;
   --text-gray: #b0b0b0;
   --text: #9ca3af;
-  --text-h: #ffffff;
+  --text-h: #ececef;
   --text-muted: #6b6375;
   --text-dim: #858c99;
   --accent-text: #050505;
@@ -194,6 +194,11 @@
   }
 }
 
+/* Dark theme: headings use the softened white of --text-h, not pure #fff on near-black. */
+:root:not([data-theme="light"]) .text-white {
+  color: var(--text-h);
+}
+
 /* Light Theme utility overrides */
 :root[data-theme="light"] {
   /* Text colors overrides */
@@ -203,8 +208,9 @@
   .text-gray-300 {
     color: var(--text) !important;
   }
+  /* Body copy: one step darker than --text-muted so paragraphs do not look washed out on white. */
   .text-gray-400 {
-    color: var(--text-muted) !important;
+    color: var(--text-gray) !important;
   }
   .text-gray-500 {
     color: var(--text-dim) !important;

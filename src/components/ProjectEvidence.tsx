@@ -5,15 +5,15 @@ import { FormattedMessage } from "react-intl";
 // the work itself is the image, instead of a summary of the README.
 // The panel stays dark in both themes, so it uses fixed colors instead of the
 // theme utilities (the light theme remaps .text-white and the gray scale).
-const dim = "text-[#8b909a]";
-const strong = "text-[#ffffff]";
-const ok = "text-[#34d399]";
-const warn = "text-[#fbbf24]";
-const bad = "text-[#f87171]";
+// Hierarchy is carried by gray levels; color marks only the decision in each panel.
+const dim = "text-[#80858f]";
+const strong = "text-[#e6e8ec]";
+const ok = "text-[#4cc79a]";
+const bad = "text-[#e0857c]";
 const rule = "border-[#262a31]";
 
 const Panel = ({ children }: { children: ReactNode }) => (
-  <div className="min-w-0 rounded-xl border border-[#262a31] bg-[#0f1115] p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-[#d6d9df]">
+  <div className="min-w-0 rounded-xl border border-[#262a31] bg-[#0f1115] p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed text-[#a1a6af]">
     {children}
   </div>
 );
@@ -23,7 +23,10 @@ const Panel = ({ children }: { children: ReactNode }) => (
 const HarnessEvidence = () => (
   <Panel>
     <p className={dim}>
-      ui_002 · "Not enough Stamina" · <FormattedMessage id="evidence.harness.limit" />
+      <FormattedMessage id="evidence.harness.demo" />
+    </p>
+    <p className={`mt-2 ${dim}`}>
+      ui_002 · "Not enough Stamina" · EN → PT-BR · <FormattedMessage id="evidence.harness.limit" />
     </p>
     <dl className="mt-1 grid grid-cols-[6rem_minmax(0,1fr)] sm:grid-cols-[6.5rem_minmax(0,1fr)_auto] gap-x-3">
       <dt className={dim}>drafter</dt>
@@ -39,12 +42,12 @@ const HarnessEvidence = () => (
     <p className={`mt-3 ${dim}`}>
       dlg_001 · <FormattedMessage id="evidence.harness.gender" values={{ player: "{player}" }} />
     </p>
-    <p className={warn}>
+    <p>
       <FormattedMessage id="evidence.harness.human" />
     </p>
     <dl className={`mt-3 grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 border-t ${rule} pt-3`}>
       <dt className="break-all">Edit references/glossary.csv</dt>
-      <dd className={warn}>ask</dd>
+      <dd>ask</dd>
       <dt className="break-all">sed -i … source/strings.json</dt>
       <dd className={bad}>deny</dd>
       <dt className="break-all">git commit --no-verify</dt>
@@ -89,13 +92,14 @@ const RagEvidence = () => (
         </tbody>
       </table>
     </div>
-    <p className={`mt-3 ${ok}`}>
+    <p className="mt-3">
       <FormattedMessage id="evidence.rag.verdict" />
     </p>
   </Panel>
 );
 
-// Data: the tool and its RAWG fields from the NetPlay repository; the question is an example.
+// Data: the RAWG tool and its fields from the NetPlay repository; the question is an example.
+// The tool name is Portuguese in the code, so the panel describes the call in the page language.
 const NetplayEvidence = () => (
   <Panel>
     <p className={dim}>
@@ -105,13 +109,15 @@ const NetplayEvidence = () => (
       <dt className={dim}>user</dt>
       <dd><FormattedMessage id="evidence.netplay.question" /></dd>
       <dt className={dim}>agent</dt>
-      <dd className="break-all">→ <span className={strong}>buscar_informacoes_de_jogos("Hades")</span></dd>
+      <dd className={strong}>
+        → <FormattedMessage id="evidence.netplay.call" />
+      </dd>
       <dt className={dim}>RAWG</dt>
       <dd>← <FormattedMessage id="evidence.netplay.fields" /></dd>
       <dt className={dim}>agent</dt>
       <dd><FormattedMessage id="evidence.netplay.answer" /></dd>
     </dl>
-    <p className={`mt-3 border-t ${rule} pt-3 ${ok}`}>
+    <p className={`mt-3 border-t ${rule} pt-3 ${dim}`}>
       <FormattedMessage id="evidence.netplay.ci" />
     </p>
   </Panel>

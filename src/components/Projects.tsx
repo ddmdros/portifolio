@@ -24,7 +24,7 @@ const FeaturedProject = ({ project }: { project: ProjectType }) => {
         <h3 className="text-2xl font-bold tracking-tight text-text-h">
           {title}
           {project.isWip && (
-            <span className="ml-3 align-middle font-mono text-xs font-medium text-amber-600 dark:text-amber-400">
+            <span className="ml-3 align-middle font-mono text-xs font-medium text-text-dim">
               <FormattedMessage id="project.badge.wip" />
             </span>
           )}
@@ -33,7 +33,7 @@ const FeaturedProject = ({ project }: { project: ProjectType }) => {
           <FormattedMessage id={project.summaryKey ?? project.description} />
         </p>
         {project.resultKey && (
-          <p className="font-mono text-sm text-accent leading-relaxed">
+          <p className="font-mono text-xs text-text-gray leading-relaxed">
             <FormattedMessage id={project.resultKey} />
           </p>
         )}
