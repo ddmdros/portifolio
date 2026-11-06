@@ -33,7 +33,7 @@ const FeaturedProject = ({ project }: { project: ProjectType }) => {
           <FormattedMessage id={project.summaryKey ?? project.description} />
         </p>
         {project.resultKey && (
-          <p className="font-mono text-sm text-accent leading-relaxed">
+          <p className="font-mono text-xs text-text-gray leading-relaxed">
             <FormattedMessage id={project.resultKey} />
           </p>
         )}

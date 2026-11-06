@@ -38,7 +38,7 @@ const Portfolio = () => {
           <FormattedMessage id="portifolio.description" />
         </p>
 
-        <p className="font-mono text-sm text-accent">
+        <p className="font-mono text-sm text-text-gray">
           <FormattedMessage id="hero.proof" />
         </p>
 
