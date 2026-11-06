@@ -208,8 +208,9 @@
   .text-gray-300 {
     color: var(--text) !important;
   }
+  /* Body copy: one step darker than --text-muted so paragraphs do not look washed out on white. */
   .text-gray-400 {
-    color: var(--text-muted) !important;
+    color: var(--text-gray) !important;
   }
   .text-gray-500 {
     color: var(--text-dim) !important;

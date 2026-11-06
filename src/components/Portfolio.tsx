@@ -34,7 +34,7 @@ const Portfolio = () => {
           </p>
         </div>
 
-        <p className="text-gray-400 leading-relaxed max-w-2xl">
+        <p className="text-text leading-relaxed max-w-2xl">
           <FormattedMessage id="portifolio.description" />
         </p>
 
