@@ -8,7 +8,6 @@ export interface ExperienceType {
   portfolioUrlKey?: string;
   linkUrl?: string;
   linkTextKey?: string;
-  showOnHome?: boolean;
 }
 
 export const EXPERIENCE_DATA: ExperienceType[] = [
@@ -28,7 +27,6 @@ export const EXPERIENCE_DATA: ExperienceType[] = [
   {
     "id": "1",
     "titleKey": "resume.exp.keywords.title",
-    "showOnHome": true,
     "companyKey": "resume.exp.keywords.company",
     "dateKey": "resume.exp.keywords.date",
     "descKeys": [

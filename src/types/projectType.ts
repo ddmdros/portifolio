@@ -15,7 +15,6 @@ export interface ProjectType {
   summaryKey?: string;
   tags: string[];
   imageUrl: string;
-  docsUrl?: string;
   githubUrl?: string;
   projectUrl?: string;
   isFeatured: boolean;

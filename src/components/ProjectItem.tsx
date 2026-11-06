@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { KeywordTag } from "./KeywordTag";
-import { type ProjectCategory } from "../types/projectType";
-import { FaGithub, FaBook } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 import { ExternalLink } from "lucide-react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Link } from "react-router-dom";
 
 interface ProjectItemProps {
-  category: ProjectCategory | ProjectCategory[];
   title: string;
   resultKey?: string;
   summaryKey?: string;
   description: string;
   tags: string[];
   imageUrl: string;
-  docsUrl?: string;
   githubUrl?: string;
   projectUrl?: string;
   isWip?: boolean;
@@ -24,14 +20,12 @@ const secondaryLink =
   "relative z-20 flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors";
 
 const ProjectItem = ({
-  category,
   title,
   resultKey,
   summaryKey,
   description,
   tags,
   imageUrl,
-  docsUrl,
   githubUrl,
   projectUrl,
   isWip = false,
@@ -39,6 +33,8 @@ const ProjectItem = ({
   const intl = useIntl();
   const [imageLoaded, setImageLoaded] = useState(false);
   const titleText = intl.formatMessage({ id: title });
+  // The whole card opens the repository (its README is the full write-up), or the live project when there is no repo.
+  const mainUrl = githubUrl ?? projectUrl;
 
   return (
     // The title link is stretched over the whole card (after:inset-0), so the card is
@@ -75,20 +71,16 @@ const ProjectItem = ({
       </div>
 
       <div className="p-5 flex flex-col grow">
-        <div className="mb-3 flex flex-wrap gap-2">
-          {(Array.isArray(category) ? category : [category]).map((cat) => (
-            <KeywordTag key={cat} label={cat} />
-          ))}
-        </div>
-
         <h3 className="text-xl font-bold mb-2 text-white">
-          {docsUrl ? (
-            <Link
-              to={`/${intl.locale}${docsUrl}`}
+          {mainUrl ? (
+            <a
+              href={mainUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="after:absolute after:inset-0 after:z-10 focus:outline-none group-hover:text-accent transition-colors"
             >
               {titleText}
-            </Link>
+            </a>
           ) : (
             titleText
           )}
@@ -112,13 +104,6 @@ const ProjectItem = ({
           </div>
 
           <div className="flex flex-wrap gap-4 pt-4 border-t border-white/5">
-            {docsUrl && (
-              <span className="flex items-center gap-2 text-sm text-accent">
-                <FaBook size={16} aria-hidden="true" />
-                <FormattedMessage id="project.card.open" />
-              </span>
-            )}
-
             {githubUrl && (
               <a href={githubUrl} target="_blank" rel="noopener noreferrer" className={secondaryLink}>
                 <FaGithub size={16} aria-hidden="true" />

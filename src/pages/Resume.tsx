@@ -55,7 +55,7 @@ export const Resume = () => {
   }));
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-12 relative animate-fade-in-up">
+    <main className="max-w-6xl mx-auto px-6 py-12 relative">
       {/* Cabeçalho */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 pb-6 border-b border-white/10">
         <div>
@@ -99,7 +99,7 @@ export const Resume = () => {
                 ? `Curriculo_Diogo_Medeiros${selectedDownloadProfile === "general" ? "" : "_" + selectedDownloadProfile}.pdf`
                 : `Resume_Diogo_Medeiros${selectedDownloadProfile === "general" ? "" : "_" + selectedDownloadProfile}.pdf`
             }
-            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent border border-accent text-accent-text hover:bg-accent-hover font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer btn-shimmer select-none"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent border border-accent text-accent-text hover:bg-accent-hover font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer select-none"
           >
             <Download size={18} />
             <FormattedMessage

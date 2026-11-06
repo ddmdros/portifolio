@@ -16,7 +16,6 @@ export const PROJECTS_DATA: ProjectType[] = [
       "CI"
     ],
     "imageUrl": "/assets/projects/agent-harness/cover.svg",
-    "docsUrl": "/docs/agent-harness",
     "githubUrl": "https://github.com/ddmdros/agent-harness",
     "isFeatured": true,
     "docId": "agent-harness",
@@ -47,7 +46,6 @@ export const PROJECTS_DATA: ProjectType[] = [
       "Evals"
     ],
     "imageUrl": "/assets/projects/rag-gta/cover.svg",
-    "docsUrl": "/docs/rag-gta",
     "githubUrl": "https://github.com/ddmdros/rag-gta",
     "isFeatured": true,
     "docId": "rag-gta",
@@ -78,7 +76,6 @@ export const PROJECTS_DATA: ProjectType[] = [
       "React"
     ],
     "imageUrl": "/assets/projects/netplay/cover.svg",
-    "docsUrl": "/docs/netplay",
     "githubUrl": "https://github.com/ddmdros/Netplay",
     "isFeatured": true,
     "isWip": true,
@@ -128,7 +125,6 @@ export const PROJECTS_DATA: ProjectType[] = [
       "CSS3"
     ],
     "imageUrl": "/assets/projects/project_1/p1_0.png",
-    "docsUrl": "/docs/starr-corp",
     "githubUrl": "https://github.com/ddmdros/officeMayhem",
     "projectUrl": "https://office-mayhem-aqis.vercel.app/",
     "isFeatured": false,

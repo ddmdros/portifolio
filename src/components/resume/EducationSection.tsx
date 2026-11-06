@@ -34,7 +34,7 @@ export const EducationSection = () => {
             <div className="absolute -left-7.5 top-1.5 w-4 h-4 bg-bg border-2 border-accent rounded-full flex items-center justify-center">
               {(edu.id === "1" ||
                 edu.dateKey.toLowerCase().includes("present")) && (
-                <span className="absolute w-full h-full rounded-full bg-accent/30 animate-pulse-ring pointer-events-none" />
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
               )}
             </div>
             <div className="space-y-1">
